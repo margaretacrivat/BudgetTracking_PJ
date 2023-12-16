@@ -463,35 +463,35 @@ Header Style
   letter-spacing: .25px;
 }
 
-.header-area .main-nav .nav li:last-child a {
-  background-color: #1e1e1e;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 400;
-  text-transform: none;
-  border-radius: 20px;
-  padding-left: 0px;
-}
+/*.header-area .main-nav .nav li:last-child a {*/
+/*  background-color: #1e1e1e;*/
+/*  color: #fff;*/
+/*  font-size: 14px;*/
+/*  font-weight: 400;*/
+/*  text-transform: none;*/
+/*  border-radius: 20px;*/
+/*  padding-left: 0px;*/
+/*}*/
 
-.header-area .main-nav .nav li:last-child a i {
-  background-color: #f35525;
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  margin-right: 10px;
-  border-radius: 50%;
-  margin-left: -1px;
-}
+/*.header-area .main-nav .nav li:last-child a i {*/
+/*  background-color: #f35525;*/
+/*  display: inline-block;*/
+/*  width: 40px;*/
+/*  height: 40px;*/
+/*  text-align: center;*/
+/*  line-height: 40px;*/
+/*  margin-right: 10px;*/
+/*  border-radius: 50%;*/
+/*  margin-left: -1px;*/
+/*}*/
 
-.header-area .main-nav .nav li:last-child:hover a {
-  background-color: #1e1e1e;
-}
+/*.header-area .main-nav .nav li:last-child:hover a {*/
+/*  background-color: #1e1e1e;*/
+/*}*/
 
-.header-area .main-nav .nav li:last-child:hover a i {
-  color: #fff;
-}
+/*.header-area .main-nav .nav li:last-child:hover a i {*/
+/*  color: #fff;*/
+/*}*/
 
 .header-area .main-nav .nav li:hover a {
   color: #f35525;
@@ -748,13 +748,13 @@ Banner Style
   background-image: url(../images/mountain_view.jpg);
 }
 
-.main-banner .item-2 {
-  background-image: url(../images/banner-02.jpg);
-}
+/*.main-banner .item-2 {*/
+/*  background-image: url(../images/deal-01.jpg);*/
+/*}*/
 
-.main-banner .item-3 {
-  background-image: url(../images/banner-03.jpg);
-}
+/*.main-banner .item-3 {*/
+/*  background-image: url(../images/deal-03.jpg);*/
+/*}*/
 
 .main-banner .item span.category {
   background-color: #fff;
