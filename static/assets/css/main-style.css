@@ -139,10 +139,11 @@ body {
 
 .section-heading h2 {
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: capitalize;
   margin-top: 20px;
   line-height: 56px;
+  vertical-align: middle;
 }
 
 .section-heading h2 em {
@@ -151,7 +152,7 @@ body {
 }
 
 .section-heading h6 {
-  color: #ee626b;
+  color: #f35525;
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 700;
@@ -374,6 +375,7 @@ Header Style
 .background-header {
   background-color: #fff;
   height: 80px!important;
+  padding-top: 20px;
   position: fixed!important;
   top: 0!important;
   left: 0;
@@ -388,7 +390,7 @@ Header Style
 .header-area {
   position: relative;
   background-color: #fff;
-  height: 100px;
+  height: 70px;
   z-index: 100;
   -webkit-transition: all .5s ease 0s;
   -moz-transition: all .5s ease 0s;
@@ -410,21 +412,21 @@ Header Style
 }
 
 .header-area .main-nav .logo h1 {
-  line-height: 100px;
+  line-height: 70px;
   font-size: 28px;
   text-transform: uppercase;
-  color: #1e1e1e;
+  color: #f35525;
   font-weight: 700;
   letter-spacing: 2px;
 }
 
 .background-header .main-nav .logo h1 {
-  line-height: 80px;
+  line-height: 0px;
 }
 
 .header-area .main-nav ul.nav {
   flex-basis: 100%;
-  margin-top: 30px;
+  margin-top: 15px;
   justify-content: right;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
@@ -740,12 +742,12 @@ Banner Style
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 220px 20% 320px 20%;
+  padding: 220px 20% 320px 5%;
   margin-top: 0px;
 }
 
 .main-banner .item-1 {
-  background-image: url(../images/mountain_view.jpg);
+  background-image: url(../img/home-chart-main.jpg);
 }
 
 /*.main-banner .item-2 {*/
@@ -756,30 +758,31 @@ Banner Style
 /*  background-image: url(../images/deal-03.jpg);*/
 /*}*/
 
-.main-banner .item span.category {
-  background-color: #fff;
-  color: #1e1e1e;
-  font-size: 16px;
-  font-weight: 500;
-  text-transform: capitalize;
-  padding: 6px 15px;
-  display: inline-block;
-  margin-bottom: 30px;
-}
+/*.main-banner .item span.category {*/
+/*  background-color: #fff;*/
+/*  color: #1e1e1e;*/
+/*  font-size: 16px;*/
+/*  font-weight: 500;*/
+/*  text-transform: capitalize;*/
+/*  padding: 6px 15px;*/
+/*  display: inline-block;*/
+/*  margin-bottom: 30px;*/
+/*}*/
 
-.main-banner .item span.category em {
-  font-style: normal;
-  color: #f35525;
-}
+/*.main-banner .item span.category em {*/
+/*  font-style: normal;*/
+/*  color: #f35525;*/
+/*}*/
 
 .main-banner .item h2 {
   font-size: 62px;
   font-weight: 700;
   text-transform: uppercase;
   color: #fff;
-  line-height: 72px;
-  width: 50%;
+  line-height: 92px;
+  width: 100%;
   margin-bottom: 0px;
+  text-align: left;
 }
 
 .main-banner .owl-dots {
@@ -852,13 +855,17 @@ Featured Style
 
 .featured .left-image img {
   padding-left: 55px;
+  padding-top: 100px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .featured .left-image a {
   display: inline-block;
-  width: 110px;
-  height: 110px;
-  line-height: 110px;
+  width: 90px;
+  height: 90px;
+  line-height: 90px;
   background-color: #f35525;
   border-radius: 50%;
   text-align: center;
@@ -958,11 +965,11 @@ Video Style
 */
 
 .video {
-  background-image: url(../images/video-bg.jpg);
+  background-image: url(../img/business.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center center;
-  padding: 100px 0px 250px 0px;
+  background-position: center;
+  padding: 70px 0px 70px 0px;
   position: relative;
 }
 
@@ -1222,7 +1229,7 @@ Contact Style
 */
 
 .contact {
-  background-image: url(../images/contact-bg.jpg);
+  background-image: url(../img/home-chart-contact.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
