@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home
+from .views import home, SignupCreateView
 
 urlpatterns = [
-    path('', home, name='home'),
-    # path('', HomePageView.as_view(), name='home-page'),
+    path('', home, name='homepage'),
+    path('signup/', SignupCreateView.as_view(), name='signup'),
 ]
+
+
