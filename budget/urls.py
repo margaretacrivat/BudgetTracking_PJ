@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import HomePageView
+from .views import home
 
 urlpatterns = [
-    path('', HomePageView.as_view(), name='home-page'),
+    path('', home, name='home'),
+    # path('', HomePageView.as_view(), name='home-page'),
 ]
