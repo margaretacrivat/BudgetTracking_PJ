@@ -27,6 +27,13 @@
 </head>
 
 <body>
+ <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                {% include 'base/menubar.html' %}
+            </div>
+        </div>
+    </header>
     {% block content %}
     {% endblock content %}
 </body>

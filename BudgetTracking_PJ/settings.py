@@ -49,11 +49,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'BudgetTracking_PJ.urls'
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [TEMPLATE_DIR]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -112,7 +112,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 ASSETS_ROOT = os.path.join(BASE_DIR, "../static/assets")
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
