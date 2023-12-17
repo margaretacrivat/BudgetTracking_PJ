@@ -5,13 +5,15 @@ from .models import Signup
 from django.contrib.auth.models import User
 
 
-class SignupForm(forms.ModelForm):
+class SignupModelForm(forms.ModelForm):
     class Meta:
         model = Signup
-        fields = ['first_name', 'last_name', 'age', 'email',
+        fields = ['username', 'first_name', 'last_name', 'age', 'email',
                   'description', 'gender', 'start_date', 'end_date']
 
         widgets = {
+            'username': TextInput(attrs={'class': 'form-control',
+                                         'placeholder': 'Please enter a username'}),
             'first_name': TextInput(attrs={'class': 'form-control',
                                            'placeholder': 'Please enter first name'}),
             'last_name': TextInput(attrs={'class': 'form-control',
@@ -32,6 +34,8 @@ class SignupForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
+
+        # unicitate pe email address
         check_emails = Signup.objects.filter(email=cleaned_data.get('email'))
 
         if check_emails:
@@ -51,4 +55,39 @@ class SignupForm(forms.ModelForm):
         if check_first_name_and_last_name:
             msg = 'The person with this name has been already registered'
             self._errors['first_name'] = self.error_class([msg])
+
+        # unicitate pe username
+        check_username = Signup.objects.filter(
+            username=cleaned_data.get('username'))
+
+        if check_username:
+            msg = 'This username has been already registered'
+            self._errors['username'] = self.error_class([msg])
         return cleaned_data
+
+
+class LoginModelForm(forms.ModelForm):
+    class Meta:
+        model = Signup
+        fields = ['username', 'password']
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+
+        # unicitate pe username
+        check_username = Signup.objects.filter(
+            username=cleaned_data.get('username'))
+
+        if check_username:
+            msg = 'The username does not exist'
+            self._errors['username'] = self.error_class([msg])
+
+        # unicitate pe parola
+        check_password = Signup.objects.filter(
+            password=cleaned_data.get('password'))
+
+        if check_password:
+            msg = 'The password is not correct'
+            self._errors['password'] = self.error_class([msg])
+        return cleaned_data
+
