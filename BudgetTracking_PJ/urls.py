@@ -23,5 +23,4 @@ from budget import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('budget.urls')),
-    path('signup/', views.SignupCreateView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

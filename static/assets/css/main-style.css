@@ -477,7 +477,7 @@ Header Style
     background-color: #fff;
     padding: 2px;
     /*margin-left: 50px;*/
-    border-radius: 0px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
 }
 
 .header-area .main-nav .nav li:hover ul {
@@ -486,7 +486,7 @@ Header Style
 
 .header-area .main-nav .nav li ul li {
     width: 140px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .header-area .main-nav .nav li ul li a {
@@ -497,7 +497,9 @@ Header Style
 
 .header-area .main-nav .nav li ul li a:hover {
     background-color: #f3f3f3;
+    transition: all 0.4s ease 0s;
 }
+
 
 /*.header-area .main-nav .nav li:last-child a {*/
 /*  background-color: #1e1e1e;*/

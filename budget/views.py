@@ -32,4 +32,5 @@ class SignupCreateView(SuccessMessageMixin, CreateView):
 
     def get_success_message(self, cleaned_data):
         return self.success_message.format(f_name=self.object.first_name, l_name=self.object.last_name)
-#
+
+
