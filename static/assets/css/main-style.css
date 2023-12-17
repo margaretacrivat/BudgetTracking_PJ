@@ -1169,7 +1169,7 @@ Featured Style
 --------------------------------------------- 
 */
 .featured .container {
-   border-bottom: 1.5px solid #fc6222;
+   border-bottom: 1.5px solid #f3f3f3;
     padding: 40px 20px;
 }
 
@@ -1429,6 +1429,7 @@ Contact Style
     margin-top: -240px;
     position: relative;
     z-index: 1;
+    margin-bottom: 150px;
 }
 
 .contact-content #map {
@@ -1534,15 +1535,16 @@ footer.footer-no-gap {
 }
 
 footer {
-    margin-top: 150px;
-    background-color: #f35525;
+    /*margin-top: 150px;*/
+    background-color: #f3f3f3;
     min-height: 100px;
+    padding-top: 10px;
 }
 
 footer p {
     text-align: center;
     /*line-height: 100px;*/
-    color: #fff;
+    color: #1a1818;
     font-size: 16px;
     font-weight: 400;
 }

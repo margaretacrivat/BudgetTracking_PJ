@@ -1,6 +1,6 @@
 /*
 ---------------------------------------------
-Login Forms Style
+Login Form Style
 ---------------------------------------------
 */
 
@@ -74,4 +74,19 @@ span.psw {
   .cancel btn {
     width: 100%;
   }
+}
+
+/*
+---------------------------------------------
+Signup Form Style
+---------------------------------------------
+*/
+
+.container-fluid {
+  background-color: blue;
+  padding-bottom: 100px;
+  background-image: url(../img/globe-connect.jpg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
