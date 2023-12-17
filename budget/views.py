@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse
@@ -5,7 +6,7 @@ from django.template import loader
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from .models import Items, Signup
-from .forms import SignupForm
+from .forms import SignupModelForm, LoginModelForm
 
 # Create your views here.
 
@@ -26,11 +27,21 @@ def home(request):
 class SignupCreateView(SuccessMessageMixin, CreateView):
     template_name = 'user/signup.html'
     model = Signup
-    form_class = SignupForm
+    form_class = SignupModelForm
     success_message = 'The person {first_name} {last_name} was successfully added'
     success_url = reverse_lazy('index.html')
 
     def get_success_message(self, cleaned_data):
         return self.success_message.format(f_name=self.object.first_name, l_name=self.object.last_name)
+
+
+class LoginCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'user/login.html'
+    model = Signup
+    form_class = LoginModelForm
+    success_url = reverse_lazy('index.html')
+    # login_url = 'homepage'
+
+
 
 

@@ -415,7 +415,7 @@ Header Style
 }
 
 .header-area .main-nav .logo h1 {
-    line-height: 70px;
+    line-height: 40px;
     font-size: 28px;
     text-transform: uppercase;
     color: #f35525;
@@ -431,7 +431,6 @@ Header Style
 
 .header-area .main-nav ul.nav {
     flex-basis: 100%;
-    margin-top: 10px;
     justify-content: right;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -663,14 +662,10 @@ Media Style
 ---------------------------------------------
 */
 
-@media (max-width: 1200px) {
-    .header-area .main-nav .nav li {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
+/* The typical breackpoints: <600px, 601px, 768px, 992px, 1200px*/
 
-@media (max-width: 767px) {
+/*one of the major breackpoints when it comes to scaling things inside media queries*/
+@media (max-width: 600px) {
     .background-header .main-nav {
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
         border-radius: 0px 0px 25px 25px;
@@ -784,6 +779,140 @@ Media Style
         display: block;
     }
 
+    .header-area .main-nav .nav li:first-child {
+        border-top: 1px solid #eee;
+    }
+
+    .header-area.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .background-header.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .header-area .main-nav .nav li {
+        width: 100%;
+        background: #fff;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+@media (max-width: 601px) {
+    .background-header .main-nav {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        border-radius: 0px 0px 25px 25px;
+        width: 100%;
+    }
+
+    .background-header .main-nav .nav,
+    .header-area .main-nav .nav {
+        background-color: #fff;
+    }
+
+    .background-header .main-nav .nav li a,
+    .header-area .main-nav .nav li a {
+        line-height: 50px;
+        height: 50px;
+        font-weight: 400;
+        color: #1e1e1e;
+        background-color: #fff;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .background-header .main-nav .nav li,
+    .header-area .main-nav .nav li {
+        border-top: 1px solid #ddd;
+        background-color: #f1f0fe;
+        height: 50px;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .header-area .main-nav .nav {
+        height: auto;
+        flex-basis: 100%;
+    }
+
+    .header-area .main-nav .logo {
+        position: absolute;
+        left: 30px;
+        top: 0px;
+    }
+
+    .background-header .main-nav .logo {
+        top: 0px;
+    }
+
+    .background-header .main-nav .border-button {
+        top: 0px !important;
+    }
+
+    .header-area .main-nav .border-button {
+        position: absolute;
+        top: 15px;
+        right: 70px;
+    }
+
+    .header-area.header-sticky .nav li a:hover,
+    .header-area.header-sticky .nav li a.active {
+        color: #f35525!important;
+        opacity: 1;
+    }
+
+    .header-area.header-sticky .nav li.search-icon a {
+        width: 100%;
+    }
+
+    .header-area .nav li:last-child a {
+        background-color: transparent !important;
+        font-weight: 300 !important;
+        text-transform: capitalize !important;
+    }
+
+    .header-area {
+        padding: 0px 15px;
+        height: 80px;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .header-area .container {
+        padding: 0px;
+    }
+
+    .header-area .logo {
+        margin-left: 0px;
+    }
+
+    .header-area .menu-trigger {
+        display: block !important;
+    }
+
+    .header-area .main-nav {
+        overflow: hidden;
+    }
+
+    .header-area .main-nav .nav {
+        float: none;
+        width: 100%;
+        display: none;
+        -webkit-transition: all 0s ease 0s;
+        -moz-transition: all 0s ease 0s;
+        -o-transition: all 0s ease 0s;
+        transition: all 0s ease 0s;
+        margin-left: 0px;
+    }
+
+    .header-area .main-nav .nav li ul {
+        display: block;
+        background-color: red;
+    }
+
+    .header-area .main-nav .nav li:hover ul {
+        display: block;
+    }
 
     .header-area .main-nav .nav li:first-child {
         border-top: 1px solid #eee;
@@ -805,6 +934,284 @@ Media Style
     }
 
 }
+
+@media (max-width: 768px) {
+    .background-header .main-nav {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        border-radius: 0px 0px 25px 25px;
+        width: 100%;
+    }
+
+    .background-header .main-nav .nav,
+    .header-area .main-nav .nav {
+        background-color: #fff;
+    }
+
+    .background-header .main-nav .nav li a,
+    .header-area .main-nav .nav li a {
+        line-height: 50px;
+        height: 50px;
+        font-weight: 400;
+        color: #1e1e1e;
+        background-color: #fff;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .background-header .main-nav .nav li,
+    .header-area .main-nav .nav li {
+        border-top: 1px solid #ddd;
+        background-color: #f1f0fe;
+        height: 50px;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .header-area .main-nav .nav {
+        height: auto;
+        flex-basis: 100%;
+    }
+
+    .header-area .main-nav .logo {
+        position: absolute;
+        left: 30px;
+        top: 0px;
+    }
+
+    .background-header .main-nav .logo {
+        top: 0px;
+    }
+
+    .background-header .main-nav .border-button {
+        top: 0px !important;
+    }
+
+    .header-area .main-nav .border-button {
+        position: absolute;
+        top: 15px;
+        right: 70px;
+    }
+
+    .header-area.header-sticky .nav li a:hover,
+    .header-area.header-sticky .nav li a.active {
+        color: #f35525!important;
+        opacity: 1;
+    }
+
+    .header-area.header-sticky .nav li.search-icon a {
+        width: 100%;
+    }
+
+    .header-area .nav li:last-child a {
+        background-color: transparent !important;
+        font-weight: 300 !important;
+        text-transform: capitalize !important;
+    }
+
+    .header-area {
+        padding: 0px 15px;
+        height: 80px;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .header-area .container {
+        padding: 0px;
+    }
+
+    .header-area .logo {
+        margin-left: 0px;
+    }
+
+    .header-area .menu-trigger {
+        display: block !important;
+    }
+
+    .header-area .main-nav {
+        overflow: hidden;
+    }
+
+    .header-area .main-nav .nav {
+        float: none;
+        width: 100%;
+        display: none;
+        -webkit-transition: all 0s ease 0s;
+        -moz-transition: all 0s ease 0s;
+        -o-transition: all 0s ease 0s;
+        transition: all 0s ease 0s;
+        margin-left: 0px;
+    }
+
+    .header-area .main-nav .nav li ul {
+        display: block;
+        background-color: red;
+    }
+
+    .header-area .main-nav .nav li:hover ul {
+        display: block;
+    }
+
+    .header-area .main-nav .nav li:first-child {
+        border-top: 1px solid #eee;
+    }
+
+    .header-area.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .background-header.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .header-area .main-nav .nav li {
+        width: 100%;
+        background: #fff;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+@media (max-width: 992px) {
+    .background-header .main-nav {
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+        border-radius: 0px 0px 25px 25px;
+        width: 100%;
+    }
+
+    .background-header .main-nav .nav,
+    .header-area .main-nav .nav {
+        background-color: #fff;
+    }
+
+    .background-header .main-nav .nav li a,
+    .header-area .main-nav .nav li a {
+        line-height: 50px;
+        height: 50px;
+        font-weight: 400;
+        color: #1e1e1e;
+        background-color: #fff;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .background-header .main-nav .nav li,
+    .header-area .main-nav .nav li {
+        border-top: 1px solid #ddd;
+        background-color: #f1f0fe;
+        height: 50px;
+        border-radius: 0px 0px 25px 25px;
+    }
+
+    .header-area .main-nav .nav {
+        height: auto;
+        flex-basis: 100%;
+    }
+
+    .header-area .main-nav .logo {
+        position: absolute;
+        left: 30px;
+        top: 0px;
+    }
+
+    .background-header .main-nav .logo {
+        top: 0px;
+    }
+
+    .background-header .main-nav .border-button {
+        top: 0px !important;
+    }
+
+    .header-area .main-nav .border-button {
+        position: absolute;
+        top: 15px;
+        right: 70px;
+    }
+
+    .header-area.header-sticky .nav li a:hover,
+    .header-area.header-sticky .nav li a.active {
+        color: #f35525!important;
+        opacity: 1;
+    }
+
+    .header-area.header-sticky .nav li.search-icon a {
+        width: 100%;
+    }
+
+    .header-area .nav li:last-child a {
+        background-color: transparent !important;
+        font-weight: 300 !important;
+        text-transform: capitalize !important;
+    }
+
+    .header-area {
+        padding: 0px 15px;
+        height: 80px;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .header-area .container {
+        padding: 0px;
+    }
+
+    .header-area .logo {
+        margin-left: 0px;
+    }
+
+    .header-area .menu-trigger {
+        display: block !important;
+    }
+
+    .header-area .main-nav {
+        overflow: hidden;
+    }
+
+    .header-area .main-nav .nav {
+        float: none;
+        width: 100%;
+        display: none;
+        -webkit-transition: all 0s ease 0s;
+        -moz-transition: all 0s ease 0s;
+        -o-transition: all 0s ease 0s;
+        transition: all 0s ease 0s;
+        margin-left: 0px;
+    }
+
+    .header-area .main-nav .nav li ul {
+        display: block;
+        background-color: red;
+    }
+
+    .header-area .main-nav .nav li:hover ul {
+        display: block;
+    }
+
+    .header-area .main-nav .nav li:first-child {
+        border-top: 1px solid #eee;
+    }
+
+    .header-area.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .background-header.header-sticky .nav {
+        margin-top: 80px !important;
+    }
+
+    .header-area .main-nav .nav li {
+        width: 100%;
+        background: #fff;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+@media (max-width: 1200px) {
+    .header-area .main-nav .nav li {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
 
 /* 
 ---------------------------------------------
