@@ -34,6 +34,7 @@ class SignupCreateView(SuccessMessageMixin, CreateView):
     def get_success_message(self, cleaned_data):
         return self.success_message.format(f_name=self.object.first_name, l_name=self.object.last_name)
 
+#TODO add here settings view. Check if you have the model
 
 class LoginCreateView(LoginRequiredMixin, CreateView):
     template_name = 'user/login.html'
@@ -42,6 +43,7 @@ class LoginCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('index.html')
     # login_url = 'homepage'
 
+#TODO ADD here login view. Check if you have the model
 
 
 
