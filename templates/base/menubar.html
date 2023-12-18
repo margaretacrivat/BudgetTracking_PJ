@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="col-12">
     <nav class="main-nav">
         <!-- ***** Logo Start ***** -->
@@ -8,7 +9,7 @@
         <!-- ***** Logo End ***** -->
         <!-- ***** Menu Start ***** -->
         <ul class="nav">
-            <li><a href="../index.html" class="active">Home</a></li>
+            <li><a href="{% url 'homepage' %}"  class="active">Home</a></li>
             <li><a href="#">Personal Budget</a></li>
             <li><a href="#">Project Budget</a></li>
             <li class="dropdown">
@@ -19,7 +20,7 @@
                         <a href="#" class="dropdown-item">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{%url 'signup'%}" class="dropdown-item">Signup</a>
+                        <a href="{% url 'signup' %}" class="dropdown-item">Signup</a>
                     </li>
                     <li class="nav-item">
                         <a href="../login/" class="dropdown-item">Login</a>

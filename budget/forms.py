@@ -71,6 +71,13 @@ class LoginModelForm(forms.ModelForm):
         model = Signup
         fields = ['username', 'password']
 
+    widgets = {
+        'username': TextInput(attrs={'class': 'form-control',
+                                     'placeholder': 'Please enter your username'}),
+        'password': TextInput(attrs={'class': 'form-control',
+                                     'placeholder': 'Please enter your password'}),
+    }
+
     def clean(self):
         cleaned_data = self.cleaned_data
 

@@ -45,5 +45,8 @@ class LoginCreateView(LoginRequiredMixin, CreateView):
 
 #TODO ADD here login view. Check if you have the model
 
-
+# def home_login(request):
+#     html_template = loader.get_template('user/login.html')
+#     context = {}
+#     return HttpResponse(html_template.render(context, request))
 
