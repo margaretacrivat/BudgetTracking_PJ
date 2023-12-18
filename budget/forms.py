@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import TextInput, NumberInput, EmailInput, Textarea, Select, \
     DateInput
+from django.contrib.auth.models import User
 from .models import Signup
 from django.contrib.auth.models import User
 
@@ -8,8 +9,8 @@ from django.contrib.auth.models import User
 class SignupModelForm(forms.ModelForm):
     class Meta:
         model = Signup
-        fields = ['username', 'first_name', 'last_name', 'age', 'email',
-                  'description', 'gender', 'start_date', 'end_date']
+        fields = ['username', 'first_name', 'last_name', 'email',
+                  'description', 'gender', 'start_date', 'password1', 'password2']
 
         widgets = {
             'username': TextInput(attrs={'class': 'form-control',
@@ -18,8 +19,6 @@ class SignupModelForm(forms.ModelForm):
                                            'placeholder': 'Please enter first name'}),
             'last_name': TextInput(attrs={'class': 'form-control',
                                           'placeholder': 'Please enter last name'}),
-            'age': NumberInput(attrs={'class': 'form-control',
-                                      'placeholder': 'Please enter age'}),
             'email': EmailInput(attrs={'class': 'form-control',
                                        'placeholder': 'Please enter email'}),
             'description': Textarea(attrs={'class': 'form-control',
@@ -28,8 +27,10 @@ class SignupModelForm(forms.ModelForm):
             'gender': Select(attrs={'class': 'form-select'}),
             'start_date': DateInput(
                 attrs={'class': 'form-control', 'type': 'date'}),
-            'end_date': DateInput(
-                attrs={'class': 'form-control', 'type': 'date'}),
+            'password1': DateInput(
+                attrs={'class': 'form-control', 'placeholder': 'Password'}),
+            'password2': DateInput(
+                attrs={'class': 'form-control', 'placeholder': 'Password check'}),
         }
 
     def clean(self):
@@ -41,11 +42,6 @@ class SignupModelForm(forms.ModelForm):
         if check_emails:
             msg = 'This email address is already registered'
             self._errors['email'] = self.error_class([msg])
-
-        # validare start_date. Daca start_date > end_date => eroare
-        if cleaned_data.get('start_date') > cleaned_data.get('end_date'):
-            msg = 'The date of start/end is not correct'
-            self._errors['start_date'] = self.error_class([msg])
 
         # unicitate pe first_name si last_name
         check_first_name_and_last_name = Signup.objects.filter(
@@ -66,35 +62,19 @@ class SignupModelForm(forms.ModelForm):
         return cleaned_data
 
 
-class LoginModelForm(forms.ModelForm):
-    class Meta:
-        model = Signup
-        fields = ['username', 'password']
-
-    widgets = {
-        'username': TextInput(attrs={'class': 'form-control',
-                                     'placeholder': 'Please enter your username'}),
-        'password': TextInput(attrs={'class': 'form-control',
-                                     'placeholder': 'Please enter your password'}),
-    }
-
-    def clean(self):
-        cleaned_data = self.cleaned_data
-
-        # unicitate pe username
-        check_username = Signup.objects.filter(
-            username=cleaned_data.get('username'))
-
-        if check_username:
-            msg = 'The username does not exist'
-            self._errors['username'] = self.error_class([msg])
-
-        # unicitate pe parola
-        check_password = Signup.objects.filter(
-            password=cleaned_data.get('password'))
-
-        if check_password:
-            msg = 'The password is not correct'
-            self._errors['password'] = self.error_class([msg])
-        return cleaned_data
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        widget = forms.TextInput(
+            attrs={
+                'placeholder': 'Enter Username',
+                'class': 'form-control'
+            }
+        ))
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Enter Password',
+                'class': 'form-control'
+            }
+        ))
 

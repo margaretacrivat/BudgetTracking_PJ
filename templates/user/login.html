@@ -6,43 +6,50 @@
 
 {% block content %}
 
-    <div class="wrapper">
-        <form action="">
-            <h1>Login</h1>
-{#            <div class="img container">#}
-{#                <img src="/static/assets/img/avatar.png" alt="avatar"#}
-{#                     class="avatar">#}
-{#            </div>#}
+    <div class="container-log">
+        <div class="row mt-2 mb-2">
+            <div class="col-md-6 offset-md-3">
+                <br><br>
+                <div class="card-log">
+                    <div class="card-header-log">
+                        <h3 class="text-center pt-2">Login Form</h3>
+                    </div>
+                    <form method="POST" action="">
+                        {% csrf_token %}
 
-            <div class="input-box">
-                <label for="username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username"
-                       required>
-                <i class='bx bxs-user'></i>
-            </div>
-            <div class="input-box">
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw"
-                       required>
-                <i class='bx bxs-lock-alt'></i>
-            </div>
-            <div class="remember-forgot">
-                <label><input type="checkbox">Remember me</label>
-                <a href="#">Forgot password?</a>
-            </div>
+                        <div class="input-box">
+                            <label for="username"><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username"
+                                   name="username"
+                                   required>
+                            <i class='bx bxs-user'></i>
+                        </div>
+                        <div class="input-box">
+                            <label for="psw"><b>Password</b></label>
+                            <input type="password" placeholder="Enter Password"
+                                   name="psw"
+                                   required>
+                            <i class='bx bxs-lock-alt'></i>
+                        </div>
+                        <div class="remember-forgot">
+                            <label><input type="checkbox">Remember me</label>
+                            <a href="#">Forgot password?</a>
+                        </div>
 
-            <button type="submit" class="btn">Login</button>
+                        <button type="submit" class="btn">Login</button>
 
-            <div class="register-link">
-                <p>Don't have an account?<a href="#">Signup</a></p>
+                        <div class="register-link">
+                            <p>Don't have an account?<a href="#">Signup</a></p>
+                        </div>
+
+                        {#            <div class="container" style="background-color:#f1f1f1">#}
+                        {#                <button type="button" class="cancel btn">Cancel</button>#}
+                        {#                <span class="psw">Forgot <a href="#">password?</a></span>#}
+                        {#            </div>#}
+                    </form>
+                </div>
             </div>
-
-{#            <div class="container" style="background-color:#f1f1f1">#}
-{#                <button type="button" class="cancel btn">Cancel</button>#}
-{#                <span class="psw">Forgot <a href="#">password?</a></span>#}
-{#            </div>#}
-        </form>
+        </div>
     </div>
-
 
 {% endblock %}

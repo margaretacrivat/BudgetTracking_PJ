@@ -11,20 +11,18 @@ class Items(models.Model):
 class Signup(models.Model):
     gender_options = (('male', 'Male'), ('female', 'Female'))
 
-    username = models.CharField(max_length=50, null=False, blank=False, default=True)
+    username = models.CharField(max_length=50, null=False)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    age = models.IntegerField(null=True, blank=True)
     email = models.EmailField(max_length=50, blank=True)
     description = models.TextField(max_length=500)
     gender = models.CharField(choices=gender_options, max_length=6)
     start_date = models.DateField()
-    end_date = models.DateField()
     active = models.BooleanField(default=True)
     profile = models.ImageField(upload_to='person_profile', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    password = models.CharField(max_length=20, null=False, blank=False, default=True)
+    password1 = models.TextField(max_length=20, null=False)
+    password2 = models.TextField(max_length=20, null=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

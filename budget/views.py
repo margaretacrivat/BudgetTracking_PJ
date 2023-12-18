@@ -1,12 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from .models import Items, Signup
-from .forms import SignupModelForm, LoginModelForm
+from .forms import SignupModelForm, LoginForm
+
 
 # Create your views here.
 
@@ -20,6 +23,7 @@ def home(request):
     #     context = {'items': items}
     return HttpResponse(html_template.render(context, request))
 
+
 # class HomePageView(TemplateView):
 #     template_name = "index.html"
 
@@ -32,21 +36,28 @@ class SignupCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('index.html')
 
     def get_success_message(self, cleaned_data):
-        return self.success_message.format(f_name=self.object.first_name, l_name=self.object.last_name)
+        return self.success_message.format(f_name=self.object.first_name,
+                                           l_name=self.object.last_name)
 
-#TODO add here settings view. Check if you have the model
 
-class LoginCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'user/login.html'
-    model = Signup
-    form_class = LoginModelForm
-    success_url = reverse_lazy('index.html')
-    # login_url = 'homepage'
+def login_view(request):
+    form = LoginForm(request.POST or None)
+    message = None
+    if request.method == "POST":
 
-#TODO ADD here login view. Check if you have the model
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                message = 'Username does not exist'
+        else:
+            message = "Invalid data"
 
-# def home_login(request):
-#     html_template = loader.get_template('user/login.html')
-#     context = {}
-#     return HttpResponse(html_template.render(context, request))
+    context = {'form': form, "msg": message}
+
+    return render(request, 'user/login.html', context)
 
