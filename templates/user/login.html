@@ -20,14 +20,14 @@
                         <div class="input-box">
                             <label for="username"><b>Username</b></label>
                             <input type="text" placeholder="Enter Username"
-                                   name="username"
+                                   name="username" id="username"
                                    required>
                             <i class='bx bxs-user'></i>
                         </div>
                         <div class="input-box">
-                            <label for="psw"><b>Password</b></label>
+                            <label for="password"><b>Password</b></label>
                             <input type="password" placeholder="Enter Password"
-                                   name="psw"
+                                   name="password" id="password"
                                    required>
                             <i class='bx bxs-lock-alt'></i>
                         </div>
@@ -36,7 +36,7 @@
                             <a href="#"> Forgot password?</a>
                         </div>
 
-                        <button type="submit" class="btn">Login</button>
+                        <button class="btn" type="submit" value="login" onclick="auth()">Login</button>
 
                         <div class="register-link">
                             <p>Don't have an account?<a href="#"> Signup</a></p>
@@ -48,6 +48,20 @@
                         {#            </div>#}
                     </form>
                 </div>
+{#                <script>#}
+{#                    function auth(){#}
+{#                        var username = document.getElementById('username').value;#}
+{#                        var password = document.getElementById('password').value;#}
+{#                        if(username=="margareta" && password=='12345'){#}
+{#                            window.location.assign('homepage');#}
+{#                            alert('Login Successfully');#}
+{#                        }#}
+{#                        else{#}
+{#                            alert('Invalid Information');#}
+{#                            return;#}
+{#                        }#}
+{#                    }#}
+{#                </script>#}
             </div>
         </div>
     </div>

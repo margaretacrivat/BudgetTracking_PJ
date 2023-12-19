@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path
-from .views import home, SignupCreateView, login_view
+from django.urls import path, reverse_lazy
+from . import views
+from .views import home, SignupCreateView, user_logout
 
 urlpatterns = [
     path('', home, name='homepage'),
     path('signup/', SignupCreateView.as_view(), name='signup'),
-    path('login/', login_view, name='login'),
-    path('logout/', LogoutView.as_view(), name='logout')
+    path('login/', views.user_login, name='login'),
+    path('logout/', user_logout, name='logout')
 ]
 
 

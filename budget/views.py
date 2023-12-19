@@ -1,11 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
 from .models import Items, Signup
 from .forms import SignupModelForm, LoginForm
@@ -40,24 +38,32 @@ class SignupCreateView(SuccessMessageMixin, CreateView):
                                            l_name=self.object.last_name)
 
 
-def login_view(request):
-    form = LoginForm(request.POST or None)
-    message = None
+def user_login(request):
+    login_msg = ""
     if request.method == "POST":
+        login_form = LoginForm(request.POST)
 
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+        if login_form.is_valid():
+            cleaned_data = login_form.cleaned_data
+            user = authenticate(username=cleaned_data['username'],
+                                password=cleaned_data['password'])
             if user is not None:
-                login(request, user)
-                return redirect("/")
+                if user.is_active:
+                    login(request, user)
+                    return redirect("homepage")
+                else:
+                    return redirect('login')
             else:
-                message = 'Username does not exist'
-        else:
-            message = "Invalid data"
+                condition = "invalid Login"
+                context = {'condition': condition}
+                return render(request, 'user/login.html', context)
+    else:
+        login_form = LoginForm()
+    return render(request, 'user/login.html',
+                  {'login_form': login_form, "login_msg": login_msg})
 
-    context = {'form': form, "msg": message}
 
-    return render(request, 'user/login.html', context)
+def user_logout(request):
+    logout(request)
+    return redirect('homepage')
 
