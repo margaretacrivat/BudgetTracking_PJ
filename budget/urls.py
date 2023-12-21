@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path, reverse_lazy
+from django.urls import path
 from . import views
-from .views import home, SignupCreateView, user_logout
+from .views import home, user_logout, SignupView
 
 urlpatterns = [
     path('', home, name='homepage'),
-    path('signup/', SignupCreateView.as_view(), name='signup'),
+    path('signup/', SignupView.as_view(), name='signup'),
     path('login/', views.user_login, name='login'),
     path('logout/', user_logout, name='logout')
 ]

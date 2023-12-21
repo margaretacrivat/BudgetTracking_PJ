@@ -12,22 +12,29 @@
                 <br><br>
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="text-center pt-2">Signup Form</h3>
+                        <h3 class="text-center pt-2">Sign Up</h3>
                     </div>
 
                     <!--Form-->
-                    <form method="post" enctype="multipart/form-data">
+                    <form class="card-form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
                             {{ form.as_p }}
                         </div>
                         <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-success">Save</button>
-                            <a href="#" class="btn btn-outline-secondary" style="color: white">Cancel</a>
+                            <button type="submit" class="btn btn-outline-success">Submit
+                            </button>
+                            <a href="#" class="btn btn-outline-secondary"
+                               style="color: white">Cancel</a>
                         </div>
                     </form>
-
+                    <p style="text-align: center">By clicking the Sign Up
+                        button, you agree to our <br>
+                        <a href="#">Terms and Conditions</a> and <a href="#">Policy
+                            Privacy</a>
+                    </p>
                 </div>
+                <p style="text-align: center">Already have an account?<a href="{% url 'login' %}"> Login here</a></p>
             </div>
         </div>
     </div>

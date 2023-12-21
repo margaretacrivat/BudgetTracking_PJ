@@ -94,7 +94,7 @@ Signup Form Style
 .card {
   background: transparent;
   backdrop-filter: blur(20px);
-  padding-top: 5px;
+  padding-top: 10px;
 }
 
 .card h3 {
@@ -109,6 +109,12 @@ Signup Form Style
 
 .card .card-footer {
   padding-top: 10px;
+}
+
+input[type='submit'] {
+  border: none;
+  margin-top: 20px;
+  background-color: #49c1a2;
 }
 
 

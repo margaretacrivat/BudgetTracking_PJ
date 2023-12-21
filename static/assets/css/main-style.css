@@ -771,7 +771,7 @@ Media Style
     }
 
     .header-area .main-nav .nav li ul {
-        display: block;
+        display: none;
         background-color: red;
     }
 
@@ -1040,7 +1040,7 @@ Media Style
     }
 
     .header-area .main-nav .nav li ul {
-        display: block;
+        display: none;
         background-color: red;
     }
 

@@ -17,6 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ACCOUNT_LOGOUT_REDIRECT_URL = "homepage"
 LOGIN_REDIRECT_URL = 'homepage'
 LOGOUT_REDIRECT_URL = 'homepage'
+LOGIN_URL = 'login'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -82,6 +83,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "budget.Signup"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -128,3 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
