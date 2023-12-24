@@ -19,7 +19,7 @@
                     <form class="card-form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="card-body">
-                            {{ form.as_p }}
+                            {{ user_form.as_p }}
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-outline-success">Submit

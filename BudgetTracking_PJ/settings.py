@@ -14,9 +14,9 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# ACCOUNT_LOGOUT_REDIRECT_URL = "homepage"
-LOGIN_REDIRECT_URL = 'homepage'
-LOGOUT_REDIRECT_URL = 'homepage'
+# ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 # Quick-start development settings - unsuitable for production
@@ -83,7 +83,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "budget.Signup"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

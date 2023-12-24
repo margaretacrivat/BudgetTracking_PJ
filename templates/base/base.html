@@ -19,7 +19,8 @@
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/static/assets/css/main-style.css">
-    <link rel="stylesheet" href="/static/assets/css/forms_login.css">
+    <link rel="stylesheet" href="/static/assets/css/forms-login.css">
+    <link rel="stylesheet" href="/static/assets/css/navbar-styles.css">
     <link rel="stylesheet" href="/static/assets/css/owl.css">
     <link rel="stylesheet" href="/static/assets/css/animate.css">
     <link rel="stylesheet"
@@ -30,16 +31,16 @@
 </head>
 
 <body>
-<header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
+<header class="header-area">
+{#    <div class="container">#}
+{#        <div class="row">#}
             {% if user.is_authenticated %}
-                {% include 'base/menubar.html' %}
+                {% include 'base/homebar.html' %}
             {% else %}
                 {% include 'base/menubar.html' %}
             {% endif %}
-        </div>
-    </div>
+{#        </div>#}
+{#    </div>#}
 </header>
 {% block content %}
 {% endblock content %}

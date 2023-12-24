@@ -1,7 +1,12 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Welcome page {% endblock %}
+{# homepage: user anonim / user autentificat: acelasi homepage, copiez template index.html, poza avatar,#}
+{# user-ului anonim ii ascund butoanele#}
+{# if user.is.authentificated -> adauga in cos, arata-mi pretul#}
+{# un anumit meniu, navbar -> alt navbar#}
+
+{% block title %} Welcome user {% endblock %}
 
 <body>
 {% block content %}
@@ -19,13 +24,13 @@
     <!-- ***** Preloader End ***** -->
 
     <div class="main-banner">
-{#        <div class="owl-carousel owl-banner">#}
+        <div class="owl-carousel owl-banner">
             <div class="item item-1">
                 <div class="header-text">
-                    <h2>Welcome<br>to my website<br>application!</h2>
+                    <h2> Hello, {{ user.username }}<br>Welcome<br>to your page!</h2>
                 </div>
             </div>
-{#        </div>#}
+        </div>
     </div>
 
     <div class="featured section">
@@ -281,7 +286,6 @@
     <script src="/static/assets/js/owl-carousel.js"></script>
     <script src="/static/assets/js/counter.js"></script>
     <script src="/static/assets/js/custom.js"></script>
-    <script src="/static/assets/js/script.js"></script>
 
 {% endblock content %}
 </body>

@@ -1,50 +1,42 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import password_validation
 from django.forms import TextInput, NumberInput, EmailInput, Textarea, Select, \
     DateInput
 from django.contrib.auth import authenticate
-from .models import Signup
 
 
-class SignupForm(UserCreationForm):
-    class Meta:
-        model = Signup
-        fields = ['username', 'first_name', 'last_name', 'email',
-                  'description', 'gender', 'birth_date', 'profile']
+class SignUpForm(UserCreationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Please enter a username',
+                   'class': 'form-control'
+                   }
+        ))
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Please enter first name',
+                   'class': 'form-control'
+                   }
+        ))
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Please enter last name',
+                   'class': 'form-control'
+                   }
+        ))
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={'placeholder': 'Please enter email',
+                   'class': 'form-control'
+                   }
+        ))
 
-        widgets = {
-            'username': TextInput(attrs={'class': 'form-control',
-                                         'placeholder': 'Please enter a username'}),
-            'first_name': TextInput(attrs={'class': 'form-control',
-                                           'placeholder': 'Please enter first name'}),
-            'last_name': TextInput(attrs={'class': 'form-control',
-                                          'placeholder': 'Please enter last name'}),
-            'email': EmailInput(attrs={'class': 'form-control',
-                                       'placeholder': 'Please enter email'}),
-            'description': Textarea(attrs={'class': 'form-control',
-                                           'placeholder': 'Please enter description',
-                                           'rows': 3}),
-            'gender': Select(attrs={'class': 'form-select'}),
-            'birth_date': DateInput(
-                attrs={'class': 'form-control', 'type': 'date'}),
-            'profile': forms.FileInput(
-                attrs={'class': 'form-control', 'id': 'profile_image'}),
-        }
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('first_name', 'last_name', 'email',)
 
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        check_emails = Signup.objects.filter(email=cleaned_data.get('email'))
-        if check_emails:
-            msg = 'Adresa de email exista in baza de date'
-            self._errors['email'] = self.error_class([msg])
-
-        #unicitate pe first_name si last_name
-        check_first_name_and_last_name = Signup.objects.filter(first_name=cleaned_data.get('first_name'),
-                                                                last_name= cleaned_data.get('last_name'))
-        if check_first_name_and_last_name:
-                msg = 'Acest nume si prenume a fost deja inregistrat'
-                self._errors['first_name'] = self.error_class([msg])
-        return cleaned_data
 
 class LoginForm(forms.Form):
     username = forms.CharField(

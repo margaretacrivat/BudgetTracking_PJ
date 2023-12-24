@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import auth
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -5,12 +6,11 @@ from django.template.context_processors import request
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse
 from django.template import loader
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy
-from .models import Items, Signup
-from .forms import LoginForm, SignupForm
-from django.contrib.messages.views import SuccessMessageMixin
+from .models import Items
+from .forms import LoginForm, SignUpForm
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -19,26 +19,38 @@ def home(request):
     html_template = loader.get_template('index.html')
     items = Items.objects.all()
     context = {'items': items}
-    # if request.user.is_authenticated:
-    #     html_template = loader.get_template('index.html')
-    #     context = {'items': items}
+    if request.user.is_authenticated:
+        html_template = loader.get_template('homepage.html')
     return HttpResponse(html_template.render(context, request))
 
 
-# class HomePageView(TemplateView):
-#     template_name = "index.html"
+class HomePageView(TemplateView):
+    template_name = "homepage.html"
 
 
-class SignupView(SuccessMessageMixin, CreateView):
-    template_name = 'user/signup.html'
-    model = Signup
-    form_class = SignupForm
-    success_message = 'The person {first_name} {last_name} was successfully added'
-    success_url = reverse_lazy("login")
+def user_signup(request):
+    msg = None
+    success = False
 
-    def get_success_message(self, cleaned_data):
-        return self.success_message.format(first_name=self.object.first_name,
-                                           last_name=self.object.last_name)
+    if request.method == "POST":
+        user_form = SignUpForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            # username = user_form.cleaned_data.get("username")
+            # raw_password = user_form.cleaned_data.get("password1")
+            # user = authenticate(username=username, password=raw_password)
+
+            msg = 'User created - please <a href="login">Login</a>.'
+            success = True
+
+            return redirect('login')
+
+        else:
+            msg = 'Form is not valid'
+    else:
+        user_form = SignUpForm()
+    return render(request, "user/signup.html",
+                  {"user_form": user_form, "msg": msg, "success": success})
 
 
 def user_login(request):
@@ -53,7 +65,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('homepage')
+                    return redirect('home')
                 else:
                     return redirect('login')
             else:
@@ -68,4 +80,4 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('homepage')
+    return redirect('home')

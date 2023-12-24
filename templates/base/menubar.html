@@ -1,39 +1,49 @@
 {% load static %}
 
-<div class="col-12">
-    <nav class="main-nav">
-        <!-- ***** Logo Start ***** -->
-        <a href="../index.html" class="logo">
-            <h1>>Budget<span class="text-dark">Tracking</span></h1>
-        </a>
-        <!-- ***** Logo End ***** -->
-        <!-- ***** Menu Start ***** -->
-        <ul class="nav">
-            <li><a href="{% url 'homepage' %}" class="active">Home</a></li>
+<nav class="navbar-container navbar-expand-lg fixed-top">
+    <!-- ***** Logo Start ***** -->
+    <div class="navbar-logo">
+        <a href="{% url 'home' %}">>Budget<span class="text-dark">Tracking</span></a>
+    </div>
+    <!-- ***** Logo End ***** -->
+
+    <!-- ***** Menu Start ***** -->
+    <ul class="navbar-menu">
+        <ul class="navbar-left-side">
+            <!-- right menu -->
+            <li><a href="{% url 'home' %}" class="active-item">Home</a></li>
             <li><a href="#">Personal Budget</a></li>
             <li><a href="#">Project Budget</a></li>
+        </ul>
+        <!-- left menu -->
+        <ul class="navbar-right-side">
             <li class="dropdown">
-                <a href="#" class="active dropdown-toggle" id="drop_cases"
-                   role="button" data-bs-toogle="dropdown">User Account</a>
+                <a href="." class="active-item dropdown-toggle" id="drop_cases"
+                   role="button" data-bs-toogle="dropdown" data-bs-target=".navbar-dropdown">User Account</a>
                 <ul class="dropdown-menu">
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{% url 'logout' %}" class="dropdown-item" >Logout</a>
+                        <li class="drop-item">
+                            <a href="{% url 'logout' %}" class="drop-link">Logout</a>
                         </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a href="{% url 'signup' %}" class="dropdown-item">Signup</a>
+                        <li class="drop-item">
+                            <a href="{% url 'signup' %}" class="drop-link">Signup</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{% url 'login' %}" class="dropdown-item">Login</a>
+                        <li class="drop-item">
+                            <a href="{% url 'login' %}" class="drop-link">Login</a>
                         </li>
                     {% endif %}
                 </ul>
             </li>
         </ul>
-        <a class='menu-trigger'>
-            <span>Menu</span>
-        </a>
-        <!-- ***** Menu End ***** -->
-    </nav>
-</div>
+    </ul>
+{#                <a class='menu-trigger'>#}
+{#                    <span>Menu</span>#}
+{#                </a>#}
+    <!-- ***** Menu End ***** -->
+    <div class="hamburger" onclick="myFunction();">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+</nav>
