@@ -11,26 +11,27 @@
     <ul class="navbar-menu">
         <ul class="navbar-left-side">
             <!-- right menu -->
-            <li><a href="{% url 'home' %}" class="active-item">Home</a></li>
-            <li><a href="#">Personal Budget</a></li>
-            <li><a href="#">Project Budget</a></li>
+            <li><a href="{% url 'home' %}" class="nav-link active-item">Home</a></li>
+            <li><a href="#" class="nav-link">Personal Budget</a></li>
+            <li><a href="#" class="nav-link">Project Budget</a></li>
         </ul>
         <!-- left menu -->
         <ul class="navbar-right-side">
             <li class="dropdown">
-                <a href="." class="active-item dropdown-toggle" id="drop_cases"
-                   role="button" data-bs-toogle="dropdown" data-bs-target=".navbar-dropdown">User Account</a>
+                <a href="." class="nav-link active-item dropdown-toggle"
+                   id="drop_cases" role="button" data-bs-toogle="dropdown"
+                   data-bs-target=".navbar-dropdown">User Account</a>
                 <ul class="dropdown-menu">
                     {% if user.is_authenticated %}
                         <li class="drop-item">
-                            <a href="{% url 'logout' %}" class="drop-link">Logout</a>
+                            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                         </li>
                     {% else %}
                         <li class="drop-item">
-                            <a href="{% url 'signup' %}" class="drop-link">Signup</a>
+                            <a href="{% url 'signup' %}" class="nav-link">Signup</a>
                         </li>
                         <li class="drop-item">
-                            <a href="{% url 'login' %}" class="drop-link">Login</a>
+                            <a href="{% url 'login' %}" class="nav-link">Login</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -41,7 +42,7 @@
 {#                    <span>Menu</span>#}
 {#                </a>#}
     <!-- ***** Menu End ***** -->
-    <div class="hamburger" onclick="myFunction();">
+    <div class="hamburger">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
