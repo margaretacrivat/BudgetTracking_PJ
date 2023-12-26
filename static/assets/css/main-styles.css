@@ -545,6 +545,7 @@ Contact Style
 .contact-content #map {
     border-radius: 10px;
     margin-bottom: 40px;
+    height: 450px;
 }
 
 .contact-content .item {
