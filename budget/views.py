@@ -1,21 +1,22 @@
+from datatable import dt
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import auth
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.template.context_processors import request
+from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout
-from django.urls import reverse_lazy
-from .models import Items
+from .models import Items, Purchase
 from .forms import LoginForm, SignUpForm
-from django.contrib.auth.models import User
-
 
 # Create your views here.
 
 def home(request):
+    # Logica pentru vizualizarea paginii principale
     html_template = loader.get_template('index.html')
     items = Items.objects.all()
     context = {'items': items}
@@ -81,3 +82,11 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+
+def table_purchase(request):
+    # Logica pentru pagina de inserare a datelor in tabel
+    # all_purchases = Purchase.objects.all()
+    return render(request, 'personal_page/tb_purchase.html')
+
+

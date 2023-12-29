@@ -1,0 +1,39 @@
+ /* Purchase table */
+
+ .table-title {
+     font-size: 22px;
+     font-weight: 500;
+     margin-top: 10px;
+     margin-left: 30px;
+     color:dodgerblue;
+     text-decoration: underline;
+ }
+
+.table-btn button {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 16px;
+    line-height: 4px;
+    color: black;
+    background: #c9c6c6;
+    border: 1px solid #868282;
+    border-radius: 10px 10px 10px 10px;
+    font-weight: 500;
+}
+
+.data-table {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.alert-warning {
+    background-color: rgba(243, 217, 91, 0.89);
+    text-align: center;
+}
+
+.alert-body {
+    text-align: center;
+}
+
+
+

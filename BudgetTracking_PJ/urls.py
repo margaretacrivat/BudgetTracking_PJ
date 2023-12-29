@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth import views
+from budget import views
 
 urlpatterns = [
+    # Path to access the admin panel
     path('admin/', admin.site.urls),
+
+    # Path to render the budget urls
     path('', include('budget.urls')),
-    # path('signup/', v.user_signup, name='signup'),
-    # path('', include('django.contrib.auth.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

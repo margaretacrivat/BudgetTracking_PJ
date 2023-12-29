@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from . import views
-from .views import home, user_logout, user_signup, HomePageView
+from .views import home, user_logout, user_signup, HomePageView, table_purchase
 
 urlpatterns = [
     path('', home, name='home'),
@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', user_logout, name='logout'),
     path('homepage/', HomePageView.as_view(), name='homepage'),
+    path('tb_purchase/', views.table_purchase, name='table_purchase'),
 ]
 
 

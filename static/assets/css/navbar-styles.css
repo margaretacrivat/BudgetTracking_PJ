@@ -9,7 +9,7 @@ Navbar Style
 .header-area {
     position: relative;
     background-color: #fff;
-    height: 50px;
+    height: 80px;
     z-index: 1000;
     -webkit-transition: all .5s ease 0s;
     -moz-transition: all .5s ease 0s;
@@ -35,7 +35,7 @@ Navbar Style
     background: white;
     /*margin-top: 60px;*/
     border-bottom: 1px solid #f35525;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
     padding-bottom: 10px;
     /*display: table;*/
     margin: 0 auto;
@@ -51,7 +51,7 @@ Navbar Style
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
     position: relative;
-    z-index: 999;
+    z-index: 1000;
     margin-right: 80px;
     margin-left: 320px;
 }
@@ -74,7 +74,7 @@ Navbar Style
 .navbar-right-side .nav-link, .navbar-left-side .nav-link {
     text-decoration: none;
     display: block;
-    width: 100%;
+    /*width: 100%;*/
     height: 100%;
     padding-left: 20px;
     padding-right: 20px;
@@ -91,8 +91,8 @@ Navbar Style
 }
 
 .navbar-left-side .nav-link  {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .navbar-left-side .nav-link.active-item {
@@ -104,6 +104,7 @@ Navbar Style
     background: rgba(246, 241, 241, 0.75);
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);
+    transition: all 0.6s ease 0s;
 }
 
 /* Apply hover on anchors */
@@ -118,33 +119,36 @@ Navbar Style
 .dropdown-menu {
     text-align: center;
     position: absolute;
+    padding-left: 20px;
+    padding-right: 20px;
     background: rgba(246, 241, 241, 0.95);
-    padding: 1rem;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);
     transform: translateY(-10px);
-    transition: 5s ease-in-out;
-    margin-top: 2px;
+    transition: all 0.6s ease 0s;
+    margin-top: 1px;
 }
 
 .drop-item {
     border-bottom: 1px solid #0f5132;
-    padding-top: 5px;
     margin-bottom: 15px;
     width: 100%;
     border-radius: 10px;
-    margin-top: 3px;
     top: 0;
     left: 0;
 }
 
 .drop-item .nav-link {
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 5px;
     text-decoration: none;
     background: #c9c6c6;
     width: 100%;
+}
+
+.drop-item:hover .nav-link {
+    background-color: #0d9655;
 }
 
 /* Show dropdown menu user account */
@@ -155,7 +159,6 @@ Navbar Style
     border-radius: 4px 4px 4px 4px;
     line-height: 10px;
     list-style: none;
-    z-index: 1;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .15);
 }
 
@@ -197,7 +200,7 @@ Navbar Media Style
 
 /* scaling things inside media queries for navbar menu */
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1100px) {
     .hamburger {
         display: block;
     }
@@ -234,7 +237,6 @@ Navbar Media Style
         border-bottom: 1px solid #e7e2e2;
     }
 
-
     .navbar-right-side li {
         margin: 5px 0;
     }
@@ -258,6 +260,30 @@ Navbar Media Style
         transition: 0.3s all ease-in-out ;
     }
 }
+
+/*@media (max-width: 861px) {*/
+/*    .navbar-menu {*/
+/*        margin-left: 10px;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 900px) {*/
+/*    .navbar-menu {*/
+/*        margin-left: 50px;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 1110px) {*/
+/*    .navbar-menu {*/
+/*        margin-left:60px;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 1200px) {*/
+/*    .navbar-menu {*/
+/*        margin-left: 50px;*/
+/*    }*/
+/*}*/
 
 
 
