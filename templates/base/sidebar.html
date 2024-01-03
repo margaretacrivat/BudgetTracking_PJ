@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="sidebar col-md-2 d-none d-md-block bg-light">
+    <div class="sidebar-sticky">
+        <h3>Sidebar</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-item-link active" href="{% url 'tb-purchase' %}">
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item-link" href="{% url 'expenses' %}">
+                    Expenses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item-link" href="{% url 'income' %}">
+                    <span data-feather="shopping-cart"></span>
+                    Income
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
+            <span>Summary</span>
+            <a class="d-flex align-items-center text-muted" href="#" aria-label="">
+                <span data-feather="plus-circle"></span>
+            </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-item-link" href="#">
+                    Expenses Summary
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item-link" href="#">
+                    <span data-feather="file=text"></span>
+                    Income Summary
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

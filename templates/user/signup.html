@@ -18,12 +18,16 @@
                     <!--Form-->
                     <form class="card-form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
                         {% csrf_token %}
+
+                        {% include 'user/_messages.html' %}
+
                         <div class="card-body">
                             {{ user_form.as_p }}
                         </div>
                         <div class="card-footer text-center">
                             <button type="submit" class="btn btn-outline-success">Submit
                             </button>
+
                             <a href="#" class="btn btn-outline-secondary"
                                style="color: white">Cancel</a>
                         </div>

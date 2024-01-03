@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Expenses {% endblock %}
+
+<body>
+{% block content %}
+
+    {#        Include Sidebar#}
+    {% include 'base/sidebar.html' %}
+
+    <h3 style="margin-left: 200px;padding-top: 10px;color:darkred;">
+        EXPENSES</h3>
+
+    <div class="container-expenses mt-4">
+        <div class="row">
+            <div class="col-md-10">
+                <nav class="container-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a
+                                href="">Expenses</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            My Expenses
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="col-md-2">
+                <a href="{% url 'add-expense' %}" class="btn btn-primary">Add
+                    Expense</a>
+            </div>
+        </div>
+
+        <div class="expenses-list">
+            {% include 'user/_messages.html' %}
+            {% if expenses.count %}
+            {# if user has some expenses, then display them #}
+            <table class="table table-stripped table-hover">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Qty</th>
+                    <th>Amount (CURRENCY)</th>
+                    <th>Date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expense in page_obj %}   {# display dinamic data #}
+                    <tr>
+                        <td>{{ expense.item }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.qty }}</td>
+                        <td>{{ expense.amount }}</td>
+                        <td>{{ expense.date }}</td>
+
+                        <td>
+                            <a href="{% url 'edit-expense' expense.id %}"
+                               class="btn btn-secondary btn-sm">Edit</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete-expense' expense.id %}"
+                               class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="show-page">
+                Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} {# return a number of our current page#}
+            </div>
+
+            <ul class="show-pagination pagination align-right float-right mr-auto">
+                {% if page_obj.has_previous %}
+                <li {%  if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }} &raquo;</a></li>
+                {% endif %}
+            </ul>
+
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock content %}
+</body>

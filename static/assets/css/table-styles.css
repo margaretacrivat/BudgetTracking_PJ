@@ -1,13 +1,26 @@
- /* Purchase table */
+/*
+---------------------------------------------
+Purchase Table Style
+---------------------------------------------
+*/
 
- .table-title {
-     font-size: 22px;
-     font-weight: 500;
-     margin-top: 10px;
-     margin-left: 30px;
-     color:dodgerblue;
-     text-decoration: underline;
+.container-table {
+    width: 100%;
+    margin-left: 170px;
+}
+
+ #purchase-form {
+     margin-right: 170px;
  }
+
+.table-title {
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-left: 220px;
+    color:dodgerblue;
+    text-decoration: underline;
+}
 
 .table-btn button {
     margin-top: 20px;
@@ -22,18 +35,84 @@
 }
 
 .data-table {
-    margin-left: 20px;
+    margin-left: 195px;
     margin-right: 20px;
 }
 
-.alert-warning {
+.table-head {
     background-color: rgba(243, 217, 91, 0.89);
     text-align: center;
 }
 
-.alert-body {
+.table-body {
     text-align: center;
 }
 
 
+/*
+---------------------------------------------
+Expenses Style
+---------------------------------------------
+*/
+
+.container-expenses {
+    margin-left: 70px;
+    margin-right: 40px;
+}
+
+.container-breadcrumb {
+    margin-left: 150px;
+}
+
+.breadcrumb {
+    background-color: #dedddd;
+    padding: 10px 10px;
+}
+
+.card-expenses {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    margin-left: 150px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-body {
+    margin-top: 0px;
+}
+
+.form-group {
+    padding-top: 10px;
+}
+
+
+/*
+---------------------------------------------
+Expenses Table
+---------------------------------------------
+*/
+
+.expenses-list {
+    margin-left: 150px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+
+/*
+---------------------------------------------
+Table Pagination
+---------------------------------------------
+*/
+
+.show-page {
+    margin-bottom: 10px;
+}
+
+.show-pagination {
+    float: right!important;
+}
 

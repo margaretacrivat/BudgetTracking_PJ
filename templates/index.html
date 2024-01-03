@@ -294,7 +294,7 @@
     <script src="/static/vendor/jquery/jquery.min.js"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/assets/js/isotope.min.js"></script>
-{#    <script src="/static/assets/js/owl-carousel.js"></script>#}
+    {#    <script src="/static/assets/js/owl-carousel.js"></script>#}
     <script src="/static/assets/js/counter.js"></script>
     <script src="/static/assets/js/custom.js"></script>
     <script src="/static/assets/js/script.js"></script>
@@ -320,16 +320,16 @@
             const lng = pos.coords.longitude;
             const accuracy = pos.coords.accuracy;
 
-            if(marker) {
+            if (marker) {
                 map.removeLayer(marker);
                 map.removeLayer(circle);
             }
 
             marker = L.marker([lat, lng]).addTo(map);
-            circle = L.circle([lat, lng], { radius:accuracy }).addTo(map);
+            circle = L.circle([lat, lng], {radius: accuracy}).addTo(map);
 
             if (!zoomed) {
-               zoomed = map.fitBounds(circle.getBounds());
+                zoomed = map.fitBounds(circle.getBounds());
             }
 
             map.setView([lat, lng]);
@@ -338,13 +338,23 @@
         function error(err) {
             if (err.code === 1) {
                 alert('Please allow geolocation access');
-            }
-            else {
+            } else {
                 alert('Cannot get current location');
             }
         }
 
     </script>
 
+    <footer>
+        {% block footer_content %}
+            <div class="container-footer">
+                <div class="col-lg-4">
+                    <p>Copyright © Agreement, Ltd. All rights reserved.</p>
+                </div>
+            </div>
+        {% endblock footer_content %}
+    </footer>
+
 {% endblock content %}
+
 </body>

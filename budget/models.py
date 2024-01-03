@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -8,29 +10,32 @@ class Items(models.Model):
     description = models.TextField(max_length=1000, null=True)
 
 
-# models for personal_page budget analysis
+# Models for personal_page budget analysis
 
-class Purchase(models.Model):
-    person_name = models.CharField(max_length=200, null=False)
-    item = models.CharField(max_length=200)
-    category = models.CharField(max_length=1000, null=True)
+class Expense(models.Model):
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    item = models.CharField(max_length=1000)
+    category = models.CharField(max_length=500)
     cost = models.FloatField(default=0)
     qty = models.IntegerField(default=0)
     amount = models.FloatField(default=0)
+    date = models.DateField(default=now)
 
     def __str__(self):
-        return self.person_name
+        return self.category
 
-    # JSON
-    # def get_data(self):
-    #     return {
-    #         'person_name': self.person_name,
-    #         'item': self.item,
-    #         'category': self.category,
-    #         'cost': self.cost,
-    #         'qty': self.qty,
-    #         'amount': self.amount,
-    #     }
+    class Meta:
+        ordering: ['-date']
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=300)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.name
 
 
 # class House(models.Model):

@@ -1,0 +1,51 @@
+
+.sidebar {
+    display: flex;
+    position: relative;
+}
+
+.sidebar .sidebar-sticky {
+    padding: 30px 0;
+    position: fixed;
+    height: 100%;
+    background: #86863b;
+    border-right: 1px solid #94938f;
+}
+
+.sidebar .sidebar-sticky h3{
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.sidebar .sidebar-sticky h6{
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    padding-left: 10px;
+    text-transform: uppercase;
+}
+
+.sidebar .sidebar-sticky ul li{
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(225,225,225,0.05);
+}
+
+.sidebar .sidebar-sticky ul li a{
+    color: #1a1d20;
+    display: block;
+}
+
+.sidebar .sidebar-sticky ul li:hover{
+    background: #594f8d;
+}
+
+.sidebar .sidebar-sticky ul li:hover a{
+    color: #fff;
+}
+
+
+

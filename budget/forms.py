@@ -6,6 +6,7 @@ from django.forms import TextInput, NumberInput, EmailInput, Textarea, Select, \
     DateInput
 from django.contrib.auth import authenticate
 
+# SignUp and Login Forms
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(
@@ -53,3 +54,8 @@ class LoginForm(forms.Form):
                 'class': 'form-control'
             }
         ))
+
+
+# Table Forms
+
+

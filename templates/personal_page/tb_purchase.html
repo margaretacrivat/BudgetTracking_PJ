@@ -5,14 +5,18 @@
 
 <body>
 {% block content %}
+{#    Include Sidebar #}
+    {% include 'base/sidebar.html' %}
+
+{#    Include Table Title #}
     <div class="table-title">
         Table title
     </div>
 
-    <hr style="border-top:1px solid #000; clear:both;">
+    <hr style="border-top:1px solid #000; clear:both; margin-left: 200px; margin-right: 20px;">
     <div class="data-table">
-        <table id="mytable" class="table table-bordered">
-            <thead class="alert-warning">
+        <table class="table table-bordered" id="my_purchases">
+            <thead class="table-head">
             <tr>
                 <th>Person Name</th>
                 <th>Item</th>
@@ -20,65 +24,43 @@
                 <th>Cost</th>
                 <th>Qty</th>
                 <th>Amount</th>
-                <th>Remove</th>
             </tr>
             </thead>
-            <tbody class="alert-body">
-            {#            {% for purchase in all_purchases %}#}
-            <tr>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="text" class="form-control"></td>
-                <td><input type="float" class="form-control"></td>
-                <td><input type="number" class="form-control"></td>
-                <td><input type="float" class="form-control"></td>
-                <td><input type="button" class="btn btn-danger removeRow"
-                           value="Remove"></td>
-            </tr>
-            {#            {% endfor %}#}
+            <tbody class="table-body">
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ purchase.person_name }}</td>
+                    <td>{{ purchase.item }}></td>
+                    <td>{{ purchase.category }}></td>
+                    <td>{{ purchase.cost }}</td>
+                    <td>{{ purchase.qty }}</td>
+                    <td>{{ purchase.amount }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="7"><input type="button" class="btn btn-primary"
-                                       value="Add Row" id="addRow"></td>
-            </tr>
-            </tfoot>
+            {#            <tfoot>#}
+            {#            <tr>#}
+            {#                <td colspan="7"><input type="button" class="btn btn-primary"#}
+            {#                                       value="Add Row" id="addRow"></td>#}
+            {#            </tr>#}
+            {#            </tfoot>#}
         </table>
     </div>
 
 
-    <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
-{#    <script src="/static/vendor/jquery/jquery.min.js"></script>#}
-{#    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>#}
-{#    <script src="/static/assets/js/isotope.min.js"></script>#}
-{#    <script src="/static/assets/js/counter.js"></script>#}
-{#    <script src="/static/assets/js/custom.js"></script>#}
-{#    <script src="/static/assets/js/script.js"></script>#}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    {#<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>#}
+{#    <!-- Scripts -->#}
+{#    <!-- Bootstrap core JavaScript -->#}
+        <script src="/static/vendor/jquery/jquery.min.js"></script>
+        <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/static/assets/js/isotope.min.js"></script>
+        <script src="/static/assets/js/counter.js"></script>
+        <script src="/static/assets/js/custom.js"></script>
+        <script src="/static/assets/js/script.js"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>#}
+        <script> src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"</script>
 
-    <!-- Datatables script -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#addRow").click(function () {
-                var myRow = '<tr><td><input type="text" class="form-control"></td>' +
-                    '<td><input type="text" class="form-control"></td>' +
-                    '<td><input type="text" class="form-control"></td>' +
-                    '<td><input type="float" class="form-control"></td>' +
-                    '<td><input type="number" class="form-control"></td>' +
-                    '<td><input type="float" class="form-control"></td>' +
-                    '<td><input type="button" class="btn btn-danger removeRow" value="Remove"></td></tr>'
+{#    <!-- Datatables script -->#}
 
-                $("#mytable tbody").append(myRow)
-            });
-            $("body").on("click", ".removeRow", function(){
-                $(this).closest('tr').remove();
-            })
-        });
-
-
-    </script>
 
 {% endblock content %}
 </body>
