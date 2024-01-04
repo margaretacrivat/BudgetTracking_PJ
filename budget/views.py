@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+import json
 from .models import Items, Expense, Category
 from .forms import LoginForm, SignUpForm
 
@@ -200,6 +201,20 @@ def delete_expense(request, id):
     expense.delete()
     messages.success(request, 'Item deleted')
     return redirect('expenses')
+
+
+def search_expenses(request):
+    if request.method == 'POST':
+        search_str = json.loads(request.body).get('searchText')
+        expenses = Expense.objects.filter(
+            item__icontains=search_str, owner=request.user) | Expense.objects.filter(
+            category__icontains=search_str, owner=request.user) | Expense.objects.filter(
+            cost__istartswith=search_str, owner=request.user) | Expense.objects.filter(
+            qty__istartswith=search_str, owner=request.user) | Expense.objects.filter(
+            amount__istartswith=search_str, owner=request.user) | Expense.objects.filter(
+            date__istartswith=search_str, owner=request.user)
+        data = expenses.values()
+        return JsonResponse(list(data), safe=False)
 
 
 def income_view(request):

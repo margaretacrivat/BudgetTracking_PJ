@@ -20,7 +20,9 @@ from django.urls import path
 from . import views
 from .views import (home, user_logout, user_signup, HomePageView, table_purchase,
                     add_expense, expenses_view, edit_expense, delete_expense,
-                    income_view)
+                    search_expenses, income_view)
+from django.views.decorators.csrf import csrf_exempt
+
 
 urlpatterns = [
     path('', home, name='home'),
@@ -33,6 +35,8 @@ urlpatterns = [
     path('add-expense/', views.add_expense, name='add-expense'),
     path('edit-expense/<int:id>', views.edit_expense, name='edit-expense'),
     path('delete-expense/<int:id>', views.delete_expense, name='delete-expense'),
+    path('search-expenses', csrf_exempt(views.search_expenses),
+         name='search-expenses'),
     path('income/', views.income_view, name='income'),
 ]
 
