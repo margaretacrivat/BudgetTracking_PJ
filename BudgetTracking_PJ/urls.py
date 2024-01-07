@@ -24,7 +24,8 @@ urlpatterns = [
     # Path to access the admin panel
     path('admin/', admin.site.urls),
 
-    # Path to render the budget urls
+    # Path to render the urls apps
     path('', include('budget.urls')),
+    path('authentication/', include('userauthentication.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

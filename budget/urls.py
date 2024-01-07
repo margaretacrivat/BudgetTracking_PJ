@@ -14,12 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from django.contrib.auth import views
 from . import views
-from .views import (home, user_logout, user_signup, HomePageView, table_purchase,
+from .views import (home, HomePageView, table_purchase,
                     preferences_view, add_expense, expenses_view, edit_expense, delete_expense,
                     search_expenses, income_view, add_income, edit_income,
                     delete_income, search_income, export_csv, export_excel, export_pdf,
@@ -29,10 +29,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('', home, name='home'),
-    path('signup/', views.user_signup, name='signup'),
-    path('login/', views.user_login, name='login'),
-    path('logout/', user_logout, name='logout'),
-    # path('reset-password/', views.request_reset_password, name='reset-password'),
     path('homepage/', HomePageView.as_view(), name='homepage'),
 
     path('tb_purchase/', views.table_purchase, name='tb-purchase'),
