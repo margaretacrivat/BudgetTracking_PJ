@@ -19,9 +19,16 @@
         <!-- left menu -->
         <ul class="navbar-right-side">
             <li class="dropdown">
+                {% if user.is_authenticated %}
+                <a href="." class="nav-link active-item dropdown-toggle"
+                   id="drop_cases" role="button" data-bs-toogle="dropdown"
+                   data-bs-target=".navbar-dropdown">{{ request.user.username }}</a>
+                {% else %}
                 <a href="." class="nav-link active-item dropdown-toggle"
                    id="drop_cases" role="button" data-bs-toogle="dropdown"
                    data-bs-target=".navbar-dropdown">User Account</a>
+                {% endif %}
+
                 <ul class="dropdown-menu">
                     {% if user.is_authenticated %}
                         <li class="drop-item">

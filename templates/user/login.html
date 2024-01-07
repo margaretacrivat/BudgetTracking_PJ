@@ -11,10 +11,10 @@
                 <br><br>
                 <div class="card-log">
                     <div class="card-header-log">
-                        <h3 class="text-center pt-2">Login Form</h3>
+                        <h3 class="text-center pt-2">Login to your account</h3>
                     </div>
-                    <form method="POST" action="">
-                        {% csrf_token %}
+                    <form method="POST" action="{% url 'login' %}">
+                        {% include 'user/_messages.html' %} {% csrf_token %}
 
                         <div class="input-box">
                             <label for="username"><b>Username</b></label>
@@ -50,6 +50,10 @@
                         {#            </div>#}
                     </form>
                 </div>
+
+{#                <a href="{% url 'signup' %}"></a>#}
+
+
             </div>
         </div>
     </div>

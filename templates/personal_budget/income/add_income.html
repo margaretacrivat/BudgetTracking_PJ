@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Expenses {% endblock %}
+
+<body>
+{% block content %}
+
+    {#    Include Sidebar #}
+    {% include 'base/sidebar.html' %}
+
+{#    <h1 style="margin-left: 200px;padding-top: 10px;">Add Expense</h1>#}
+
+    <div class="container-expenses mt-4" >
+    <nav class="container-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a
+                    href="{% url 'expenses' %}">Income</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Add Income
+            </li>
+        </ol>
+    </nav>
+
+
+    <div class="card-expenses">
+        <div class="card-body" >
+            <form action="{% url 'add-income' %}" method="post">
+            {% include 'user/_messages.html' %} {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control form-control-sm"
+                           name="amount" value="{{ values.amount }}">
+                </div>
+                <div class="form-group">
+                    <label for="">Source</label>
+                    <select class="form-control" name="source">
+                        {% for source in sources %}
+                            <option name="source" value="{{ source.name }}">
+                                {{ source.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control form-control-sm"
+                           name="description" value="{{ values.description }}">
+                </div>
+                <div class="form-group">
+                    <label for="" style="color:black;">Date of Income</label>
+                    <input type="date" class="form-control form-control-sm"
+                           name="income_date" value="{{ values.date }}">
+                </div>
+
+                <input type="submit" value="Submit" class="btn btn-primary btn-primary-sm">
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock content %}
+</body>

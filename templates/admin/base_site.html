@@ -1,0 +1,17 @@
+{% extends 'admin/base.html' %} {% load static %}
+
+{% block branding %}
+
+    <h1 id="head">
+        <img src="{% static 'assets/img/logo_admin.png' %}" width="35" height="35">
+    Django administration
+    </h1>
+
+{% endblock %} {% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'assets/css/admin-style.css' %}">
+
+{% endblock %}
+
+
+

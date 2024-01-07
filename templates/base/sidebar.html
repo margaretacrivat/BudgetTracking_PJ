@@ -2,7 +2,7 @@
 
 <div class="sidebar col-md-2 d-none d-md-block bg-light">
     <div class="sidebar-sticky">
-        <h3>Sidebar</h3>
+        <h3>Dashboard</h3>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-item-link active" href="{% url 'tb-purchase' %}">
@@ -31,7 +31,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-item-link" href="#">
+                <a class="nav-item-link" href="{% url 'expenses-stats' %}">
                     Expenses Summary
                 </a>
             </li>
@@ -42,5 +42,26 @@
                 </a>
             </li>
         </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
+            <span>Settings</span>
+            <a class="d-flex align-items-center text-muted" href="#" aria-label="">
+                <span data-feather="plus-circle"></span>
+            </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-item-link" href="{% url 'preferences' %}">
+                    General
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item-link" href="#">
+                    <span data-feather="file=text"></span>
+                    Account
+                </a>
+            </li>
+        </ul>
+
     </div>
 </div>

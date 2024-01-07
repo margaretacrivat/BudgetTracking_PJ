@@ -111,6 +111,7 @@ input[type='submit'] {
   border: none;
   margin-top: 20px;
   background-color: #49c1a2;
+  text-align: center;
 }
 
 
@@ -222,14 +223,48 @@ form {
   color: black;
 }
 
-.register-link p a {
+.register-link a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
+  align-item: center;
 }
 
-.register-link p a:hover {
+.register-link a:hover {
   text-decoration: underline;
+  color: blue;
+}
+
+
+/*
+---------------------------------------------
+Reset Password Form Style
+---------------------------------------------
+*/
+
+.card-reset {
+  background: transparent;
+  backdrop-filter: blur(20px);
+  padding: 30px 30px 30px 30px;
+  margin:  100px 50px 50px;
+  border: 1px solid #94938f;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);
+}
+
+.card-title {
+  text-align: center;
+}
+
+.register-link-psw {
+  text-align: center;
+}
+
+.register-link-psw a {
+  color: #0D6EFD;
+}
+
+.register-link-psw a:hover, .login-link-psw a:hover {
   color: blue;
 }
 

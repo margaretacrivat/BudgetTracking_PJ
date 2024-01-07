@@ -1,0 +1,36 @@
+
+
+#header {
+    background: rgb(0, 62, 69);
+    color: var(--header-color);
+}
+
+#branding h1 {
+    color: var(--header-color);
+}
+
+div.breadcrumbs {
+    background: rgb(61, 100, 106);
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: var(--breadcrumbs-fg);
+    text-align: left;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: rgb(0, 62, 69);
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: rgb(0, 62, 69);
+}
+
+a:link, a:visited {
+    text-align: center;
+}
+
+td, th {
+    text-align: center;
+}
+

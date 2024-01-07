@@ -1,16 +1,17 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Expenses {% endblock %}
+{% block title %} Income {% endblock %}
 
 <body>
 {% block content %}
 
-    {#        Include Sidebar#}
     {% include 'base/sidebar.html' %}
 
-    <h3 style="margin-left: 200px;padding-top: 10px;color:darkred;">
-        EXPENSES</h3>
+    <div class="container" style="margin-left: 220px;padding-top: 20px;">
+        <h3>INCOME</h3>
+        <a href="#"></a>
+    </div>
 
     <div class="container-expenses mt-4">
         <div class="row">
@@ -18,25 +19,25 @@
                 <nav class="container-breadcrumb" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
-                                href="">Expenses</a>
+                                href="">Income</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            My Expenses
+                            My Income
                         </li>
                     </ol>
                 </nav>
             </div>
 
             <div class="col-md-2">
-                <a href="{% url 'add-expense' %}" class="btn btn-primary">Add
-                    Expense</a>
+                <a href="{% url 'add-income' %}" class="btn btn-primary">Add
+                    Income</a>
             </div>
         </div>
 
         <div class="expenses-list">
             {% include 'user/_messages.html' %}
-            {% if expenses.count %}
-                {# if user has some expenses, then display them #}
+            {% if income.count %}
+                {# if user has some income, then display them#}
 
                 <div class="row">
                     <div class="col-md-8"></div>
@@ -51,32 +52,29 @@
                 <div class="app-table">
                     <table class="table table-stripped table-hover">
                         <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Qty</th>
-                                <th>Amount (CURRENCY)</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Amount ({{ currency }})</th>
+                            <th>Source</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                         </thead>
-                        <tbody>
-                        {% for expense in page_obj %}
-                            {# display dinamic data #}
-                            <tr>
-                                <td>{{ expense.item }}</td>
-                                <td>{{ expense.category }}</td>
-                                <td>{{ expense.qty }}</td>
-                                <td>{{ expense.amount }}</td>
-                                <td>{{ expense.date }}</td>
 
+                        <tbody>
+                        {% for income in page_obj %}
+                            <tr>
+                                <td>{{ income.amount }}</td>
+                                <td>{{ income.source }}</td>
+                                <td>{{ income.description }}</td>
+                                <td>{{ income.date }}</td>
                                 <td>
-                                    <a href="{% url 'edit-expense' expense.id %}"
+                                    <a href="{% url 'edit-income' income.id %}"
                                        class="btn btn-secondary btn-sm">Edit</a>
                                 </td>
                                 <td>
-                                    <a href="{% url 'delete-expense' expense.id %}"
+                                    <a href="{% url 'delete-income' income.id %}"
                                        class="btn btn-danger btn-sm">Delete</a>
                                 </td>
                             </tr>
@@ -85,30 +83,31 @@
                     </table>
                 </div>
 
+                <p class="no-results" style="display: none;">No results </p>
                 <div class="table-output">
+
                     <table class="table table-stripped table-hover">
                         <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Qty</th>
-                                <th>Amount (CURRENCY)</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Amount ({{ currency }})</th>
+                            <th>Source</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                         </thead>
+
                         <tbody class="table-body">
+
                         </tbody>
                     </table>
                 </div>
-
 
                 <div class="pagination-container">
                 <div class="show-page">
                     Showing page {{ page_obj.number }}
                     of {{ page_obj.paginator.num_pages }}
-                    {# return a number of our current page#}
                 </div>
 
                 <ul class="show-pagination pagination align-right float-right mr-auto">
@@ -138,8 +137,7 @@
     </div>
 
 
-    {#<script src="/static/assets/js/searchExpenses.js"></script>#}
-    <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
+<script src="{% static 'assets/js/searchIncome.js' %}"></script>
 
 {% endblock content %}
 </body>

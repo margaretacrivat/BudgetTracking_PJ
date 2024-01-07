@@ -119,8 +119,8 @@ Navbar Style
 .dropdown-menu {
     text-align: center;
     position: absolute;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     background: rgba(246, 241, 241, 0.95);
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);
@@ -145,6 +145,7 @@ Navbar Style
     text-decoration: none;
     background: #c9c6c6;
     width: 100%;
+    font-size: 16px;
 }
 
 .drop-item:hover .nav-link {

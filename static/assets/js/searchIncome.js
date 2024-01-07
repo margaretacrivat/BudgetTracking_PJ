@@ -15,7 +15,7 @@ searchField.addEventListener("keyup",(e)=> {
         tbody.innerHTML = "";
         // console.log("/searchValue", searchValue);
 
-        fetch("/search-expenses", {
+        fetch("/search-income", {
             body: JSON.stringify({ searchText: searchValue }),
             method: "POST",
         })
@@ -35,11 +35,9 @@ searchField.addEventListener("keyup",(e)=> {
                     data.forEach((item) => {
                         tbody.innerHTML += `
                         <tr>
-                        <td>${item.item}</td>
-                        <td>${item.category}</td>
-                        <td>${item.cost}</td>
-                        <td>${item.qty}</td>
                         <td>${item.amount}</td>
+                        <td>${item.source}</td>
+                        <td>${item.description}</td>
                         <td>${item.date}</td>                                
                         </tr>`;
                     });

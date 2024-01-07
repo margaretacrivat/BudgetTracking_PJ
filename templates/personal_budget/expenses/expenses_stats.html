@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Expenses {% endblock %}
+
+{% block content %}
+
+    {#        Include Sidebar#}
+    {% include 'base/sidebar.html' %}
+
+    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">
+        EXPENSES SUMMARY</h3>
+
+    <div class="container-expenses mt-4">
+        <div class="row">
+            <div class="col-md-10">
+                <nav class="container-breadcrumb" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a
+                                href="">Expenses Summary</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Summary
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="col-md-2">
+                <a href="" class="btn btn-primary">BACK</a>
+            </div>
+
+            <div class="canvas-chart">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+<script src="{% static 'assets/js/statsExpenses.js' %}"></script>
+
+{% endblock content %}

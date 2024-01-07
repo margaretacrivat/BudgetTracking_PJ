@@ -51,7 +51,7 @@ Purchase Table Style
 
 /*
 ---------------------------------------------
-Expenses Style
+Expenses Table
 ---------------------------------------------
 */
 
@@ -88,19 +88,38 @@ Expenses Style
     padding-top: 10px;
 }
 
-
-/*
----------------------------------------------
-Expenses Table
----------------------------------------------
-*/
-
 .expenses-list {
     margin-left: 150px;
     margin-right: 40px;
     margin-top: 20px;
 }
 
+/*
+---------------------------------------------
+Income Table
+---------------------------------------------
+*/
+/*.container-income {*/
+/*    margin-left: 70px;*/
+/*    margin-right: 40px;*/
+/*}*/
+
+/*.card-incomes {*/
+/*    background: transparent;*/
+/*    backdrop-filter: blur(20px);*/
+/*    border: 1px solid darkgrey;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, .2);*/
+/*    border-radius: 10px 10px 10px 10px;*/
+/*    margin-left: 150px;*/
+/*    margin-top: 20px;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.income-list {*/
+/*    margin-left: 150px;*/
+/*    margin-right: 40px;*/
+/*    margin-top: 20px;*/
+/*}*/
 
 /*
 ---------------------------------------------

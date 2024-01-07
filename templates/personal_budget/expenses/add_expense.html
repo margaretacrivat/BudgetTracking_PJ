@@ -43,22 +43,27 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="" style="color:black;">Cost</label>
+                    <label for="">Description</label>
+                    <input type="text" class="form-control form-control-sm"
+                           name="description" value="{{ values.description }}">
+                </div>
+                <div class="form-group">
+                    <label for="">Cost</label>
                     <input type="number" class="form-control form-control-sm"
                            name="cost" value="{{ values.cost }}">
                 </div>
                 <div class="form-group">
-                    <label for="" style="color:black;">Qty</label>
+                    <label for="">Qty</label>
                     <input type="number" class="form-control form-control-sm"
                            name="qty" value="{{ values.qty}}">
                 </div>
                 <div class="form-group">
-                    <label for="" style="color:black;">Amount</label>
+                    <label for="">Amount</label>
                     <input type="number" class="form-control form-control-sm"
                            name="amount" value="{{ values.amount }}">
                 </div>
                 <div class="form-group">
-                    <label for="" style="color:black;">Date of Expense</label>
+                    <label for="">Date of Expense</label>
                     <input type="date" class="form-control form-control-sm"
                            name="expense_date" value="{{ values.date }}">
                 </div>
@@ -66,10 +71,7 @@
             </form>
         </div>
     </div>
-
-
 </div>
-
 
 {% endblock content %}
 </body>
