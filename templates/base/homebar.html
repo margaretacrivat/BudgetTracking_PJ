@@ -1,46 +1,45 @@
-{#{% load static %}#}
-{##}
-{#<div class="col-12">#}
-{#    <nav class="main-nav">#}
-{#        <!-- ***** Logo Start ***** -->#}
-{#        <a href="../homepage.html" class="logo">#}
-{#            <h1>>Budget<span class="text-dark">Tracking</span></h1>#}
-{#        </a>#}
-{#        <!-- ***** Logo End ***** -->#}
-{#        <!-- ***** Menu Start ***** -->#}
-{#        <ul class="nav right-side">#}
-{#        <!-- right menu -->#}
-{#            <li><a href="{% url 'homepage' %}" class="active">Home</a></li>#}
-{#            <li><a href="#">Personal Budget</a></li>#}
-{#            <li><a href="#">Project Budget</a></li>#}
-{#        <!-- left menu -->#}
-{#        </ul>#}
-{#        <ul class="nav left-side">#}
-{#            <li class="dropdown">#}
-{#                <img class="rounded-circle flex-shrink-0"#}
-{#                     src="/static/assets/img/user.jpg" alt=""#}
-{#                     style="width: 40px; height: 40px;">#}
-{#                <a href="#" class="active dropdown-toggle" id="drop_cases"#}
-{#                   role="button" data-bs-toogle="dropdown">{{ user.username }}</a>#}
-{#                <ul class="dropdown-menu">#}
-{#                    {% if user.is_authenticated %}#}
-{#                        <li class="nav-item">#}
-{#                            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>#}
-{#                        </li>#}
-{#                    {% else %}#}
-{#                        <li class="nav-item">#}
-{#                            <a href="{% url 'signup' %}" class="dropdown-item">Signup</a>#}
-{#                        </li>#}
-{#                        <li class="nav-item">#}
-{#                            <a href="{% url 'login' %}" class="dropdown-item">Login</a>#}
-{#                        </li>#}
-{#                    {% endif %}#}
-{#                </ul>#}
-{#            </li>#}
-{#        </ul>#}
-{#        <a class='menu-trigger'>#}
-{#            <span>Menu</span>#}
-{#        </a>#}
-{#        <!-- ***** Menu End ***** -->#}
-{#    </nav>#}
-{#</div>#}
+{% load static %}
+
+<nav class="navbar-container navbar-expand-lg fixed-top">
+    <!-- ***** Logo Start ***** -->
+    <div class="navbar-logo">
+        <a href="{% url 'home' %}">>Budget
+            <span class="text-dark">Tracking</span></a>
+    </div>
+    <!-- ***** Logo End ***** -->
+
+    <!-- ***** Menu Start ***** -->
+    <ul class="navbar-menu">
+        <ul class="navbar-left-side">
+            <!-- right menu -->
+            <li><a href="{% url 'home' %}" class="nav-link active-item">Home</a></li>
+            <li><a href="{% url 'personal-budget' %}" class="nav-link">Personal Budget</a></li>
+            <li><a href="#" class="nav-link">Project Budget</a></li>
+        </ul>
+        <!-- left menu -->
+        <ul class="navbar-right-side">
+            <li class="dropdown">
+                <a href="." class="nav-link active-item dropdown-toggle"
+                   id="drop_cases" role="button" data-bs-toogle="dropdown"
+                   data-bs-target=".navbar-dropdown">{{ request.user.username }}</a>
+
+                <ul class="dropdown-menu">
+                        <li class="drop-item">
+                            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+                        </li>
+                        <li class="drop-item">
+                            <a href="{% url 'settings' %}" class="nav-link">Settings</a>
+                        </li>
+                </ul>
+            </li>
+        </ul>
+    </ul>
+
+
+    <!-- ***** Menu End ***** -->
+    <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+</nav>

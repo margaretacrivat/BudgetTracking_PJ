@@ -55,6 +55,10 @@ def user_logout(request):
     return redirect('home')
 
 
+def user_settings(request):
+    return render(request, 'user/settings.html')
+
+
 
 # def request_reset_password(request):
 #     if request.method == 'GET':

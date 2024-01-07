@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/static/assets/css/main-styles.css">
     <link rel="stylesheet" href="/static/assets/css/forms-login.css">
+    <link rel="stylesheet" href="/static/assets/css/forms-settings.css">
     <link rel="stylesheet" href="/static/assets/css/navbar-styles.css">
     <link rel="stylesheet" href="/static/assets/css/table-styles.css">
     <link rel="stylesheet" href="/static/assets/css/sidebar-styles.css">
@@ -58,7 +59,7 @@
     <div class="container">
         <div class="row">
             {% if user.is_authenticated %}
-                {% include 'base/menubar.html' %}
+                {% include 'base/homebar.html' %}
             {% else %}
                 {% include 'base/menubar.html' %}
             {% endif %}
