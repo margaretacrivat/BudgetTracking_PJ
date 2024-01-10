@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Expenses {% endblock %}
+
+<body>
+{% block content %}
+
+    {% include 'base/sidebar.html' %}
+
+    <div class="container-preferences mt-3">
+        <h5>Choose Currency</h5>
+
+        <form class="form-preferences" action="{% url 'preferences' %}" method="post">
+            {% csrf_token %} {% include 'user/_messages.html' %}
+            <div class="input-group">
+                <select class="custom-select" name="currency" id="inputGroupSelect04">
+                    {% if user_currency.currency %}
+                        <option name="currency" selected
+                                value="{{ user_currency.currency }}">{{ user_currency.currency }}
+                        </option>
+                    {% endif %}
+
+                    {% for currency in currencies %}
+                        <option class="currency-option" name="currency" value="{{ currency.name }}
+                            - {{ currency.value }}">{{ currency.name }}
+                            - {{ currency.value }}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" value="Save">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    {#        <form action="{% url 'preferences' %}" method="post">#}
+    {#            {% csrf_token %}#}
+    {#            <div class="input-group">#}
+    {#                <select name="currency" class="custom-select" id="inputGroup"></select>#}
+    {#                    {% if user_preferences.currency %}#}
+    {#                    <option name="currency" selected value="{{ user_preferences.currency }}">#}
+    {#                        {{ user_preferences.currency }}</option>#}
+    {#                    {% endif %}#}
+    {##}
+    {#                    {% for currency in currencies %}#}
+    {#                    <option name="currency" value="{{ currency.name }} - {{ currency.value }}">#}
+    {#                        {{ currency.name }} - {{ currency.value }}</option>#}
+    {#                    {% endfor %}#}
+    {#                </select>#}
+    {#                <div class="input-group-append">#}
+    {#                    <input class="btn btn-outline-secondary" type="submit" value="Submit">#}
+    {#                </div>#}
+    {#            </div>#}
+    {##}
+    {#        </form>#}
+    {#    </div>#}
+
+
+{% endblock content %}
+</body>

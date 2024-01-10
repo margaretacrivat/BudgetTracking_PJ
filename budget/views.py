@@ -407,7 +407,7 @@ class HomePageView(TemplateView):
 #
 #
 # def expenses_stats_view(request):
-#     return render(request, 'personal_budget/expenses/expenses_stats.html')
+#     return render(request, 'personal_budget/expenses/expenses_summary.html')
 #
 #
 # def export_csv(request):

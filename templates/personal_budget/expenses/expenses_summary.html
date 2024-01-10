@@ -1,17 +1,16 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Expenses {% endblock %}
+{% block title %} Expenses Summary Charts {% endblock %}
 
 {% block content %}
 
-    {#        Include Sidebar#}
     {% include 'base/sidebar.html' %}
 
     <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">
         EXPENSES SUMMARY</h3>
 
-    <div class="container-expenses mt-4">
+    <div class="container-summary mt-4">
         <div class="row">
             <div class="col-md-10">
                 <nav class="container-breadcrumb" aria-label="breadcrumb">
@@ -29,16 +28,29 @@
             <div class="col-md-2">
                 <a href="" class="btn btn-primary">BACK</a>
             </div>
-
-            <div class="canvas-chart">
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
-
         </div>
+
+        {# ADD CHARTS #}
+        <div class="chartBox">
+{#            <div class="row mt-2">#}
+                <div class="box col-md-4 mt-2">
+{#                    <h4>Expenses Chart</h4>#}
+                    <canvas id="expensesCategoryChart" width="400"
+                            height="400"></canvas>
+                </div>
+                <div class="box col-md-4 mt-2">
+{#                    <h4>Expenses Chart</h4>#}
+                    <canvas id="cmChart" width="400"
+                            height="400"></canvas>
+                </div>
+{#            </div>#}
+        </div>
+
     </div>
 
 
-
-<script src="{% static 'assets/js/statsExpenses.js' %}"></script>
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/lineExpenses.js' %}"></script>
 
 {% endblock content %}

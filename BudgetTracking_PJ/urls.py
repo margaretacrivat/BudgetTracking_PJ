@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from budget import views
+# from budget import views
+# from personalbudget import views
 
 urlpatterns = [
     # Path to access the admin panel
@@ -27,6 +28,8 @@ urlpatterns = [
     # Path to render the urls apps
     path('', include('budget.urls')),
     path('personalbudget/', include('personalbudget.urls')),
+
     path('authentication/', include('userauthentication.urls')),
+    path('preferences/', include('preferences.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

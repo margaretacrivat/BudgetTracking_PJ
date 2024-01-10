@@ -20,7 +20,6 @@ from django.urls import path
 from django.contrib.auth import views
 from . import views
 from .views import home, HomePageView
-from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [

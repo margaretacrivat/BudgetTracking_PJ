@@ -7,15 +7,15 @@ tableOutput.style.display = 'none';
 const noResults = document.querySelector(".no-results");
 const tbody = document.querySelector(".table-body")
 
-searchField.addEventListener("keyup",(e)=> {
+searchField.addEventListener('keyup',(e)=> {
     const searchValue = e.target.value;
 
     if (searchValue.trim().length > 0) {
         paginationContainer.style.display = 'none';
         tbody.innerHTML = "";
-        // console.log("/searchValue", searchValue);
+        console.log("/searchValue", searchValue);
 
-        fetch("/search-expenses", {
+        fetch("/personalbudget/search-expenses/", {
             body: JSON.stringify({ searchText: searchValue }),
             method: "POST",
         })
@@ -25,7 +25,7 @@ searchField.addEventListener("keyup",(e)=> {
                 appTable.style.display = 'none';
                 tableOutput.style.display = 'block';
 
-                console.log("data.length", data.length)
+                // console.log("data.length", data.length)
 
                 if(data.length === 0) {
                     noResults.style.display = "block";
@@ -37,6 +37,7 @@ searchField.addEventListener("keyup",(e)=> {
                         <tr>
                         <td>${item.item}</td>
                         <td>${item.category}</td>
+                        <td>${item.description}</td>
                         <td>${item.cost}</td>
                         <td>${item.qty}</td>
                         <td>${item.amount}</td>

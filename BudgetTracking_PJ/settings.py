@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'budget',
     'personalbudget',
     'userauthentication',
+    'preferences',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

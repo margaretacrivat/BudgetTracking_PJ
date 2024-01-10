@@ -8,10 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
           rel="stylesheet">
 
-    <!-- ChartJS -->
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>#}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
     <!-- Leaflet map CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -22,13 +18,15 @@
           rel='stylesheet'>
 
     <!-- Datatable CSS -->
-{#    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"#}
-{#    rel='stylesheet'>#}
-{#    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>#}
-{#    <script type="text/javascript"#}
-{#         src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>#}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
           rel='stylesheet'>
+
+        <!-- ChartJS -->
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>#}
+{#    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>#}
+
 
     <title>BudgetTracking</title>
 
@@ -43,8 +41,9 @@
     <link rel="stylesheet" href="/static/assets/css/forms-login.css">
     <link rel="stylesheet" href="/static/assets/css/forms-settings.css">
     <link rel="stylesheet" href="/static/assets/css/navbar-styles.css">
-    <link rel="stylesheet" href="/static/assets/css/table-styles.css">
     <link rel="stylesheet" href="/static/assets/css/sidebar-styles.css">
+    <link rel="stylesheet" href="/static/assets/css/preferences-styles.css">
+    <link rel="stylesheet" href="/static/assets/css/table-styles.css">
     <link rel="stylesheet" href="/static/assets/css/chart-styles.css">
 {#    <link rel="stylesheet" href="/static/assets/css/owl.css">#}
     <link rel="stylesheet" href="/static/assets/css/animate.css">
@@ -67,8 +66,11 @@
     </div>
 </header>
 
-
 {% block content %} {% endblock content %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

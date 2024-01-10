@@ -15,7 +15,7 @@ searchField.addEventListener("keyup",(e)=> {
         tbody.innerHTML = "";
         // console.log("/searchValue", searchValue);
 
-        fetch("/search-income", {
+        fetch("/personalbudget/search-income/", {
             body: JSON.stringify({ searchText: searchValue }),
             method: "POST",
         })

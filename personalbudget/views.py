@@ -1,10 +1,18 @@
+from django.db.models import Sum, ExpressionWrapper, F
+from django.db.models import FloatField
+from django.db.models import Count, F, Sum, Avg
+from django.db.models.functions import ExtractYear, ExtractMonth
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
-from .models import Expense, Category, Currency, Source, Income
+from .models import Expense, Category, Source, Income
+from .forms import ExpenseForm
+from .filters import ExpenseFilter
+from preferences.models import Currency
 import datetime
 import csv
 import xlwt
@@ -19,9 +27,7 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 # Create your views here.
 
 
-# _____________________________________________________________________________#
-
-#Homepage
+# ---->>>>>>>>>> PERSONAL BUDGET - HOMEPAGE VIEW <<<<<<<<<<<<----#
 
 def personal_budget_home(request):
     # Logica pentru pagina de inserare a datelor in tabel
@@ -30,20 +36,15 @@ def personal_budget_home(request):
                   {'expenses': expenses})
 
 
-def preferences_view(request):
-    # Logica pentru pagina de inserare a datelor in tabel
-    currency = Currency.objects.all()
-    return render(request, 'personal_budget/general/preferences.html',
-                  {'currency': currency})
-
-
-# _____________________________________________________________________________#
-# EXPENSE page - # Logica pentru vizualizarea cheltuielilor
+# ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
+# Logica pentru vizualizarea cheltuielilor
 
 @login_required(login_url='/authentication/login')
 def expenses_view(request):
     categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
+    expenses.extra(
+        select={'amount': 'cost * qty'})
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
@@ -209,8 +210,8 @@ def search_expenses(request):
         return JsonResponse(list(data), safe=False)
 
 
-# _____________________________________________________________________________#
-# INCOME page - # Logica pentru vizualizarea veniturilor
+# ---->>>>>>>>>> INCOME - PAGE VIEWS <<<<<<<<<<<<----#
+# Logica pentru vizualizarea veniturilor
 
 @login_required(login_url='/authentication/login')
 def income_view(request):
@@ -343,21 +344,24 @@ def search_income(request):
         return JsonResponse(list(data), safe=False)
 
 
-# _____________________________________________________________________________#
-# EXPENSES CHART
 
-def expense_category_summary(request):
+
+
+# ---->>>>>>>>>> EXPENSES SUMMARY / CHARTS - PAGE VIEWS <<<<<<<<<<<<----#
+
+
+def expenses_category_chart(request):
     todays_date = datetime.date.today()
-    six_months_ago = todays_date - datetime.timedelta(days=30 * 6)
+    six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
     expenses = Expense.objects.filter(owner=request.user,
                                       date__gte=six_months_ago,
                                       date__lte=todays_date)
-    finalrep = {}
 
-    def get_category(expense):
+    def get_categories(expense):
         return expense.category
 
-    category_list = list(set(map(get_category, expenses)))
+    finalrep = {}
+    category_list = list(set(map(get_categories, expenses)))
 
     def get_expense_category_amount(category):
         amount = 0
@@ -374,8 +378,85 @@ def expense_category_summary(request):
     return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
 
-def expenses_stats_view(request):
-    return render(request, 'personal_budget/expenses/expenses_stats.html')
+
+def last_3months_expense_source_stats(request):
+    todays_date = datetime.date.today()
+    last_month = datetime.date.today() - datetime.timedelta(days=0)
+    last_2_month = last_month - datetime.timedelta(days=30)
+    last_3_month = last_2_month - datetime.timedelta(days=30)
+
+    last_month_expense = Expense.objects.filter(owner=request.user,
+                                                date__gte=last_month, date__lte=todays_date).order_by('date')
+    prev_month_expense = Expense.objects.filter(owner=request.user,
+                                                date__gte=last_month, date__lte=last_2_month)
+    prev_prev_month_expense = Expense.objects.filter(owner=request.user,
+                                                date__gte=last_2_month, date__lte=last_3_month)
+
+    keyed_data = []
+    this_month_data = {'7th': 0, '15th': 0, '22nd': 0, '29th': 0}
+    prev_month_data = {'7th': 0, '15th': 0, '22nd': 0, '29th': 0}
+    prev_prev_month_data = {'7th': 0, '15th': 0, '22nd': 0, '29th': 0}
+
+    for x in last_month_expense:
+        month = str(x.date)[:7]
+        date_in_month = str(x.date)[:2]
+        if int(date_in_month) <= 7:
+            this_month_data['7th'] += x.amount
+        if int(date_in_month) > 7 and int(date_in_month) <= 15:
+            this_month_data['15th'] += x.amount
+        if int(date_in_month) >= 16 and int(date_in_month) <= 21:
+            this_month_data['22nd'] += x.amount
+        if int(date_in_month) > 22 and int(date_in_month) < 31:
+            this_month_data['29th'] += x.amount
+
+    keyed_data.append({str(last_month): this_month_data})
+
+    for x in prev_month_expense:
+        date_in_month = str(x.date)[:2]
+        month = str(x.date)[:7]
+        if int(date_in_month) <= 7:
+            prev_month_data['7th'] += x.amount
+        if int(date_in_month) > 7 and int(date_in_month) <= 15:
+            prev_month_data['15th'] += x.amount
+        if int(date_in_month) >= 16 and int(date_in_month) <= 21:
+            prev_month_data['22nd'] += x.amount
+        if int(date_in_month) > 22 and int(date_in_month) < 31:
+            prev_month_data['29th'] += x.amount
+
+    keyed_data.append({str(last_2_month): prev_month_data})
+
+    for x in prev_prev_month_expense:
+        date_in_month = str(x.date)[:2]
+        month = str(x.date)[:7]
+        if int(date_in_month) <= 7:
+            prev_prev_month_data['7th'] += x.amount
+        if int(date_in_month) > 7 and int(date_in_month) <= 15:
+            prev_prev_month_data['15th'] += x.amount
+        if int(date_in_month) >= 16 and int(date_in_month) <= 21:
+            prev_prev_month_data['22nd'] += x.amount
+        if int(date_in_month) > 22 and int(date_in_month) < 31:
+            prev_prev_month_data['29th'] += x.amount
+
+    keyed_data.append({str(last_3_month): prev_month_data})
+    return JsonResponse({'cumulative_expense_data': keyed_data}, safe=False)
+
+def expenses_summary_view(request):
+    return render(request, 'personal_budget/expenses/expenses_summary.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ---->>>>>>>>>> EXPENSES - EXPORT FILES VIEWS <<<<<<<<<<<<----#
 
 
 def export_csv(request):
@@ -435,7 +516,6 @@ def export_pdf(request):
     pdf = canvas.Canvas(response, pagesize=A4)
     pdf.setTitle('PDF Report')
 
-
     # styleSheet = getSampleStyleSheet()
     # style = styleSheet["BodyText"]
     # P = Paragraph('This is an example', style)
@@ -457,7 +537,7 @@ def export_pdf(request):
          ('GRID', (0, 0), (-1, -1), 1, colors.black),
          ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
          ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-         ('ALIGN', (1, 1), (-1,-1), 'CENTER'),
+         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
          ('FONTSIZE', (0, 0), (-1, 0), 14),
          ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
          ('RIGHTPADDING', (0, 0), (-1, 0), 50),
@@ -465,7 +545,6 @@ def export_pdf(request):
     ))
 
     # canvas.drawString(10, 150, "Basic data")
-
 
     canvas_width = 600
     canvas_height = 600
@@ -475,8 +554,6 @@ def export_pdf(request):
 
     pdf.save()
     return response
-
-
 
     # response = HttpResponse(content_type='application/pdf')
     # response['Content-Disposition'] = 'attachment; filename=Expenses' + \

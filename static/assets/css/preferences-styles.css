@@ -1,0 +1,52 @@
+/*
+---------------------------------------------
+Preferences Style
+---------------------------------------------
+*/
+
+
+.container-preferences {
+    margin-left: 150px;
+    padding-top: 10px;
+}
+
+.container-preferences h5 {
+    color: #49494f;
+    margin-left: 60px;
+    text-transform: uppercase;
+}
+
+.form-preferences {
+    padding: 10px 60px;
+}
+
+.input-group-append {
+    margin-left: 0px;
+}
+
+.input-group-append button {
+    margin: 5px 0;
+    color: #19b619;
+    box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
+}
+
+.custom-select {
+    margin: 5px 0;
+    padding-right: 700px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
+}
+
+.custom-select option {
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
+    backdrop-filter: blur(20px);
+}
+
+.currency-option {
+    background: #f3f3f3;
+}
+
+
