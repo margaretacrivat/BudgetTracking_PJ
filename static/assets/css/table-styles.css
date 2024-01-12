@@ -1,12 +1,26 @@
 /*
 ---------------------------------------------
+Container pages dash Style
+---------------------------------------------
+*/
+
+.container-main {
+    position: absolute;
+    width: calc(100% - 180px);
+    min-height: 100vh;
+    left: 180px;
+
+}
+
+
+/*
+---------------------------------------------
 Purchase Table Style
 ---------------------------------------------
 */
 
 .container-table {
     width: 100%;
-    margin-left: 170px;
 }
 
  #purchase-form {
@@ -55,44 +69,73 @@ Expenses Table
 ---------------------------------------------
 */
 
-.container-expenses {
-    margin-left: 70px;
-    margin-right: 40px;
+/* expenses breadcrumb*/
+.container-breadcrumb-bar {
+    margin-top: 15px;
 }
 
 .container-breadcrumb {
-    margin-left: 150px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .breadcrumb {
     background-color: #dedddd;
     padding: 10px 10px;
+    margin: 5px 5px;
 }
 
-.card-expenses {
+.breadcrumb-item {
+    color: #444;
+}
+
+.breadcrumb-event {
+    padding: 10px 10px;
+}
+
+.breadcrumb-event a {
+    min-width: 128px;
+    font-weight: 500;
+    color: white;
+    background:  green;
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.breadcrumb-event:hover a {
+    color: white;
+    background: #b6afaf;
+}
+
+/*container tables*/
+.container-tables {
+    margin-top: 15px;
+}
+
+.expenses-list {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+/*expenses card */
+.card-form {
     background: transparent;
     backdrop-filter: blur(20px);
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    margin-left: 150px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 150px 20px 220px;
 }
 
 .card-body {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .form-group {
     padding-top: 10px;
+    width: 75%;
 }
 
-.expenses-list {
-    margin-left: 150px;
-    margin-right: 40px;
-    margin-top: 20px;
-}
 
 /*
 ---------------------------------------------
@@ -135,3 +178,43 @@ Table Pagination
     float: right!important;
 }
 
+
+/*make it responsive*/
+@media(max-width:780px){
+    .container-breadcrumb-bar {
+        margin-left: 60px;
+    }
+    .container-breadcrumb {
+        padding: 0 20px;
+    }
+
+    .breadcrumb-event {
+        padding: 5px 5px;
+    }
+    .breadcrumb-event a {
+    min-width: 100px;
+        height: 60px;
+    }
+    .container-tables {
+        padding: 0;
+    margin-left: 50px;
+    margin-right: 10px;
+    margin-top: 15px;
+    }
+    .expenses-list {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    }
+    .chartBox {
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 70px;
+    margin-left: 160px;
+    margin-bottom: 0;
+    width: 70%;
+    min-height: 200px;
+    }
+}

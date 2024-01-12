@@ -29,6 +29,7 @@ urlpatterns = [
     path('last_3months_expense_source_stats/',
          views.last_3months_expense_source_stats,
          name="last_3months_expense_source_stats"),
+    path('expenses-summary-rest/', views.expense_summary_rest, name='expenses-summary-rest'),
     path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
 ]
 

@@ -9,25 +9,29 @@
     {#    Include Sidebar #}
     {% include 'base/sidebar.html' %}
 
-{#    <h1 style="margin-left: 200px;padding-top: 10px;">Add Expense</h1>#}
+    {#    <h1 style="margin-left: 200px;padding-top: 10px;">Add Expense</h1>#}
 
-    <div class="container-expenses mt-4" >
-    <nav class="container-breadcrumb" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a
-                    href="{% url 'expenses' %}">Income</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">
-                Add Income
-            </li>
-        </ol>
-    </nav>
+<div class="container-main">
 
+    <div class="container-breadcrumb-bar">
+    <div class="container-breadcrumb row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        href="{% url 'expenses' %}">Income</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    Add Income
+                </li>
+            </ol>
+        </nav>
+    </div>
+    </div>
 
-    <div class="card-expenses">
-        <div class="card-body" >
+    <div class="card-form">
+        <div class="card-body">
             <form action="{% url 'add-income' %}" method="post">
-            {% include 'user/_messages.html' %} {% csrf_token %}
+                {% include 'user/_messages.html' %} {% csrf_token %}
 
                 <div class="form-group">
                     <label for="">Amount</label>
@@ -54,11 +58,11 @@
                            name="income_date" value="{{ values.date }}">
                 </div>
 
-                <input type="submit" value="Submit" class="btn btn-primary btn-primary-sm">
+                <input type="submit" value="Submit"
+                       class="btn btn-primary btn-primary-sm">
             </form>
         </div>
     </div>
-
 
 </div>
 

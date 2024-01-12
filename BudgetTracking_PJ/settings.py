@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'userauthentication',
     'preferences',
     'django_filters',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

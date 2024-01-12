@@ -9,44 +9,54 @@
     {#        Include Sidebar#}
     {% include 'base/sidebar.html' %}
 
-    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">
-        EXPENSES</h3>
+    {#    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">#}
+    {#        EXPENSES</h3>#}
 
-    <div class="container-expenses mt-4">
-        <div class="row">
-            <div class="col-md-10">
-                <nav class="container-breadcrumb" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a
-                                href="">Expenses</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            My Expenses
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+<div class="container-main">
 
-            <div class="col-md-2">
-                <a href="{% url 'add-expense' %}" class="btn btn-primary">Add
-                    Expense</a>
+        <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-10">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="">Expenses</a>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page">
+                                My Expenses
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="breadcrumb-event col-md-2">
+                    <a href="{% url 'add-expense' %}" class="btn">Add
+                        Expense</a>
+                </div>
             </div>
         </div>
 
-        <div class="expenses-list">
-            {% include 'user/_messages.html' %} {% if expenses.count %}
+        <div class="container-tables">
+            <div class="expenses-list">
+                {% include 'user/_messages.html' %} {% if expenses.count %}
                 {# if user has some expenses, then display them #}
 
                 <div class="row">
                     <div class="col-md-8">
+                        <a href="{% url 'export-csv' %}"
+                           class="btn btn-secondary">Export
+                            CSV</a>
 
+                        <a href="{% url 'export-excel' %}"
+                           class="btn btn-primary">Export
+                            Excel</a>
+
+                        <a href="{% url 'export-pdf' %}" class="btn btn-info">Export
+                            PDF</a>
                     </div>
                     <div class="col-md-4">
-                        <a href="{% url 'export-csv' %}" class="btn btn-secondary">Export CSV</a>
 
-                        <a href="{% url 'export-excel' %}" class="btn btn-primary">Export Excel</a>
-
-                        <a href="{% url 'export-pdf' %}" class="btn btn-info">Export PDF</a>
                         <div class="form-group">
                             <input type="text" class="form-control"
                                    id="searchField" placeholder="Search">
@@ -57,17 +67,17 @@
                 <div class="app-table">
                     <table class="table table-stripped table-hover">
                         <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Cost</th>
-                                <th>Qty</th>
-                                <th>Amount ({{currency}})</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                            <th>Qty</th>
+                            <th>Amount ({{ currency }})</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody>
                         {% for expense in page_obj %}
@@ -99,17 +109,17 @@
                 <div class="table-output">
                     <table class="table table-stripped table-hover">
                         <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Cost</th>
-                                <th>Qty</th>
-                                <th>Amount ({{currency}})</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                            <th>Qty</th>
+                            <th>Amount ({{ currency }})</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody class="table-body">
                         </tbody>
@@ -146,13 +156,29 @@
 
                 </ul>
             {% endif %}
+                </div>
+            </div>
+            <br><br>
+            <div class="chartBox">
+                <div class="box col-md-8 mt-2">
+                    <canvas id="expensesCategoryChart" width="400"
+                            height="400"></canvas>
+                </div>
+                <div class="box col-md-4 mt-2">
+                    {#          <h4>Expenses Chart</h4>#}
+                    <canvas id="cmchart" width="400" height="400"></canvas>
+                </div>
             </div>
         </div>
-    </div>
+
+</div>
 
 
+    <!-- Scripts -->
     {#<script src="/static/assets/js/searchExpenses.js"></script>#}
-<script src="{% static 'assets/js/searchExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
 
 {% endblock content %}
 </body>

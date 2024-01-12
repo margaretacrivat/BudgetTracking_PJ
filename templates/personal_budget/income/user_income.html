@@ -8,15 +8,17 @@
 
     {% include 'base/sidebar.html' %}
 
-    <div class="container" style="margin-left: 220px;padding-top: 20px;">
-        <h3>INCOME</h3>
-        <a href="#"></a>
-    </div>
+{#    <div class="container" style="margin-left: 220px;padding-top: 20px;">#}
+{#        <h3>INCOME</h3>#}
+{#        <a href="#"></a>#}
+{#    </div>#}
 
-    <div class="container-expenses mt-4">
-        <div class="row">
+<div class="container-main">
+
+    <div class="container-breadcrumb-bar">
+        <div class="container-breadcrumb row">
             <div class="col-md-10">
-                <nav class="container-breadcrumb" aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
                                 href="">Income</a>
@@ -28,12 +30,14 @@
                 </nav>
             </div>
 
-            <div class="col-md-2">
-                <a href="{% url 'add-income' %}" class="btn btn-primary">Add
+            <div class="breadcrumb-event col-md-2">
+                <a href="{% url 'add-income' %}" class="btn">Add
                     Income</a>
             </div>
         </div>
+    </div>
 
+    <div class="container-tables">
         <div class="expenses-list">
             {% include 'user/_messages.html' %}
             {% if income.count %}
@@ -134,8 +138,9 @@
             {% endif %}
             </div>
         </div>
-    </div>
+    <div>
 
+</div>
 
 <script src="{% static 'assets/js/searchIncome.js' %}"></script>
 

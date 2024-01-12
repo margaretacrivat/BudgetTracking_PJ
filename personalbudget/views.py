@@ -23,6 +23,7 @@ from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import Table, TableStyle, Paragraph
+# from settings.models import Setting
 
 # Create your views here.
 
@@ -344,9 +345,6 @@ def search_income(request):
         return JsonResponse(list(data), safe=False)
 
 
-
-
-
 # ---->>>>>>>>>> EXPENSES SUMMARY / CHARTS - PAGE VIEWS <<<<<<<<<<<<----#
 
 
@@ -378,7 +376,6 @@ def expenses_category_chart(request):
     return JsonResponse({'expense_category_data': finalrep}, safe=False)
 
 
-
 def last_3months_expense_source_stats(request):
     todays_date = datetime.date.today()
     last_month = datetime.date.today() - datetime.timedelta(days=0)
@@ -386,11 +383,15 @@ def last_3months_expense_source_stats(request):
     last_3_month = last_2_month - datetime.timedelta(days=30)
 
     last_month_expense = Expense.objects.filter(owner=request.user,
-                                                date__gte=last_month, date__lte=todays_date).order_by('date')
+                                                date__gte=last_month,
+                                                date__lte=todays_date).order_by(
+        'date')
     prev_month_expense = Expense.objects.filter(owner=request.user,
-                                                date__gte=last_month, date__lte=last_2_month)
+                                                date__gte=last_month,
+                                                date__lte=last_2_month)
     prev_prev_month_expense = Expense.objects.filter(owner=request.user,
-                                                date__gte=last_2_month, date__lte=last_3_month)
+                                                     date__gte=last_2_month,
+                                                     date__lte=last_3_month)
 
     keyed_data = []
     this_month_data = {'7th': 0, '15th': 0, '22nd': 0, '29th': 0}
@@ -440,20 +441,103 @@ def last_3months_expense_source_stats(request):
     keyed_data.append({str(last_3_month): prev_month_data})
     return JsonResponse({'cumulative_expense_data': keyed_data}, safe=False)
 
+
+def expense_summary_rest(request):
+    all_expenses = Expense.objects.filter(owner=request.user, )
+    today = datetime.datetime.today().date()
+    today_amount = 0
+    months_data = {}
+    week_days_data = {}
+
+    def get_amount_for_month(month):
+        month_amount = 0
+        for one in all_expenses:
+            month_, year = one.date.month, one.date.year
+            if month == month_ and year == today_year:
+                month_amount += one.amount
+        return month_amount
+
+    for x in range(1, 13):
+        today_month, today_year = x, datetime.datetime.today().year
+        for one in all_expenses:
+            months_data[x] = get_amount_for_month(x)
+
+    def get_amount_for_day(x, today_day, month, today_year):
+        day_amount = 0
+        for one in all_expenses:
+            day_, date_, month_, year_ = one.date.isoweekday(
+            ), one.date.day, one.date.month, one.date.year
+            if x == day_ and month == month_ and year_ == today_year:
+                if not day_ > today_day:
+                    day_amount += one.amount
+        return day_amount
+
+    for x in range(1, 8):
+        today_day, today_month, today_year = datetime.datetime.today(
+        ).isoweekday(), datetime.datetime.today(
+        ).month, datetime.datetime.today().year
+        for one in all_expenses:
+            week_days_data[x] = get_amount_for_day(
+                x, today_day, today_month, today_year)
+
+    data = {"months": months_data, "days": week_days_data}
+    return JsonResponse({'data': data}, safe=False)
+
+@login_required(login_url='/authentication/login')
 def expenses_summary_view(request):
-    return render(request, 'personal_budget/expenses/expenses_summary.html')
 
+    all_expenses = Expense.objects.filter(owner=request.user)
+    today = datetime.datetime.today().date()
+    today2 = datetime.date.today()
+    week_ago = today - datetime.timedelta(days=7)
+    month_ago = today - datetime.timedelta(days=30)
+    year_ago = today - datetime.timedelta(days=366)
+    todays_amount = 0
+    todays_count = 0
+    this_week_amount = 0
+    this_week_count = 0
+    this_month_amount = 0
+    this_month_count = 0
+    this_year_amount = 0
+    this_year_count = 0
 
+    for one in all_expenses:
+        if one.date == today:
+            todays_amount += one.amount
+            todays_count += 1
 
+        if one.date >= week_ago:
+            this_week_amount += one.amount
+            this_week_count += 1
 
+        if one.date >= month_ago:
+            this_month_amount += one.amount
+            this_month_count += 1
 
+        if one.date >= year_ago:
+            this_year_amount += one.amount
+            this_year_count += 1
 
-
-
-
-
-
-
+    # currency = Setting.objects.get(user=request.user).currency
+    context = {
+        'today': {
+            'amount': todays_amount,
+            "count": todays_count,
+        },
+        'this_week': {
+            'amount': this_week_amount,
+            "count": this_week_count,
+        },
+        'this_month': {
+            'amount': this_month_amount,
+            "count": this_month_count,
+        },
+        'this_year': {
+            'amount': this_year_amount,
+            "count": this_year_count,
+        },
+    }
+    return render(request, 'personal_budget/expenses/expenses_summary.html', context)
 
 
 # ---->>>>>>>>>> EXPENSES - EXPORT FILES VIEWS <<<<<<<<<<<<----#

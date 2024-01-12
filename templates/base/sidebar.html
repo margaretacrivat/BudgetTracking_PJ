@@ -1,67 +1,68 @@
 {% load static %}
 
-<div class="sidebar col-md-2 d-none d-md-block bg-light">
-    <div class="sidebar-sticky">
-        <h3>Dashboard</h3>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-item-link active" href="{% url 'personal-budget' %}">
-                <span data-feather="home"></span>
-                Dashboard <span class="sr-only">(current)</span>
+<div class="container-sidebar">
+    <nav class="sidebar col-md-2 d-none d-md-block bg-light">
+        <div class="sidebar-sticky">
+            <h3>Dashboard</h3>
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
+                <a class="d-flex align-items-center text-muted"
+                   href="{% url 'personal-budget' %}" aria-label="">
+                    <i class="fa fa-home"></i><span>HOME</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-link" href="{% url 'expenses' %}">
-                    Expenses
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-link" href="{% url 'income' %}">
-                    <span data-feather="shopping-cart"></span>
-                    Income
-                </a>
-            </li>
-        </ul>
+            </h6>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-item-link" href="{% url 'expenses' %}">
+                        <i class="fa fa-file"></i><span>Expenses</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item-link" href="{% url 'income' %}">
+                        <i class="fa fa-money-bill"></i><span>Income</span>
+                    </a>
+                </li>
+            </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
-            <span>Summary</span>
-            <a class="d-flex align-items-center text-muted" href="#" aria-label="">
-                <span data-feather="plus-circle"></span>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-item-link" href="{% url 'expenses-summary' %}">
-                    Expenses Summary
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
+                <a class="d-flex align-items-center text-muted" href=""
+                   aria-label="">
+                    <i class="fa fa-book"></i><span>SUMMARY</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-link" href="#">
-                    <span data-feather="file=text"></span>
-                    Income Summary
-                </a>
-            </li>
-        </ul>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-item-link"
+                       href="{% url 'expenses-summary' %}">
+                        <i class="fa fa-chart-line"></i><span>Expenses Summary</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item-link" href="">
+                        <i class="fa fa-chart-line"></i><span>Income Summary</span>
+                    </a>
+                </li>
+            </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
-            <span>Settings</span>
-            <a class="d-flex align-items-center text-muted" href="#" aria-label="">
-                <span data-feather="plus-circle"></span>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-item-link" href="{% url 'preferences' %}">
-                    Preferences
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center">
+                <a class="d-flex align-items-center text-muted" href=""
+                   aria-label="">
+                    <i class="fa fa-cog"></i><span>SETTINGS</span>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-item-link" href="#">
-                    <span data-feather="file=text"></span>
-                    Account
-                </a>
-            </li>
-        </ul>
+            </h6>
+            <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                    <a class="nav-item-link" href="{% url 'preferences' %}">
+                        <i class="fa fa-chart-line"></i><span>Preferences</span>
+                    </a>
+                </li>
+{#                <li class="nav-item">#}
+{#                    <a class="nav-item-link" href="#">#}
+{#                        <i class="fa fa-chart-line"></i>#}
+{#                        Account#}
+{#                    </a>#}
+{#                </li>#}
+            </ul>
 
-    </div>
+        </div>
+    </nav>
 </div>

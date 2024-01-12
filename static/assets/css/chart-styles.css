@@ -4,19 +4,13 @@ Charts Style
 ---------------------------------------------
 */
 
-.container-summary {
-    margin-left: 110px ;
-    margin-right: 40px;
-}
-
 .chartBox {
     position: relative;
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-gap: 30px;
-    margin-left: 110px;
-    margin-right: 40px;
+    grid-gap: 70px;
+    margin-left: 230px;
     margin-bottom: 100px;
     width: 70%;
     min-height: 200px;
@@ -29,6 +23,23 @@ Charts Style
     width: 100%;
     box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;
     border-radius: 20px;
+}
+
+#dashboard {
+    margin-left: 70px;
+}
+
+.dashboard-section {
+    margin-left: 170px;
+}
+
+.dashboard-column {
+    padding-top: 20px;
+    width: 270px;
+}
+
+.dashboard-column .card {
+    width: 100%;
 }
 
 /*.canvas-chart {*/
