@@ -9,8 +9,8 @@ Charts Style
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-gap: 70px;
-    margin-left: 230px;
+    grid-gap: 120px;
+    margin-left: 150px;
     margin-bottom: 100px;
     width: 70%;
     min-height: 200px;
@@ -25,17 +25,41 @@ Charts Style
     border-radius: 20px;
 }
 
-#dashboard {
-    margin-left: 70px;
+.chartBox-sum {
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 120px;
+    margin-left: 150px;
+    margin-bottom: 70px;
+    width: 70%;
+    min-height: 200px;
 }
 
-.dashboard-section {
-    margin-left: 170px;
+.chartBox-sum .box {
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;
+    border-radius: 20px;
 }
+
+#dashboard {
+    padding-left: 80px;
+    padding-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.dashboard-section {*/
+/*    margin-left: 20px;*/
+/*}*/
 
 .dashboard-column {
     padding-top: 20px;
-    width: 270px;
+    width: 300px;
 }
 
 .dashboard-column .card {
@@ -53,10 +77,11 @@ Charts Style
 /*}*/
 
 
-@media (max-width: 991px) {
+@media (max-width: 780px) {
     .chartBox {
         grid-template-columns: 1fr;
         height: auto;
+        margin-left: 105px;
     }
 
 }

@@ -5,11 +5,11 @@ Container pages dash Style
 */
 
 .container-main {
+    padding-top: 40px;
     position: absolute;
     width: calc(100% - 180px);
     min-height: 100vh;
     left: 180px;
-
 }
 
 
@@ -21,6 +21,11 @@ Purchase Table Style
 
 .container-table {
     width: 100%;
+    padding-top: 20px;
+}
+
+.app-table {
+    padding-top: 20px;
 }
 
  #purchase-form {
@@ -79,9 +84,9 @@ Expenses Table
 }
 
 .breadcrumb {
-    background-color: #dedddd;
+    background-color: rgba(204, 198, 198, 0.9);
     padding: 10px 10px;
-    margin: 5px 5px;
+    margin: 5px 0 5px 20px;
 }
 
 .breadcrumb-item {
@@ -131,11 +136,19 @@ Expenses Table
     margin-top: 0;
 }
 
-.form-group {
-    padding-top: 10px;
-    width: 75%;
+.search-form {
+   /*padding-top: 10px;*/
+   /* width: 80%;*/
 }
 
+.search-form .icon {
+    font-size: 20px;
+    min-width: 60px;
+}
+
+.search-field {
+    width: 50%;
+}
 
 /*
 ---------------------------------------------
@@ -179,42 +192,120 @@ Table Pagination
 }
 
 
-/*make it responsive*/
-@media(max-width:780px){
+/* ---------------- MEDIA QUERIES ----------------*/
+
+/*make it responsive to: Medium size screen <=992 px*/
+@media(max-width:992px){
+    .container-main {
+    width: calc(100% - 50px);
+    min-height: 100vh;
+    left: 50px;
+}
     .container-breadcrumb-bar {
-        margin-left: 60px;
+        margin-left: 0;
     }
     .container-breadcrumb {
-        padding: 0 20px;
+        padding: 0 80px 0 5px;
     }
-
+    .breadcrumb {
+    margin: 5px 0 5px 20px;
+}
     .breadcrumb-event {
         padding: 5px 5px;
     }
     .breadcrumb-event a {
-    min-width: 100px;
-        height: 60px;
+        min-width: 140px;
+        height: 40px;
+    }
+    .search-bar-form {
+        width: 100%;
     }
     .container-tables {
-        padding: 0;
-    margin-left: 50px;
-    margin-right: 10px;
-    margin-top: 15px;
+        padding: 10px 30px 10px 20px;
+        margin-top: 15px;
     }
     .expenses-list {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-    }
-    .chartBox {
-    position: relative;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 70px;
-    margin-left: 160px;
-    margin-bottom: 0;
-    width: 70%;
-    min-height: 200px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 20px;
+        overflow: auto;
     }
 }
+
+/*Small <=768 px*/
+@media screen and (max-width: 768px) {
+    .container-main {
+    width: calc(100% - 50px);
+    min-height: 100vh;
+    left: 50px;
+}
+    .container-breadcrumb-bar {
+        margin-left: 0;
+    }
+    .container-breadcrumb {
+        padding: 0 80px 0 5px;
+    }
+    .breadcrumb {
+    margin: 5px 0 5px 20px;
+}
+    .breadcrumb-event {
+        padding: 5px 5px;
+    }
+    .breadcrumb-event a {
+        min-width: 140px;
+        height: 40px;
+    }
+    .search-bar-form {
+        width: 100%;
+    }
+    .container-tables {
+        padding: 10px 30px 10px 20px;
+        margin-top: 15px;
+    }
+    .expenses-list {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 20px;
+        overflow: auto;
+    }
+}
+
+
+/*Extra Small <=567 px*/
+@media screen and (max-width: 567px) {
+    .container-main {
+    width: calc(100% - 50px);
+    min-height: 100vh;
+    left: 50px;
+}
+    .container-breadcrumb-bar {
+        margin-left: 0;
+    }
+    .container-breadcrumb {
+        padding: 0 80px 0 5px;
+    }
+    .breadcrumb {
+    margin: 5px 0 5px 20px;
+}
+    .breadcrumb-event {
+        padding: 5px 5px;
+    }
+    .breadcrumb-event a {
+        min-width: 140px;
+        height: 40px;
+    }
+    .search-bar-form {
+        width: 100%;
+    }
+    .container-tables {
+        padding: 10px 30px 10px 20px;
+        margin-top: 15px;
+    }
+    .expenses-list {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 20px;
+        overflow: auto;
+    }
+}
+

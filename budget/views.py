@@ -1,31 +1,9 @@
-from msilib import Table
-
-from datatable import dt
-from django.contrib.auth.models import auth
-from django.template.context_processors import request
-from django.urls import reverse_lazy
-from django.contrib.auth.models import User
-from rest_framework import serializers
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, CreateView
 from django.http import HttpResponse, JsonResponse, FileResponse
 from django.template import loader
-from django.template.loader import get_template
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-import json
+
 from .models import Items
-import datetime
-import csv
-import xlwt
-import io
-from reportlab.pdfgen import canvas
-from reportlab.lib import colors
-from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import Table, TableStyle, Paragraph
 
 
 # from django.template.loader import render_to_string

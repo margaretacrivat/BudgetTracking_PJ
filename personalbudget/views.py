@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 import json
 from .models import Expense, Category, Source, Income
 from .forms import ExpenseForm
-from .filters import ExpenseFilter
+# from .filters import ExpenseFilter
 from preferences.models import Currency
 import datetime
 import csv
@@ -29,6 +29,7 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 
 
 # ---->>>>>>>>>> PERSONAL BUDGET - HOMEPAGE VIEW <<<<<<<<<<<<----#
+
 
 def personal_budget_home(request):
     # Logica pentru pagina de inserare a datelor in tabel
