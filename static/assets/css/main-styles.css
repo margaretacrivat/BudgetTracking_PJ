@@ -74,7 +74,15 @@ header, nav, section, article, aside, footer, hgroup {
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    border: 5px dashed red;
 }
 
 html, body {
@@ -370,16 +378,15 @@ Featured Style
 
 .featured .left-image a {
     display: inline-block;
-    width: 90px;
-    height: 90px;
-    line-height: 90px;
+    width: 80px;
+    height: 80px;
+    line-height: 70px;
     background-color: #f35525;
     border-radius: 100%;
     text-align: center;
     position: absolute;
-    left: 0;
-    bottom: -65px;
-    left: -50px;
+    bottom: -45px;
+    left: -20px;
 }
 
 .featured .section-heading {

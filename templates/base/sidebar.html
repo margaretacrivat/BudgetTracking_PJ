@@ -1,29 +1,31 @@
 {% load static %}
 
-<nav class="sidebar close col-md-2 d-none d-md-block bg-light">
+<div class="sidebar close">
 
     <ul class="sidebar-menu">
-        <li class="sidebar-title">
-            <a class="d-flex align-items-center" href="" aria-label="">
-                Dashboard
-            </a>
-        </li>
+{#        <li class="sidebar-title">#}
+{#            <a class="d-flex align-items-center" href="" aria-label="">#}
+{#                 <i class="fa fa-qrcode icon"></i>#}
+{#                Dashboard#}
+{#            </a>#}
+{#        </li>#}
         <li class="sidebar-heading">
-            <a class="title d-flex align-items-center"
+            <a class="d-flex align-items-center"
                href="{% url 'personal-budget' %}" aria-label="">
-                <i class="fa fa-home icon"></i>
-                HOME
+                <i class="fa fa-home home-icon"></i>
+                <span class="title">HOME</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
                     <a class="side-item-link" href="{% url 'expenses' %}">
-                        <i class="fa fa-file icon"></i>Expenses
+                        <i class="fa fa-file icon"></i>
+                        <span class="item-title">Expenses</span>
                     </a>
                 </li>
                 <li class="side-item">
                     <a class="side-item-link" href="{% url 'income' %}">
                         <i class="fa fa-money-bill icon"></i>
-                        Income
+                        <span class="item-title">Income</span>
                     </a>
                 </li>
             </ul>
@@ -31,39 +33,39 @@
 
 
         <li class="sidebar-heading">
-            <a class="title d-flex align-items-center" href=""
+            <a class="d-flex align-items-center" href=""
                aria-label="">
-                <i class="fa fa-book icon"></i>
-                SUMMARY
+                <i class="fa fa-book home-icon"></i>
+                <span class="title">SUMMARY</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
                     <a class="side-item-link"
                        href="{% url 'expenses-summary' %}">
                         <i class="fa fa-chart-line icon"></i>
-                        Expenses Summary
+                        <span class="item-title">Expenses Summary</span>
                     </a>
                 </li>
                 <li class="side-item">
                     <a class="side-item-link" href="">
                         <i class="fa fa-chart-line icon"></i>
-                        Income Summary
+                        <span class="item-title">Income Summary</span>
                     </a>
                 </li>
             </ul>
         </li>
 
         <li class="sidebar-heading">
-            <a class="title d-flex align-items-center" href=""
+            <a class="d-flex align-items-center" href=""
                aria-label="">
-                <i class="fa fa-cog icon"></i>
-                SETTINGS
+                <i class="fa fa-cog home-icon"></i>
+                <span class="title">SETTINGS</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
                     <a class="side-item-link" href="{% url 'preferences' %}">
                         <i class="fa fa-chart-line icon"></i>
-                        Preferences
+                        <span class="item-title">Preferences</span>
                     </a>
                 </li>
             </ul>
@@ -74,6 +76,6 @@
         <i class="fa fa-angle-left" id="toggleIcon"></i>
     </div>
 
-</nav>
+</div>
 
 <script src="{% static 'assets/js/sidebar.js' %}"></script>

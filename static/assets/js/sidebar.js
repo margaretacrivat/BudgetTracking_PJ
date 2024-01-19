@@ -38,7 +38,7 @@ addEventListener("click", ()=>{
 }))
 
 toggle.addEventListener("click", ()=>{
-            sidebar.classList.toggle("close");
+    sidebar.classList.toggle("close");
 });
 
 

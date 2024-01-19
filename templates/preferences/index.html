@@ -3,12 +3,13 @@
 
 {% block title %} Expenses {% endblock %}
 
-<body>
 {% block content %}
+    
+<div class="container-main">
 
     {% include 'base/sidebar.html' %}
-
-    <div class="container-preferences mt-3">
+    
+    <div class="container-preferences">
         <h5>Choose Currency</h5>
 
         <form class="form-preferences" action="{% url 'preferences' %}" method="post">
@@ -59,6 +60,5 @@
     {#        </form>#}
     {#    </div>#}
 
-
+</div>
 {% endblock content %}
-</body>

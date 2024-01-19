@@ -7,12 +7,14 @@
 {% block content %}
 
     {#        Include Sidebar#}
-    {% include 'base/sidebar.html' %}
+
 
     {#    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">#}
     {#        EXPENSES</h3>#}
 
 <div class="container-main">
+
+{% include 'base/sidebar.html' %}
 
         <div class="container-breadcrumb-bar">
             <div class="container-breadcrumb row">
@@ -37,140 +39,146 @@
             </div>
         </div>
 
+    <div class="card-container-expenses"></div>
+    <div class="card-container-expenses"></div>
+    <div class="card-container-expenses"></div>
+
         <div class="container-tables">
-            <div class="expenses-list">
-                {% include 'user/_messages.html' %} {% if expenses.count %}
+{#            <div class="expenses-list">#}
+{#                {% include 'user/_messages.html' %} {% if expenses.count %}#}
                 {# if user has some expenses, then display them #}
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <a href="{% url 'export-csv' %}"
-                           class="btn btn-secondary">Export
-                            CSV</a>
-
-                        <a href="{% url 'export-excel' %}"
-                           class="btn btn-primary">Export
-                            Excel</a>
-
-                        <a href="{% url 'export-pdf' %}" class="btn btn-info">Export
-                            PDF</a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                             <input type="text" class="form-control"
-                                   id="searchField" placeholder="Search...">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="app-table">
-                    <table class="table table-stripped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Cost</th>
-                            <th>Qty</th>
-                            <th>Amount ({{ currency }})</th>
-                            <th>Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for expense in page_obj %}
+{##}
+{#                <div class="row">#}
+{#                    <div class="col-md-8">#}
+{#                        <a href="{% url 'export-csv' %}"#}
+{#                           class="btn btn-secondary">Export#}
+{#                            CSV</a>#}
+{##}
+{#                        <a href="{% url 'export-excel' %}"#}
+{#                           class="btn btn-primary">Export#}
+{#                            Excel</a>#}
+{##}
+{#                        <a href="{% url 'export-pdf' %}" class="btn btn-info">Export#}
+{#                            PDF</a>#}
+{#                    </div>#}
+{#                    <div class="col-md-4">#}
+{#                        <div class="form-group">#}
+{#                            <i class="bx bx-search"></i>#}
+{#                             <input type="text" class="form-control"#}
+{#                                   id="searchField" placeholder="Search...">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="app-table">#}
+{#                    <table class="table table-stripped table-hover">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>Item</th>#}
+{#                            <th>Category</th>#}
+{#                            <th>Description</th>#}
+{#                            <th>Cost</th>#}
+{#                            <th>Qty</th>#}
+{#                            <th>Amount ({{ currency }})</th>#}
+{#                            <th>Date</th>#}
+{#                            <th></th>#}
+{#                            <th></th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody>#}
+{#                        {% for expense in page_obj %}#}
                             {# display dinamic data #}
-                            <tr>
-                                <td>{{ expense.item }}</td>
-                                <td>{{ expense.category }}</td>
-                                <td>{{ expense.description }}</td>
-                                <td>{{ expense.cost }}</td>
-                                <td>{{ expense.qty }}</td>
-                                <td>{{ expense.amount }}</td>
-                                <td>{{ expense.date }}</td>
-
-                                <td>
-                                    <a href="{% url 'edit-expense' expense.id %}"
-                                       class="btn btn-secondary btn-sm">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="{% url 'delete-expense' expense.id %}"
-                                       class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="no-results" style="display: none;">No results </p>
-                <div class="table-output">
-                    <table class="table table-stripped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Category</th>
-                            <th>Description</th>
-                            <th>Cost</th>
-                            <th>Qty</th>
-                            <th>Amount ({{ currency }})</th>
-                            <th>Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody class="table-body">
-                        </tbody>
-                    </table>
-                </div>
-
-
-                <div class="pagination-container">
-                <div class="show-page">
-                    Showing page {{ page_obj.number }}
-                    of {{ page_obj.paginator.num_pages }}
+{#                            <tr>#}
+{#                                <td>{{ expense.item }}</td>#}
+{#                                <td>{{ expense.category }}</td>#}
+{#                                <td>{{ expense.description }}</td>#}
+{#                                <td>{{ expense.cost }}</td>#}
+{#                                <td>{{ expense.qty }}</td>#}
+{#                                <td>{{ expense.amount }}</td>#}
+{#                                <td>{{ expense.date }}</td>#}
+{##}
+{#                                <td>#}
+{#                                    <a href="{% url 'edit-expense' expense.id %}"#}
+{#                                       class="btn btn-secondary btn-sm">Edit</a>#}
+{#                                </td>#}
+{#                                <td>#}
+{#                                    <a href="{% url 'delete-expense' expense.id %}"#}
+{#                                       class="btn btn-danger btn-sm">Delete</a>#}
+{#                                </td>#}
+{#                            </tr>#}
+{#                        {% endfor %}#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                </div>#}
+{##}
+{#                <p class="no-results" style="display: none;">No results </p>#}
+{#                <div class="table-output">#}
+{#                    <table class="table table-stripped table-hover">#}
+{#                        <thead>#}
+{#                        <tr>#}
+{#                            <th>Item</th>#}
+{#                            <th>Category</th>#}
+{#                            <th>Description</th>#}
+{#                            <th>Cost</th>#}
+{#                            <th>Qty</th>#}
+{#                            <th>Amount ({{ currency }})</th>#}
+{#                            <th>Date</th>#}
+{#                            <th></th>#}
+{#                            <th></th>#}
+{#                        </tr>#}
+{#                        </thead>#}
+{#                        <tbody class="table-body">#}
+{#                        </tbody>#}
+{#                    </table>#}
+{#                </div>#}
+{##}
+{##}
+{#                <div class="pagination-container">#}
+{#                <div class="show-page">#}
+{#                    Showing page {{ page_obj.number }}#}
+{#                    of {{ page_obj.paginator.num_pages }}#}
                     {# returns a number of our current page#}
-                </div>
-
-                <ul class="show-pagination pagination align-right float-right mr-auto">
-                    {% if page_obj.has_previous %}
-                        <li {% if page_obj.number == 1 %}
-                            class="page-item active" {% endif %}><a
-                                class="page-link" href="?page=1">&laquo; 1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                        </li>
-                    {% endif %}
-
-                    {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.next_page_number }}">Next</a>
-                        </li>
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
-                            &raquo;</a></li>
-                    {% endif %}
-
-                </ul>
-            {% endif %}
-                </div>
-
-            </div>
-            <br><br>
-            <div class="chartBox">
-                <div class="box col-md-8 mt-2">
-                    <canvas id="expensesCategoryChart" width="400"
-                            height="400"></canvas>
-                </div>
-                <div class="box col-md-4 mt-2">
+{#                </div>#}
+{##}
+{#                <ul class="show-pagination pagination align-right float-right mr-auto">#}
+{#                    {% if page_obj.has_previous %}#}
+{#                        <li {% if page_obj.number == 1 %}#}
+{#                            class="page-item active" {% endif %}><a#}
+{#                                class="page-link" href="?page=1">&laquo; 1</a>#}
+{#                        </li>#}
+{#                        <li class="page-item"><a class="page-link"#}
+{#                                                 href="?page={{ page_obj.previous_page_number }}">Previous</a>#}
+{#                        </li>#}
+{#                    {% endif %}#}
+{##}
+{#                    {% if page_obj.has_next %}#}
+{#                        <li class="page-item"><a class="page-link"#}
+{#                                                 href="?page={{ page_obj.next_page_number }}">Next</a>#}
+{#                        </li>#}
+{#                        <li class="page-item"><a class="page-link"#}
+{#                                                 href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}#}
+{#                            &raquo;</a></li>#}
+{#                    {% endif %}#}
+{##}
+{#                </ul>#}
+{#            {% endif %}#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            <br><br>#}
+{##}
+{#        </div>#}
+{#            <div class="container-charts">#}
+{#                <div class="box">#}
+{#                    <canvas id="expensesCategoryChart" width="400"#}
+{#                            height="400"></canvas>#}
+{#                </div>#}
+{#                <div class="box">#}
                     {#          <h4>Expenses Chart</h4>#}
-                    <canvas id="cmchart" width="400" height="400"></canvas>
-                </div>
-            </div>
+{#                    <canvas id="cmchart" width="400" height="400"></canvas>#}
+{#                </div>#}
+{#            </div>#}
         </div>
-
 </div>
 
 

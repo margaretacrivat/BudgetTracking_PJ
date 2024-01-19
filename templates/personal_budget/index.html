@@ -6,47 +6,74 @@
 <body>
 {% block content %}
 {#    Include Sidebar #}
+
+
+
+    <div class="container-main">
+
     {% include 'base/sidebar.html' %}
 
-{#    Include Table Title #}
-    <div class="table-title">
-        Table title
+    <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-10">
+                    <nav aria-label="breadcrumb-nav">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="">Personal Budget</a>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page">
+                                Home
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
     </div>
 
-    <hr style="border-top:1px solid #000; clear:both; margin-left: 200px; margin-right: 20px;">
-    <div class="data-table">
-        <table class="table table-bordered" id="my_purchases">
-            <thead class="table-head">
-            <tr>
-                <th>Person Name</th>
-                <th>Item</th>
-                <th>Category</th>
-                <th>Cost</th>
-                <th>Qty</th>
-                <th>Amount</th>
-            </tr>
-            </thead>
-            <tbody class="table-body">
-            {% for expense in expenses %}
-                <tr>
-                    <td>{{ purchase.person_name }}</td>
-                    <td>{{ purchase.item }}></td>
-                    <td>{{ purchase.category }}></td>
-                    <td>{{ purchase.cost }}</td>
-                    <td>{{ purchase.qty }}</td>
-                    <td>{{ purchase.amount }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
+    <div class="container-tables">
+      <div class="card-container"></div>  
+        
+    </div>
+{#    Include Table Title #}
+{#    <div class="table-title">#}
+{#        Table title#}
+{#    </div>#}
+{##}
+{#    <hr style="border-top:1px solid #000; clear:both; margin-left: 200px; margin-right: 20px;">#}
+{#    <div class="data-table">#}
+{#        <table class="table table-bordered" id="my_purchases">#}
+{#            <thead class="table-head">#}
+{#            <tr>#}
+{#                <th>Person Name</th>#}
+{#                <th>Item</th>#}
+{#                <th>Category</th>#}
+{#                <th>Cost</th>#}
+{#                <th>Qty</th>#}
+{#                <th>Amount</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody class="table-body">#}
+{#            {% for expense in expenses %}#}
+{#                <tr>#}
+{#                    <td>{{ purchase.person_name }}</td>#}
+{#                    <td>{{ purchase.item }}></td>#}
+{#                    <td>{{ purchase.category }}></td>#}
+{#                    <td>{{ purchase.cost }}</td>#}
+{#                    <td>{{ purchase.qty }}</td>#}
+{#                    <td>{{ purchase.amount }}</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
             {#            <tfoot>#}
             {#            <tr>#}
             {#                <td colspan="7"><input type="button" class="btn btn-primary"#}
             {#                                       value="Add Row" id="addRow"></td>#}
             {#            </tr>#}
             {#            </tfoot>#}
-        </table>
+{#        </table>#}
+{#    </div>#}
     </div>
-
 
 {#    <!-- Scripts -->#}
 {#    <!-- Bootstrap core JavaScript -->#}
@@ -62,5 +89,4 @@
 
 
 {% endblock content %}
-
 </body>

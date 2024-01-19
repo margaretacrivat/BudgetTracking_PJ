@@ -4,37 +4,44 @@ Charts Style
 ---------------------------------------------
 */
 
-.chartBox {
+.container-charts {
     position: relative;
     padding: 20px;
+    margin-left: 20px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 120px;
-    margin-left: 150px;
-    margin-bottom: 100px;
-    width: 70%;
-    min-height: 200px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 90%;
+    /*min-height: 200px;*/
+    background: #0dcaf0;
 }
 
-.chartBox .box {
+
+.container-charts .box {
     position: relative;
     background: #fff;
     padding: 20px;
-    width: 100%;
+    margin-left: 85px;
+    width: 70%;
     box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;
     border-radius: 20px;
 }
 
+#expensesCategoryChart, #cmchart {
+    align-content: center;
+}
+
 .chartBox-sum {
     position: relative;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-gap: 120px;
-    margin-left: 150px;
-    margin-bottom: 70px;
-    width: 70%;
-    min-height: 200px;
+    grid-gap: 30px;
+    /*margin-left: 60px;*/
+    /*margin-bottom: 20px;*/
+    /*width: 70%;*/
+    /*min-height: 200px;*/
 }
 
 .chartBox-sum .box {
@@ -78,10 +85,13 @@ Charts Style
 
 
 @media (max-width: 780px) {
-    .chartBox {
+    .container-charts{
         grid-template-columns: 1fr;
         height: auto;
-        margin-left: 105px;
+        /*width: 60%;*/
+    }
+    .container-charts .box {
+        margin-left: 60px;
     }
 
 }

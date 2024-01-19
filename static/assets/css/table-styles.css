@@ -4,24 +4,81 @@ Container pages dash Style
 ---------------------------------------------
 */
 
+/*:root {*/
+/*    height: 100vh;*/
+/*}*/
+/*body {*/
+/*    min-height: 100vh;*/
+/*}*/
+
 .container-main {
-    padding-top: 40px;
-    position: absolute;
-    width: calc(100% - 180px);
-    min-height: 100vh;
-    left: 180px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas:
+        "side header"
+        "side main";
+    width: 100%;
+    height: 100vh;
+    /*gap: 20px;*/
+    /*padding-top: 55px;*/
+    /*position: absolute;*/
+    /*min-height: 100vh;*/
+    padding: 55px 7px 7px 7px;
+    /*left: 180px;*/
+    background: #0d9655;
+}
+
+.container-tables {
+    background: yellowgreen;
+    grid-area: main;
 }
 
 
 /*
 ---------------------------------------------
-Purchase Table Style
+Personal Budget - Home Page Table
 ---------------------------------------------
 */
 
-.container-table {
-    width: 100%;
-    padding-top: 20px;
+.card-container {
+    background: #f6f7f9;
+    border-radius: 10px;
+}
+
+/*
+---------------------------------------------
+Personal Budget - Expenses Page Table
+---------------------------------------------
+*/
+
+.card-container-expenses {
+    background: #f6f7f9;
+    border-radius: 10px;
+}
+
+/*.container-table {*/
+/*    width: 100%;*/
+/*    padding-top: 20px;*/
+/*    margin-bottom: 100px;*/
+/*}*/
+
+/*.container-tables .form-group {*/
+/*    padding-right: 30px;*/
+/*}*/
+
+.container-tables #searchField {
+    font-size: 16px;
+    padding: 10px 30px 10px 40px;
+}
+
+.container-tables .bx.bx-search {
+    position: absolute;
+    /*top: 10%;*/
+    /*left: 0;*/
+    padding-left: 10px;
+    font-size: 20px;
+    transform: translateY(110%);
 }
 
 .app-table {
@@ -36,7 +93,7 @@ Purchase Table Style
     font-size: 22px;
     font-weight: 500;
     margin-top: 20px;
-    margin-left: 220px;
+    /*margin-left: 220px;*/
     color:dodgerblue;
     text-decoration: underline;
 }
@@ -54,8 +111,9 @@ Purchase Table Style
 }
 
 .data-table {
-    margin-left: 195px;
-    margin-right: 20px;
+    /*margin-left: 195px;*/
+    /*margin-right: 20px;*/
+    margin-bottom: 0;
 }
 
 .table-head {
@@ -70,57 +128,52 @@ Purchase Table Style
 
 /*
 ---------------------------------------------
-Expenses Table
+BREADCRUMB BAR Styles
 ---------------------------------------------
 */
 
-/* expenses breadcrumb*/
-.container-breadcrumb-bar {
-    margin-top: 15px;
-}
+/*.container-breadcrumb-bar {*/
+/*    padding-top: 15px;*/
+/*}*/
 
-.container-breadcrumb {
+.container-breadcrumb-bar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background: red;
+    grid-area: header;
 }
 
 .breadcrumb {
-    background-color: rgba(204, 198, 198, 0.9);
+    /*background-color: rgba(204, 198, 198, 0.9);*/
     padding: 10px 10px;
-    margin: 5px 0 5px 20px;
+    margin: 5px 0 5px 10px;
 }
 
-.breadcrumb-item {
-    color: #444;
-}
+/*.breadcrumb-item {*/
+/*    color: #444;*/
+/*}*/
 
-.breadcrumb-event {
-    padding: 10px 10px;
-}
+/*.breadcrumb-event {*/
+/*    padding: 10px 10px;*/
+/*}*/
 
-.breadcrumb-event a {
-    min-width: 128px;
-    font-weight: 500;
-    color: white;
-    background:  green;
-    border: 1px solid darkgrey;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-}
+/*.breadcrumb-event a {*/
+/*    !*min-width: 20px;*!*/
+/*    font-weight: 500;*/
+/*    color: white;*/
+/*    background:  green;*/
+/*    border: 1px solid darkgrey;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, .2);*/
+/*}*/
 
-.breadcrumb-event:hover a {
-    color: white;
-    background: #b6afaf;
-}
+/*.breadcrumb-event:hover a {*/
+/*    color: white;*/
+/*    background: #b6afaf;*/
+/*}*/
 
-/*container tables*/
-.container-tables {
-    margin-top: 15px;
-}
-
-.expenses-list {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 20px;
-}
+/*.expenses-list {*/
+/*    margin: 20px 20px 20px 20px;*/
+/*    background: #0a53be;*/
+/*}*/
 
 /*expenses card */
 .card-form {
@@ -194,118 +247,132 @@ Table Pagination
 
 /* ---------------- MEDIA QUERIES ----------------*/
 
-/*make it responsive to: Medium size screen <=992 px*/
-@media(max-width:992px){
-    .container-main {
-    width: calc(100% - 50px);
-    min-height: 100vh;
-    left: 50px;
-}
-    .container-breadcrumb-bar {
-        margin-left: 0;
-    }
-    .container-breadcrumb {
-        padding: 0 80px 0 5px;
-    }
-    .breadcrumb {
-    margin: 5px 0 5px 20px;
-}
-    .breadcrumb-event {
-        padding: 5px 5px;
-    }
-    .breadcrumb-event a {
-        min-width: 140px;
-        height: 40px;
-    }
-    .search-bar-form {
-        width: 100%;
-    }
-    .container-tables {
-        padding: 10px 30px 10px 20px;
-        margin-top: 15px;
-    }
-    .expenses-list {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 20px;
-        overflow: auto;
-    }
-}
+/*!*make it responsive to: Medium size screen <=992 px*!*/
+/*@media(max-width:992px){*/
+/*    .container-main {*/
+/*        !*padding-left: 0;*!*/
+/*        padding: 55px 7px 7px 0;*/
+/*        !*left: 20px;*!*/
+/*    }*/
+/*    !*!*width: 110%;*!*!*/
+/*    !*!*min-height: 100vh;*!*!*/
+/*    !*!*padding-left: 60px;*!*!*/
+/*    !*}*!*/
+/*    .container-breadcrumb-bar {*/
+/*        margin-left: 0;*/
+/*    }*/
+/*    .container-breadcrumb {*/
+/*        padding: 0 80px 0 5px;*/
+/*    }*/
+/*    .breadcrumb {*/
+/*    margin: 5px 0 5px 20px;*/
+/*}*/
+/*    .breadcrumb-event {*/
+/*        padding: 5px 5px;*/
+/*    }*/
+/*    .breadcrumb-event a {*/
+/*        min-width: 140px;*/
+/*        height: 40px;*/
+/*    }*/
+/*    .search-bar-form {*/
+/*        width: 100%;*/
+/*    }*/
+    /*.container-tables {*/
+    /*    padding: 10px 30px 10px 20px;*/
+    /*    margin-top: 15px;*/
+    /*}*/
+    /*.expenses-list {*/
+    /*    margin-left: 10px;*/
+    /*    margin-right: 10px;*/
+    /*    margin-top: 20px;*/
+    /*    overflow: auto;*/
+    /*}*/
+/*}*/
 
 /*Small <=768 px*/
-@media screen and (max-width: 768px) {
-    .container-main {
-    width: calc(100% - 50px);
-    min-height: 100vh;
-    left: 50px;
-}
-    .container-breadcrumb-bar {
-        margin-left: 0;
-    }
-    .container-breadcrumb {
-        padding: 0 80px 0 5px;
-    }
-    .breadcrumb {
-    margin: 5px 0 5px 20px;
-}
-    .breadcrumb-event {
-        padding: 5px 5px;
-    }
-    .breadcrumb-event a {
-        min-width: 140px;
-        height: 40px;
-    }
-    .search-bar-form {
-        width: 100%;
-    }
-    .container-tables {
-        padding: 10px 30px 10px 20px;
-        margin-top: 15px;
-    }
-    .expenses-list {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 20px;
-        overflow: auto;
-    }
-}
+/*@media screen and (max-width: 768px) {*/
+/*    .container-main {*/
+/*        padding: 55px 7px 7px 0;*/
+/*        !*left: 0;*!*/
+/*    }*/
+/*!*    .container-main {*!*/
+/*!*    width: calc(100% - 50px);*!*/
+/*!*    min-height: 100vh;*!*/
+/*!*    left: 50px;*!*/
+/*!*}*!*/
+/*    .container-breadcrumb-bar {*/
+/*        margin-left: 0;*/
+/*    }*/
+/*    .container-breadcrumb {*/
+/*        padding: 0 80px 0 5px;*/
+/*    }*/
+/*    .breadcrumb {*/
+/*    margin: 5px 0 5px 20px;*/
+/*}*/
+/*    .breadcrumb-event {*/
+/*        padding: 5px 5px;*/
+/*    }*/
+/*    .breadcrumb-event a {*/
+/*        min-width: 140px;*/
+/*        height: 40px;*/
+/*    }*/
+/*    .search-bar-form {*/
+/*        width: 100%;*/
+/*    }*/
+/*    .container-tables {*/
+/*        padding: 10px 10px 10px 10px;*/
+/*        margin-top: 15px;*/
+/*    }*/
+/*    .expenses-list {*/
+/*        margin-left: 10px;*/
+/*        margin-right: 10px;*/
+/*        margin-top: 20px;*/
+/*        overflow: auto;*/
+/*        font-size: 10px;*/
+/*    }*/
+/*}*/
 
 
 /*Extra Small <=567 px*/
-@media screen and (max-width: 567px) {
-    .container-main {
-    width: calc(100% - 50px);
-    min-height: 100vh;
-    left: 50px;
-}
-    .container-breadcrumb-bar {
-        margin-left: 0;
-    }
-    .container-breadcrumb {
-        padding: 0 80px 0 5px;
-    }
-    .breadcrumb {
-    margin: 5px 0 5px 20px;
-}
-    .breadcrumb-event {
-        padding: 5px 5px;
-    }
-    .breadcrumb-event a {
-        min-width: 140px;
-        height: 40px;
-    }
-    .search-bar-form {
-        width: 100%;
-    }
-    .container-tables {
-        padding: 10px 30px 10px 20px;
-        margin-top: 15px;
-    }
-    .expenses-list {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 20px;
-        overflow: auto;
-    }
-}
+/*@media screen and (max-width: 567px) {*/
+/*    .container-main {*/
+/*        padding: 55px 7px 7px 0;*/
+/*        !*left: 0;*!*/
+/*    }*/
+/*!*    .container-main {*!*/
+/*!*    width: calc(100% - 50px);*!*/
+/*!*    min-height: 100vh;*!*/
+/*!*    left: 50px;*!*/
+/*!*}*!*/
+/*    .container-breadcrumb-bar {*/
+/*        margin-left: 0;*/
+/*    }*/
+/*    .container-breadcrumb {*/
+/*        padding: 0 10px 0 5px;*/
+/*    }*/
+/*    .breadcrumb {*/
+/*        margin: 5px 0 5px 20px;*/
+/*    }*/
+/*    .breadcrumb-event {*/
+/*        padding: 5px 5px;*/
+/*    }*/
+/*    .breadcrumb-event a {*/
+/*        !*min-width: 20px;*!*/
+/*        height: 40px;*/
+/*    }*/
+/*    .search-bar-form {*/
+/*        width: 100%;*/
+/*    }*/
+/*    .container-tables {*/
+/*        padding: 10px 10px 10px 10px;*/
+/*        margin-top: 15px;*/
+/*    }*/
+/*    .expenses-list {*/
+/*        margin-left: 10px;*/
+/*        margin-right: 10px;*/
+/*        margin-top: 20px;*/
+/*        overflow: auto;*/
+/*        font-size: 6px;*/
+/*    }*/
+/*}*/
 

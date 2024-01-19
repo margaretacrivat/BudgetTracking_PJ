@@ -16,6 +16,13 @@ Navbar Style
     transition: all .5s ease 0s;
 }
 
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+}
+
 /* Style the Logo*/
 
 .navbar-logo a {
@@ -204,15 +211,15 @@ Navbar Media Style
 
 /* scaling things inside media queries for navbar menu */
 
-@media only screen and (max-width: 1370px) {
+@media only screen and (max-width: 1372px) {
     .navbar-menu {
         flex-basis: 0;
-        margin-left: 600px;;
+        margin-left: 620px;;
         position: fixed;
         justify-content: space-between;
     }
     .navbar-left-side {
-        padding-right: 40px;
+        padding-right: 30px;
     }
 }
 

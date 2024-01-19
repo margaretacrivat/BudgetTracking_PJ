@@ -6,13 +6,13 @@ Preferences Style
 
 
 .container-preferences {
-    margin-left: 150px;
+    /*margin-left: 150px;*/
     padding-top: 10px;
 }
 
 .container-preferences h5 {
     color: #49494f;
-    margin-left: 60px;
+    /*margin-left: 60px;*/
     text-transform: uppercase;
 }
 
@@ -32,7 +32,7 @@ Preferences Style
 
 .custom-select {
     margin: 5px 0;
-    padding-right: 700px;
+    /*padding-right: 700px;*/
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 4px 4px 4px 4px;
