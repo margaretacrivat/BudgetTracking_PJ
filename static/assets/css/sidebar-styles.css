@@ -69,7 +69,7 @@
 .sidebar-menu .sidebar-heading {
     color: #fff;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 30px;
     padding-left: 12px;
     font-size: 1.05rem;
     border-bottom: 1px solid #d24f17;
@@ -107,7 +107,7 @@
     color: #1a1d20;
     display: flex;
     align-items: center;
-    padding: 0 4px;
+    /*padding: 0 4px;*/
 }
 
 .sidebar-menu .side-item:hover .side-item-link {
@@ -134,10 +134,10 @@
 }
 
 .open-menu #toggleIcon {
-    /*display: inline;*/
+    display: inline;
     position: absolute;
     font-size: 22px;
-    top: 50%;
+    top: 5%;
     color: white;
     /*margin-left: 30px;*/
     right: -12px;

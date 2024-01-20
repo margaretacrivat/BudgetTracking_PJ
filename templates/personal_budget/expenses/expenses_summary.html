@@ -6,13 +6,15 @@
 {% block content %}
     {% load humanize %}
 
-    {% include 'base/sidebar.html' %}
+    
 
 {#    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">#}
 {#        EXPENSES SUMMARY</h3>#}
 
 <div class="container-main">
 
+{% include 'base/sidebar.html' %}
+    
     <div class="container-breadcrumb-bar">
         <div class="container-breadcrumb row">
             <div class="col-md-10">
@@ -35,110 +37,110 @@
     </div>
 
 
-    <section id="dashboard" >
-        <div class="dashboard-section">
-            <div class="row">
-                <div class="dashboard-column">
-                    <div class="card text-white bg-primary mb-2"
-                         style="max-width: 18rem;">
-                        <div class="card-header">TODAY <h5
-                                class="float-right"><span
-                                class="badge  badge-light ">{{ today.count }}</span>
-                        </h5></div>
-                        <div class="card-body">
-                            <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ today.amount }} {{ currency }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-column col-md-2">
-                    <div class="card text-white bg-secondary mb-3"
-                         style="max-width: 18rem;">
-                        <div class="card-header">THIS WEEK <h5
-                                class="float-right"><span
-                                class="badge  badge-light ">{{ this_week.count }} </span>
-                        </h5></div>
-                        <div class="card-body">
-                            <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_week.amount }} {{ currency }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-column col-md-2">
-                    <div class="card text-white bg-success mb-3"
-                         style="max-width: 18rem;">
-                        <div class="card-header">THIS MONTH <h5
-                                class="float-right"><span
-                                class="badge  badge-light ">{{ this_month.count }}</span>
-                        </h5></div>
-                        <div class="card-body">
-                            <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_month.amount }} {{ currency }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard-column col-md-2">
-                    <div class="card text-white bg-info mb-3"
-                         style="max-width: 18rem;">
-                        <div class="card-header">THIS YEAR <h5
-                                class="float-right"><span
-                                class="badge  badge-light ">{{ this_year.count }}</span>
-                        </h5></div>
-                        <div class="card-body">
-                            <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_year.amount }} {{ currency }}</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div id="loading-stuff" style="">
-                <div class="spinner-grow text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-secondary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-danger" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-warning" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-info" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-light" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-dark" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
+{#    <section id="dashboard" >#}
+{#        <div class="dashboard-section">#}
+{#            <div class="row">#}
+{#                <div class="dashboard-column">#}
+{#                    <div class="card text-white bg-primary mb-2"#}
+{#                         style="max-width: 18rem;">#}
+{#                        <div class="card-header">TODAY <h5#}
+{#                                class="float-right"><span#}
+{#                                class="badge  badge-light ">{{ today.count }}</span>#}
+{#                        </h5></div>#}
+{#                        <div class="card-body">#}
+{#                            <i class="fa fa-money-bill-alt"></i>#}
+{#                            <p class="card-text">{{ today.amount }} {{ currency }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="dashboard-column col-md-2">#}
+{#                    <div class="card text-white bg-secondary mb-3"#}
+{#                         style="max-width: 18rem;">#}
+{#                        <div class="card-header">THIS WEEK <h5#}
+{#                                class="float-right"><span#}
+{#                                class="badge  badge-light ">{{ this_week.count }} </span>#}
+{#                        </h5></div>#}
+{#                        <div class="card-body">#}
+{#                            <i class="fa fa-money-bill-alt"></i>#}
+{#                            <p class="card-text">{{ this_week.amount }} {{ currency }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="dashboard-column col-md-2">#}
+{#                    <div class="card text-white bg-success mb-3"#}
+{#                         style="max-width: 18rem;">#}
+{#                        <div class="card-header">THIS MONTH <h5#}
+{#                                class="float-right"><span#}
+{#                                class="badge  badge-light ">{{ this_month.count }}</span>#}
+{#                        </h5></div>#}
+{#                        <div class="card-body">#}
+{#                            <i class="fa fa-money-bill-alt"></i>#}
+{#                            <p class="card-text">{{ this_month.amount }} {{ currency }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="dashboard-column col-md-2">#}
+{#                    <div class="card text-white bg-info mb-3"#}
+{#                         style="max-width: 18rem;">#}
+{#                        <div class="card-header">THIS YEAR <h5#}
+{#                                class="float-right"><span#}
+{#                                class="badge  badge-light ">{{ this_year.count }}</span>#}
+{#                        </h5></div>#}
+{#                        <div class="card-body">#}
+{#                            <i class="fa fa-money-bill-alt"></i>#}
+{#                            <p class="card-text">{{ this_year.amount }} {{ currency }}</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
+{##}
+{#    <div class="row">#}
+{#        <div class="col-md-6">#}
+{#            <div id="loading-stuff" style="">#}
+{#                <div class="spinner-grow text-primary" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-secondary" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-success" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-danger" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-warning" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-info" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-light" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#                <div class="spinner-grow text-dark" role="status">#}
+{#                    <span class="sr-only">Loading...</span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
     {# ADD CHARTS #}
-    <div class="chartBox-sum">
-        <div class="box col-md-4 mt-2">
+{#    <div class="chartBox-sum">#}
+{#        <div class="box col-md-4 mt-2">#}
             {#                    <h4>Expenses Chart</h4>#}
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
-        <div class="box col-md-4 mt-2">
+{#            <canvas id="myChart" width="400" height="400"></canvas>#}
+{#        </div>#}
+{#        <div class="box col-md-4 mt-2">#}
             {#                    <h4>Expenses Chart</h4>#}
-            <canvas id="myChartOne" width="400" height="400"></canvas>
-        </div>
-
+{#            <canvas id="myChartOne" width="400" height="400"></canvas>#}
+{#        </div>#}
+{##}
         {#            </div>#}
-    </div>
+{#    </div>#}
 
 </div>
 

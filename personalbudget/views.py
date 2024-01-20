@@ -385,8 +385,7 @@ def last_3months_expense_source_stats(request):
 
     last_month_expense = Expense.objects.filter(owner=request.user,
                                                 date__gte=last_month,
-                                                date__lte=todays_date).order_by(
-        'date')
+                                                date__lte=todays_date).order_by('date')
     prev_month_expense = Expense.objects.filter(owner=request.user,
                                                 date__gte=last_month,
                                                 date__lte=last_2_month)

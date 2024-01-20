@@ -6,13 +6,14 @@
 <body>
 {% block content %}
 
-    {#    Include Sidebar #}
+<div class="container-main">
+
     {% include 'base/sidebar.html' %}
 
-    <div class="container-expenses mt-4">
-        <div class="row">
+    <div class="container-breadcrumb-bar">
+        <div class="container-breadcrumb row">
             <div class="col-md-10">
-                <nav class="container-breadcrumb" aria-label="breadcrumb">
+                <nav aria-label="breadcrumb-nav">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a
                                 href="{% url 'expenses' %}">Expenses</a>
@@ -23,15 +24,17 @@
                     </ol>
                 </nav>
             </div>
-            <div class="col-md-2">
+
+            <div class="breadcrumb-event-delete col-md-2">
                 <a href="{% url 'delete-expense' expense.id %}"
-                   class="btn btn-danger btn-sm">Delete</a>
+                   class="btn btn-danger">Delete</a>
             </div>
         </div>
+    </div>
 
-
-        <div class="card-expenses">
-            <div class="card-body">
+{#<div class="container-expenses">#}
+        <div class="edit-form">
+            <div class="edit-form-body" id="editForm">
                 <form action="{% url 'edit-expense' expense.id %}"
                       method="post">
                     {% include 'user/_messages.html' %} {% csrf_token %}
@@ -85,10 +88,11 @@
                     <input type="submit" value="Save"
                            class="btn btn-primary btn-primary-sm">
                 </form>
-            </div>
+{#            </div>#}
         </div>
 
-    </div>
+{#    </div>#}
+</div>
 
 {% endblock content %}
 </body>

@@ -5,19 +5,22 @@ Preferences Style
 */
 
 
-.container-preferences {
+.card-preferences {
     /*margin-left: 150px;*/
+    background: #3d63af;
+    border-radius: 10px;
     padding-top: 10px;
+    grid-area: main;
 }
 
-.container-preferences h5 {
+.card-preferences h5 {
     color: #49494f;
-    /*margin-left: 60px;*/
+    margin-left: 20px;
     text-transform: uppercase;
 }
 
 .form-preferences {
-    padding: 10px 60px;
+    padding: 10px 0;
 }
 
 .input-group-append {
@@ -25,7 +28,7 @@ Preferences Style
 }
 
 .input-group-append button {
-    margin: 5px 0;
+    /*margin: 5px 0;*/
     color: #19b619;
     box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
 }
@@ -33,6 +36,7 @@ Preferences Style
 .custom-select {
     margin: 5px 0;
     /*padding-right: 700px;*/
+    /*padding-right: 200px;*/
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 4px 4px 4px 4px;
@@ -49,4 +53,11 @@ Preferences Style
     background: #f3f3f3;
 }
 
+/* ---------------- MEDIA QUERIES ----------------*/
 
+/*make it responsive to: Medium size screen <=992 px*/
+@media only screen and (min-width: 500px) and (max-width: 1024px) {
+    .custom-select {
+        padding-right: 0;
+    }
+}

@@ -5,13 +5,12 @@
 
 <body>
 {% block content %}
-
-    {#    Include Sidebar #}
-    {% include 'base/sidebar.html' %}
-
+    
     {#    <h1 style="margin-left: 200px;padding-top: 10px;">Add Expense</h1>#}
 
 <div class="container-main">
+
+    {% include 'base/sidebar.html' %}
 
     <div class="container-breadcrumb-bar">
         <div class="container-breadcrumb row">
@@ -28,8 +27,8 @@
         </div>
     </div>
 
-    <div class="card-form">
-        <div class="card-body">
+    <div class="add-form">
+        <div class="add-form-body" id="addForm">
             <form action="{% url 'add-expense' %}" method="post">
                 {% include 'user/_messages.html' %} {% csrf_token %}
                 <div class="form-group">
