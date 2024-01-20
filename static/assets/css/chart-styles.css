@@ -27,7 +27,7 @@ Charts Style
     border-radius: 20px;
 }
 
-#expensesCategoryChart, #cmchart {
+#expensesCategoryChart, #monthsExpensesChart {
     align-content: center;
 }
 

@@ -1,6 +1,6 @@
-// cmChart
+// monthsExpensesChart
 
-const showCMChart = (data) => {
+const showMonthsExpensesChart = (data) => {
 
     let labels = []
     const monthsdata = []
@@ -21,7 +21,7 @@ const showCMChart = (data) => {
         return values
     }
 
-    var monthCumulative = document.getElementById("cmchart");
+    var monthCumulative = document.getElementById("monthsExpensesChart");
     var dataFirst = {
         label: getMonthRep(labels[0]),
         data: monthsdata[0],
@@ -99,8 +99,8 @@ const getCumulativeExpenses = () => {
     console.log('expenses_source');
     fetch('/personalbudget/last_3months_expense_source_stats')
         .then(res => res.json()).then(data => {
-        // console.log('data', data)
-        showCMChart(data);
+        console.log('data', data)
+        showMonthsExpensesChart(data);
     });
 }
 

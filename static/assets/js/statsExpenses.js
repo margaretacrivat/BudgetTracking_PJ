@@ -1,4 +1,4 @@
-const renderexpensesCategoryChart = (data, labels) => {
+const renderExpensesCategoryChart = (data, labels) => {
     var ctx = document.getElementById('expensesCategoryChart').getContext('2d');
     var expensesCategoryChart = new Chart(ctx, {
         type: 'polarArea',
@@ -52,7 +52,7 @@ const getCategoryData = () => {
                 Object.values(category_data),
             ];
 
-            renderexpensesCategoryChart(data, labels);
+            renderExpensesCategoryChart(data, labels);
         });
 };
 

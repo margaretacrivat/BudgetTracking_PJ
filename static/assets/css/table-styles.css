@@ -4,13 +4,6 @@ Container pages Style
 ---------------------------------------------
 */
 
-/*:root {*/
-/*    height: 100vh;*/
-/*}*/
-/*body {*/
-/*    min-height: 100vh;*/
-/*}*/
-
 .container-main {
     box-sizing: content-box;
     display: grid;
@@ -30,7 +23,6 @@ Container pages Style
     /*left: 180px;*/
     background: #0d9655;
 }
-
 
 /*
 ---------------------------------------------
@@ -55,8 +47,9 @@ BREADCRUMB BAR Styles
     color: #444;
 }
 
-.breadcrumb-event-add, .breadcrumb-event-delete {
+.breadcrumb-event-add, .breadcrumb-event-delete, .breadcrumb-event-back {
     padding: 5px 5px;
+    margin-left: 60px;
 }
 
 .breadcrumb-event-add a {
@@ -75,11 +68,6 @@ BREADCRUMB BAR Styles
     background: #b6afaf;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
-
-/*.expenses-list {*/
-/*    margin: 20px 20px 20px 20px;*/
-/*    background: #0a53be;*/
-/*}*/
 
 
 /*
@@ -114,7 +102,30 @@ ADD Expense
 
 /*
 ---------------------------------------------
-Edit & Delete Expense
+Export Files and Search Field Styles
+---------------------------------------------
+*/
+
+#searchField {
+    width: 80%;
+    font-size: 16px;
+    padding: 5px 0 5px 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.container-tables .bx.bx-search {
+    position: absolute;
+    /*top: 18%;*/
+    /*left: 0;*/
+    padding-left: 5px;
+    font-size: 18px;
+    /*min-width: 60px;*/
+    transform: translateY(110%);
+}
+
+/*
+---------------------------------------------
+Edit Expense
 ---------------------------------------------
 */
 
@@ -136,16 +147,13 @@ Edit & Delete Expense
         "editForm";
 }
 
-
-
-
 /*
 ---------------------------------------------
 Container Expenses page
 ---------------------------------------------
 */
 
-.container-expenses {
+.container-tables {
     background: yellowgreen;
     margin-top: 10px;
     padding: 40px;
@@ -175,7 +183,6 @@ Container Expenses page
     grid-area: searchTableField;
     background: orange;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     /*padding-bottom: 5px;*/
     /*font-size: 14px;*/
     padding: 0 20px 0 380px;
@@ -183,7 +190,7 @@ Container Expenses page
 
 #expensesTable {
     grid-area: expensesTable;
-    background: grey;
+    background: transparent;
 }
 
 #expensesChart1 {
@@ -206,62 +213,19 @@ Container Expenses page
     margin-left: 90px;
     width: 80%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
 }
 
 #expensesChart1:hover, #expensesChart2:hover {
     transform: scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
-.chart-container {
+.chart-container1, .chart-container2 {
     position: relative;
     width: 400px;
     height: 400px;
 }
 
-
-/*
----------------------------------------------
-Export Files and Search Field Styles
----------------------------------------------
-*/
-
-/*.search-form {*/
-/*   !*padding-top: 10px;*!*/
-/*   !* width: 80%;*!*/
-/*}*/
-
-/*.search-form .icon {*/
-/*    font-size: 20px;*/
-/*    min-width: 60px;*/
-/*}*/
-
-#searchField {
-    width: 80%;
-    font-size: 16px;
-    padding: 5px 0 5px 40px;
-}
-
-.container-expenses .bx.bx-search {
-    position: absolute;
-    /*top: 18%;*/
-    /*left: 0;*/
-    padding-left: 5px;
-    font-size: 18px;
-    /*min-width: 60px;*/
-    transform: translateY(110%);
-}
-
-/*
----------------------------------------------
-Personal Budget - Home Page Table
----------------------------------------------
-*/
-
-.card-container {
-    background: #f6f7f9;
-    border-radius: 10px;
-}
 
 /*
 ---------------------------------------------
@@ -278,9 +242,23 @@ Expenses Table
     text-align: center;
 }
 
-.data-table {
+.app-table {
     padding-top: 20px;
 }
+
+
+/*
+---------------------------------------------
+Personal Budget - Home Page Table
+---------------------------------------------
+*/
+
+.card-container {
+    background: #f6f7f9;
+    border-radius: 10px;
+}
+
+
 
  /*#purchase-form {*/
  /*    margin-right: 170px;*/
@@ -352,25 +330,110 @@ Table Pagination
 
 /* ---------------- MEDIA QUERIES ----------------*/
 
-/*make it responsive to: Medium size screen <=925 px*/
-@media only screen and (min-width: 500px) and (max-width: 1024px) {
+/*make it responsive to all devices*/
+
+@media only screen and (max-width: 1300px) {
+    #searchTableField {
+        padding: 0 5px 0 120px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
     .container-main {
-        grid-template-columns: 50px 1fr;
+        width: 105%;
+    }
+    #searchTableField {
+        padding: 0 5px 0 100px;
+    }
+}
+
+@media only screen and (min-width: 800px) and (max-width: 1000px) {
+    .container-main {
+        grid-template-columns: 50px 1000px;
+        width: 110%;
+    }
+    #searchTableField {
+        padding: 0 5px 0 100px;
+    }
+}
+
+@media only screen and (min-width: 661px) and (max-width: 800px) {
+    .container-main {
+        grid-template-columns: 50px 1000px;
+        width: 140%;
+    }
+    #expensesTable {
+        font-size: 14px;
+    }
+    #expensesChart1 {
+        margin-left: 20px;
+    }
+    #searchTableField {
+        padding: 0 5px 0 100px;
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 660px) {
+    .container-main {
+        grid-template-columns: 50px 600px;
+        width: 110%;
     }
     .container-tables {
-        grid-template-columns: 1fr;
-        grid-template-rows: 50px 50px 200px 100px 100px;
+        padding: 20px 10px 1040px 20px;
+
+        grid-template-columns: 570px;
+        grid-template-rows: 50px 50px 100px 100px 100px;
+        gap: 20px;
         grid-template-areas:
     "exportFile"
     "searchTableField"
     "expensesTable"
     "expensesChart1"
     "expensesChart2";
+        grid-auto-flow: dense;
     }
+    #searchTableField {
+    padding: 0 5px 0 260px;
+    }
+    #expensesTable {
+    font-size: 10px;
+    }
+    #expensesChart1 {
+    padding: 10px;
+    margin-left: 100px;
+    width: 60%;
+    }
+    #expensesChart2 {
+        padding: 10px;
+        margin-left: 50px;
+        width: 80%;
+    }
+    .chart-container1 {
+        margin-top: 350px;
+        /*padding-top: 100px;*/
+    }
+    .chart-container2 {
+        margin-top: 700px;
+    }
+    .breadcrumb-event-add {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .container-main {
+        width: 120%;
+        grid-template-rows: 95px 1fr;
+    }
+    .breadcrumb-event-add {
+        padding-left: 400px;
+        margin-left: 0;
+    }
+}
+
     /*.card-container-expenses {*/
     /*    grid-area: initial !important;*/
     /*}*/
-}
 /*    .container-main {*/
 /*        !*padding-left: 0;*!*/
 /*        padding: 55px 7px 7px 0;*/

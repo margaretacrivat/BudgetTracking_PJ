@@ -1,7 +1,7 @@
 const searchField = document.querySelector("#searchField");
 
 const tableOutput = document.querySelector(".table-output");
-const dataTable = document.querySelector(".data-table");
+const appTable = document.querySelector(".app-table");
 const paginationContainer = document.querySelector(".pagination-container");
 tableOutput.style.display = 'none';
 const noResults = document.querySelector(".no-results");
@@ -22,7 +22,7 @@ searchField.addEventListener('keyup',(e)=> {
             .then((res) => res.json())
             .then((data) => {
                 console.log("data", data);
-                dataTable.style.display = 'none';
+                appTable.style.display = 'none';
                 tableOutput.style.display = 'block';
 
                 // console.log("data.length", data.length)
@@ -47,7 +47,7 @@ searchField.addEventListener('keyup',(e)=> {
                 }
             });
     } else {
-        dataTable.style.display = 'block';
+        appTable.style.display = 'block';
         paginationContainer.style.display = 'block';
         tableOutput.style.display = 'none';
     }

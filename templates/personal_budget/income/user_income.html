@@ -6,145 +6,155 @@
 <body>
 {% block content %}
 
-    
+    {#    <div class="container" style="margin-left: 220px;padding-top: 20px;">#}
+    {#        <h3>INCOME</h3>#}
+    {#        <a href="#"></a>#}
+    {#    </div>#}
 
-{#    <div class="container" style="margin-left: 220px;padding-top: 20px;">#}
-{#        <h3>INCOME</h3>#}
-{#        <a href="#"></a>#}
-{#    </div>#}
-
-<div class="container-main">
+     <div class="container-main">
     
-{% include 'base/sidebar.html' %}
+        {% include 'base/sidebar.html' %}
     
-    <div class="container-breadcrumb-bar">
-        <div class="container-breadcrumb row">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a
-                                href="">Income</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            My Income
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-
-            <div class="breadcrumb-event col-md-2">
-                <a href="{% url 'add-income' %}" class="btn">Add
-                    Income</a>
+        <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-9">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="">Income</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                My Income
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+    
+                <div class="breadcrumb-event-add col-md-2">
+                    <a href="{% url 'add-income' %}" class="btn">Add
+                        Income</a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="container-tables">
-        <div class="expenses-list">
-            {% include 'user/_messages.html' %}
-            {% if income.count %}
-                {# if user has some income, then display them#}
-
-                <div class="row">
-                    <div class="col-md-8"></div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <input type="text" class="form-control"
-                                   id="searchField" placeholder="Search">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="app-table">
-                    <table class="table table-stripped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Amount ({{ currency }})</th>
-                            <th>Source</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {% for income in page_obj %}
-                            <tr>
-                                <td>{{ income.amount }}</td>
-                                <td>{{ income.source }}</td>
-                                <td>{{ income.description }}</td>
-                                <td>{{ income.date }}</td>
-                                <td>
-                                    <a href="{% url 'edit-income' income.id %}"
-                                       class="btn btn-secondary btn-sm">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="{% url 'delete-income' income.id %}"
-                                       class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="no-results" style="display: none;">No results </p>
-                <div class="table-output">
-
-                    <table class="table table-stripped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Amount ({{ currency }})</th>
-                            <th>Source</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </thead>
-
-                        <tbody class="table-body">
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="pagination-container">
-                <div class="show-page">
-                    Showing page {{ page_obj.number }}
-                    of {{ page_obj.paginator.num_pages }}
-                </div>
-
-                <ul class="show-pagination pagination align-right float-right mr-auto">
-                    {% if page_obj.has_previous %}
-                        <li {% if page_obj.number == 1 %}
-                            class="page-item active" {% endif %}><a
-                                class="page-link" href="?page=1">&laquo; 1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                        </li>
-                    {% endif %}
-
-                    {% if page_obj.has_next %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.next_page_number }}">Next</a>
-                        </li>
-                        <li class="page-item"><a class="page-link"
-                                                 href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
-                            &raquo;</a></li>
-                    {% endif %}
-
-                </ul>
-            {% endif %}
+    
+        <div class="container-tables">
+            <div id="exportFile">
+                <a href="{% url 'export-csv' %}"
+                   class="btn btn-secondary">Export
+                    CSV</a>
+    
+                <a href="{% url 'export-excel' %}"
+                   class="btn btn-primary">Export
+                    Excel</a>
+    
+                <a href="{% url 'export-pdf' %}" class="btn btn-info">Export
+                    PDF</a>
             </div>
+            <div id="searchTableField">
+                <div class="form-group">
+                    <i class="bx bx-search"></i>
+                    <input type="text" class="form-control"
+                           id="searchField" placeholder="Search...">
+                </div>
+            </div>
+    
+            <div id="expensesTable">
+                {% include 'user/_messages.html' %}
+                {% if income.count %}
+                    {# if user has some income, then display them#}
+    
+                    <div class="app-table">
+                        <table class="table table-stripped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Amount ({{ currency }})</th>
+                                <th>Source</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+    
+                            <tbody>
+                            {% for income in page_obj %}
+                                <tr>
+                                    <td>{{ income.amount }}</td>
+                                    <td>{{ income.source }}</td>
+                                    <td>{{ income.description }}</td>
+                                    <td>{{ income.date }}</td>
+                                    <td>
+                                        <a href="{% url 'edit-income' income.id %}"
+                                           class="btn btn-secondary btn-sm">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'delete-income' income.id %}"
+                                           class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+    
+                    <p class="no-results" style="display: none;">No results </p>
+                    <div class="table-output">
+    
+                        <table class="table table-stripped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Amount ({{ currency }})</th>
+                                <th>Source</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+    
+                            <tbody class="table-body">
+                            </tbody>
+    
+                        </table>
+                    </div>
+    
+                    <div class="pagination-container">
+                        <div class="show-page">
+                            Showing page {{ page_obj.number }}
+                            of {{ page_obj.paginator.num_pages }}
+                        </div>
+    
+                        <ul class="show-pagination pagination align-right float-right mr-auto">
+                            {% if page_obj.has_previous %}
+                                <li {% if page_obj.number == 1 %}
+                                    class="page-item active" {% endif %}><a
+                                        class="page-link" href="?page=1">&laquo; 1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                </li>
+                            {% endif %}
+    
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.next_page_number }}">Next</a>
+                                </li>
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
+                                    &raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+    
+                {% endif %}
+            </div>
+    
         </div>
     <div>
 
-</div>
-
-<script src="{% static 'assets/js/searchIncome.js' %}"></script>
+    
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/searchIncome.js' %}"></script>
 
 {% endblock content %}
 </body>
