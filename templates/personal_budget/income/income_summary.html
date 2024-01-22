@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Expenses Summary Charts {% endblock %}
+{% block title %} Income Summary Charts {% endblock %}
 
 {% block content %}
     {% load humanize %}
@@ -19,7 +19,7 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Expenses Summary</a>
+                            href="">Income Summary</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
@@ -33,14 +33,12 @@
         <div class="container-summary">
 
             <div class="breadcrumb-event-back">
-                <a href="{% url 'expenses' %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'income' %}" class="btn btn-secondary">BACK</a>
             </div>
 
             <div id="summary1"></div>
             <div id="summary2"></div>
-
-
-
+            
             <div id="dashboardArea1">
                 {#                <section id="dashboard">#}
                 {#                    <div class="dashboard-section">#}
@@ -135,14 +133,14 @@
             {# ADD CHARTS #}
 
             <div class="chart-container3" id="Chart3">
-                <h6>Week Expenses</h6>
+                <h6>Week Incomes</h6>
                 <hr>
-                <canvas id="weekExpensesChart"></canvas>
+                <canvas id="weekIncomeChart"></canvas>
             </div>
             <div class="chart-container4" id="Chart4">
-                <h6>Year Expenses</h6>
+                <h6>Year Incomes</h6>
                 <hr>
-                <canvas id="yearExpensesChart"></canvas>
+                <canvas id="yearIncomeChart"></canvas>
             </div>
 
         </div>
@@ -150,6 +148,6 @@
 
     
     <!-- Scripts -->
-    <script src="{% static 'assets/js/summaryExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/summaryIncome.js' %}"></script>
 
 {% endblock content %}

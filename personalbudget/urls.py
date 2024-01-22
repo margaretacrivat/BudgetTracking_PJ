@@ -11,6 +11,18 @@ urlpatterns = [
     path('search-expenses/', csrf_exempt(views.search_expenses),
          name='search-expenses'),
 
+    path('export-expenses-csv/', views.export_expenses_csv, name='export-expenses-csv'),
+    path('export-expenses-excel/', views.export_expenses_excel, name='export-expenses-excel'),
+    path('export-expenses-pdf/', views.export_expenses_pdf, name='export-expenses-pdf'),
+
+    path('expenses-category-chart/', views.expenses_category_chart,
+         name='expenses-category-chart'),
+    path('last_3months_expense_source_stats/',
+         views.last_3months_expense_source_stats,
+         name="last_3months_expense_source_stats"),
+    path('expenses-summary-rest/', views.expenses_summary_rest, name='expenses-summary-rest'),
+    path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
+
 
     path('income/', views.income_view, name='income'),
     path('add-income/', views.add_income, name='add-income'),
@@ -20,17 +32,18 @@ urlpatterns = [
     path('search-income/', csrf_exempt(views.search_income),
          name='search-income'),
 
-    path('export-csv/', views.export_csv, name='export-csv'),
-    path('export-excel/', views.export_excel, name='export-excel'),
-    path('export-pdf/', views.export_pdf, name='export-pdf'),
+    path('export-income-csv/', views.export_income_csv, name='export-income-csv'),
+    path('export-income-excel/', views.export_income_excel, name='export-income-excel'),
+    path('export-income-pdf/', views.export_income_pdf, name='export-income-pdf'),
 
-    path('expenses-category-chart/', views.expenses_category_chart,
-         name='expenses-category-chart'),
-    path('last_3months_expense_source_stats/',
-         views.last_3months_expense_source_stats,
-         name="last_3months_expense_source_stats"),
-    path('expenses-summary-rest/', views.expense_summary_rest, name='expenses-summary-rest'),
-    path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
+    path('income-source-chart/', views.income_source_chart,
+         name='income-source-chart'),
+    path('last_3months_income_source_stats/',
+         views.last_3months_income_source_stats,
+         name='last_3months_income_source_stats'),
+    path('income-summary-rest/', views.income_summary_rest, name='income-summary-rest'),
+    path('income-summary/', views.income_summary_view, name='income-summary'),
+
 ]
 
 

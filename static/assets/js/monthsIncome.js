@@ -1,13 +1,13 @@
-// monthsExpensesChart
+// monthsIncomeChart
 
-const showMonthsExpensesChart = (data) => {
+const showMonthsIncomeChart = (data) => {
 
     let labels = []
     const monthsdata = []
     let keys = null;
 
-    for (let i = 0; i < data.cumulative_expenses_data.length; i++) {
-        const element = data.cumulative_expenses_data[i]
+    for (let i = 0; i < data.cumulative_income_data.length; i++) {
+        const element = data.cumulative_income_data[i]
         labels.push(Object.keys(element)[0])
         const vals = Object.values(element)[0]
         keys = Object.keys(vals)
@@ -21,7 +21,7 @@ const showMonthsExpensesChart = (data) => {
         return values
     }
 
-    var monthCumulative = document.getElementById("monthsExpensesChart");
+    var monthCumulative = document.getElementById("monthsIncomeChart");
     var dataFirst = {
         label: getMonthRep(labels[0]),
         data: monthsdata[0],
@@ -68,7 +68,7 @@ const showMonthsExpensesChart = (data) => {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Category Cumulative Comparison (Last 3 months)',
+                    text: 'Source Cumulative Comparison (Last 3 months)',
                     font: {
                         size: 15,
                     }
@@ -95,14 +95,14 @@ const showMonthsExpensesChart = (data) => {
     })
 };
 
-const getCumulativeExpenses = () => {
-    console.log('expenses_source');
-    fetch('/personalbudget/last_3months_expense_source_stats')
+const getCumulativeIncome = () => {
+    console.log('income_source');
+    fetch('/personalbudget/last_3months_income_source_stats')
         .then(res => res.json()).then(data => {
         console.log('data', data)
-        showMonthsExpensesChart(data);
+        showMonthsIncomeChart(data);
     });
 }
 
-window.addEventListener('load', getCumulativeExpenses)
+window.addEventListener('load', getCumulativeIncome)
 

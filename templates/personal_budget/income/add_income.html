@@ -7,29 +7,31 @@
 {% block content %}
 
     {#    Include Sidebar #}
-    {% include 'base/sidebar.html' %}
+
 
     {#    <h1 style="margin-left: 200px;padding-top: 10px;">Add Expense</h1>#}
 
 <div class="container-main">
 
+    {% include 'base/sidebar.html' %}
+
     <div class="container-breadcrumb-bar">
-    <div class="container-breadcrumb row">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a
-                        href="{% url 'expenses' %}">Income</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    Add Income
-                </li>
-            </ol>
-        </nav>
-    </div>
+        <div class="container-breadcrumb row">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'expenses' %}">Income</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add Income
+                    </li>
+                </ol>
+            </nav>
+        </div>
     </div>
 
-    <div class="card-form">
-        <div class="card-body">
+    <div class="add-form">
+        <div class="add-form-body" id="addForm">
             <form action="{% url 'add-income' %}" method="post">
                 {% include 'user/_messages.html' %} {% csrf_token %}
 
@@ -50,11 +52,13 @@
                 <div class="form-group">
                     <label for="">Description</label>
                     <input type="text" class="form-control form-control-sm"
-                           name="description" value="{{ values.description }}">
+                           name="description" 
+                           value="{{ values.description }}">
                 </div>
                 <div class="form-group">
                     <label for="" style="color:black;">Date of Income</label>
-                    <input type="date" class="form-control form-control-sm"
+                    <input type="date" 
+                           class="form-control form-control-sm"
                            name="income_date" value="{{ values.date }}">
                 </div>
 

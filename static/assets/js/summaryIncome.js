@@ -1,8 +1,8 @@
-let ctx = document.getElementById("yearExpensesChart").getContext("2d");
+let ctx = document.getElementById("yearIncomeChart").getContext("2d");
 let loader = document.querySelector("#loading-stuff");
 
 const getData = async () => {
-  const data = await (await fetch("/personalbudget/expenses-summary-rest")).json();
+  const data = await (await fetch("/personalbudget/income-summary-rest")).json();
   const [labels1, values1, labels2, values2] = [
     Object.keys(data.data.months),
     Object.values(data.data.months),
@@ -57,7 +57,7 @@ const showChart = (labels1, values1, labels2, values2) => {
     options: {},
   });
 
-  var ctx1 = document.getElementById("weekExpensesChart").getContext("2d");
+  var ctx1 = document.getElementById("weekIncomeChart").getContext("2d");
   var chart = new Chart(ctx1, {
     // The type of chart we want to create
     type: "line",
@@ -79,3 +79,4 @@ const showChart = (labels1, values1, labels2, values2) => {
     options: {},
   });
 };
+

@@ -10,49 +10,45 @@
         {% include 'base/sidebar.html' %}
 
         <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-md-10">
-                    <nav aria-label="breadcrumb-nav">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a
-                                    href="">Settings</a>
-                            </li>
-                            <li class="breadcrumb-item active"
-                                aria-current="page">
-                                Preferences
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="">Settings</a>
+                    </li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">
+                        Preferences
+                    </li>
+                </ol>
+            </nav>
         </div>
 
         <div class="card-preferences">
             <h5>Choose Currency</h5>
 
-{#            <form class="form-preferences" action="{% url 'preferences' %}" method="post">#}
-{#                {% csrf_token %} {% include 'user/_messages.html' %}#}
-{#                <div class="input-group">#}
-{#                    <select class="custom-select" name="currency" id="inputGroupSelect04">#}
-{#                        {% if user_currency.currency %}#}
-{#                            <option name="currency" selected#}
-{#                                    value="{{ user_currency.currency }}">{{ user_currency.currency }}#}
-{#                            </option>#}
-{#                        {% endif %}#}
-{##}
-{#                        {% for currency in currencies %}#}
-{#                            <option class="currency-option" name="currency" value="{{ currency.name }}#}
-{#                            - {{ currency.value }}">{{ currency.name }}#}
-{#                                - {{ currency.value }}</option>#}
-{#                        {% endfor %}#}
-{#                    </select>#}
-{#                    <div class="input-group-append">#}
-{#                        <button class="btn btn-outline-secondary" type="submit" value="Save">#}
-{#                            Save#}
-{#                        </button>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </form>#}
+            {#            <form class="form-preferences" action="{% url 'preferences' %}" method="post">#}
+            {#                {% csrf_token %} {% include 'user/_messages.html' %}#}
+            {#                <div class="input-group">#}
+            {#                    <select class="custom-select" name="currency" id="inputGroupSelect04">#}
+            {#                        {% if user_currency.currency %}#}
+            {#                            <option name="currency" selected#}
+            {#                                    value="{{ user_currency.currency }}">{{ user_currency.currency }}#}
+            {#                            </option>#}
+            {#                        {% endif %}#}
+            {##}
+            {#                        {% for currency in currencies %}#}
+            {#                            <option class="currency-option" name="currency" value="{{ currency.name }}#}
+            {#                            - {{ currency.value }}">{{ currency.name }}#}
+            {#                                - {{ currency.value }}</option>#}
+            {#                        {% endfor %}#}
+            {#                    </select>#}
+            {#                    <div class="input-group-append">#}
+            {#                        <button class="btn btn-outline-secondary" type="submit" value="Save">#}
+            {#                            Save#}
+            {#                        </button>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </form>#}
 
         </div>
 

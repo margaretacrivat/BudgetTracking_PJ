@@ -31,6 +31,7 @@
         <div class="add-form-body" id="addForm">
             <form action="{% url 'add-expense' %}" method="post">
                 {% include 'user/_messages.html' %} {% csrf_token %}
+            
                 <div class="form-group">
                     <label for="">Item</label>
                     <input type="text" class="form-control form-control-sm"

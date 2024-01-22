@@ -1,11 +1,11 @@
-const renderExpensesCategoryChart = (data, labels) => {
-    var ctx = document.getElementById('expensesCategoryChart').getContext('2d');
-    var expensesCategoryChart = new Chart(ctx, {
+const renderIncomeSourceChart = (data, labels) => {
+    var ctx = document.getElementById('incomeSourceChart').getContext('2d');
+    var incomeSourceChart = new Chart(ctx, {
         type: 'polarArea',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Expenses Categories',
+                label: 'Income Sources',
                 data: data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.4)',
@@ -26,17 +26,12 @@ const renderExpensesCategoryChart = (data, labels) => {
                 borderWidth: 1,
             }],
         },
-
         options: {
             responsive: true,
             plugins: {
-                // legend: {
-                //     position: 'right',
-                //     align: 'start'
-                // },
                 title: {
                     display: true,
-                    // text: 'Distribution Per Category (Last 3 months)',
+                    text: 'Distribution Per Source (Last 3 months)',
                     font: {
                         size: 15,
                     }
@@ -46,25 +41,25 @@ const renderExpensesCategoryChart = (data, labels) => {
     });
 };
 
-const getCategoryData = () => {
-    console.log('expenses_per_category_last3months');
-    fetch('/personalbudget/expenses-category-chart')
+const getSourceData = () => {
+    console.log('income_per_source_last3months');
+    fetch('/personalbudget/income-source-chart')
         .then((res) => res.json())
         .then((results) => {
             console.log('results', results);
-            const category_data = results.expense_category_data;
-            const [labels, data] = [Object.keys(category_data),
-                Object.values(category_data),
+            const source_data = results.income_source_data;
+            const [labels, data] = [Object.keys(source_data),
+                Object.values(source_data),
             ];
 
-            renderExpensesCategoryChart(data, labels);
+            renderIncomeSourceChart(data, labels);
         });
 };
 
 
 // document.onload = getCategoryData();
 
-window.addEventListener('load',getCategoryData);
+window.addEventListener('load',getSourceData);
 
 
 

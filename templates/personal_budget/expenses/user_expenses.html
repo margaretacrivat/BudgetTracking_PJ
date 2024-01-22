@@ -14,40 +14,30 @@
         {% include 'base/sidebar.html' %}
 
         <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-sm-8">
-                    <nav aria-label="breadcrumb-nav">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a
-                                    href="">Expenses</a>
-                            </li>
-                            <li class="breadcrumb-item active"
-                                aria-current="page">
-                                My Expenses
-                            </li>
-                        </ol>
-
-                    </nav>
-                </div>
-
-                <div class="breadcrumb-event-add col-sm-3">
-                    <a href="{% url 'add-expense' %}" class="btn">Add
-                        Expense</a>
-                </div>
-            </div>
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="">Expenses</a>
+                    </li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">
+                        My Expenses
+                    </li>
+                </ol>
+            </nav>
         </div>
 
         <div class="container-tables">
             <div id="exportFile">
-                <a href="{% url 'export-csv' %}"
+                <a href="{% url 'export-expenses-csv' %}"
                    class="btn btn-secondary">Export
                     CSV</a>
 
-                <a href="{% url 'export-excel' %}"
+                <a href="{% url 'export-expenses-excel' %}"
                    class="btn btn-primary">Export
                     Excel</a>
 
-                <a href="{% url 'export-pdf' %}" class="btn btn-info">Export
+                <a href="{% url 'export-expenses-pdf' %}" class="btn btn-info">Export
                     PDF</a>
             </div>
             <div id="searchTableField">
@@ -62,7 +52,11 @@
                 {% include 'user/_messages.html' %}
                 {% if expenses.count %}
                     {# if user has some expenses, then display them #}
-
+                    <div class="breadcrumb-event-add">
+                        <a href="{% url 'add-expense' %}" class="btn">Add
+                            Expense</a>
+                    </div>
+                    
                     <div class="app-table">
                         <table class="table table-stripped table-hover">
                             <thead>
@@ -159,16 +153,20 @@
                 {% endif %}
             </div>
 
-            <div class="chart-container1" id="expensesChart1">
+            <div class="chart-container1" id="Chart1">
+                <h6>Distribution Per Category-last 3 months</h6>
+                <hr>
+{#                <div id="legend"></div>#}
                 <canvas id="expensesCategoryChart"></canvas>
             </div>
-            <div class="chart-container2" id="expensesChart2">
-                <h4>Expenses Chart</h4>
+            <div class="chart-container2" id="Chart2">
+                <h6>Category Cumulative Comparison-last 3 months</h6>
+                <hr>
                 <canvas id="monthsExpensesChart"></canvas>
             </div>
         </div>
     </div>
-    
+
 
     <!-- Scripts -->
     {#<script src="/static/assets/js/searchExpenses.js"></script>#}

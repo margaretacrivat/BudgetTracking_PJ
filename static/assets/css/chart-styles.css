@@ -4,74 +4,62 @@ Charts Style
 ---------------------------------------------
 */
 
-.container-charts {
-    position: relative;
-    padding: 20px;
-    margin-left: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 90%;
-    /*min-height: 200px;*/
-    background: #0dcaf0;
-}
+/*.container-charts {*/
+/*    position: relative;*/
+/*    padding: 20px;*/
+/*    margin-left: 20px;*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*    gap: 20px;*/
+/*    width: 90%;*/
+/*    !*min-height: 200px;*!*/
+/*    background: #0dcaf0;*/
+/*}*/
 
 
-.container-charts .box {
-    position: relative;
-    background: #fff;
-    padding: 20px;
-    margin-left: 85px;
-    width: 70%;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;
-    border-radius: 20px;
-}
+/*.container-charts .box {*/
+/*    position: relative;*/
+/*    background: #fff;*/
+/*    padding: 20px;*/
+/*    margin-left: 85px;*/
+/*    width: 70%;*/
+/*    box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;*/
+/*    border-radius: 20px;*/
+/*}*/
 
-#expensesCategoryChart, #monthsExpensesChart {
-    align-content: center;
-}
+/*#expensesCategoryChart, #monthsExpensesChart {*/
+/*    align-content: center;*/
+/*}*/
 
-.chartBox-sum {
-    position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 30px;
-    /*margin-left: 60px;*/
-    /*margin-bottom: 20px;*/
-    /*width: 70%;*/
-    /*min-height: 200px;*/
-}
+/*.chartBox-sum {*/
+/*    position: relative;*/
+/*    padding-top: 20px;*/
+/*    padding-bottom: 20px;*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 2fr;*/
+/*    grid-gap: 30px;*/
+/*    !*margin-left: 60px;*!*/
+/*    !*margin-bottom: 20px;*!*/
+/*    !*width: 70%;*!*/
+/*    !*min-height: 200px;*!*/
+/*}*/
 
-.chartBox-sum .box {
-    position: relative;
-    background: #fff;
-    padding: 20px;
-    width: 100%;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;
-    border-radius: 20px;
-}
+/*.chartBox-sum .box {*/
+/*    position: relative;*/
+/*    background: #fff;*/
+/*    padding: 20px;*/
+/*    width: 100%;*/
+/*    box-shadow: 0 7px 25px rgba(0,0,0,0.08) ;*/
+/*    border-radius: 20px;*/
+/*}*/
 
-#dashboard {
-    padding-left: 80px;
-    padding-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-}
+
 
 /*.dashboard-section {*/
 /*    margin-left: 20px;*/
 /*}*/
 
-.dashboard-column {
-    padding-top: 20px;
-    width: 300px;
-}
 
-.dashboard-column .card {
-    width: 100%;
-}
 
 /*.canvas-chart {*/
 /*    margin: 100px 50px 100px 100px;*/

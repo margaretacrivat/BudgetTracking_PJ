@@ -55,7 +55,7 @@ Sidebar Style
 .sidebar-menu .sidebar-heading {
     color: #fff;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 30px;
     padding-left: 12px;
     font-size: 1.05rem;
     border-bottom: 1px solid #d24f17;
@@ -63,7 +63,7 @@ Sidebar Style
 
 .sidebar-menu .sidebar-heading .title {
     color: white;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     pointer-events: none;
     opacity: 1;
     /*padding: 0 2px;*/
@@ -72,14 +72,14 @@ Sidebar Style
 .sidebar-heading .home-icon {
     color: white;
     margin-right: 15px;
-    padding: 10px 0 30px 10px;
+    padding: 10px 0 20px 10px;
     align-items: center;
     justify-content: center;
 }
 
 .sidebar-menu .side-item {
     /*margin-right: 15px;*/
-    padding: 20px 20px 20px 0;
+    padding: 10px 10px 10px 0;
     border-bottom: 1px solid rgba(0,0,0,0.05);
     border-top:  1px solid rgba(0,0,0,0.05);
 }
@@ -102,7 +102,7 @@ Sidebar Style
 
 .sidebar-list .side-item-link .icon {
     margin-right: 15px;
-    padding: 10px 0 30px 10px;
+    padding: 10px 0 10px 10px;
     align-items: center;
 }
 

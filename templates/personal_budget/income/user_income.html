@@ -16,8 +16,6 @@
         {% include 'base/sidebar.html' %}
     
         <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-md-9">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a
@@ -28,26 +26,19 @@
                             </li>
                         </ol>
                     </nav>
-                </div>
-    
-                <div class="breadcrumb-event-add col-md-2">
-                    <a href="{% url 'add-income' %}" class="btn">Add
-                        Income</a>
-                </div>
-            </div>
         </div>
     
         <div class="container-tables">
             <div id="exportFile">
-                <a href="{% url 'export-csv' %}"
+                <a href="{% url 'export-income-csv' %}"
                    class="btn btn-secondary">Export
                     CSV</a>
     
-                <a href="{% url 'export-excel' %}"
+                <a href="{% url 'export-income-excel' %}"
                    class="btn btn-primary">Export
                     Excel</a>
     
-                <a href="{% url 'export-pdf' %}" class="btn btn-info">Export
+                <a href="{% url 'export-income-pdf' %}" class="btn btn-info">Export
                     PDF</a>
             </div>
             <div id="searchTableField">
@@ -62,7 +53,10 @@
                 {% include 'user/_messages.html' %}
                 {% if income.count %}
                     {# if user has some income, then display them#}
-    
+                    <div class="breadcrumb-event-add">
+                        <a href="{% url 'add-income' %}" class="btn">Add
+                            Income</a>
+                    </div>
                     <div class="app-table">
                         <table class="table table-stripped table-hover">
                             <thead>
@@ -148,6 +142,14 @@
     
                 {% endif %}
             </div>
+        
+            <div class="chart-container1" id="Chart1">
+                <canvas id="incomeSourceChart"></canvas>
+            </div>
+            <div class="chart-container2" id="Chart2">
+                <h4>Income Chart</h4>
+                <canvas id="monthsIncomeChart"></canvas>
+            </div>
     
         </div>
     <div>
@@ -155,6 +157,8 @@
     
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchIncome.js' %}"></script>
+    <script src="{% static 'assets/js/statsIncome.js' %}"></script>
+    <script src="{% static 'assets/js/monthsIncome.js' %}"></script>
 
 {% endblock content %}
 </body>
