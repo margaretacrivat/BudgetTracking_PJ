@@ -67,7 +67,7 @@ const showChart = (labels1, values1, labels2, values2) => {
       labels: labels2,
       datasets: [
         {
-          label: "This Week",
+          label: "This Wee`k",
           backgroundColor: "#18BC9C",
           borderColor: "#18BC9C",
           data: values2,

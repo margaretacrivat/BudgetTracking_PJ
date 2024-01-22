@@ -50,14 +50,14 @@
 
             <div id="expensesTable">
                 {% include 'user/_messages.html' %}
-                {% if expenses.count %}
                     {# if user has some expenses, then display them #}
                     <div class="breadcrumb-event-add">
                         <a href="{% url 'add-expense' %}" class="btn">Add
                             Expense</a>
                     </div>
-                    
+
                     <div class="app-table">
+
                         <table class="table table-stripped table-hover">
                             <thead>
                             <tr>
@@ -72,8 +72,11 @@
                                 <th></th>
                             </tr>
                             </thead>
+
                             <tbody>
+                            {% if expenses.count %}
                             {% for expense in page_obj %}
+
                                 {# display dinamic data #}
                                 <tr>
                                     <td>{{ expense.item }}</td>
@@ -95,6 +98,7 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
+
                         </table>
                     </div>
 
@@ -117,7 +121,7 @@
 
                             <tbody class="table-body">
                             </tbody>
-
+                        {% endif %}
                         </table>
                     </div>
 
@@ -150,7 +154,7 @@
                         </ul>
                     </div>
 
-                {% endif %}
+
             </div>
 
             <div class="chart-container1" id="Chart1">

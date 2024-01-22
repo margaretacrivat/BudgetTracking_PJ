@@ -469,16 +469,16 @@ def expenses_summary_rest(request):
             week_days_data[x] = get_amount_for_day(
                 x, today_day, today_month, today_year)
 
-    data = {'months': months_data, 'days': week_days_data}
+    data = {"months": months_data, "days": week_days_data}
     return JsonResponse({'data': data}, safe=False)
 
 
 @login_required(login_url='/authentication/login')
 def expenses_summary_view(request):
-
     all_expenses = Expense.objects.filter(owner=request.user)
     today = datetime.datetime.today().date()
-    # today2 = datetime.date.today()
+    today2 = datetime.date.today().replace(day=1)
+
     week_ago = today - datetime.timedelta(days=7)
     month_ago = today - datetime.timedelta(days=30)
     year_ago = today - datetime.timedelta(days=366)
@@ -501,7 +501,7 @@ def expenses_summary_view(request):
             this_week_amount += one.amount
             this_week_count += 1
 
-        if one.date >= month_ago:
+        if today2.replace(day=1) <= one.date <= today:
             this_month_amount += one.amount
             this_month_count += 1
 
@@ -509,9 +509,7 @@ def expenses_summary_view(request):
             this_year_amount += one.amount
             this_year_count += 1
 
-    # currency = Setting.objects.get(user=request.user).currency
     context = {
-        # 'currency': currency.split('-')[0],
         'today': {
             'amount': todays_amount,
             "count": todays_count,
