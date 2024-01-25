@@ -7,11 +7,48 @@ Preferences Style
 
 .card-preferences {
     /*margin-left: 150px;*/
-    background: #3d63af;
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 2px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
-    padding-top: 10px;
+    padding: 20px;
+    width: 100%;
     grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 300px 300px;
+    gap: 20px;
+    grid-template-areas:
+        "currencyForm currencyForm"
+        "preferences1 preferences2";
 }
+
+#currencyForm {
+    grid-area: currencyForm;
+    background: transparent;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+#preferences1 {
+    grid-area: preferences1;
+    background: transparent;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#preferences2 {
+    grid-area: preferences2;
+    background: transparent;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
 
 .card-preferences h5 {
     color: #49494f;

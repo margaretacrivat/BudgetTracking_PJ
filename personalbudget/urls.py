@@ -17,12 +17,11 @@ urlpatterns = [
 
     path('expenses-category-chart/', views.expenses_category_chart,
          name='expenses-category-chart'),
+    path('expenses-for-period/', views.get_expenses_for_period,
+         name='expenses-for-period'),
     path('last_3months_expense_source_stats/',
          views.last_3months_expense_source_stats,
          name="last_3months_expense_source_stats"),
-    path('expenses-summary-rest/', views.expenses_summary_rest, name='expenses-summary-rest'),
-    path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
-
 
     path('income/', views.income_view, name='income'),
     path('add-income/', views.add_income, name='add-income'),
@@ -38,12 +37,17 @@ urlpatterns = [
 
     path('income-source-chart/', views.income_source_chart,
          name='income-source-chart'),
+    path('income-for-period/', views.get_income_for_period,
+         name='income-for-period'),
     path('last_3months_income_source_stats/',
          views.last_3months_income_source_stats,
          name='last_3months_income_source_stats'),
+
+    path('summary-budget/', views.summary_budget_view, name='summary-budget'),
+    path('expenses-summary-rest/', views.expenses_summary_rest, name='expenses-summary-rest'),
+    path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
     path('income-summary-rest/', views.income_summary_rest, name='income-summary-rest'),
     path('income-summary/', views.income_summary_view, name='income-summary'),
-
 ]
 
 

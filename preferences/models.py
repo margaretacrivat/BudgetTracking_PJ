@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Currency(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    currency = models.CharField(max_length=300, blank=True, null=True)
+    currency = models.TextField(max_length=500, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Currencies'

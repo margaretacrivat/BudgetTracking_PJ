@@ -1,5 +1,17 @@
 const renderIncomeSourceChart = (data, labels) => {
     var ctx = document.getElementById('incomeSourceChart').getContext('2d');
+
+    // Generate an array of random colors for each category
+    const backgroundColors = [];
+    const borderColors = [];
+    for (let i = 0; i < labels.length; i++) {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        backgroundColors.push('rgba('+r+', '+g+', '+b+', 0.2)');
+        borderColors.push('rgba('+r+', '+g+', '+b+', 1)');
+}
+
     var incomeSourceChart = new Chart(ctx, {
         type: 'polarArea',
         data: {
@@ -7,36 +19,13 @@ const renderIncomeSourceChart = (data, labels) => {
             datasets: [{
                 label: 'Income Sources',
                 data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.4)',
-                    'rgba(54, 162, 235, 0.4)',
-                    'rgba(255, 206, 86, 0.4)',
-                    'rgba(75, 192, 192, 0.4)',
-                    'rgba(153, 102, 255, 0.4)',
-                    'rgba(255, 159, 64, 0.4)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                ],
+                backgroundColor: backgroundColors,
+                borderColor: borderColors,
                 borderWidth: 1,
             }],
         },
         options: {
             responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Distribution Per Source (Last 3 months)',
-                    font: {
-                        size: 15,
-                    }
-                },
-            },
         },
     });
 };

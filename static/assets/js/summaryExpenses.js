@@ -24,10 +24,15 @@ const getData = async () => {
     "Nov",
     "Dec",
   ];
+
+  const thisWeekLabels = [
+      "Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"
+  ];
+
   showChart(
     letteredLabels,
     values1,
-    ["Mon", "Tue", "Wed", "Thur", "Fri", "Sar", "Sun"],
+    thisWeekLabels,
     values2
   );
 };
@@ -45,7 +50,7 @@ const showChart = (labels1, values1, labels2, values2) => {
       labels: labels1,
       datasets: [
         {
-          label: "This year",
+          label: "Expenses/months",
           backgroundColor: "rgb(255, 99, 132)",
           borderColor: "rgb(255, 99, 132)",
           data: values1,
@@ -67,7 +72,7 @@ const showChart = (labels1, values1, labels2, values2) => {
       labels: labels2,
       datasets: [
         {
-          label: "Last Week",
+          label: "Expenses/days",
           backgroundColor: "#18BC9C",
           borderColor: "#18BC9C",
           data: values2,

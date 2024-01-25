@@ -9,38 +9,45 @@ from .models import Currency
 
 
 def preferences_view(request):
-    currency_data = []
+    user_preferences = Currency.objects.filter(user=request.user)[
+        0] if Currency.objects.filter(user=request.user).exists() else None
+
+    file = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
 
     with open(file_path, 'r') as json_file:
         data = json.load(json_file)
-
+        currency_data = []
         for k, v in data.items():
             currency_data.append({'name': k, 'value': v})
 
-    exists = Currency.objects.filter(user=request.user).exists()
-    user_currency = None
+    # exists = Currency.objects.filter(user=request.user).exists()
+    # user_currency = None
 
-    if exists:
-        user_currency = Currency.objects.get(user=request.user)
+    # if exists:
+    #     user_currency = Currency.objects.get(user=request.user)
 
     if request.method == 'GET':
         return render(request, 'preferences/index.html',
                       {'currencies': currency_data,
-                       'user_currency': user_currency})
+                       'user_preferences': user_preferences})
     else:
         currency = request.POST['currency']
-        if exists:
-            user_currency.currency = currency
-            user_currency.save()
+        if user_preferences is not None:
+            user_preferences.currency = currency
+            user_preferences.save()
         else:
             Currency.objects.create(user=request.user, currency=currency)
+            user_preferences['currency'] = currency
         messages.success(request, 'Changes saved')
+
         return render(request, 'preferences/index.html',
                       {'currencies': currency_data,
-                       'user_currency': user_currency})
+                       'user_preferences': user_preferences})
 
 
+def account_currency(request):
+    return render(request, 'preferences/account_currency.html')
 
 
 

@@ -52,6 +52,7 @@ BREADCRUMB BAR Styles
     font-size: 14px;
     padding-right: 20px;
     padding-left: 20px;
+    padding-bottom: 3px;
 }
 
 .breadcrumb-event-add, .breadcrumb-event-delete{
@@ -255,7 +256,57 @@ Expenses Table
 
 /*
 ---------------------------------------------
-Container SUMMARY Charts
+Container SUMMARY GENERAL - Charts
+---------------------------------------------
+*/
+
+.container-summary-general {
+    background: magenta;
+    margin-top: 10px;
+    padding: 20px 10px;
+    width: 100%;
+    /*height: 100vh;*/
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 400px;
+    gap: 20px;
+    grid-template-areas:
+        "summary1 summary2"
+        "summaryChart1 summaryChart2"
+}
+
+#summary1 {
+    grid-area: summary1;
+    background: pink;
+    border-radius: 10px;
+    padding: 0 20px 0 60px;
+}
+
+#summary2 {
+    grid-area: summary2;
+    background: orange;
+    border-radius: 10px;
+    padding: 0 20px 0 60px;
+}
+
+#summaryChart1 {
+    grid-area: summaryChart1;
+    background: yellow;
+    border-radius: 10px;
+    padding: 0 20px 0 380px;
+}
+
+#summaryChart2 {
+    grid-area: summaryChart2;
+    background: fuchsia;
+    border-radius: 10px;
+    padding: 0 20px 0 380px;
+}
+/*
+---------------------------------------------
+Container SUMMARY EXPENSES & INCOME - Charts
 ---------------------------------------------
 */
 
@@ -269,26 +320,11 @@ Container SUMMARY Charts
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50px 1fr 400px;
+    grid-template-rows: 1fr 400px;
     gap: 20px;
     grid-template-areas:
-        "summary1 summary2"
         "dashboardArea1 dashboardArea2"
         "Chart3 Chart4";
-}
-
-#summary1 {
-    grid-area: summary1;
-    background: pink;
-    border-radius: 10px;
-    padding-top: 5px;
-}
-
-#summary2 {
-    grid-area: summary2;
-    background: orange;
-    border-radius: 10px;
-    padding: 0 20px 0 380px;
 }
 
 #dashboardArea1 {
@@ -578,7 +614,7 @@ Table Pagination
     "expensesTable"
     "Chart1"
     "Chart2";
-        grid-auto-flow: dense;
+        /*grid-auto-flow: dense;*/
     }
     #searchTableField, #summary2 {
     padding: 0 5px 0 260px;
@@ -610,12 +646,10 @@ Table Pagination
         margin-top: 10px;
         padding: 20px;
         grid-template-columns: 500px;
-        grid-template-rows: 50px 50px 250px 250px 150px 600px;
+        grid-template-rows: 250px 250px 150px 600px;
         /*align-items: center;*/
         /*justify-content: center;*/
         grid-template-areas:
-            "summary1"
-            "summary2"
             "dashboardArea1"
             "dashboardArea2"
             "Chart3"

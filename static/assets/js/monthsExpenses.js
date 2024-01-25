@@ -15,51 +15,33 @@ const showMonthsExpensesChart = (data) => {
     }
 
     const getMonthRep = (dateObj) => {
-        const strDate = new Date(dateObj).toDateString()
-        const splitted = strDate.split(' ')
-        const values = [splitted[1] + " " + splitted[3]]
-        return values
+        const strDate = new Date(dateObj).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        return strDate.split(' ').join('');
+        // const values = [splitted[1] + " " + splitted[3]]
+        // return values
     }
 
     var monthCumulative = document.getElementById("monthsExpensesChart");
-    var dataFirst = {
-        label: getMonthRep(labels[0]),
-        data: monthsdata[0],
-        options: {
-            plugins: {
-                lineTension: 0,
-                fill: false,
-                borderColor: 'rgb(80,151,215)'
-            }
-        }
-    };
+    var datasets = [];
 
-    var dataSecond = {
-        label: getMonthRep(labels[1]),
-        data: monthsdata[1],
-        options: {
-            plugins: {
-                lineTension: 0,
-                fill: false,
-                borderColor: 'rgb(231,109, 132)',
+    for (let i = 0; i < labels.length; i++) {
+        const dataset = {
+            label: getMonthRep(labels[i]),
+            data: monthsdata[i],
+            options: {
+                plugins: {
+                    lineTension: 0,
+                    fill: false,
+                    borderColor: getRandomColor(),
+                }
             }
-        }
-    };
+        };
+        datasets.push(dataset);
+    }
 
-    var thirdSecond = {
-        label: getMonthRep(labels[2]),
-        data: monthsdata[2],
-        options: {
-            plugins: {
-                lineTension: 0,
-                fill: false,
-                borderColor: '#18bc9c ',
-            }
-        }
-    };
     var monthsData = {
         labels: keys,
-        datasets: [dataFirst, dataSecond, thirdSecond]
+        datasets: datasets,
     };
 
     var chartOptions = {
@@ -87,16 +69,12 @@ const showMonthsExpensesChart = (data) => {
     var lineChart = new Chart(monthCumulative, {
         type: 'line',
         data: monthsData,
-        options: {
-            plugins: {
-               chartOptions
-            }
-        }
+        options: chartOptions
     })
 };
 
 const getCumulativeExpenses = () => {
-    console.log('expenses_source');
+    // console.log('expenses_source');
     fetch('/personalbudget/last_3months_expense_source_stats')
         .then(res => res.json()).then(data => {
         console.log('data', data)
@@ -106,3 +84,12 @@ const getCumulativeExpenses = () => {
 
 window.addEventListener('load', getCumulativeExpenses)
 
+// Function to generate random colors for the datasets
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}

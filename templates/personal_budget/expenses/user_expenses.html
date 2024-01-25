@@ -52,25 +52,27 @@
                 {% include 'user/_messages.html' %}
                     {# if user has some expenses, then display them #}
                     <div class="breadcrumb-event-add">
-                        <a href="{% url 'add-expense' %}" class="btn">Add
-                            Expense</a>
+                        <a href="{% url 'add-expense' %}" class="btn">
+                            <i class="bx bxs-plus-circle add-icon"></i>
+                            Add Expense
+                        </a>
                     </div>
 
                     <div class="app-table">
 
                         <table class="table table-stripped table-hover">
                             <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Cost</th>
-                                <th>Qty</th>
-                                <th>Amount ({{ currency }})</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Cost</th>
+                                    <th>Qty</th>
+                                    <th>Amount ({{ currency }})</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
                             </thead>
 
                             <tbody>
@@ -84,7 +86,7 @@
                                     <td>{{ expense.description }}</td>
                                     <td>{{ expense.cost }}</td>
                                     <td>{{ expense.qty }}</td>
-                                    <td>{{ expense.amount }}</td>
+                                    <td>{{ expense.amount}}</td>
                                     <td>{{ expense.date }}</td>
 
                                     <td>
@@ -158,13 +160,12 @@
             </div>
 
             <div class="chart-container1" id="Chart1">
-                <h6>Distribution Per Category-last 3 months</h6>
-                <hr>
-{#                <div id="legend"></div>#}
+                <h6>Distribution Per Category (last 3 months)</h6>
+                <hr>  
                 <canvas id="expensesCategoryChart"></canvas>
             </div>
             <div class="chart-container2" id="Chart2">
-                <h6>Category Cumulative Comparison-last 3 months</h6>
+                <h6>Category Cumulative Comparison (last 3 months)</h6>
                 <hr>
                 <canvas id="monthsExpensesChart"></canvas>
             </div>
@@ -173,8 +174,9 @@
 
 
     <!-- Scripts -->
-    {#<script src="/static/assets/js/searchExpenses.js"></script>#}
     <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
+    
+    <!-- Chart Scripts -->
     <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
     <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
 
