@@ -270,7 +270,7 @@ Container SUMMARY GENERAL - Charts
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 400px;
+    grid-template-rows: 1fr 1fr;
     gap: 20px;
     grid-template-areas:
         "summary1 summary2"
@@ -282,6 +282,8 @@ Container SUMMARY GENERAL - Charts
     background: pink;
     border-radius: 10px;
     padding: 0 20px 0 60px;
+    align-content: center;
+    align-items: center;
 }
 
 #summary2 {
@@ -304,6 +306,103 @@ Container SUMMARY GENERAL - Charts
     border-radius: 10px;
     padding: 0 20px 0 380px;
 }
+
+#summary1 .dashboard-column-summary,
+#summary2 .dashboard-column-summary {
+    padding-top: 10px;
+    width: 290px;
+    text-align: center;
+}
+
+#summary1 .dashboard-column-summary h3,
+#summary2 .dashboard-column-summary h3 {
+    text-align: center;
+}
+
+#summary1 .dashboard-column-summary .card-body .card,
+#summary2 .dashboard-column-summary .card-body .card {
+    backdrop-filter: blur(20px);
+    border: 2px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+#summary1 .dashboard-column-summary .card-body .card i.bx,
+#summary2 .dashboard-column-summary .card-body .card i.bx {
+    font-size: 30px;
+    width: 4rem;
+    height: 2rem;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+#summary1 .dashboard-column-summary .card-body .card p,
+#summary2 .dashboard-column-summary .card-body .card p {
+    font-size: 20px;
+    padding-bottom: 15px;
+    color: black;
+    font-weight: 600;
+}
+
+#summary1 .dashboard-column-summary .card-body .card:nth-child(1) span,
+#summary2 .dashboard-column-summary .card-body .card:nth-child(1) span {
+    font-size: 20px;
+    padding-bottom: 15px;
+    color: #23b6d3;
+    font-weight: 600;
+}
+
+#summary1 .dashboard-column-summary .card-body .card:nth-child(2) span,
+#summary2 .dashboard-column-summary .card-body .card:nth-child(2) span {
+    font-size: 20px;
+    padding-bottom: 15px;
+    color: #f15b4d;
+    font-weight: 600;
+}
+
+#summary1 .dashboard-column-summary .card-body .card:nth-child(3) span,
+#summary2 .dashboard-column-summary .card-body .card:nth-child(3) span {
+    font-size: 20px;
+    color: #0b8c16;
+    font-weight: 600;
+}
+
+#summary1 .dashboard-column-summary .card-body .card:hover,
+#summary2 .dashboard-column-summary .card-body .card:hover {
+    background-color: rgb(198, 201, 203);
+    transform: translateX(20px);
+}
+
+#summary1 .dashboard-column-summary .card:nth-child(1),
+#summary1 .dashboard-column-summary .card:nth-child(2),
+#summary1 .dashboard-column-summary .card:nth-child(3),
+#summary2 .dashboard-column-summary .card:nth-child(1),
+#summary2 .dashboard-column-summary .card:nth-child(2),
+#summary2 .dashboard-column-summary .card:nth-child(3) {
+    max-width: 18rem;
+    background-color: rgba(234, 234, 241, 0.6);
+}
+
+#summary1 .dashboard-column-summary .card:nth-child(1) i.bx,
+#summary2 .dashboard-column-summary .card:nth-child(1) i.bx {
+    background-color: rgba(215, 238, 243, 0.8);
+    color: #23b6d3;
+}
+
+#summary1 .dashboard-column-summary .card:nth-child(2) i.bx,
+#summary2 .dashboard-column-summary .card:nth-child(2) i.bx {
+    background-color: rgba(215, 238, 243, 0.8);
+    color: #f15b4d;
+}
+
+#summary1 .dashboard-column-summary .card:nth-child(3) i.bx,
+#summary2 .dashboard-column-summary .card:nth-child(3) i.bx {
+    background-color: rgba(215, 238, 243, 0.8);
+    color: #0b8c16;
+}
+
+
 /*
 ---------------------------------------------
 Container SUMMARY EXPENSES & INCOME - Charts
@@ -475,7 +574,7 @@ Table Pagination
 /*make it responsive to all devices*/
 
 @media (max-width: 1438px) {
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 120px;
     }
     .breadcrumb-event-add {
@@ -484,7 +583,7 @@ Table Pagination
 }
 
 @media (max-width: 1345px) {
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 120px;
     }
     .breadcrumb-event-add {
@@ -496,7 +595,7 @@ Table Pagination
     .container-main {
         width: 115%;
     }
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 100px;
     }
     .breadcrumb-event-add {
@@ -508,7 +607,7 @@ Table Pagination
     .container-main {
         width: 115%;
     }
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 100px;
     }
     .breadcrumb-event-add {
@@ -521,7 +620,7 @@ Table Pagination
         grid-template-columns: 50px 800px;
         width: 100%;
     }
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 100px;
     }
     .breadcrumb-event-add {
@@ -555,7 +654,7 @@ Table Pagination
         justify-content: space-around;
     }
 
-    .dashboard-column {
+    .dashboard-column, .dashboard-column-summary {
         font-size: 20px;
         width: 300px;
     }
@@ -588,7 +687,7 @@ Table Pagination
     #Chart1 {
         margin-left: 20px;
     }
-    #searchTableField, #summary2 {
+    #searchTableField {
         padding: 0 5px 0 100px;
     }
     .breadcrumb-event-add {
@@ -616,7 +715,7 @@ Table Pagination
     "Chart2";
         /*grid-auto-flow: dense;*/
     }
-    #searchTableField, #summary2 {
+    #searchTableField {
     padding: 0 5px 0 260px;
     }
     #expensesTable {
@@ -666,7 +765,7 @@ Table Pagination
         /*flex-direction: column;*/
         justify-content: space-around;
     }
-    .dashboard-column {
+    .dashboard-column, .dashboard-column-summary {
         font-size: 20px;
         width: 200px;
     }

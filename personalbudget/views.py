@@ -709,8 +709,6 @@ def last_3months_income_source_stats(request):
 
 
 
-
-
 # ---->>>>>>>>>> SUMMARY - PAGE VIEWS <<<<<<<<<<<<----#
 
 def summary_budget_view(request):
@@ -726,16 +724,13 @@ def summary_budget_view(request):
 
     this_month_income_amount = 0
     this_month_expenses_amount = 0
+    this_month_balance_amount = 0
 
     this_year_income_amount = 0
     this_year_expenses_amount = 0
-
+    this_year_balance_amount = 0
 
     for one in all_incomes:
-        if one.date == today:
-            todays_amount += one.amount
-            todays_count += 1
-
         if today2.replace(day=1) <= one.date <= today:
             this_month_income_amount += one.amount
 
@@ -743,15 +738,15 @@ def summary_budget_view(request):
             this_year_income_amount += one.amount
 
     for one in all_expenses:
-        if one.date == today:
-            todays_amount += one.amount
-            todays_count += 1
 
         if today2.replace(day=1) <= one.date <= today:
             this_month_expenses_amount += one.amount
 
         if year_ago <= one.date <= today:
             this_year_expenses_amount += one.amount
+
+    this_month_balance_amount = this_month_income_amount - this_month_expenses_amount
+    this_year_balance_amount = this_year_income_amount - this_year_expenses_amount
 
     context = {
         'currency': Currency.objects.get(user=request.user).currency.split('-')[0],
@@ -764,11 +759,17 @@ def summary_budget_view(request):
         'this_month_expenses': {
             'amount': this_month_expenses_amount,
         },
+        'this_month_balance': {
+            'amount': this_month_balance_amount,
+        },
         'this_year_income': {
             'amount': this_year_income_amount,
         },
         'this_year_expenses': {
             'amount': this_year_expenses_amount,
+        },
+        'this_year_balance': {
+            'amount': this_year_balance_amount,
         },
     }
 

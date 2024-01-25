@@ -37,30 +37,34 @@
             </div>
 
             <div id="summary1">
-                <div class="dashboard-column">
+                <div class="dashboard-column-summary">
                     <h3>Monthly Budget</h3>
                     <hr>
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">INCOME: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ this_month_income.amount }} {{ currency }}</span>
-                        </h5></div>
-                    </div>
-                </div>
-                <div class="dashboard-column">
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">EXPENSES: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ this_month_expenses.amount }} {{ currency }}</span>
-                        </h5></div>
-                    </div>
-                </div>
-                <div class="dashboard-column">
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">BUDGET: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ today.amount }} {{ currency }}</span>
-                        </h5></div>
+                    <div class="card-body">
+                        <div class="card text-white mb-2" id="incomeBudget">
+                            <div class="card-header">
+                                <i class="bx bx-money"></i>
+                                <p>MONTHLY INCOME: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light income_budget">{{ this_month_income.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
+                        <div class="card text-white mb-2" id="expensesBudget">
+                            <div class="card-header">
+                                <i class="bx bx-credit-card"></i>
+                                <p>MONTHLY EXPENSES: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light expenses_budget">{{ this_month_expenses.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
+                        <div class="card text-white mb-2" id="balanceBudget">
+                            <div class="card-header">
+                                <i class="bx bx-dollar"></i>
+                                <p>MONTHLY BALANCE: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light balance_budget">{{ this_month_balance.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,40 +89,51 @@
 
 
             <div id="summary2">
-                <div class="dashboard-column">
+                <div class="dashboard-column-summary">
                     <h3>Year Budget</h3>
                     <hr>
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">INCOME: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ this_year_income.amount }} {{ currency }}</span>
-                        </h5></div>
-                    </div>
-                </div>
-                <div class="dashboard-column">
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">EXPENSES: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ this_year_expenses.amount }} {{ currency }}</span>
-                        </h5></div>
-                    </div>
-                </div>
-                <div class="dashboard-column">
-                    <div class="card text-white bg-primary mb-2">
-                        <div class="card-header">BUDGET: <h5
-                                class="float-right"><span
-                                class="badge badge-light ">{{ today.amount }} {{ currency }}</span>
-                        </h5></div>
+                    <div class="card-body">
+                        <div class="card text-white mb-2" id="incomeBudget">
+                            <div class="card-header">
+                                <i class="bx bx-money"></i>
+                                <p>YEAR INCOME: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light ">{{ this_year_income.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
+                        <div class="card text-white mb-2" id="expensesBudget">
+                            <div class="card-header">
+                                <i class="bx bx-credit-card"></i>
+                                <p>YEAR EXPENSES: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light ">{{ this_year_expenses.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
+                        <div class="card text-white mb-2" id="balanceBudget">
+                            <div class="card-header">
+                                <i class="bx bx-dollar"></i>
+                                <p>YEAR BALANCE: </p><h5
+                                    class="float-right"><span
+                                    class="badge badge-light ">{{ this_year_balance.amount }} {{ currency }}</span>
+                            </h5></div>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
 
-
-            <div id="summaryChart1"></div>
-            <div id="summaryChart2"></div>
-
-
+            <div class="chart-container1" id="summaryChart1">
+                <h6>This Month Balance</h6>
+                <hr>
+                <canvas id="monthBalanceChart"></canvas>
+            </div>
+            <div class="chart-container2" id="summaryChart2">
+                <h6>This Year Balance</h6>
+                <hr>
+                <canvas id="yearBalanceChart"></canvas>
+            </div>
+            
         </div>
 
     </div>
