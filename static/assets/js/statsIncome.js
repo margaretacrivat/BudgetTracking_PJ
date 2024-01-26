@@ -26,6 +26,7 @@ const renderIncomeSourceChart = (data, labels) => {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
         },
     });
 };

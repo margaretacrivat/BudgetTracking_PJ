@@ -44,6 +44,8 @@ urlpatterns = [
          name='last_3months_income_source_stats'),
 
     path('summary-budget/', views.summary_budget_view, name='summary-budget'),
+    path('current_month_balance_stats/', views.current_month_balance_stats, name='current_month_balance_stats'),
+    path('current_year_balance_stats/', views.current_year_balance_stats, name='current_year_balance_stats'),
     path('expenses-summary-rest/', views.expenses_summary_rest, name='expenses-summary-rest'),
     path('expenses-summary/', views.expenses_summary_view, name='expenses-summary'),
     path('income-summary-rest/', views.income_summary_rest, name='income-summary-rest'),

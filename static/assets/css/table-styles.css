@@ -204,10 +204,9 @@ Container Expenses page
     grid-area: Chart1;
     background: #fff;
     border-radius: 10px;
-    padding: 20px 10px 0 20px;
-    margin-left: 20px;
+    padding: 20px 10px 80px 20px;
     margin-bottom: 60px;
-    width: 70%;
+    width: 80%;
     text-align: center;
     box-shadow: 0 7px 25px rgba(0,0,0,0.8);
 }
@@ -216,8 +215,8 @@ Container Expenses page
     grid-area: Chart2;
     background: #fff;
     border-radius: 10px;
-    padding: 20px 10px 0 20px;
-    /*margin-left: 20px;*/
+    padding: 20px 10px 80px 20px;
+    margin-left: 20px;
     width: 90%;
     text-align: center;
     box-shadow: 0 7px 25px rgba(0,0,0,0.8);
@@ -270,7 +269,7 @@ Container SUMMARY GENERAL - Charts
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 400px;
     gap: 20px;
     grid-template-areas:
         "summary1 summary2"
@@ -295,16 +294,29 @@ Container SUMMARY GENERAL - Charts
 
 #summaryChart1 {
     grid-area: summaryChart1;
-    background: yellow;
+    background: #fff;
     border-radius: 10px;
-    padding: 0 20px 0 380px;
+    padding: 20px 10px 80px 20px;
+    margin-left: 20px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
 }
 
 #summaryChart2 {
     grid-area: summaryChart2;
-    background: fuchsia;
+    background: #fff;
     border-radius: 10px;
-    padding: 0 20px 0 380px;
+    padding: 20px 10px 80px 20px;
+    margin-left: 20px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+}
+
+#summaryChart1:hover, #summaryChart2:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
 #summary1 .dashboard-column-summary,
@@ -371,7 +383,7 @@ Container SUMMARY GENERAL - Charts
 #summary1 .dashboard-column-summary .card-body .card:hover,
 #summary2 .dashboard-column-summary .card-body .card:hover {
     background-color: rgb(198, 201, 203);
-    transform: translateX(20px);
+    transform: translateX(40px);
 }
 
 #summary1 .dashboard-column-summary .card:nth-child(1),
@@ -448,7 +460,7 @@ Container SUMMARY EXPENSES & INCOME - Charts
     grid-area: Chart3;
     background: #fff;
     border-radius: 10px;
-    padding: 20px 10px 0 20px;
+    padding: 20px 20px 80px 20px;
     margin-left: 20px;
     width: 90%;
     text-align: center;
@@ -459,7 +471,7 @@ Container SUMMARY EXPENSES & INCOME - Charts
     grid-area: Chart4;
     background: #fff;
     border-radius: 10px;
-    padding: 20px 10px 0 20px;
+    padding: 20px 20px 80px 20px;
     margin-left: 40px;
     width: 90%;
     text-align: center;
@@ -580,6 +592,23 @@ Table Pagination
     .breadcrumb-event-add {
         margin-left: 900px;
     }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 500px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 90%;
+        margin-left: 30px;
+    }
 }
 
 @media (max-width: 1345px) {
@@ -588,6 +617,23 @@ Table Pagination
     }
     .breadcrumb-event-add {
         margin-left: 800px;
+    }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 500px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 90%;
+        margin-left: 30px;
     }
 }
 
@@ -601,6 +647,23 @@ Table Pagination
     .breadcrumb-event-add {
         margin-left: 700px;
     }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 500px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 90%;
+        margin-left: 30px;
+    }
 }
 
 @media (max-width: 1100px) {
@@ -613,11 +676,28 @@ Table Pagination
     .breadcrumb-event-add {
         margin-left: 600px;
     }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 500px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 90%;
+        margin-left: 30px;
+    }
 }
 
 @media (max-width: 1000px) {
     .container-main {
-        grid-template-columns: 50px 800px;
+        grid-template-columns: 50px 900px;
         width: 100%;
     }
     #searchTableField {
@@ -630,38 +710,24 @@ Table Pagination
         margin-top: 10px;
         padding: 20px;
         grid-template-columns: 680px;
-        grid-template-rows: 50px 50px 250px 250px 150px 600px;
-        /*align-items: center;*/
-        /*justify-content: center;*/
+        grid-template-rows: 200px 200px 200px 680px;
         grid-template-areas:
-            "summary1"
-            "summary2"
             "dashboardArea1"
             "dashboardArea2"
             "Chart3"
             "Chart4";
-        /*grid-auto-flow: dense;*/
     }
-
-    #dashboardArea1 {
-        background: yellow;
-        /*flex-direction: column;*/
-        justify-content: space-around;
-    }
-    #dashboardArea2 {
-        background: #2db6bb;
-        /*flex-direction: column;*/
-        justify-content: space-around;
-    }
-
     .dashboard-column, .dashboard-column-summary {
-        font-size: 20px;
-        width: 300px;
+        padding-left: 40px;
     }
-
+    #dashboardArea1, #dashboardArea2 {
+        padding-left: 40px;
+        background: yellow;
+        justify-content: space-around;
+    }
     #Chart3, #Chart4 {
-        padding: 10px;
-        margin-left: 60px;
+        padding-bottom: 100px;
+        margin-left: 90px;
         width: 80%;
     }
     .chart-container3 {
@@ -672,6 +738,23 @@ Table Pagination
     }
     .breadcrumb-event-back .btn {
         margin-top: 10px;
+    }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 500px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 90%;
+        margin-left: 30px;
     }
 }
 
@@ -687,33 +770,72 @@ Table Pagination
     #Chart1 {
         margin-left: 20px;
     }
+    #Chart2 {
+        padding-bottom: 100px;
+    }
+    .container-summary {
+        margin-top: 10px;
+        padding: 20px;
+        grid-template-columns: 650px;
+        grid-template-rows: 200px 200px 200px 650px;
+        grid-template-areas:
+            "dashboardArea1"
+            "dashboardArea2"
+            "Chart3"
+            "Chart4";
+    }
+    #Chart3, #Chart4 {
+        width: 80%;
+        padding-bottom: 90px;
+    }
+    .chart-container3 {
+        margin-top: 20px;
+    }
+    .chart-container4 {
+        margin-top: 260px;
+    }
+
     #searchTableField {
         padding: 0 5px 0 100px;
     }
     .breadcrumb-event-add {
         margin-left: 500px;
     }
-
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px 400px;
+        grid-template-rows: 600px 400px;
+        grid-template-areas:
+            "summary1 summary2"
+            "summaryChart1 summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 50px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 80%;
+        margin-left: 70px;
+    }
 }
 
 @media (max-width: 680px) {
     .container-main {
-        grid-template-columns: 50px 600px;
+        grid-template-columns: 50px 500px;
         width: 110%;
     }
     .container-tables {
         padding: 20px 10px 1040px 20px;
-
         grid-template-columns: 570px;
-        grid-template-rows: 50px 50px 100px 100px 100px;
+        grid-template-rows: 50px 50px 100px 100px 300px;
         gap: 20px;
         grid-template-areas:
-    "exportFile"
-    "searchTableField"
-    "expensesTable"
-    "Chart1"
-    "Chart2";
-        /*grid-auto-flow: dense;*/
+            "exportFile"
+            "searchTableField"
+            "expensesTable"
+            "Chart1"
+            "Chart2";
     }
     #searchTableField {
     padding: 0 5px 0 260px;
@@ -721,22 +843,16 @@ Table Pagination
     #expensesTable {
     font-size: 10px;
     }
-    #Chart1 {
-    padding: 10px;
-    margin-left: 100px;
-    width: 60%;
-    }
-    #Chart2 {
-        padding: 10px;
-        margin-left: 50px;
-        width: 80%;
-    }
+    #Chart1, #Chart2 {
+        margin-left: 70px;
+        width: 60%;
+        padding-bottom: 100px;
+        }
     .chart-container1 {
-        margin-top: 400px;
-        /*padding-top: 100px;*/
+        margin-top: 350px;
     }
     .chart-container2 {
-        margin-top: 720px;
+        margin-top: 800px;
     }
     .breadcrumb-event-add {
         margin-left: 420px;
@@ -745,24 +861,15 @@ Table Pagination
         margin-top: 10px;
         padding: 20px;
         grid-template-columns: 500px;
-        grid-template-rows: 250px 250px 150px 600px;
-        /*align-items: center;*/
-        /*justify-content: center;*/
+        grid-template-rows: 200px 200px 200px 650px;
         grid-template-areas:
             "dashboardArea1"
             "dashboardArea2"
             "Chart3"
             "Chart4";
-        /*grid-auto-flow: dense;*/
     }
-    #dashboardArea1 {
+    #dashboardArea1, #dashboardArea2 {
         background: yellow;
-        /*flex-direction: column;*/
-        justify-content: space-around;
-    }
-    #dashboardArea2 {
-        background: #2db6bb;
-        /*flex-direction: column;*/
         justify-content: space-around;
     }
     .dashboard-column, .dashboard-column-summary {
@@ -770,19 +877,12 @@ Table Pagination
         width: 200px;
     }
     #Chart3, #Chart4 {
-        padding: 10px;
         margin-left: 40px;
         width: 80%;
-    }
-    #Chart3 {
-        background: yellow;
-    }
-    #Chart4 {
-        background: bisque;
+        padding-bottom: 90px;
     }
     .chart-container3 {
         margin-top: 20px;
-        /*padding-top: 100px;*/
     }
     .chart-container4 {
         margin-top: 250px;
@@ -790,7 +890,28 @@ Table Pagination
     .breadcrumb-event-back .btn {
         margin-top: 10px;
     }
+    .container-summary-general {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 400px;
+        grid-template-rows: 600px 600px 400px 400px;
+        grid-template-areas:
+            "summary1"
+            "summary2"
+            "summaryChart1"
+            "summaryChart2"
+    }
+    #summary1, #summary2 {
+        padding-left: 60px;
+        margin-left: 0;
+    }
+    #summaryChart1, #summaryChart2 {
+        width: 80%;
+        margin-left: 70px;
+    }
 }
+
+
 
 /*@media (max-width: 560px) {*/
 /*    .container-main {*/

@@ -32,6 +32,7 @@ const showMonthsExpensesChart = (data) => {
                 plugins: {
                     lineTension: 0,
                     fill: false,
+                    backgroundColor: getRandomColor(),
                     borderColor: getRandomColor(),
                 }
             }
@@ -45,21 +46,23 @@ const showMonthsExpensesChart = (data) => {
     };
 
     var chartOptions = {
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Category Cumulative Comparison (Last 3 months)',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            // title: {
+            //     display: true,
+            //     text: 'Category Cumulative Comparison (Last 3 months)',
+            //     font: {
+            //         size: 15,
+            //     }
+            // },
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    boxWidth: 35,
                     font: {
-                        size: 15,
-                    }
-                },
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        boxWidth: 10,
+                        size: 12,
                     },
                 },
             },

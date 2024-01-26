@@ -45,21 +45,23 @@ const showMonthsIncomeChart = (data) => {
     };
 
     var chartOptions = {
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Source Cumulative Comparison (Last 3 months)',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+                // title: {
+                //     display: true,
+                //     text: 'Source Cumulative Comparison (Last 3 months)',
+                //     font: {
+                //         size: 15,
+                //     }
+                // },
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    boxWidth: 35,
                     font: {
-                        size: 15,
-                    }
-                },
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        boxWidth: 10,
+                        size: 12,
                     },
                 },
             },
@@ -69,11 +71,7 @@ const showMonthsIncomeChart = (data) => {
     var lineChart = new Chart(monthCumulative, {
         type: 'line',
         data: monthsData,
-        options: {
-            plugins: {
-               chartOptions
-            }
-        }
+        options: chartOptions
     })
 };
 

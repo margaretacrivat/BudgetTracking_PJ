@@ -14,6 +14,7 @@ from .forms import ExpenseForm
 # from .filters import ExpenseFilter
 from preferences.models import Currency
 import datetime
+from django.utils import timezone
 import csv
 import xlwt
 import io
@@ -720,15 +721,12 @@ def summary_budget_view(request):
     year_ago = today.replace(month=1, day=1)
 
     todays_amount = 0
-    todays_count = 0
 
     this_month_income_amount = 0
     this_month_expenses_amount = 0
-    this_month_balance_amount = 0
 
     this_year_income_amount = 0
     this_year_expenses_amount = 0
-    this_year_balance_amount = 0
 
     for one in all_incomes:
         if today2.replace(day=1) <= one.date <= today:
@@ -774,6 +772,46 @@ def summary_budget_view(request):
     }
 
     return render(request, 'personal_budget/summary/summary_budget.html', context)
+
+
+def current_month_balance_stats(request):
+    today = datetime.date.today()
+    current_month_start = today.replace(day=1)
+    current_month_end = today.replace(day=1) + datetime.timedelta(days=32) - datetime.timedelta(days=1)
+
+    income_month_data = Income.objects.filter(owner=request.user, date__range=[current_month_start, current_month_end]).aggregate(
+            Sum('amount'))['amount__sum'] or 0
+    expenses_month_data = Expense.objects.filter(owner=request.user, date__range=[current_month_start, current_month_end]).aggregate(
+                Sum('amount'))['amount__sum'] or 0
+
+    balance_month_data = income_month_data - expenses_month_data
+
+    current_month_data = {
+        'income': income_month_data,
+        'balance': balance_month_data,
+    }
+
+    return JsonResponse({'current_month_data': current_month_data}, safe=False)
+
+
+def current_year_balance_stats(request):
+    today = datetime.date.today()
+    current_year_start = today.replace(month=1, day=1)
+    current_year_end = today.replace(month=12, day=31)
+
+    income_year_data = Income.objects.filter(owner=request.user, date__range=[current_year_start, current_year_end]).aggregate(
+            Sum('amount'))['amount__sum'] or 0
+    expenses_year_data = Expense.objects.filter(owner=request.user, date__range=[current_year_start, current_year_end]).aggregate(
+                Sum('amount'))['amount__sum'] or 0
+
+    balance_year_data = income_year_data - expenses_year_data
+
+    current_year_data = {
+        'income': income_year_data,
+        'balance': balance_year_data,
+    }
+
+    return JsonResponse({'current_year_data': current_year_data}, safe=False)
 
 
 # ---->>>>>>>>>> EXPENSES SUMMARY / CHARTS - PAGE VIEWS <<<<<<<<<<<<----#
