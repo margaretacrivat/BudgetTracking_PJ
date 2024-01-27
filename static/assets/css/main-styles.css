@@ -151,6 +151,7 @@ body {
     text-transform: capitalize;
     line-height: 56px;
     vertical-align: middle;
+    color: black;
 }
 
 /*.section-heading h2 em {*/

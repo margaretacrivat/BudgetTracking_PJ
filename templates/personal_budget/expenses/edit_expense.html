@@ -6,38 +6,39 @@
 <body>
 {% block content %}
 
-<div class="container-main">
+    <div class="container-main">
 
-    {% include 'base/sidebar.html' %}
+        {% include 'base/sidebar.html' %}
 
-    <div class="container-breadcrumb-bar">
-        <div class="container-breadcrumb row">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb-nav">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a
-                                href="{% url 'expenses' %}">Expenses</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Edit Expense
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+        <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-10">
+                    <nav aria-label="breadcrumb-nav">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="{% url 'expenses' %}">Expenses</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Edit Expense
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
 
-            <div class="breadcrumb-event-delete col-md-2">
-                <a href="{% url 'delete-expense' expense.id %}"
-                   class="btn btn-danger">Delete</a>
+                {#            <div class="breadcrumb-event-delete col-md-2">#}
+                {#                <a href="{% url 'delete-expense' expense.id %}"#}
+                {#                   class="btn btn-danger">Delete</a>#}
+                {#            </div>#}
             </div>
         </div>
-    </div>
-
-{#<div class="container-expenses">#}
+    
         <div class="edit-form">
             <div class="edit-form-body" id="editForm">
+                <h4>Edit Expense</h4>
                 <form action="{% url 'edit-expense' expense.id %}"
                       method="post">
                     {% include 'user/_messages.html' %} {% csrf_token %}
+
                     <div class="form-group">
                         <label for="">Item</label>
                         <input type="text" class="form-control form-control-sm"
@@ -82,17 +83,16 @@
                     <div class="form-group">
                         <label for="" style="color:black;">Date of
                             Expense</label>
-                        <input type="date" class="form-control form-control-sm"
-                               name="expense_date" value="{{ values.date | date:'Y-m-d' }}">
+                        <input id="date" type="date" class="form-control form-control-sm"
+                               name="expense_date" value="{{ values.date}}">
                     </div>
                     <input type="submit" value="Save"
                            class="btn btn-primary btn-primary-sm">
                 </form>
-{#            </div>#}
+            </div>
         </div>
 
-{#    </div>#}
-</div>
+    </div>
 
 {% endblock content %}
 </body>

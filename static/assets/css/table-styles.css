@@ -19,9 +19,9 @@ Container pages Style
     /*padding-top: 55px;*/
     /*position: absolute;*/
     /*min-height: 100vh;*/
-    padding: 55px 7px 7px 7px;
+    padding: 48px 7px 0 0;
     /*left: 180px;*/
-    background: #0d9655;
+    background: transparent;
 }
 
 /*
@@ -30,12 +30,12 @@ BREADCRUMB BAR Styles
 ---------------------------------------------
 */
 
-.container-breadcrumb-bar {
-    background-color: rgba(204, 198, 198, 0.9);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
-    grid-area: header;
-    margin-right: 10px;
-}
+/*.container-breadcrumb-bar {*/
+/*    !*background-color: rgba(204, 198, 198, 0.9);*!*/
+/*    !*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);*!*/
+/*    grid-area: header;*/
+/*    margin-right: 10px;*/
+/*}*/
 
 .breadcrumb {
     /*background-color: rgba(204, 198, 198, 0.9);*/
@@ -77,6 +77,189 @@ BREADCRUMB BAR Styles
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
+/*
+---------------------------------------------
+Container DASHBOARD
+---------------------------------------------
+*/
+
+.container-dashboard{
+    background: transparent;
+    padding-top: 20px;
+    padding-left: 70px;
+    width: 100%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 50px;
+    gap: 20px;
+    grid-template-areas:
+        "dashboardMain1 dashboardMain2 dashboardMain3";
+}
+
+#dashboardMain1 {
+    grid-area: dashboardMain1;
+    background: transparent;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#dashboardMain1 .card {
+    background: rgba(99, 196, 107, 0.89);
+    padding-top: 10px;
+}
+
+#dashboardMain1 .card .card-header {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#dashboardMain1 .card .card-body {
+    background: rgba(215, 238, 243, 0.44);
+}
+
+#dashboardMain1 .card .card-body:nth-child(2),
+#dashboardMain1 .card .card-body:nth-child(3) {
+    margin-bottom: 5px;
+}
+
+#dashboardMain1 .card .card-body .card-text {
+    color: white;
+    font-size: 18px;
+}
+
+#dashboardMain2 {
+    grid-area: dashboardMain2;
+    background: transparent;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#dashboardMain2 .card {
+    background: #f6c446;
+    padding-top: 10px;
+}
+
+#dashboardMain2 .card .card-header {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#dashboardMain2 .card .card-body {
+    background: rgba(215, 238, 243, 0.44);
+}
+
+#dashboardMain2 .card .card-body:nth-child(2),
+#dashboardMain2 .card .card-body:nth-child(3) {
+    margin-bottom: 5px;
+}
+
+#dashboardMain2 .card .card-body .card-text {
+    color: white;
+    font-size: 18px;
+}
+
+#dashboardMain3 {
+    grid-area: dashboardMain3;
+    background: transparent;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#dashboardMain3 .card {
+    background: #2db6bb;
+    padding-top: 10px;
+}
+
+#dashboardMain3 .card .card-header {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#dashboardMain3 .card .card-body:nth-child(2) {
+    background: rgba(215, 238, 243, 0.44);
+    margin-bottom: 5px;
+}
+
+#dashboardMain3 .card .card-body .card-text {
+    color: white;
+    font-size: 18px;
+}
+
+#dashboardMain1 .fa.fa-main,
+#dashboardMain2 .fa.fa-main,
+#dashboardMain3 .fa.fa-main {
+    position: absolute;
+    padding-left: 170px;
+    font-size: 80px;
+    color: rgba(81, 82, 81, 0.29);
+    transform: translateY(-70%);
+}
+
+#dashboardMain1 .bx.bx-card,
+#dashboardMain2 .bx.bx-card,
+#dashboardMain3 .bx.bx-card {
+    position: absolute;
+    padding-left: 190px;
+    font-size: 40px;
+    color: rgba(81, 82, 81, 0.29);
+    transform: translateY(-70%);
+}
+
+#dashboardMain1 .card:hover,
+#dashboardMain2 .card:hover,
+#dashboardMain3 .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+#dashboardMain1 .card .card-header:hover span,
+#dashboardMain2 .card .card-header:hover span,
+#dashboardMain3 .card .card-header:hover span {
+    transform: scale(1.10);
+    font-size: 34px;
+    text-shadow: 0 1px 1px #000;
+    color: #b2b2b2;
+}
+
+#dashboardMain1 .card .card-body:hover,
+#dashboardMain2 .card .card-body:hover,
+#dashboardMain3 .card .card-body:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.6);
+}
+
+/*
+---------------------------------------------
+Container DASHBOARD
+---------------------------------------------
+*/
+
+.container-budget {
+    background: transparent;
+    padding-top: 20px;
+    padding-left: 70px;
+    width: 100%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 50px;
+    gap: 20px;
+    grid-template-areas:
+        "budgetCardExpenses budgetCardIncome";
+}
+
 
 /*
 ---------------------------------------------
@@ -87,11 +270,13 @@ ADD Expense
 .add-form {
     background: transparent;
     backdrop-filter: blur(20px);
-    border: 2px solid darkgrey;
+    border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
     padding: 20px;
-    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 99%;
     grid-area: main;
 
     display: grid;
@@ -101,10 +286,24 @@ ADD Expense
     grid-template-areas:
         "addForm";
 }
+
 #addForm {
     grid-area: addForm;
-    /*border-radius: 10px;*/
-    /*padding-top: 5px;*/
+}
+
+#addForm h4 {
+    font-size: 28px;
+    margin-top: 10px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+#addForm .form-group label {
+    padding-top: 5px;
+}
+#addForm #date {
+    width: 20%;
 }
 
 
@@ -115,7 +314,7 @@ Export Files and Search Field Styles
 */
 
 #searchField {
-    width: 80%;
+    width: 90%;
     font-size: 16px;
     padding: 5px 0 5px 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
@@ -123,11 +322,8 @@ Export Files and Search Field Styles
 
 .container-tables .bx.bx-search {
     position: absolute;
-    /*top: 18%;*/
-    /*left: 0;*/
     padding-left: 5px;
     font-size: 18px;
-    /*min-width: 60px;*/
     transform: translateY(110%);
 }
 
@@ -140,11 +336,13 @@ Edit Expense
 .edit-form {
     background: transparent;
     backdrop-filter: blur(20px);
-    border: 2px solid darkgrey;
+    border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
     padding: 20px;
-    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 99%;
     grid-area: main;
 
     display: grid;
@@ -154,6 +352,20 @@ Edit Expense
     grid-template-areas:
         "editForm";
 }
+#editForm h4 {
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+#editForm .form-group label {
+    padding-top: 5px;
+}
+
+#editForm #date {
+    width: 20%;
+}
 
 /*
 ---------------------------------------------
@@ -162,11 +374,10 @@ Container Expenses page
 */
 
 .container-tables {
-    background: yellowgreen;
+    background: transparent;
     margin-top: 10px;
-    padding: 40px;
+    padding: 30px;
     width: 100%;
-    /*height: 100vh;*/
     grid-area: main;
 
     display: grid;
@@ -181,17 +392,13 @@ Container Expenses page
 
 #exportFile {
     grid-area: exportFile;
-    background: pink;
     border-radius: 10px;
     padding-top: 5px;
 }
 
 #searchTableField {
     grid-area: searchTableField;
-    background: orange;
     border-radius: 10px;
-    /*padding-bottom: 5px;*/
-    /*font-size: 14px;*/
     padding: 0 20px 0 200px;
 }
 
@@ -216,7 +423,7 @@ Container Expenses page
     background: #fff;
     border-radius: 10px;
     padding: 20px 10px 80px 20px;
-    margin-left: 20px;
+    /*margin-left: 20px;*/
     width: 90%;
     text-align: center;
     box-shadow: 0 7px 25px rgba(0,0,0,0.8);
@@ -260,11 +467,9 @@ Container SUMMARY GENERAL - Charts
 */
 
 .container-summary-general {
-    background: magenta;
-    margin-top: 10px;
-    padding: 20px 10px;
+    background: transparent;
+    padding: 30px;
     width: 100%;
-    /*height: 100vh;*/
     grid-area: main;
 
     display: grid;
@@ -278,18 +483,16 @@ Container SUMMARY GENERAL - Charts
 
 #summary1 {
     grid-area: summary1;
-    background: pink;
     border-radius: 10px;
-    padding: 0 20px 0 60px;
-    align-content: center;
-    align-items: center;
+    padding: 0 20px 0 40px;
+    /*align-content: center;*/
+    /*align-items: center;*/
 }
 
 #summary2 {
     grid-area: summary2;
-    background: orange;
     border-radius: 10px;
-    padding: 0 20px 0 60px;
+    padding: 0 20px 0 40px;
 }
 
 #summaryChart1 {
@@ -322,8 +525,13 @@ Container SUMMARY GENERAL - Charts
 #summary1 .dashboard-column-summary,
 #summary2 .dashboard-column-summary {
     padding-top: 10px;
-    width: 290px;
+    width: 330px;
     text-align: center;
+}
+
+#summary1 .dashboard-column-summary .card-body,
+#summary2 .dashboard-column-summary .card-body {
+    padding-left: 20px;
 }
 
 #summary1 .dashboard-column-summary h3,
@@ -422,11 +630,9 @@ Container SUMMARY EXPENSES & INCOME - Charts
 */
 
 .container-summary {
-    background: magenta;
-    margin-top: 10px;
-    padding: 20px 10px;
+    background: transparent;
+    padding: 30px;
     width: 100%;
-    /*height: 100vh;*/
     grid-area: main;
 
     display: grid;
@@ -439,8 +645,8 @@ Container SUMMARY EXPENSES & INCOME - Charts
 }
 
 #dashboardArea1 {
-    background: #bb2d3b;
     grid-area: dashboardArea1;
+    background: transparent;
     padding: 10px 10px;
     justify-content: center;
     align-items: center;
@@ -448,8 +654,8 @@ Container SUMMARY EXPENSES & INCOME - Charts
 }
 
 #dashboardArea2 {
-    background: #bb932d;
     grid-area: dashboardArea2;
+    background: transparent;
     padding: 10px 10px;
     justify-content: center;
     align-items: center;
@@ -472,7 +678,7 @@ Container SUMMARY EXPENSES & INCOME - Charts
     background: #fff;
     border-radius: 10px;
     padding: 20px 20px 80px 20px;
-    margin-left: 40px;
+    margin-left: 30px;
     width: 90%;
     text-align: center;
     box-shadow: 0 7px 25px rgba(0,0,0,0.8);
@@ -700,6 +906,23 @@ Table Pagination
         grid-template-columns: 50px 900px;
         width: 100%;
     }
+    .container-dashboard {
+        padding-left: 20px;
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            "dashboardMain1"
+            "dashboardMain2"
+            "dashboardMain3";
+    }
+    #dashboardMain1 .fa.fa-main,
+    #dashboardMain2 .fa.fa-main,
+    #dashboardMain3 .fa.fa-main {
+        font-size: 70px;
+    }
     #searchTableField {
         padding: 0 5px 0 100px;
     }
@@ -722,7 +945,6 @@ Table Pagination
     }
     #dashboardArea1, #dashboardArea2 {
         padding-left: 40px;
-        background: yellow;
         justify-content: space-around;
     }
     #Chart3, #Chart4 {
@@ -760,13 +982,29 @@ Table Pagination
 
 @media (max-width: 800px) {
     .container-main {
-        grid-template-columns: 50px 750px;
+        grid-template-columns: 50px 740px;
         width: 105%;
+    }
+    .container-dashboard {
+        padding-left: 20px;
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            "dashboardMain1
+            "dashboardMain2"
+            "dashboardMain3";
+    }
+    #dashboardMain1 .fa.fa-main,
+    #dashboardMain2 .fa.fa-main,
+    #dashboardMain3 .fa.fa-main {
+        font-size: 70px;
     }
     #expensesTable {
         font-size: 14px;
     }
-
     #Chart1 {
         margin-left: 20px;
     }
@@ -794,7 +1032,6 @@ Table Pagination
     .chart-container4 {
         margin-top: 260px;
     }
-
     #searchTableField {
         padding: 0 5px 0 100px;
     }
@@ -822,9 +1059,47 @@ Table Pagination
 
 @media (max-width: 680px) {
     .container-main {
-        grid-template-columns: 50px 500px;
+        grid-template-columns: 50px 600px;
         width: 110%;
     }
+
+    .container-dashboard {
+        padding-left: 40px;
+        width: 100%;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas:
+            "dashboardMain1"
+            "dashboardMain2"
+            "dashboardMain3";
+    }
+    #dashboardMain1 .fa.fa-main,
+    #dashboardMain2 .fa.fa-main,
+    #dashboardMain3 .fa.fa-main {
+        padding-left: 110px;
+        font-size: 25px;
+        transform: translateY(-100%);
+    }
+    #dashboardMain1 .bx.bx-card,
+    #dashboardMain2 .bx.bx-card,
+    #dashboardMain3 .bx.bx-card {
+        padding-left: 110px;
+        font-size: 30px;
+        transform: translateY(-100%);
+    }
+    #dashboardMain1 .card .card-header,
+    #dashboardMain2 .card .card-header,
+    #dashboardMain3 .card .card-header {
+        font-size: 22px;
+    }
+    #dashboardMain1 .card .card-header:hover span,
+    #dashboardMain2 .card .card-header:hover span,
+    #dashboardMain3 .card .card-header:hover span {
+        font-size: 22px;
+    }
+
     .container-tables {
         padding: 20px 10px 1040px 20px;
         grid-template-columns: 570px;
@@ -869,7 +1144,6 @@ Table Pagination
             "Chart4";
     }
     #dashboardArea1, #dashboardArea2 {
-        background: yellow;
         justify-content: space-around;
     }
     .dashboard-column, .dashboard-column-summary {
@@ -886,9 +1160,6 @@ Table Pagination
     }
     .chart-container4 {
         margin-top: 250px;
-    }
-    .breadcrumb-event-back .btn {
-        margin-top: 10px;
     }
     .container-summary-general {
         width: 100%;
@@ -909,6 +1180,9 @@ Table Pagination
         width: 80%;
         margin-left: 70px;
     }
+    /*.breadcrumb-event-back .btn {*/
+    /*    margin-top: 1000px;*/
+    /*}*/
 }
 
 

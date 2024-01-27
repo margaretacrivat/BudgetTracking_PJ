@@ -18,12 +18,12 @@
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a
-                            href="">Expenses Summary</a>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'summary-budget' %}">Summary</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
-                        Summary
+                        Expenses Summary
                     </li>
                 </ol>
             </nav>
@@ -33,7 +33,7 @@
         <div class="container-summary">
 
             <div class="breadcrumb-event-back">
-                <a href="{% url 'expenses' %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'personal-budget' %}" class="btn btn-secondary">BACK</a>
             </div>
             
             <div id="dashboardArea1">
@@ -139,8 +139,8 @@
                 <hr>
                 <canvas id="yearExpensesChart"></canvas>
             </div>
-
         </div>
+    
     </div>
 
     

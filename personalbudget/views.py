@@ -32,11 +32,79 @@ from reportlab.platypus import Table, TableStyle, Paragraph
 # ---->>>>>>>>>> PERSONAL BUDGET - HOMEPAGE VIEW <<<<<<<<<<<<----#
 
 
-def personal_budget_home(request):
-    # Logica pentru pagina de inserare a datelor in tabel
+def personal_budget_index(request):
     expenses = Expense.objects.all()
     return render(request, 'personal_budget/index.html',
                   {'expenses': expenses})
+
+@login_required(login_url='/authentication/login')
+def budget_main_view(request):
+    todays_date = datetime.date.today()
+    first_day_of_month = todays_date.replace(day=1)
+    last_day_of_month = first_day_of_month.replace(month=first_day_of_month.month + 1) - datetime.timedelta(days=1)
+
+    expenses = Expense.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
+    incomes = Income.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
+
+    def get_categories_expenses(expense):
+        return expense.category
+
+    category_list = list(set(map(get_categories_expenses, expenses)))
+
+    def get_sources_income(income):
+        return income.source
+
+    source_list = list(set(map(get_sources_income, incomes)))
+
+    def get_expense_category_amount(category):
+        amount = 0
+        filtered_by_category = expenses.filter(category=category)
+
+        for item in filtered_by_category:
+            amount += item.amount
+        return amount
+
+    def get_income_source_amount(source):
+        amount = 0
+        filtered_by_source = incomes.filter(source=source)
+
+        for item in filtered_by_source:
+            amount += item.amount
+        return amount
+
+    category_data = [{'category': category, 'amount': get_expense_category_amount(category)} for category in
+                     category_list]
+    source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
+                   source_list]
+
+    return render(request, 'personal_budget/budget_main.html',
+                  {'category_data': category_data, 'source_data': source_data})
+
+# @login_required(login_url='/authentication/login')
+# def budget_main_income_view(request):
+#     todays_date = datetime.date.today()
+#     first_day_of_month = todays_date.replace(day=1)
+#     last_day_of_month = first_day_of_month.replace(month=first_day_of_month.month + 1) - datetime.timedelta(days=1)
+#
+#     incomes = Income.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
+#
+#     def get_sources(income):
+#         return income.source
+#
+#     source_list = list(set(map(get_sources, incomes)))
+#
+#     def get_income_source_amount(source):
+#         amount = 0
+#         filtered_by_source = incomes.filter(source=source)
+#
+#         for item in filtered_by_source:
+#             amount += item.amount
+#         return amount
+#
+#     source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
+#                    source_list]
+#
+#     return render(request, 'personal_budget/budget_main.html', {'source_data': source_data})
 
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
@@ -216,7 +284,6 @@ def search_expenses(request):
 
 # ---->>>>>>>>>> EXPENSES - EXPORT FILES VIEWS <<<<<<<<<<<<----#
 
-
 def export_expenses_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=Expenses' + \
@@ -230,7 +297,6 @@ def export_expenses_csv(request):
     for expense in expenses:
         writer.writerow([expense.item, expense.category, expense.description,
                          expense.amount, expense.date])
-
     return response
 
 
@@ -561,7 +627,6 @@ def export_income_csv(request):
     for income in incomes:
         writer.writerow([income.amount, income.source, income.description,
                          income.date])
-
     return response
 
 
@@ -591,7 +656,6 @@ def export_income_excel(request):
 
         for col_num in range(len(row)):
             ws.write(row_num, col_num, str(row[col_num]), font_style)
-
     wb.save(response)
 
     return response

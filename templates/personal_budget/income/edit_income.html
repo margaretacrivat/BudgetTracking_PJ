@@ -6,32 +6,30 @@
 <body>
 {% block content %}
 
-    {#    Include Sidebar #}
-    {% include 'base/sidebar.html' %}
+    <div class="container-main">
+        {% include 'base/sidebar.html' %}
 
-    <div class="container-expenses mt-4">
-        <div class="row">
-            <div class="col-md-10">
-                <nav class="container-breadcrumb" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a
-                                href="{% url 'income' %}">Income</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Edit Income
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="col-md-2">
-                <a href="{% url 'delete-income' income.id %}"
-                   class="btn btn-danger btn-sm">Delete</a>
+        <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-10">
+                    <nav aria-label="breadcrumb-nav">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="{% url 'income' %}">Income</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Edit Income
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
 
 
-        <div class="card-expenses">
-            <div class="card-body">
+        <div class="edit-form">
+            <div class="edit-form-body" id="editForm">
+                <h4>Edit Income</h4>
                 <form action="{% url 'edit-income' income.id %}"
                       method="post">
                     {% include 'user/_messages.html' %} {% csrf_token %}
@@ -60,8 +58,8 @@
                     <div class="form-group">
                         <label for="" style="color:black;">Date of
                             Income</label>
-                        <input type="date" class="form-control form-control-sm"
-                               name="income_date" value="{{ values.date | date:'Y-m-d'}}">
+                        <input id="date" type="date" class="form-control form-control-sm"
+                               name="income_date" value="{{ values.date}}">
                     </div>
 
                     <input type="submit" value="Save"

@@ -1,82 +1,96 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} DataTables with Insert Data Jquery Ajax {% endblock %}
+{% block title %} Dashboard {% endblock %}
 
 <body>
 {% block content %}
-{#    Include Sidebar #}
-
-
 
     <div class="container-main">
 
-    {% include 'base/sidebar.html' %}
+        {% include 'base/sidebar.html' %}
 
-    <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-md-10">
-                    <nav aria-label="breadcrumb-nav">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a
-                                    href="">Personal Budget</a>
-                            </li>
-                            <li class="breadcrumb-item active"
-                                aria-current="page">
-                                Home
-                            </li>
-                        </ol>
-                    </nav>
+        <div class="container-breadcrumb-bar">
+                <div class="container-breadcrumb row">
+                    <div class="col-md-10">
+                        <nav aria-label="breadcrumb-nav">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'personal-budget' %}">Personal Budget</a>
+                                </li>
+                                <li class="breadcrumb-item active"
+                                    aria-current="page">
+                                    Dashboard
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+        </div>
+
+        <div class="container-dashboard">
+
+            <div id="dashboardMain1">
+                <div class="dashboard-column">
+                    <div class="card text-white">
+                        <a class="card-header" href="{% url 'budget-main' %}"
+                           ><span>BUDGET</span> <h5
+                                class="float-right">
+                            <i class='fa fa-usd fa-main'></i>
+                        </h5></a>
+                        <a class="card-body" href="{% url 'expenses' %}" >
+                            <p class="card-text">Expenses</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="{% url 'income' %}">
+                            <p class="card-text">Income</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                    </div>
                 </div>
             </div>
+
+            <div id="dashboardMain2">
+                <div class="dashboard-column">
+                    <div class="card text-white">
+                        <a class="card-header" href="{% url 'summary-budget' %}"
+                        ><span>SUMMARY</span> <h5
+                                class="float-right">
+                                <i class='fa fa-area-chart fa-main'></i>
+                        </h5></a>
+                        <a class="card-body" href="{% url 'expenses-summary' %}">
+                            <p class="card-text">Expenses Summary </p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="{% url 'income-summary' %}">
+                            <p class="card-text">Income Summary </p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="dashboardMain3">
+                <div class="dashboard-column">
+                    <div class="card text-white">
+                        <a class="card-header" href="{% url 'settings' %}"
+                        ><span>SETTINGS</span> <h5
+                                class="float-right">
+                                <i class='fa fa-cog fa-main'></i>
+                        </h5></a>
+                        <a class="card-body" href="{% url 'preferences' %}">
+                            <p class="card-text">Preferences</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="container-tables">
-      <div class="card-container"></div>  
-        
-    </div>
-{#    Include Table Title #}
-{#    <div class="table-title">#}
-{#        Table title#}
-{#    </div>#}
-{##}
-{#    <hr style="border-top:1px solid #000; clear:both; margin-left: 200px; margin-right: 20px;">#}
-{#    <div class="data-table">#}
-{#        <table class="table table-bordered" id="my_purchases">#}
-{#            <thead class="table-head">#}
-{#            <tr>#}
-{#                <th>Person Name</th>#}
-{#                <th>Item</th>#}
-{#                <th>Category</th>#}
-{#                <th>Cost</th>#}
-{#                <th>Qty</th>#}
-{#                <th>Amount</th>#}
-{#            </tr>#}
-{#            </thead>#}
-{#            <tbody class="table-body">#}
-{#            {% for expense in expenses %}#}
-{#                <tr>#}
-{#                    <td>{{ purchase.person_name }}</td>#}
-{#                    <td>{{ purchase.item }}></td>#}
-{#                    <td>{{ purchase.category }}></td>#}
-{#                    <td>{{ purchase.cost }}</td>#}
-{#                    <td>{{ purchase.qty }}</td>#}
-{#                    <td>{{ purchase.amount }}</td>#}
-{#                </tr>#}
-{#            {% endfor %}#}
-{#            </tbody>#}
-            {#            <tfoot>#}
-            {#            <tr>#}
-            {#                <td colspan="7"><input type="button" class="btn btn-primary"#}
-            {#                                       value="Add Row" id="addRow"></td>#}
-            {#            </tr>#}
-            {#            </tfoot>#}
-{#        </table>#}
-{#    </div>#}
-    </div>
-
-{#    <!-- Scripts -->#}
-{#    <!-- Bootstrap core JavaScript -->#}
+        <!-- Scripts -->
+        <!-- Bootstrap core JavaScript -->
         <script src="/static/vendor/jquery/jquery.min.js"></script>
         <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="/static/assets/js/isotope.min.js"></script>
@@ -84,8 +98,6 @@
         <script src="/static/assets/js/custom.js"></script>
         <script src="/static/assets/js/script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-
-{#    <!-- Datatables script -->#}
 
 
 {% endblock content %}

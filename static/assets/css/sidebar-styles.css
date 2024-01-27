@@ -14,7 +14,7 @@ Sidebar Style
 }
 
 .sidebar-menu {
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
 .sidebar-menu .home-icon, .icon {
@@ -28,12 +28,10 @@ Sidebar Style
 }
 
 .sidebar-menu .sidebar-title {
-    /*position: relative;*/
     text-transform: uppercase;
     line-height: 10px;
     font-weight: 600;
     border-bottom: 1px solid #fff;
-    pointer-events: none;
     opacity: 1;
 }
 
@@ -49,7 +47,7 @@ Sidebar Style
     color: white;
     font-size: 22px;
     /*margin-bottom: 5px;*/
-    margin: 0 2px 2px 2px;
+    margin: 0 10px 20px 2px;
 }
 
 .sidebar-menu .sidebar-heading {

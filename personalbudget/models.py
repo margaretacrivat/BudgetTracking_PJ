@@ -39,9 +39,9 @@ class Category(models.Model):
 
 class Income(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    amount = models.FloatField(default=0)
     source = models.CharField(max_length=500)
     description = models.TextField()
+    amount = models.FloatField(default=0)
     date = models.DateField(default=now)
 
     def __str__(self):

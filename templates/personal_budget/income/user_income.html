@@ -14,12 +14,12 @@
     <div class="container-main">
 
         {% include 'base/sidebar.html' %}
-    
+
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Income</a>
+                            href="{% url 'income' %}">Income</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
@@ -30,17 +30,23 @@
         </div>
 
         <div class="container-tables">
+
+            <div class="breadcrumb-event-back">
+                <a href="{% url 'personal-budget' %}" class="btn btn-secondary">BACK</a>
+            </div>
+
             <div id="exportFile">
-                <a href="{% url 'export-income-csv' %}"
-                   class="btn btn-secondary">Export
-                    CSV</a>
-    
-                <a href="{% url 'export-income-excel' %}"
-                   class="btn btn-primary">Export
-                    Excel</a>
-    
-                <a href="{% url 'export-income-pdf' %}" class="btn btn-info">Export
-                    PDF</a>
+                <a href="{% url 'export-income-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+
+                <a href="{% url 'export-income-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+
+                <a href="{% url 'export-income-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
             </div>
             <div id="searchTableField">
                 <div class="form-group">
@@ -49,10 +55,10 @@
                            id="searchField" placeholder="Search...">
                 </div>
             </div>
-    
+
             <div id="expensesTable">
                 {% include 'user/_messages.html' %}
-    
+
                 {# if user has some income, then display them#}
                 <div class="breadcrumb-event-add">
                     <a href="{% url 'add-income' %}" class="btn">
@@ -60,9 +66,8 @@
                         Add Income
                     </a>
                 </div>
-    
+
                 <div class="app-table">
-    
                     <table class="table table-stripped table-hover">
                         <thead>
                             <tr>
@@ -74,7 +79,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-    
+
                         <tbody>
                         {% if income.count %}
                             {% for income in page_obj %}
@@ -93,37 +98,37 @@
                                     </td>
                                 </tr>
                             {% endfor %}
-                            </tbody>
-    
-                            </table>
-                            </div>
-    
-                            <p class="no-results" style="display: none;">No results </p>
-                            <div class="table-output">
-                            <table class="table table-stripped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Amount ({{ currency }})</th>
-                                    <th>Source</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-    
-                            <tbody class="table-body">
-                            </tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+                            
+                <p class="no-results" style="display: none;">No results </p>
+                <div class="table-output">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Amount ({{ currency }})</th>
+                                <th>Source</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody class="table-body">
+                        </tbody>
                         {% endif %}
-                        </table>
-                        </div>
-    
+                    </table>
+                </div>
+
                 <div class="pagination-container">
                     <div class="show-page">
                         Showing page {{ page_obj.number }}
                         of {{ page_obj.paginator.num_pages }}
                     </div>
-    
+
                     <ul class="show-pagination pagination align-right float-right mr-auto">
                         {% if page_obj.has_previous %}
                             <li {% if page_obj.number == 1 %}
@@ -134,7 +139,7 @@
                                                      href="?page={{ page_obj.previous_page_number }}">Previous</a>
                             </li>
                         {% endif %}
-    
+
                         {% if page_obj.has_next %}
                             <li class="page-item"><a class="page-link"
                                                      href="?page={{ page_obj.next_page_number }}">Next</a>
@@ -145,9 +150,9 @@
                         {% endif %}
                     </ul>
                 </div>
-    
+
             </div>
-    
+
             <div class="chart-container1" id="Chart1">
                 <h6>Source Cumulative Distribution (last 3 months income)</h6>
                 <hr>

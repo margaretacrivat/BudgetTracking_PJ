@@ -6,23 +6,24 @@ Preferences Style
 
 
 .card-preferences {
-    /*margin-left: 150px;*/
     background: transparent;
     backdrop-filter: blur(20px);
-    border: 2px solid darkgrey;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    /*border: 1px solid darkgrey;*/
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, .2);*/
     border-radius: 10px;
     padding: 20px;
-    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 70%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px 300px 300px;
+    grid-template-rows: 100px 370px 60px;
     gap: 20px;
     grid-template-areas:
         "currencyForm currencyForm"
-        "preferences1 preferences2";
+        "preferences1 preferences1";
 }
 
 #currencyForm {
@@ -41,15 +42,6 @@ Preferences Style
     padding: 20px;
 }
 
-#preferences2 {
-    grid-area: preferences2;
-    background: transparent;
-    border-radius: 10px;
-    padding: 20px;
-}
-
-
-
 .card-preferences h5 {
     color: #49494f;
     margin-left: 20px;
@@ -61,19 +53,16 @@ Preferences Style
 }
 
 .input-group-append {
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .input-group-append button {
-    /*margin: 5px 0;*/
     color: #19b619;
     box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
 }
 
 .custom-select {
     margin: 5px 0;
-    /*padding-right: 700px;*/
-    /*padding-right: 200px;*/
     padding-top: 5px;
     padding-bottom: 5px;
     border-radius: 4px 4px 4px 4px;
@@ -87,7 +76,7 @@ Preferences Style
 }
 
 .currency-option {
-    background: #f3f3f3;
+    background: rgba(239, 241, 241, 0.4);
 }
 
 /* ---------------- MEDIA QUERIES ----------------*/

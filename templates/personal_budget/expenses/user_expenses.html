@@ -17,7 +17,7 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Expenses</a>
+                            href="{% url 'expenses' %}">Expenses</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
@@ -28,17 +28,23 @@
         </div>
 
         <div class="container-tables">
+
+            <div class="breadcrumb-event-back">
+                <a href="{% url 'personal-budget' %}" class="btn btn-secondary">BACK</a>
+            </div>
+
             <div id="exportFile">
-                <a href="{% url 'export-expenses-csv' %}"
-                   class="btn btn-secondary">Export
-                    CSV</a>
+                <a href="{% url 'export-expenses-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
 
-                <a href="{% url 'export-expenses-excel' %}"
-                   class="btn btn-primary">Export
-                    Excel</a>
+                <a href="{% url 'export-expenses-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
 
-                <a href="{% url 'export-expenses-pdf' %}" class="btn btn-info">Export
-                    PDF</a>
+                <a href="{% url 'export-expenses-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
             </div>
             <div id="searchTableField">
                 <div class="form-group">
@@ -77,28 +83,27 @@
 
                             <tbody>
                             {% if expenses.count %}
-                            {% for expense in page_obj %}
-
+                                {% for expense in page_obj %}
                                 {# display dinamic data #}
-                                <tr>
-                                    <td>{{ expense.item }}</td>
-                                    <td>{{ expense.category }}</td>
-                                    <td>{{ expense.description }}</td>
-                                    <td>{{ expense.cost }}</td>
-                                    <td>{{ expense.qty }}</td>
-                                    <td>{{ expense.amount}}</td>
-                                    <td>{{ expense.date }}</td>
-
-                                    <td>
-                                        <a href="{% url 'edit-expense' expense.id %}"
-                                           class="btn btn-secondary btn-sm">Edit</a>
-                                    </td>
-                                    <td>
-                                        <a href="{% url 'delete-expense' expense.id %}"
-                                           class="btn btn-danger btn-sm">Delete</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                                    <tr>
+                                        <td>{{ expense.item }}</td>
+                                        <td>{{ expense.category }}</td>
+                                        <td>{{ expense.description }}</td>
+                                        <td>{{ expense.cost }}</td>
+                                        <td>{{ expense.qty }}</td>
+                                        <td>{{ expense.amount}}</td>
+                                        <td>{{ expense.date }}</td>
+    
+                                        <td>
+                                            <a href="{% url 'edit-expense' expense.id %}"
+                                               class="btn btn-secondary btn-sm">Edit</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'delete-expense' expense.id %}"
+                                               class="btn btn-danger btn-sm">Delete</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
 
                         </table>
@@ -108,17 +113,17 @@
                     <div class="table-output">
                         <table class="table table-stripped table-hover">
                             <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Cost</th>
-                                <th>Qty</th>
-                                <th>Amount ({{ currency }})</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Cost</th>
+                                    <th>Qty</th>
+                                    <th>Amount ({{ currency }})</th>
+                                    <th>Date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
                             </thead>
 
                             <tbody class="table-body">
@@ -155,7 +160,6 @@
                             {% endif %}
                         </ul>
                     </div>
-
 
             </div>
 

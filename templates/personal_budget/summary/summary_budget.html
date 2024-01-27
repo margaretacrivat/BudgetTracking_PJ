@@ -17,8 +17,8 @@
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a
-                            href="">Expenses Summary</a>
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'personal-budget' %}">Personal Budget</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
@@ -38,7 +38,7 @@
 
             <div id="summary1">
                 <div class="dashboard-column-summary">
-                    <h3>This Month Budget</h3>
+                    <h3>This Month Summary</h3>
                     <hr>
                     <div class="card-body">
                         <div class="card text-white mb-2" id="incomeBudget">
@@ -90,7 +90,7 @@
 
             <div id="summary2">
                 <div class="dashboard-column-summary">
-                    <h3>This Year Budget</h3>
+                    <h3>This Year Summary</h3>
                     <hr>
                     <div class="card-body">
                         <div class="card text-white mb-2" id="incomeBudget">

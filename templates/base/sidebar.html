@@ -4,16 +4,17 @@
 
     <ul class="sidebar-menu">
         <li class="sidebar-title">
-            <a class="d-flex align-items-center" href="" aria-label="">
+            <a class="d-flex align-items-center"
+               href="{% url 'personal-budget' %}" aria-label="">
                  <i class="fa fa-qrcode home-icon"></i>
                 <span class="title">Dashboard</span>
             </a>
         </li>
         <li class="sidebar-heading">
             <a class="d-flex align-items-center"
-               href="{% url 'personal-budget' %}" aria-label="">
-                <i class="fa fa-home home-icon"></i>
-                <span class="title">HOME</span>
+               href="{% url 'budget-main' %}" aria-label="">
+                <i class="fa fa-usd home-icon"></i>
+                <span class="title">BUDGET</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
@@ -35,7 +36,7 @@
         <li class="sidebar-heading">
             <a class="d-flex align-items-center" href="{% url 'summary-budget' %}"
                aria-label="">
-                <i class="fa fa-book home-icon"></i>
+                <i class="fa fa-area-chart home-icon"></i>
                 <span class="title">SUMMARY</span>
             </a>
             <ul class="sidebar-list">
@@ -56,7 +57,7 @@
         </li>
 
         <li class="sidebar-heading">
-            <a class="d-flex align-items-center" href=""
+            <a class="d-flex align-items-center" href="{% url 'settings' %}"
                aria-label="">
                 <i class="fa fa-cog home-icon"></i>
                 <span class="title">SETTINGS</span>

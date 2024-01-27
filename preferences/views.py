@@ -46,8 +46,8 @@ def preferences_view(request):
                        'user_preferences': user_preferences})
 
 
-def account_currency(request):
-    return render(request, 'preferences/account_currency.html')
+def settings_view(request):
+    return render(request, 'preferences/settings.html')
 
 
 

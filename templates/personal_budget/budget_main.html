@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} DataTables with Insert Data Jquery Ajax {% endblock %}
+
+<body>
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar.html' %}
+
+        <div class="container-breadcrumb-bar">
+            <div class="container-breadcrumb row">
+                <div class="col-md-10">
+                    <nav aria-label="breadcrumb-nav">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a
+                                    href="{% url 'personal-budget' %}">Personal Budget</a>
+                            </li>
+                            <li class="breadcrumb-item active"
+                                aria-current="page">
+                                Budget
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-budget">
+
+            <div id="budgetCardExpenses" >
+                {# expenses total si total cheltuieli pe categorii #}
+                <div class="app-table">
+                    <table class="table table-stripped table-hover">
+                        <div class="app-header"><h4>Expenses / Category</h4>
+                            <span class="app-data"> 200/300 {{ this_month_expenses.amount }} {{ currency }}</span>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount ({{ currency }})</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% if category_data %}
+                                {% for entry in category_data %}
+                                    <tr>
+                                        <td>{{ entry.category }}</td>
+                                        <td>{{ entry.amount}}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                {% else %}
+                                <tr>
+                                    <td colspan="2">No expenses available</td>
+                                </tr>
+                             {% endif %}
+                         </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div id="budgetCardIncome" name="Income">
+                {# income total si total venituri pe surse #}
+                <div class="app-table">
+                    <table class="table table-stripped table-hover">
+                        <div class="app-header"><h4>Income / Source</h4>
+                            <span class="app-data"> 1000/300 {{ this_month_income.amount }} {{ currency }}</span>
+                        </div>
+                        <thead>
+                            <tr>
+                                <th>Amount ({{ currency }})</th>
+                                <th>Source</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% if source_data %}
+                                {% for entry_i in source_data %}
+                                    <tr>
+                                        <td>{{ entry_i.amount}}</td>
+                                        <td>{{ entry_i.source }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                {% else %}
+                                <tr>
+                                    <td colspan="2">No incomes available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/assets/js/isotope.min.js"></script>
+    <script src="/static/assets/js/counter.js"></script>
+    <script src="/static/assets/js/custom.js"></script>
+    <script src="/static/assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+{% endblock content %}
+</body>
+
