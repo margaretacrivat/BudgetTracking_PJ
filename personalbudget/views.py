@@ -77,34 +77,13 @@ def budget_main_view(request):
     source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
                    source_list]
 
-    return render(request, 'personal_budget/budget_main.html',
-                  {'category_data': category_data, 'source_data': source_data})
+    try:
+        currency = Currency.objects.get(user=request.user).currency.split('-')[0]
+    except Currency.DoesNotExist:
+        currency = 'RON - Romanian  Leu'
 
-# @login_required(login_url='/authentication/login')
-# def budget_main_income_view(request):
-#     todays_date = datetime.date.today()
-#     first_day_of_month = todays_date.replace(day=1)
-#     last_day_of_month = first_day_of_month.replace(month=first_day_of_month.month + 1) - datetime.timedelta(days=1)
-#
-#     incomes = Income.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
-#
-#     def get_sources(income):
-#         return income.source
-#
-#     source_list = list(set(map(get_sources, incomes)))
-#
-#     def get_income_source_amount(source):
-#         amount = 0
-#         filtered_by_source = incomes.filter(source=source)
-#
-#         for item in filtered_by_source:
-#             amount += item.amount
-#         return amount
-#
-#     source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
-#                    source_list]
-#
-#     return render(request, 'personal_budget/budget_main.html', {'source_data': source_data})
+    return render(request, 'personal_budget/budget_main.html',
+                  {'category_data': category_data, 'source_data': source_data, 'currency': currency})
 
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#

@@ -12,8 +12,8 @@ class ExpensesAdmin(admin.ModelAdmin):
 
 
 class IncomesAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'amount', 'source', 'description', 'date')
-    search_fields = ('amount', 'source', 'description', 'date')
+    list_display = ('owner', 'source', 'description', 'amount', 'date')
+    search_fields = ('source', 'description', 'amount', 'date')
     list_per_page = 5
 
 

@@ -33,13 +33,7 @@
                 <form action="{% url 'edit-income' income.id %}"
                       method="post">
                     {% include 'user/_messages.html' %} {% csrf_token %}
-
-                    <div class="form-group">
-                        <label for="">Amount</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
-                               name="amount" value="{{ values.amount }}">
-                    </div>
+                
                     <div class="form-group">
                         <label for="">Source</label>
                         <select class="form-control" name="source">
@@ -54,6 +48,12 @@
                         <input type="text" class="form-control form-control-sm"
                                name="description"
                                value="{{ values.description }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Amount</label>
+                        <input type="number"
+                               class="form-control form-control-sm"
+                               name="amount" value="{{ values.amount }}">
                     </div>
                     <div class="form-group">
                         <label for="" style="color:black;">Date of

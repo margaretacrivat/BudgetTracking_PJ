@@ -36,11 +36,7 @@
             <form action="{% url 'add-income' %}" method="post" autocomplete="off">
                 {% csrf_token %} {% include 'user/_messages.html' %}
 
-                <div class="form-group">
-                    <label for="">Amount</label>
-                    <input type="number" class="form-control form-control-sm"
-                           name="amount" value="{{ values.amount }}">
-                </div>
+            
 {#                <div class="form-group">#}
 {#                          <label for="exampleFormControlSelect1">Currency</label>#}
 {#                          <select class="form-control" name="currency" id="currency" {% if user_preferences.currency%}disabled>#}
@@ -67,6 +63,11 @@
                     <input type="text" class="form-control form-control-sm"
                            name="description" 
                            value="{{ values.description }}">
+                </div>
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control form-control-sm"
+                           name="amount" value="{{ values.amount }}">
                 </div>
                 <div class="form-group">
                     <label for="" style="color:black;">Date of Income</label>

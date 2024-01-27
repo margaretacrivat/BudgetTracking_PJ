@@ -19,7 +19,7 @@ Container pages Style
     /*padding-top: 55px;*/
     /*position: absolute;*/
     /*min-height: 100vh;*/
-    padding: 48px 7px 0 0;
+    padding: 52px 7px 0 0;
     /*left: 180px;*/
     background: transparent;
 }
@@ -846,6 +846,7 @@ Table Pagination
 @media (max-width: 1240px) {
     .container-main {
         width: 115%;
+        padding: 49px 7px 0 0;
     }
     #searchTableField {
         padding: 0 5px 0 100px;
@@ -875,6 +876,7 @@ Table Pagination
 @media (max-width: 1100px) {
     .container-main {
         width: 115%;
+        padding: 49px 7px 0 0;
     }
     #searchTableField {
         padding: 0 5px 0 100px;
@@ -905,6 +907,7 @@ Table Pagination
     .container-main {
         grid-template-columns: 50px 900px;
         width: 100%;
+        padding: 49px 7px 0 0;
     }
     .container-dashboard {
         padding-left: 20px;
@@ -984,6 +987,7 @@ Table Pagination
     .container-main {
         grid-template-columns: 50px 740px;
         width: 105%;
+        padding: 49px 7px 0 0;
     }
     .container-dashboard {
         padding-left: 20px;
@@ -1061,6 +1065,7 @@ Table Pagination
     .container-main {
         grid-template-columns: 50px 600px;
         width: 110%;
+        padding: 49px 7px 0 0;
     }
 
     .container-dashboard {

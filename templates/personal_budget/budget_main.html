@@ -73,8 +73,8 @@
                         </div>
                         <thead>
                             <tr>
-                                <th>Amount ({{ currency }})</th>
                                 <th>Source</th>
+                                <th>Amount ({{ currency }})</th>
                             </tr>
                         </thead>
 
@@ -82,8 +82,8 @@
                             {% if source_data %}
                                 {% for entry_i in source_data %}
                                     <tr>
-                                        <td>{{ entry_i.amount}}</td>
                                         <td>{{ entry_i.source }}</td>
+                                        <td>{{ entry_i.amount}}</td>
                                     </tr>
                                 {% endfor %}
 
