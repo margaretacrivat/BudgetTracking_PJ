@@ -30,8 +30,8 @@
         </div>
     </div>
 
-    <div class="add-form">
-        <div class="add-form-body" id="addForm">
+    <div class="add-income-form">
+        <div class="add-form-body" id="addIncomeForm">
         <h4>Add Income Form</h4>
             <form action="{% url 'add-income' %}" method="post" autocomplete="off">
                 {% csrf_token %} {% include 'user/_messages.html' %}

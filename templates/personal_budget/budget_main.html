@@ -3,7 +3,6 @@
 
 {% block title %} DataTables with Insert Data Jquery Ajax {% endblock %}
 
-<body>
 {% block content %}
 
     <div class="container-main">
@@ -27,90 +26,83 @@
                 </div>
             </div>
         </div>
+    
 
         <div class="container-budget">
 
-            <div id="budgetCardExpenses" >
+            <div id="budgetCard1" data-remaining-budget="{{ remaining_budget }}" data-total-income="{{ this_month_total_income }}">
+                <p>Your remaining budget is: <span class="budget-remaining">{{ remaining_budget }} {{ currency }}</span></p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar budget-progress-bar" style="width: {{ remaining_budget_percentage }}%;" onmouseover="showPercentage()" onmouseout="hidePercentage()"></div>
+                    <div class="progress-tooltip" id="progressTooltip">0%</div>
+                </div>
+            </div>
+
+            <div id="budgetCard2">
+                <p>Your total budget is: <span class="budget-income">{{ this_month_total_income }} {{ currency }}</span></p>
+                <p>You've spent a total of: <span class="budget-expenses">{{ this_month_total_expenses }} {{ currency }}</span></p>
+            </div>
+
+            <div id="budgetCardExpenses">
                 {# expenses total si total cheltuieli pe categorii #}
-                <div class="app-table">
-                    <table class="table table-stripped table-hover">
-                        <div class="app-header"><h4>Expenses / Category</h4>
-                            <span class="app-data"> 200/300 {{ this_month_expenses.amount }} {{ currency }}</span>
-                        </div>
-                        <thead>
+                <div class="table-title">Expenses / Category (this month)</div>
+                <table class="table table-stripped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount ({{ currency }})</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if category_data %}
+                        {% for entry in category_data %}
                             <tr>
-                                <th>Category</th>
-                                <th>Amount ({{ currency }})</th>
+                                <td>{{ entry.category }}</td>
+                                <td>{{ entry.amount }}</td>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                            {% if category_data %}
-                                {% for entry in category_data %}
-                                    <tr>
-                                        <td>{{ entry.category }}</td>
-                                        <td>{{ entry.amount}}</td>
-                                    </tr>
-                                {% endfor %}
-
-                                {% else %}
-                                <tr>
-                                    <td colspan="2">No expenses available</td>
-                                </tr>
-                             {% endif %}
-                         </tbody>
-
-                    </table>
-                </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="2">No expenses available</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
 
-            <div id="budgetCardIncome" name="Income">
+            <div id="budgetCardIncome">
                 {# income total si total venituri pe surse #}
-                <div class="app-table">
-                    <table class="table table-stripped table-hover">
-                        <div class="app-header"><h4>Income / Source</h4>
-                            <span class="app-data"> 1000/300 {{ this_month_income.amount }} {{ currency }}</span>
-                        </div>
-                        <thead>
+                <div class="table-title">Income / Source (this month)</div>
+                <table class="table table-stripped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Amount ({{ currency }})</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if source_data %}
+                        {% for entry_i in source_data %}
                             <tr>
-                                <th>Source</th>
-                                <th>Amount ({{ currency }})</th>
+                                <td>{{ entry_i.source }}</td>
+                                <td>{{ entry_i.amount }}</td>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                            {% if source_data %}
-                                {% for entry_i in source_data %}
-                                    <tr>
-                                        <td>{{ entry_i.source }}</td>
-                                        <td>{{ entry_i.amount}}</td>
-                                    </tr>
-                                {% endfor %}
-
-                                {% else %}
-                                <tr>
-                                    <td colspan="2">No incomes available</td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
-                </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="2">No incomes available</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
             </div>
-
         </div>
 
     </div>
 
     <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/assets/js/isotope.min.js"></script>
-    <script src="/static/assets/js/counter.js"></script>
-    <script src="/static/assets/js/custom.js"></script>
-    <script src="/static/assets/js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+    <script src="{% static 'assets/js/progressBar.js' %}"></script>
 
 {% endblock content %}
-</body>
 

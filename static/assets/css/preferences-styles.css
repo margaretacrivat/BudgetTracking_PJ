@@ -1,5 +1,59 @@
 /*
 ---------------------------------------------
+Settings Style
+---------------------------------------------
+*/
+
+
+.card-settings {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 70%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 410px;
+    gap: 20px;
+    grid-template-areas:
+        "settingsList1"
+        "settingsList2";
+}
+
+#settingsList1 {
+    grid-area: settingsList1;
+    background: #f6f5f5;
+    padding-left: 30px;
+}
+
+#settingsList2 {
+    grid-area: settingsList2;
+}
+
+#settingsList1 .settings-title {
+    transform: scale(1.10);
+    font-size: 24px;
+    font-weight: 600;
+    text-shadow: 0 1px 1px #000;
+    color: #b2b2b2;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#settingsList1 .settings-input p {
+    font-size: 20px;
+    font-weight: 300;
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+
+/*
+---------------------------------------------
 Preferences Style
 ---------------------------------------------
 */
@@ -19,7 +73,7 @@ Preferences Style
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px 370px 60px;
+    grid-template-rows: 1fr 410px;
     gap: 20px;
     grid-template-areas:
         "currencyForm currencyForm"
@@ -78,6 +132,8 @@ Preferences Style
 .currency-option {
     background: rgba(239, 241, 241, 0.4);
 }
+
+
 
 /* ---------------- MEDIA QUERIES ----------------*/
 

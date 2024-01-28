@@ -37,6 +37,7 @@ def personal_budget_index(request):
     return render(request, 'personal_budget/index.html',
                   {'expenses': expenses})
 
+
 @login_required(login_url='/authentication/login')
 def budget_main_view(request):
     todays_date = datetime.date.today()
@@ -77,13 +78,20 @@ def budget_main_view(request):
     source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
                    source_list]
 
+    this_month_total_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
+    this_month_total_income = incomes.aggregate(Sum('amount'))['amount__sum'] or 0
+    remaining_budget = this_month_total_income - this_month_total_expenses
+
     try:
         currency = Currency.objects.get(user=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
         currency = 'RON - Romanian  Leu'
 
     return render(request, 'personal_budget/budget_main.html',
-                  {'category_data': category_data, 'source_data': source_data, 'currency': currency})
+                  {'category_data': category_data, 'source_data': source_data, 'currency': currency,
+                   'this_month_total_expenses': this_month_total_expenses,
+                   'this_month_total_income': this_month_total_income,
+                   'remaining_budget': remaining_budget})
 
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
@@ -91,7 +99,9 @@ def budget_main_view(request):
 
 @login_required(login_url='/authentication/login')
 def expenses_view(request):
-    # categories = Category.objects.all().order_by('date').values()
+    if not Currency.objects.filter(user=request.user).exists():
+        messages.info(request, 'Please choose your preferred currency')
+        return redirect('preferences')
     expenses = Expense.objects.filter(owner=request.user).order_by('date').values()
     # expenses.extra(
     #     select={'amount': 'cost * qty'})
@@ -453,7 +463,6 @@ def last_3months_expense_source_stats(request):
     return JsonResponse({'cumulative_expenses_data': keyed_data}, safe=False)
 
 
-
 # ---->>>>>>>>>> INCOME - PAGE VIEWS <<<<<<<<<<<<----#
 # Logica pentru vizualizarea veniturilor
 
@@ -708,6 +717,7 @@ def income_source_chart(request):
 
     return JsonResponse({'income_source_data': finalrep}, safe=False)
 
+
 def get_income_for_period(start_date, end_date, incomes):
     period_data = {str(day): 0 for day in range(1, 32)}
 
@@ -750,7 +760,6 @@ def last_3months_income_source_stats(request):
     ]
 
     return JsonResponse({'cumulative_income_data': keyed_data}, safe=False)
-
 
 
 # ---->>>>>>>>>> SUMMARY - PAGE VIEWS <<<<<<<<<<<<----#
@@ -932,9 +941,6 @@ def expenses_summary_view(request):
             todays_amount += one.amount
             todays_count += 1
 
-        # Calculate the day of the week (Monday=0, Sunday=6)
-        # expense_day_of_week = one.date.weekday()
-
         # Calculate the day of the week for today (Monday=0, Sunday=6)
         today_day_of_week = today.weekday()
 
@@ -1055,9 +1061,6 @@ def income_summary_view(request):
         if one.date == today:
             todays_amount += one.amount
             todays_count += 1
-
-        # Calculate the day of the week (Monday=0, Sunday=6)
-        # expense_day_of_week = one.date.weekday()
 
         # Calculate the day of the week for today (Monday=0, Sunday=6)
         today_day_of_week = today.weekday()

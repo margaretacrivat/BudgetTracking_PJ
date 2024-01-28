@@ -82,7 +82,7 @@ header, nav, section, article, aside, footer, hgroup {
 body {
     width: 100%;
     min-height: 100vh;
-    border: 5px dashed red;
+    /*border: 5px dashed red;*/
 }
 
 html, body {

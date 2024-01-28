@@ -92,7 +92,7 @@ Container DASHBOARD
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 50px;
+    grid-template-rows: 1fr 330px;
     gap: 20px;
     grid-template-areas:
         "dashboardMain1 dashboardMain2 dashboardMain3";
@@ -248,18 +248,89 @@ Container DASHBOARD
 .container-budget {
     background: transparent;
     padding-top: 20px;
-    padding-left: 70px;
-    width: 100%;
+    padding-left: 60px;
+    width: 90%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 50px;
+    grid-template-rows: 100px 500px;
     gap: 20px;
     grid-template-areas:
+        "budgetCard1 budgetCard2"
         "budgetCardExpenses budgetCardIncome";
 }
 
+#budgetCard2 {
+    padding-left: 50px;
+}
+
+#budgetCard1 p, #budgetCard2 p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#budgetCard1 p .budget-remaining {
+    font-size: 16px;
+    font-weight: 500;
+    color: #39c039;
+}
+
+#budgetCard2 p .budget-income {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(9, 20, 246, 1);
+}
+
+#budgetCard2 p .budget-expenses {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(206, 64, 64, 1);
+}
+
+#budgetCard1 .progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    margin-top: 10px;
+    position: relative;
+}
+
+#budgetCard1 .progress-tooltip {
+    visibility: hidden;
+    width: 30px;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: -7px;
+    left: 40%;
+    transform: translateX(-50%);
+}
+
+#budgetCard1 .progress-bar {
+    height: 100%;
+    background-color: #4CAF50;  /* green color */
+}
+
+#budgetCardIncome {
+    grid-area: budgetCardIncome;
+    padding-left: 50px;
+}
+
+#budgetCardExpenses .table-title,
+#budgetCardIncome .table-title {
+    transform: scale(1.10);
+    font-size: 22px;
+    font-weight: 600;
+    text-shadow: 0 1px 1px #000;
+    color: #b2b2b2;
+    padding-left: 30px;
+    padding-bottom: 10px;
+}
 
 /*
 ---------------------------------------------
@@ -275,13 +346,14 @@ ADD Expense
     border-radius: 10px 10px 10px 10px;
     padding: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: 10px;
     width: 99%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 590px;
     gap: 20px;
     grid-template-areas:
         "addForm";
@@ -293,16 +365,62 @@ ADD Expense
 
 #addForm h4 {
     font-size: 28px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     text-shadow: 0 1px 1px #000;
     text-align: center;
     color: #b2b2b2;
 }
 
 #addForm .form-group label {
-    padding-top: 5px;
+    padding-top: 2px;
 }
 #addForm #date {
+    width: 20%;
+}
+
+
+/*
+---------------------------------------------
+ADD Income
+---------------------------------------------
+*/
+
+.add-income-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    width: 99%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 140px;
+    gap: 20px;
+    grid-template-areas:
+        "addIncomeForm";
+}
+
+#addIncomeForm {
+    grid-area: addIncomeForm;
+}
+
+#addIncomeForm h4 {
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+#addIncomeForm .form-group label {
+    padding-top: 2px;
+}
+#addIncomeForm #date {
     width: 20%;
 }
 
@@ -341,13 +459,14 @@ Edit Expense
     border-radius: 10px 10px 10px 10px;
     padding: 20px;
     margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: 10px;
     width: 99%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 700px;
     gap: 20px;
     grid-template-areas:
         "editForm";
@@ -360,12 +479,54 @@ Edit Expense
 }
 
 #editForm .form-group label {
-    padding-top: 5px;
+    padding-top: 2px;
 }
 
 #editForm #date {
     width: 20%;
 }
+
+/*
+---------------------------------------------
+Edit Income
+---------------------------------------------
+*/
+
+.edit-income-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    width: 99%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 140px;
+    gap: 20px;
+    grid-template-areas:
+        "editIncomeForm";
+}
+#editIncomeForm h4 {
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+#editIncomeForm .form-group label {
+    padding-top: 2px;
+}
+
+#editIncomeForm #date {
+    width: 20%;
+}
+
 
 /*
 ---------------------------------------------
