@@ -21,12 +21,6 @@ def preferences_view(request):
         for k, v in data.items():
             currency_data.append({'name': k, 'value': v})
 
-    # exists = Currency.objects.filter(user=request.user).exists()
-    # user_currency = None
-
-    # if exists:
-    #     user_currency = Currency.objects.get(user=request.user)
-
     if request.method == 'GET':
         return render(request, 'preferences/index.html',
                       {'currencies': currency_data,

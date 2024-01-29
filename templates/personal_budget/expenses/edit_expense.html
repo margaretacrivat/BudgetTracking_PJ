@@ -3,37 +3,29 @@
 
 {% block title %} Expenses {% endblock %}
 
-<body>
 {% block content %}
 
     <div class="container-main">
 
         {% include 'base/sidebar.html' %}
-
-        <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-md-10">
-                    <nav aria-label="breadcrumb-nav">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a
-                                    href="{% url 'expenses' %}">Expenses</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                Edit Expense
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-
-                {#            <div class="breadcrumb-event-delete col-md-2">#}
-                {#                <a href="{% url 'delete-expense' expense.id %}"#}
-                {#                   class="btn btn-danger">Delete</a>#}
-                {#            </div>#}
-            </div>
-        </div>
     
-        <div class="edit-form">
-            <div class="edit-form-body" id="editForm">
+        <!-- ***** Breadcrumb Start ***** -->
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'expenses' %}">Expenses</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Edit Expense
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- ***** Breadcrumb End ***** -->
+
+        <div class="edit-expense-form">
+            <div class="edit-form-body" id="editExpenseForm">
                 <h4>Edit Expense</h4>
                 <form action="{% url 'edit-expense' expense.id %}"
                       method="post">
@@ -84,7 +76,7 @@
                         <label for="" style="color:black;">Date of
                             Expense</label>
                         <input id="date" type="date" class="form-control form-control-sm"
-                               name="expense_date" value="{{ values.date}}">
+                               name="expense_date" value="{{ values.date }}">
                     </div>
                     <input type="submit" value="Save"
                            class="btn btn-primary btn-primary-sm">
@@ -95,4 +87,3 @@
     </div>
 
 {% endblock content %}
-</body>

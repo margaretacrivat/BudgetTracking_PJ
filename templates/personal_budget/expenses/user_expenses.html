@@ -3,49 +3,45 @@
 
 {% block title %} Expenses {% endblock %}
 
-<body>
 {% block content %}
-
-    {#    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">#}
-    {#        EXPENSES</h3>#}
 
     <div class="container-main">
 
         {% include 'base/sidebar.html' %}
 
+        <!-- ***** Breadcrumb Start ***** -->
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="{% url 'expenses' %}">Expenses</a>
+                            href="{% url 'budget-main' %}">Budget</a>
                     </li>
-                    <li class="breadcrumb-item active"
-                        aria-current="page">
-                        My Expenses
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Expenses
                     </li>
                 </ol>
             </nav>
         </div>
+        <!-- ***** Breadcrumb End ***** -->
 
         <div class="container-tables">
-
+            <!-- ***** Back to the Dashboard ***** -->
             <div class="breadcrumb-event-back">
                 <a href="{% url 'personal-budget' %}" class="btn btn-secondary">BACK</a>
             </div>
-
+            <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
             <div id="exportFile">
                 <a href="{% url 'export-expenses-csv' %}" class="btn">
                     <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
                 </a>
-
                 <a href="{% url 'export-expenses-excel' %}" class="btn">
                     <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
                 </a>
-
                 <a href="{% url 'export-expenses-pdf' %}" class="btn">
                     <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
                 </a>
             </div>
+            <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
                     <i class="bx bx-search"></i>
@@ -54,135 +50,131 @@
                 </div>
             </div>
 
-            <div id="expensesTable">
+            <!-- ***** Expenses data Table ***** -->
+            <div id="dataTable">
                 {% include 'user/_messages.html' %}
-                    {# if user has some expenses, then display them #}
-                    <div class="breadcrumb-event-add">
-                        <a href="{% url 'add-expense' %}" class="btn">
-                            <i class="bx bxs-plus-circle add-icon"></i>
-                            Add Expense
-                        </a>
-                    </div>
 
-                    <div class="app-table">
+                <div class="breadcrumb-event-add">
+                    <a href="{% url 'add-expense' %}" class="btn">
+                        <i class="bx bxs-plus-circle add-icon"></i>
+                        Add Expense
+                    </a>
+                </div>
 
-                        <table class="table table-stripped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Category</th>
-                                    <th>Description</th>
-                                    <th>Cost</th>
-                                    <th>Qty</th>
-                                    <th>Amount ({{ currency }})</th>
-                                    <th>Date</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                            {% if expenses.count %}
-                                {% for expense in page_obj %}
+                <div class="app-table">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Cost</th>
+                            <th>Qty</th>
+                            <th>Amount ({{ currency }})</th>
+                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {# if user has some expenses, then display them #}
+                        {% if expenses.count %}
+                            {% for expense in page_obj %}
                                 {# display dinamic data #}
-                                    <tr>
-                                        <td>{{ expense.item }}</td>
-                                        <td>{{ expense.category }}</td>
-                                        <td>{{ expense.description }}</td>
-                                        <td>{{ expense.cost }}</td>
-                                        <td>{{ expense.qty }}</td>
-                                        <td>{{ expense.amount}}</td>
-                                        <td>{{ expense.date }}</td>
-    
-                                        <td>
-                                            <a href="{% url 'edit-expense' expense.id %}"
-                                               class="btn btn-secondary btn-sm">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a href="{% url 'delete-expense' expense.id %}"
-                                               class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                    <p class="no-results" style="display: none;">No results </p>
-                    <div class="table-output">
-                        <table class="table table-stripped table-hover">
-                            <thead>
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Category</th>
-                                    <th>Description</th>
-                                    <th>Cost</th>
-                                    <th>Qty</th>
-                                    <th>Amount ({{ currency }})</th>
-                                    <th>Date</th>
-                                    <th></th>
-                                    <th></th>
+                                    <td>{{ expense.item }}</td>
+                                    <td>{{ expense.category }}</td>
+                                    <td>{{ expense.description }}</td>
+                                    <td>{{ expense.cost }}</td>
+                                    <td>{{ expense.qty }}</td>
+                                    <td>{{ expense.amount }}</td>
+                                    <td>{{ expense.date }}</td>
+                                    <td>
+                                        <a href="{% url 'edit-expense' expense.id %}"
+                                           class="btn btn-secondary btn-sm">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'delete-expense' expense.id %}"
+                                           class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
                                 </tr>
-                            </thead>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-                            <tbody class="table-body">
-                            </tbody>
+                <p class="no-results" style="display: none;">No results </p>
+                <div class="table-output">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Cost</th>
+                                <th>Qty</th>
+                                <th>Amount ({{ currency }})</th>
+                                <th>Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                        </tbody>
+                    {% endif %}
+                    </table>
+                </div>
+
+                <!-- ***** Returns a number of our current page ***** -->
+                <div class="pagination-container">
+                    <div class="show-page">
+                        Showing page {{ page_obj.number }}
+                        of {{ page_obj.paginator.num_pages }}
+                    </div>
+                    <!-- ***** Shows the pagination ***** -->
+                    <ul class="show-pagination pagination align-right float-right mr-auto">
+                        {% if page_obj.has_previous %}
+                            <li {% if page_obj.number == 1 %}
+                                class="page-item active" {% endif %}><a
+                                    class="page-link" href="?page=1">&laquo; 1</a>
+                            </li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
                         {% endif %}
-                        </table>
-                    </div>
-
-                    <div class="pagination-container">
-                        <div class="show-page">
-                            Showing page {{ page_obj.number }}
-                            of {{ page_obj.paginator.num_pages }}
-                            {# returns a number of our current page#}
-                        </div>
-
-                        <ul class="show-pagination pagination align-right float-right mr-auto">
-                            {% if page_obj.has_previous %}
-                                <li {% if page_obj.number == 1 %}
-                                    class="page-item active" {% endif %}><a
-                                        class="page-link" href="?page=1">&laquo; 1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link"
-                                                         href="?page={{ page_obj.previous_page_number }}">Previous</a>
-                                </li>
-                            {% endif %}
-
-                            {% if page_obj.has_next %}
-                                <li class="page-item"><a class="page-link"
-                                                         href="?page={{ page_obj.next_page_number }}">Next</a>
-                                </li>
-                                <li class="page-item"><a class="page-link"
-                                                         href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
-                                    &raquo;</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
+                                &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
 
             </div>
 
+            <!-- ***** Expenses Charts ***** -->
             <div class="chart-container1" id="Chart1">
-                <h6>Category Cumulative Distribution (last 3 months expenses)</h6>
-                <hr>  
+                <h6>Category Cumulative Distribution (last 6 months)</h6>
+                <hr>
                 <canvas id="expensesCategoryChart"></canvas>
             </div>
             <div class="chart-container2" id="Chart2">
-                <h6>Category Cumulative Comparison (last 3 months expenses)</h6>
+                <h6>Category Cumulative Comparison (last 3 months)</h6>
                 <hr>
                 <canvas id="monthsExpensesChart"></canvas>
             </div>
         </div>
     </div>
 
-
+    
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
-    
+
     <!-- Chart Scripts -->
     <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
     <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
 
 {% endblock content %}
-</body>

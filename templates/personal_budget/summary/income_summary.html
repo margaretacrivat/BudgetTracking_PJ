@@ -4,17 +4,12 @@
 {% block title %} Income Summary Charts {% endblock %}
 
 {% block content %}
-    {% load humanize %}
-
-
-
-    {#    <h3 style="margin-left: 220px;padding-top: 20px;color:darkred;">#}
-    {#        EXPENSES SUMMARY</h3>#}
 
     <div class="container-main">
 
         {% include 'base/sidebar.html' %}
 
+        <!-- ***** Breadcrumb Start ***** -->
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
@@ -27,19 +22,16 @@
                     </li>
                 </ol>
             </nav>
-
         </div>
+        <!-- ***** Breadcrumb End ***** -->
 
         <div class="container-summary">
-
+            <!-- ***** Back to the Dashboard ***** -->
             <div class="breadcrumb-event-back">
                 <a href="{% url 'personal-budget' %}" class="btn btn-secondary">BACK</a>
             </div>
             
             <div id="dashboardArea1">
-                {#                <section id="dashboard">#}
-                {#                    <div class="dashboard-section">#}
-                {#                        <div class="row">#}
                 <div class="dashboard-column">
                     <div class="card text-white bg-primary mb-2">
                         <div class="card-header">TODAY <h5
@@ -90,45 +82,9 @@
                         </div>
                     </div>
                 </div>
-
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                </section>#}
-
-                {#                <div class="row">#}
-                {#                    <div class="col-md-6">#}
-                {#                        <div id="loading-stuff" style="">#}
-                {#                            <div class="spinner-grow text-primary" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-secondary" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-success" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-danger" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-warning" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-info" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-light" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                            <div class="spinner-grow text-dark" role="status">#}
-                {#                                <span class="sr-only">Loading...</span>#}
-                {#                            </div>#}
-                {#                        </div>#}
-                {#                    </div>#}
-                {#                </div>#}
-                {#            </div>#}
             </div>
-            {# ADD CHARTS #}
 
+            <!-- ***** This Week and This Year - Income Charts ***** -->
             <div class="chart-container3" id="Chart3">
                 <h6>This Week Total Income On Days</h6>
                 <hr>
@@ -142,7 +98,7 @@
 
         </div>
     </div>
-
+    
     
     <!-- Scripts -->
     <script src="{% static 'assets/js/summaryIncome.js' %}"></script>

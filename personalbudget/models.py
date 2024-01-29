@@ -7,7 +7,6 @@ from django.utils.timezone import now
 
 #---->>>>>>>>>> EXPENSES <<<<<<<<<<<<----#
 
-
 class Expense(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     item = models.CharField(max_length=1000)

@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'personalbudget',
     'userauthentication',
     'preferences',
-    # 'django_filters',
-    'django.contrib.humanize',
+    # 'django_filters',,
 ]
 
 MIDDLEWARE = [

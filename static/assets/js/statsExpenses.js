@@ -46,8 +46,8 @@ const renderExpensesCategoryChart = (data, labels) => {
 };
 
 const getCategoryData = () => {
-    console.log('expenses_per_category_last3months');
-    fetch('/personalbudget/expenses-category-chart')
+    console.log('expenses_per_category_last_6months');
+    fetch('/personalbudget/expenses-category-stats')
         .then((res) => res.json())
         .then((results) => {
             console.log('results', results);

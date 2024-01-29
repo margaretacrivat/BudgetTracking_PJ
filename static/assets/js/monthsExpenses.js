@@ -78,7 +78,7 @@ const showMonthsExpensesChart = (data) => {
 
 const getCumulativeExpenses = () => {
     // console.log('expenses_source');
-    fetch('/personalbudget/last_3months_expense_source_stats')
+    fetch('/personalbudget/expenses-stats')
         .then(res => res.json()).then(data => {
         console.log('data', data)
         showMonthsExpensesChart(data);

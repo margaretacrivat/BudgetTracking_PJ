@@ -254,7 +254,7 @@ Container DASHBOARD
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px 500px;
+    grid-template-rows: 90px 520px;
     gap: 20px;
     grid-template-areas:
         "budgetCard1 budgetCard2"
@@ -294,6 +294,7 @@ Container DASHBOARD
     background-color: #e0e0e0;
     margin-top: 10px;
     position: relative;
+    z-index: 1;
 }
 
 #budgetCard1 .progress-tooltip {
@@ -313,7 +314,8 @@ Container DASHBOARD
 
 #budgetCard1 .progress-bar {
     height: 100%;
-    background-color: #4CAF50;  /* green color */
+    background-color: #4CAF50;
+    z-index: 1;
 }
 
 #budgetCardIncome {
@@ -324,12 +326,11 @@ Container DASHBOARD
 #budgetCardExpenses .table-title,
 #budgetCardIncome .table-title {
     transform: scale(1.10);
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     text-shadow: 0 1px 1px #000;
     color: #b2b2b2;
     padding-left: 30px;
-    padding-bottom: 10px;
 }
 
 /*
@@ -338,7 +339,7 @@ ADD Expense
 ---------------------------------------------
 */
 
-.add-form {
+.add-expense-form {
     background: transparent;
     backdrop-filter: blur(20px);
     border: 1px solid darkgrey;
@@ -353,17 +354,17 @@ ADD Expense
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 590px;
+    grid-template-rows: 587px;
     gap: 20px;
     grid-template-areas:
-        "addForm";
+        "addExpenseForm";
 }
 
-#addForm {
-    grid-area: addForm;
+#addExpenseForm {
+    grid-area: addExpenseForm;
 }
 
-#addForm h4 {
+#addExpenseForm h4 {
     font-size: 28px;
     /*margin-top: 10px;*/
     text-shadow: 0 1px 1px #000;
@@ -371,10 +372,10 @@ ADD Expense
     color: #b2b2b2;
 }
 
-#addForm .form-group label {
+#addExpenseForm .form-group label {
     padding-top: 2px;
 }
-#addForm #date {
+#addExpenseForm #date {
     width: 20%;
 }
 
@@ -451,7 +452,7 @@ Edit Expense
 ---------------------------------------------
 */
 
-.edit-form {
+.edit-expense-form {
     background: transparent;
     backdrop-filter: blur(20px);
     border: 1px solid darkgrey;
@@ -466,23 +467,23 @@ Edit Expense
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 700px;
+    grid-template-rows: 587px;
     gap: 20px;
     grid-template-areas:
-        "editForm";
+        "editExpenseForm";
 }
-#editForm h4 {
+#editExpenseForm h4 {
     font-size: 28px;
     text-shadow: 0 1px 1px #000;
     text-align: center;
     color: #b2b2b2;
 }
 
-#editForm .form-group label {
+#editExpenseForm .form-group label {
     padding-top: 2px;
 }
 
-#editForm #date {
+#editExpenseForm #date {
     width: 20%;
 }
 
@@ -547,7 +548,7 @@ Container Expenses page
     gap: 20px;
     grid-template-areas:
         "exportFile searchTableField"
-        "expensesTable expensesTable"
+        "dataTable dataTable"
         "Chart1 Chart2";
 }
 
@@ -563,8 +564,8 @@ Container Expenses page
     padding: 0 20px 0 200px;
 }
 
-#expensesTable {
-    grid-area: expensesTable;
+#dataTable {
+    grid-area: dataTable;
     background: transparent;
 }
 
@@ -878,61 +879,6 @@ Personal Budget - Home Page Table
     border-radius: 10px;
 }
 
-
-
- /*#purchase-form {*/
- /*    margin-right: 170px;*/
- /*}*/
-
-/*.table-title {*/
-/*    font-size: 22px;*/
-/*    font-weight: 500;*/
-/*    margin-top: 20px;*/
-/*    !*margin-left: 220px;*!*/
-/*    color:dodgerblue;*/
-/*    text-decoration: underline;*/
-/*}*/
-
-/*.table-btn button {*/
-/*    margin-top: 20px;*/
-/*    margin-left: 30px;*/
-/*    font-size: 16px;*/
-/*    line-height: 4px;*/
-/*    color: black;*/
-/*    background: #c9c6c6;*/
-/*    border: 1px solid #868282;*/
-/*    border-radius: 10px 10px 10px 10px;*/
-/*    font-weight: 500;*/
-/*}*/
-
-
-/*
----------------------------------------------
-Income Table
----------------------------------------------
-*/
-/*.container-income {*/
-/*    margin-left: 70px;*/
-/*    margin-right: 40px;*/
-/*}*/
-
-/*.card-incomes {*/
-/*    background: transparent;*/
-/*    backdrop-filter: blur(20px);*/
-/*    border: 1px solid darkgrey;*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, .2);*/
-/*    border-radius: 10px 10px 10px 10px;*/
-/*    margin-left: 150px;*/
-/*    margin-top: 20px;*/
-/*    margin-bottom: 20px;*/
-/*}*/
-
-/*.income-list {*/
-/*    margin-left: 150px;*/
-/*    margin-right: 40px;*/
-/*    margin-top: 20px;*/
-/*}*/
-
 /*
 ---------------------------------------------
 Table Pagination
@@ -969,7 +915,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -995,7 +941,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -1025,7 +971,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -1055,7 +1001,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -1071,7 +1017,7 @@ Table Pagination
         padding: 49px 7px 0 0;
     }
     .container-dashboard {
-        padding-left: 20px;
+        padding-left: 140px;
         width: 100%;
 
         display: grid;
@@ -1135,7 +1081,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -1151,7 +1097,7 @@ Table Pagination
         padding: 49px 7px 0 0;
     }
     .container-dashboard {
-        padding-left: 20px;
+        padding-left: 140px;
         width: 100%;
 
         display: grid;
@@ -1167,7 +1113,7 @@ Table Pagination
     #dashboardMain3 .fa.fa-main {
         font-size: 70px;
     }
-    #expensesTable {
+    #dataTable {
         font-size: 14px;
     }
     #Chart1 {
@@ -1213,7 +1159,7 @@ Table Pagination
             "summaryChart1 summaryChart2"
     }
     #summary1, #summary2 {
-        padding-left: 50px;
+        padding-left: 30px;
         margin-left: 0;
     }
     #summaryChart1, #summaryChart2 {
@@ -1228,9 +1174,8 @@ Table Pagination
         width: 110%;
         padding: 49px 7px 0 0;
     }
-
     .container-dashboard {
-        padding-left: 40px;
+        padding-left: 140px;
         width: 100%;
 
         display: grid;
@@ -1269,24 +1214,24 @@ Table Pagination
     .container-tables {
         padding: 20px 10px 1040px 20px;
         grid-template-columns: 570px;
-        grid-template-rows: 50px 50px 100px 100px 300px;
+        grid-template-rows: 50px 50px 100px 100px 250px;
         gap: 20px;
         grid-template-areas:
             "exportFile"
             "searchTableField"
-            "expensesTable"
+            "dataTable"
             "Chart1"
             "Chart2";
     }
     #searchTableField {
     padding: 0 5px 0 260px;
     }
-    #expensesTable {
+    #dataTable {
     font-size: 10px;
     }
     #Chart1, #Chart2 {
         margin-left: 70px;
-        width: 60%;
+        width: 70%;
         padding-bottom: 100px;
         }
     .chart-container1 {
@@ -1338,17 +1283,11 @@ Table Pagination
             "summaryChart1"
             "summaryChart2"
     }
-    #summary1, #summary2 {
-        padding-left: 60px;
-        margin-left: 0;
-    }
     #summaryChart1, #summaryChart2 {
         width: 80%;
         margin-left: 70px;
     }
-    /*.breadcrumb-event-back .btn {*/
-    /*    margin-top: 1000px;*/
-    /*}*/
+
 }
 
 

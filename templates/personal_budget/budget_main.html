@@ -10,48 +10,52 @@
         {% include 'base/sidebar.html' %}
 
         <div class="container-breadcrumb-bar">
-            <div class="container-breadcrumb row">
-                <div class="col-md-10">
-                    <nav aria-label="breadcrumb-nav">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a
-                                    href="{% url 'personal-budget' %}">Personal Budget</a>
-                            </li>
-                            <li class="breadcrumb-item active"
-                                aria-current="page">
-                                Budget
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'personal-budget' %}">Personal Budget</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Budget
+                    </li>
+                </ol>
+            </nav>
+
         </div>
-    
+
 
         <div class="container-budget">
 
-            <div id="budgetCard1" data-remaining-budget="{{ remaining_budget }}" data-total-income="{{ this_month_total_income }}">
-                <p>Your remaining budget is: <span class="budget-remaining">{{ remaining_budget }} {{ currency }}</span></p>
+            <!-- ***** Budget Progress Bar ***** -->
+            <div id="budgetCard1" data-remaining-budget="{{ remaining_budget }}"
+                 data-total-income="{{ this_month_total_income }}">
+                <p>Your remaining budget is: <span class="budget-remaining">{{ remaining_budget }} {{ currency }}</span>
+                </p>
                 <div class="progress-bar-container">
-                    <div class="progress-bar budget-progress-bar" style="width: {{ remaining_budget_percentage }}%;" onmouseover="showPercentage()" onmouseout="hidePercentage()"></div>
+                    <div class="progress-bar budget-progress-bar" style="width: {{ remaining_budget_percentage }}%;"
+                         onmouseover="showPercentage()" onmouseout="hidePercentage()"></div>
                     <div class="progress-tooltip" id="progressTooltip">0%</div>
                 </div>
             </div>
-
+            <!-- ***** Total Income and Expenses ***** -->
             <div id="budgetCard2">
-                <p>Your total budget is: <span class="budget-income">{{ this_month_total_income }} {{ currency }}</span></p>
-                <p>You've spent a total of: <span class="budget-expenses">{{ this_month_total_expenses }} {{ currency }}</span></p>
+                <p>Your total budget is: <span
+                        class="budget-income">{{ this_month_total_income }} {{ currency }}</span>
+                </p>
+                <p>You've spent a total of: <span
+                        class="budget-expenses">{{ this_month_total_expenses }} {{ currency }}</span>
+                </p>
             </div>
 
             <div id="budgetCardExpenses">
-                {# expenses total si total cheltuieli pe categorii #}
                 <div class="table-title">Expenses / Category (this month)</div>
+                <hr>
                 <table class="table table-stripped table-hover">
                     <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Amount ({{ currency }})</th>
-                    </tr>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount ({{ currency }})</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {% if category_data %}
@@ -71,14 +75,14 @@
             </div>
 
             <div id="budgetCardIncome">
-                {# income total si total venituri pe surse #}
                 <div class="table-title">Income / Source (this month)</div>
+                <hr>
                 <table class="table table-stripped table-hover">
                     <thead>
-                    <tr>
-                        <th>Source</th>
-                        <th>Amount ({{ currency }})</th>
-                    </tr>
+                        <tr>
+                            <th>Source</th>
+                            <th>Amount ({{ currency }})</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {% if source_data %}
@@ -100,8 +104,8 @@
 
     </div>
 
-    <!-- Scripts -->
 
+    <!-- Scripts -->
     <script src="{% static 'assets/js/progressBar.js' %}"></script>
 
 {% endblock content %}

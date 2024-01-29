@@ -77,7 +77,7 @@ const showMonthsIncomeChart = (data) => {
 
 const getCumulativeIncome = () => {
     console.log('income_source');
-    fetch('/personalbudget/last_3months_income_source_stats')
+    fetch('/personalbudget/income-stats')
         .then(res => res.json()).then(data => {
         console.log('data', data)
         showMonthsIncomeChart(data);

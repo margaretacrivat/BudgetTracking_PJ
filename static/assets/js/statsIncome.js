@@ -32,8 +32,8 @@ const renderIncomeSourceChart = (data, labels) => {
 };
 
 const getSourceData = () => {
-    console.log('income_per_source_last3months');
-    fetch('/personalbudget/income-source-chart')
+    console.log('income_per_source_last_6months');
+    fetch('/personalbudget/income-source-stats')
         .then((res) => res.json())
         .then((results) => {
             console.log('results', results);

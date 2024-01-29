@@ -12,7 +12,7 @@ const showMonthBalanceChart = (data) => {
     }, {
         label: labels[1],
         data: [0, values[1]], // Add a 0 for the Income value
-        backgroundColor: ['#ff6384'], // Color for Balance
+        backgroundColor: ['#4b8f1e'], // Color for Balance
     }];
 
     const chartOptions = {
@@ -100,11 +100,11 @@ const showYearBalanceChart = (data) => {
     const datasets = [{
         label: labels[0],
         data: [values[0], 0], // Add a 0 for the Balance value
-        backgroundColor: ['#488320'], // Color for Income
+        backgroundColor: ['#275ea6'], // Color for Income
     }, {
         label: labels[1],
         data: [0, values[1]], // Add a 0 for the Income value
-        backgroundColor: ['#f6c446'], // Color for Balance
+        backgroundColor: ['#1e7c25'], // Color for Balance
     }];
 
     const chartOptions = {

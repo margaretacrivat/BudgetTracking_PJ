@@ -2,7 +2,7 @@ let ctx = document.getElementById("yearExpensesChart").getContext("2d");
 let loader = document.querySelector("#loading-stuff");
 
 const getData = async () => {
-  const data = await (await fetch("/personalbudget/expenses-summary-rest")).json();
+  const data = await (await fetch("/personalbudget/expenses-summary-rest-stats")).json();
   const [labels1, values1, labels2, values2] = [
     Object.keys(data.data.months),
     Object.values(data.data.months),

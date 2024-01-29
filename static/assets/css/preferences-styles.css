@@ -68,7 +68,7 @@ Preferences Style
     padding: 20px;
     margin-top: 10px;
     margin-left: 10px;
-    width: 70%;
+    width: 100%;
     grid-area: main;
 
     display: grid;
@@ -106,11 +106,8 @@ Preferences Style
     padding: 10px 0;
 }
 
-.input-group-append {
-    margin-left: 0;
-}
-
-.input-group-append button {
+.input-group-append .btn {
+    margin-left: 10px;
     color: #19b619;
     box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
 }
@@ -118,6 +115,7 @@ Preferences Style
 .custom-select {
     margin: 5px 0;
     padding-top: 5px;
+    padding-right: 60px;
     padding-bottom: 5px;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 3px 3px 4px 0 rgba(0, 0, 0, .15);
@@ -132,7 +130,6 @@ Preferences Style
 .currency-option {
     background: rgba(239, 241, 241, 0.4);
 }
-
 
 
 /* ---------------- MEDIA QUERIES ----------------*/

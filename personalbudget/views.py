@@ -1,8 +1,3 @@
-from django.db.models import Sum, ExpressionWrapper, F
-from django.db.models import FloatField
-from django.db.models import Count, F, Sum, Avg
-from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
@@ -10,32 +5,27 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
 from .models import Expense, Category, Source, Income
-from .forms import ExpenseForm
-# from .filters import ExpenseFilter
 from preferences.models import Currency
+# from .filters import ExpenseFilter
+
+from django.db.models import Count, F, Sum
 import datetime
-from django.utils import timezone
 import csv
 import xlwt
-import io
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
-from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import Table, TableStyle, Paragraph
-# from settings.models import Setting
+from reportlab.platypus import Table, TableStyle
+
 
 # Create your views here.
 
 
-# ---->>>>>>>>>> PERSONAL BUDGET - HOMEPAGE VIEW <<<<<<<<<<<<----#
+# ---->>>>>>>>>> PERSONAL BUDGET - PAGE VIEW <<<<<<<<<<<<----#
 
-
-def personal_budget_index(request):
-    expenses = Expense.objects.all()
-    return render(request, 'personal_budget/index.html',
-                  {'expenses': expenses})
+@login_required(login_url='/authentication/login')
+def personal_budget_view(request):
+    return render(request, 'personal_budget/index.html')
 
 
 @login_required(login_url='/authentication/login')
@@ -87,28 +77,23 @@ def budget_main_view(request):
     except Currency.DoesNotExist:
         currency = 'RON - Romanian  Leu'
 
-    return render(request, 'personal_budget/budget_main.html',
-                  {'category_data': category_data, 'source_data': source_data, 'currency': currency,
-                   'this_month_total_expenses': this_month_total_expenses,
-                   'this_month_total_income': this_month_total_income,
-                   'remaining_budget': remaining_budget})
-
+    return render(request, 'personal_budget/budget_main.html',{'category_data': category_data,
+                                                               'source_data': source_data, 'currency': currency,
+                                                               'this_month_total_expenses': this_month_total_expenses,
+                                                               'this_month_total_income': this_month_total_income,
+                                                               'remaining_budget': remaining_budget})
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
-# Logica pentru vizualizarea cheltuielilor
 
 @login_required(login_url='/authentication/login')
 def expenses_view(request):
-    if not Currency.objects.filter(user=request.user).exists():
-        messages.info(request, 'Please choose your preferred currency')
-        return redirect('preferences')
+    # The Logic for expenses visualization
     expenses = Expense.objects.filter(owner=request.user).order_by('date').values()
-    # expenses.extra(
-    #     select={'amount': 'cost * qty'})
 
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
+
     try:
         currency = Currency.objects.get(user=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
@@ -119,14 +104,12 @@ def expenses_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-
-    return render(request, 'personal_budget/expenses/user_expenses.html',
-                  context)
+    return render(request, 'personal_budget/expenses/user_expenses.html', context)
 
 
 @login_required(login_url='/authentication/login')
 def add_expense(request):
-    # Logica pentru adaugarea cheltuielilor
+    # The Logic for adding expenses
     categories = Category.objects.all()
     context = {
         'categories': categories,
@@ -134,8 +117,7 @@ def add_expense(request):
     }
 
     if request.method == 'GET':
-        return render(request, 'personal_budget/expenses/add_expense.html',
-                      context)
+        return render(request, 'personal_budget/expenses/add_expense.html', context)
 
     if request.method == 'POST':
         item = request.POST['item']
@@ -148,28 +130,22 @@ def add_expense(request):
 
         if not item:
             messages.error(request, 'Item is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not cost:
             messages.error(request, 'Cost is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not qty:
             messages.error(request, 'Quantity is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
 
         Expense.objects.create(owner=request.user, item=item, category=category,
                                description=description, cost=cost, qty=qty,
@@ -182,6 +158,7 @@ def add_expense(request):
 
 @login_required(login_url='/authentication/login')
 def edit_expense(request, id):
+    # The Logic for editing expenses
     expense = Expense.objects.get(pk=id)
     categories = Category.objects.all()
     context = {
@@ -190,10 +167,9 @@ def edit_expense(request, id):
         'categories': categories
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/expenses/edit_expense.html',
-                      context)
-    if request.method == 'POST':
+        return render(request, 'personal_budget/expenses/edit_expense.html', context)
 
+    if request.method == 'POST':
         item = request.POST['item']
         category = request.POST['category']
         description = request.POST['description']
@@ -204,28 +180,22 @@ def edit_expense(request, id):
 
         if not item:
             messages.error(request, 'Item is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/edit_expense.html', context)
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/expenses/add_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/add_expense.html', context)
         if not cost:
             messages.error(request, 'Cost is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/edit_expense.html', context)
         if not qty:
             messages.error(request, 'Quantity is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/edit_expense.html', context)
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/edit_expense.html', context)
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html',
-                          context)
+            return render(request, 'personal_budget/expenses/edit_expense.html', context)
 
         expense.owner = request.user
         expense.item = item
@@ -297,24 +267,21 @@ def export_expenses_excel(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Expenses')
     row_num = 0
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
+    font_style_bold = xlwt.XFStyle()
+    font_style_bold.font.bold = True
 
     columns = ['Item', 'Category', 'Description', 'Amount', 'Date']
 
     for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
-
-    font_style.font.bold = xlwt.XFStyle()
+        ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Expense.objects.filter(owner=request.user).values_list(
         'item', 'category', 'description', 'amount', 'date')
 
     for row in rows:
         row_num += 1
-
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]), font_style)
+            ws.write(row_num, col_num, str(row[col_num]))
 
     wb.save(response)
 
@@ -327,18 +294,20 @@ def export_expenses_pdf(request):
                                       str(datetime.datetime.now()) + '.pdf'
 
     pdf = canvas.Canvas(response, pagesize=A4)
-    pdf.setTitle('PDF Report')
+    pdf.setTitle('PDF Expenses_Report')
 
-    # styleSheet = getSampleStyleSheet()
-    # style = styleSheet["BodyText"]
-    # P = Paragraph('This is an example', style)
+    # Add a title
+    title_text = 'Expenses Report'
+    pdf.setFont('Helvetica-Bold', 16)
 
-    headers = ['item', 'category', 'description', 'amount', 'date']
+    # Adjust the Y-coordinate for the title to add space above
+    title_y = A4[1] - 70
+    pdf.drawCentredString(A4[0] / 2, title_y, title_text)
+
+    headers = ['Item', 'Category', 'Description', 'Amount', 'Date']
     data = [headers]
 
     expenses = Expense.objects.filter(owner=request.user)
-
-    # sum = expenses.aggregate(Sum('amount'))
 
     for expense in expenses:
         data.append([expense.item, expense.category, expense.description,
@@ -346,52 +315,35 @@ def export_expenses_pdf(request):
 
     table = Table(data)
     table.setStyle(TableStyle(
-        [('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        [('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
          ('GRID', (0, 0), (-1, -1), 1, colors.black),
          ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
          ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
          ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
          ('FONTSIZE', (0, 0), (-1, 0), 14),
          ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 50),
+         ('RIGHTPADDING', (0, 0), (-1, 0), 30),
+         ('LEFTPADDING', (0, 0), (-1, 0), 30),
+         ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
          ('TOPPADDING', (0, 0), (-1, 0), 10)]
     ))
-
-    # canvas.drawString(10, 150, "Basic data")
 
     canvas_width = 600
     canvas_height = 600
 
+    # Increase the X-coordinate value to move the table more to the right
+    # Increase the Y-coordinate value for more space at the top
     table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 45, canvas_height - len(data))
+    table.drawOn(pdf, 45, canvas_height - len(data) * 8)  # Adjust the multiplier as needed
 
     pdf.save()
     return response
 
-    # response = HttpResponse(content_type='application/pdf')
-    # response['Content-Disposition'] = 'attachment; filename=Expenses' + \
-    #                                   str(datetime.datetime.now()) + '.pdf'
-    #
-    # response['Content-Transfer-Encoding'] = 'binary'
-    #
-    # html_string = render_to_string('personal_budget/expenses/pdf_output.html',
-    #                                {'expenses': [], 'total': 0})
-    # html = HTML(string=html_string)
-    #
-    # result = html.write_pdf()
-    #
-    # with tempfile.NamedTemporaryFile(delete=True) as output:
-    #     output.write(result)
-    #     output.flush()
-    #     output = open(output.name, 'rb')
-    #     response.write(output.read())
-    #
-    # return response
 
+# ---->>>>>>>>>> EXPENSES STATS <<<<<<<<<<<<----#
 
-# ---->>>>>>>>>> EXPENSES CHARTS <<<<<<<<<<<<----#
-
-def expenses_category_chart(request):
+def expenses_category_stats_last_6months(request):
+    # The Logic for expenses visualization from the last 6 months on each category #
     todays_date = datetime.date.today()
     six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
     expenses = Expense.objects.filter(owner=request.user,
@@ -401,22 +353,21 @@ def expenses_category_chart(request):
     def get_categories(expense):
         return expense.category
 
-    finalrep = {}
+    expense_category_data = {}
     category_list = list(set(map(get_categories, expenses)))
 
     def get_expense_category_amount(category):
         amount = 0
         filtered_by_category = expenses.filter(category=category)
-
         for item in filtered_by_category:
             amount += item.amount
         return amount
 
     for x in expenses:
         for y in category_list:
-            finalrep[y] = get_expense_category_amount(y)
+            expense_category_data[y] = get_expense_category_amount(y)
 
-    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+    return JsonResponse({'expense_category_data': expense_category_data}, safe=False)
 
 
 def get_expenses_for_period(start_date, end_date, expenses):
@@ -429,11 +380,10 @@ def get_expenses_for_period(start_date, end_date, expenses):
     return period_data
 
 
-def last_3months_expense_source_stats(request):
+def expenses_stats_last_3months(request):
     today = datetime.date.today()
     last_month = datetime.date.today() - datetime.timedelta(days=30)
     last_2_month = last_month - datetime.timedelta(days=30)
-    last_3_month = last_2_month - datetime.timedelta(days=30)
 
     last_month_expenses = Expense.objects.filter(owner=request.user)
     prev_month_expenses = Expense.objects.filter(owner=request.user)
@@ -443,12 +393,10 @@ def last_3months_expense_source_stats(request):
     today_start = today.replace(day=1)
     last_month_start = last_month.replace(day=1)
     last_2_month_start = last_2_month.replace(day=1)
-    last_3_month_start = last_3_month.replace(day=1)
 
     today_end = today
     last_month_end = last_month
     last_2_month_end = last_2_month
-    last_3_month_end = last_3_month
 
     this_month_data = get_expenses_for_period(today_start, today_end, last_month_expenses)
     prev_month_data = get_expenses_for_period(last_month_start, last_month_end, prev_month_expenses)
@@ -468,14 +416,14 @@ def last_3months_expense_source_stats(request):
 
 @login_required(login_url='/authentication/login')
 def income_view(request):
-    if not Currency.objects.filter(user=request.user).exists():
-        messages.info(request, 'Please choose your preferred currency')
-        return redirect('preferences')
+    # The Logic for income visualization
     sources = Source.objects.all()
     income = Income.objects.filter(owner=request.user).order_by('date').values()
+
     paginator = Paginator(income, 5)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
+
     try:
         currency = Currency.objects.get(user=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
@@ -487,28 +435,26 @@ def income_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-
     return render(request, 'personal_budget/income/user_income.html', context)
 
 
 @login_required(login_url='/authentication/login')
 def add_income(request):
+    # The Logic for adding income
     sources = Source.objects.all()
     context = {
         'sources': sources,
         'values': request.POST
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/income/add_income.html',
-                      context)
+        return render(request, 'personal_budget/income/add_income.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
 
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/income/add_income.html',
-                          context)
+            return render(request, 'personal_budget/income/add_income.html', context)
 
         source = request.POST['source']
         description = request.POST['description']
@@ -516,13 +462,11 @@ def add_income(request):
 
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/income/add_income.html',
-                          context)
+            return render(request, 'personal_budget/income/add_income.html', context)
 
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/income/add_income.html',
-                          context)
+            return render(request, 'personal_budget/income/add_income.html', context)
 
         Income.objects.create(owner=request.user, amount=amount, source=source,
                               description=description, date=date)
@@ -534,6 +478,7 @@ def add_income(request):
 
 @login_required(login_url='/authentication/login')
 def edit_income(request, id):
+    # The Logic for editing income
     income = Income.objects.get(pk=id)
     sources = Source.objects.all()
     context = {
@@ -542,16 +487,14 @@ def edit_income(request, id):
         'sources': sources
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/income/edit_income.html',
-                      context)
+        return render(request, 'personal_budget/income/edit_income.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
 
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/income/edit_income.html',
-                          context)
+            return render(request, 'personal_budget/income/edit_income.html', context)
 
         source = request.POST['source']
         description = request.POST['description']
@@ -559,13 +502,11 @@ def edit_income(request, id):
 
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/income/edit_income.html',
-                          context)
+            return render(request, 'personal_budget/income/edit_income.html', context)
 
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/income/edit_income.html',
-                          context)
+            return render(request, 'personal_budget/income/edit_income.html', context)
 
         income.amount = amount
         income.source = source
@@ -626,15 +567,13 @@ def export_income_excel(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Income')
     row_num = 0
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
+    font_style_bold = xlwt.XFStyle()
+    font_style_bold.font.bold = True
 
     columns = ['Amount', 'Source', 'Description', 'Date']
 
     for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
-
-    font_style.font.bold = xlwt.XFStyle()
+        ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Income.objects.filter(owner=request.user).values_list(
         'amount', 'source', 'description', 'date')
@@ -643,7 +582,8 @@ def export_income_excel(request):
         row_num += 1
 
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]), font_style)
+            ws.write(row_num, col_num, str(row[col_num]))
+
     wb.save(response)
 
     return response
@@ -655,9 +595,17 @@ def export_income_pdf(request):
                                       str(datetime.datetime.now()) + '.pdf'
 
     pdf = canvas.Canvas(response, pagesize=A4)
-    pdf.setTitle('PDF Report')
+    pdf.setTitle('PDF Income_Report')
 
-    headers = ['amount', 'source', 'description', 'date']
+    # Add a title
+    title_text = 'Incomes Report'
+    pdf.setFont('Helvetica-Bold', 16)
+
+    # Adjust the Y-coordinate for the title to add space above
+    title_y = A4[1] - 80
+    pdf.drawCentredString(A4[0] / 2, title_y, title_text)
+
+    headers = ['Amount', 'Source', 'Description', 'Date']
     data = [headers]
 
     incomes = Income.objects.filter(owner=request.user)
@@ -667,30 +615,34 @@ def export_income_pdf(request):
 
     table = Table(data)
     table.setStyle(TableStyle(
-        [('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        [('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
          ('GRID', (0, 0), (-1, -1), 1, colors.black),
          ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
          ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
          ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
          ('FONTSIZE', (0, 0), (-1, 0), 14),
          ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 50),
+         ('RIGHTPADDING', (0, 0), (-1, 0), 30),
+         ('LEFTPADDING', (0, 0), (-1, 0), 30),
+         ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
          ('TOPPADDING', (0, 0), (-1, 0), 10)]
     ))
 
     canvas_width = 600
     canvas_height = 600
 
+    # Increase the X-coordinate value to move the table more to the right
+    # Increase the Y-coordinate value for more space at the top
     table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 45, canvas_height - len(data))
+    table.drawOn(pdf, 85, canvas_height - len(data) * 1)
 
     pdf.save()
     return response
 
 
-# ---->>>>>>>>>> INCOME CHARTS <<<<<<<<<<<<----#
+# ---->>>>>>>>>> INCOME STATS <<<<<<<<<<<<----#
 
-def income_source_chart(request):
+def income_source_stats_last_6months(request):
     todays_date = datetime.date.today()
     six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
     income = Income.objects.filter(owner=request.user,
@@ -700,7 +652,7 @@ def income_source_chart(request):
     def get_sources(income):
         return income.source
 
-    finalrep = {}
+    income_source_data = {}
     source_list = list(set(map(get_sources, income)))
 
     def get_income_source_amount(source):
@@ -713,9 +665,9 @@ def income_source_chart(request):
 
     for x in income:
         for y in source_list:
-            finalrep[y] = get_income_source_amount(y)
+            income_source_data[y] = get_income_source_amount(y)
 
-    return JsonResponse({'income_source_data': finalrep}, safe=False)
+    return JsonResponse({'income_source_data': income_source_data}, safe=False)
 
 
 def get_income_for_period(start_date, end_date, incomes):
@@ -728,11 +680,10 @@ def get_income_for_period(start_date, end_date, incomes):
     return period_data
 
 
-def last_3months_income_source_stats(request):
+def income_stats_last_3months(request):
     today = datetime.date.today()
     last_month = datetime.date.today() - datetime.timedelta(days=30)
     last_2_month = last_month - datetime.timedelta(days=30)
-    last_3_month = last_2_month - datetime.timedelta(days=30)
 
     last_month_income = Income.objects.filter(owner=request.user)
     prev_month_income = Income.objects.filter(owner=request.user)
@@ -742,12 +693,10 @@ def last_3months_income_source_stats(request):
     today_start = today.replace(day=1)
     last_month_start = last_month.replace(day=1)
     last_2_month_start = last_2_month.replace(day=1)
-    last_3_month_start = last_3_month.replace(day=1)
 
     today_end = today
     last_month_end = last_month
     last_2_month_end = last_2_month
-    last_3_month_end = last_3_month
 
     this_month_data = get_expenses_for_period(today_start, today_end, last_month_income)
     prev_month_data = get_expenses_for_period(last_month_start, last_month_end, prev_month_income)
@@ -773,10 +722,8 @@ def summary_budget_view(request):
     year_ago = today.replace(month=1, day=1)
 
     todays_amount = 0
-
     this_month_income_amount = 0
     this_month_expenses_amount = 0
-
     this_year_income_amount = 0
     this_year_expenses_amount = 0
 
@@ -831,10 +778,12 @@ def current_month_balance_stats(request):
     current_month_start = today.replace(day=1)
     current_month_end = today.replace(day=1) + datetime.timedelta(days=32) - datetime.timedelta(days=1)
 
-    income_month_data = Income.objects.filter(owner=request.user, date__range=[current_month_start, current_month_end]).aggregate(
-            Sum('amount'))['amount__sum'] or 0
-    expenses_month_data = Expense.objects.filter(owner=request.user, date__range=[current_month_start, current_month_end]).aggregate(
-                Sum('amount'))['amount__sum'] or 0
+    income_month_data = Income.objects.filter(owner=request.user,
+                                              date__range=[current_month_start, current_month_end]).aggregate(
+                                              Sum('amount'))['amount__sum'] or 0
+    expenses_month_data = Expense.objects.filter(owner=request.user,
+                                                 date__range=[current_month_start, current_month_end]).aggregate(
+                                                 Sum('amount'))['amount__sum'] or 0
 
     balance_month_data = income_month_data - expenses_month_data
 
@@ -842,7 +791,6 @@ def current_month_balance_stats(request):
         'income': income_month_data,
         'balance': balance_month_data,
     }
-
     return JsonResponse({'current_month_data': current_month_data}, safe=False)
 
 
@@ -851,70 +799,22 @@ def current_year_balance_stats(request):
     current_year_start = today.replace(month=1, day=1)
     current_year_end = today.replace(month=12, day=31)
 
-    income_year_data = Income.objects.filter(owner=request.user, date__range=[current_year_start, current_year_end]).aggregate(
-            Sum('amount'))['amount__sum'] or 0
-    expenses_year_data = Expense.objects.filter(owner=request.user, date__range=[current_year_start, current_year_end]).aggregate(
-                Sum('amount'))['amount__sum'] or 0
-
+    income_year_data = Income.objects.filter(owner=request.user,
+                                             date__range=[current_year_start, current_year_end]).aggregate(
+                                             Sum('amount'))['amount__sum'] or 0
+    expenses_year_data = Expense.objects.filter(owner=request.user,
+                                                date__range=[current_year_start, current_year_end]).aggregate(
+                                                Sum('amount'))['amount__sum'] or 0
     balance_year_data = income_year_data - expenses_year_data
 
     current_year_data = {
         'income': income_year_data,
         'balance': balance_year_data,
     }
-
     return JsonResponse({'current_year_data': current_year_data}, safe=False)
 
 
-# ---->>>>>>>>>> EXPENSES SUMMARY / CHARTS - PAGE VIEWS <<<<<<<<<<<<----#
-
-def expenses_summary_rest(request):
-    all_expenses = Expense.objects.filter(owner=request.user)
-    today = datetime.datetime.today().date()
-
-    today_amount = 0
-
-    months_data = {}
-    week_days_data = {}
-
-    def get_amount_for_month(month):
-        month_amount = 0
-        for one in all_expenses:
-            month_, year = one.date.month, one.date.year
-            if month == month_ and year == today_year:
-                month_amount += one.amount
-        return month_amount
-
-    for x in range(1, 13):
-        today_month, today_year = x, datetime.datetime.today().year
-        for one in all_expenses:
-            months_data[x] = get_amount_for_month(x)
-
-    def get_amount_for_day(x, today_day, month, today_year):
-        day_amount = 0
-        for one in all_expenses:
-            day_, date_, month_, year_ = one.date.isoweekday(
-            ), one.date.day, one.date.month, one.date.year
-
-            # Check if the expense date falls within the current week
-            if today - datetime.timedelta(days=today_day) <= one.date <= today + datetime.timedelta(days=(6 - today_day)):
-                if x == day_ and month == month_ and year_ == today_year:
-                    if not day_ > today_day:
-                        day_amount += one.amount
-        return day_amount
-
-    for x in range(1, 8):
-        today_day, today_month, today_year = (datetime.datetime.today().isoweekday(),
-                                              datetime.datetime.today().month,
-                                              datetime.datetime.today().year)
-        week_days_data[x] = get_amount_for_day(x, today_day, today_month, today_year)
-        for one in all_expenses:
-            week_days_data[x] = get_amount_for_day(
-                x, today_day, today_month, today_year)
-
-    data = {"months": months_data, "days": week_days_data}
-    return JsonResponse({'data': data}, safe=False)
-
+# ---->>>>>>>>>> EXPENSES SUMMARY / STATS - PAGE VIEWS <<<<<<<<<<<<----#
 
 @login_required(login_url='/authentication/login')
 def expenses_summary_view(request):
@@ -922,10 +822,7 @@ def expenses_summary_view(request):
 
     today = datetime.datetime.today().date()
     today2 = datetime.date.today().replace(day=1)
-    week_ago = today - datetime.timedelta(days=7)
-    month_ago = today - datetime.timedelta(days=30)
     year_ago = today.replace(month=1, day=1)
-
 
     todays_amount = 0
     todays_count = 0
@@ -982,13 +879,59 @@ def expenses_summary_view(request):
     return render(request, 'personal_budget/summary/expenses_summary.html', context)
 
 
-# ---->>>>>>>>>> INCOME SUMMARY / CHARTS - PAGE VIEWS <<<<<<<<<<<<----#
-
-def income_summary_rest(request):
-    all_incomes = Income.objects.filter(owner=request.user)
+def expenses_summary_rest_stats(request):
+    all_expenses = Expense.objects.filter(owner=request.user)
     today = datetime.datetime.today().date()
 
     today_amount = 0
+
+    months_data = {}
+    week_days_data = {}
+
+    def get_amount_for_month(month):
+        month_amount = 0
+        for one in all_expenses:
+            month_, year = one.date.month, one.date.year
+            if month == month_ and year == today_year:
+                month_amount += one.amount
+        return month_amount
+
+    for x in range(1, 13):
+        today_month, today_year = x, datetime.datetime.today().year
+        for one in all_expenses:
+            months_data[x] = get_amount_for_month(x)
+
+    def get_amount_for_day(x, today_day, month, today_year):
+        day_amount = 0
+        for one in all_expenses:
+            day_, date_, month_, year_ = one.date.isoweekday(
+            ), one.date.day, one.date.month, one.date.year
+
+            # Check if the expense date falls within the current week
+            if today - datetime.timedelta(days=today_day) <= one.date <= today + datetime.timedelta(days=(6 - today_day)):
+                if x == day_ and month == month_ and year_ == today_year:
+                    if not day_ > today_day:
+                        day_amount += one.amount
+        return day_amount
+
+    for x in range(1, 8):
+        today_day, today_month, today_year = (datetime.datetime.today().isoweekday(),
+                                              datetime.datetime.today().month,
+                                              datetime.datetime.today().year)
+        week_days_data[x] = get_amount_for_day(x, today_day, today_month, today_year)
+        for one in all_expenses:
+            week_days_data[x] = get_amount_for_day(
+                x, today_day, today_month, today_year)
+
+    data = {'months': months_data, 'days': week_days_data}
+    return JsonResponse({'data': data}, safe=False)
+
+
+# ---->>>>>>>>>> INCOME SUMMARY / STATS - PAGE VIEWS <<<<<<<<<<<<----#
+
+def income_summary_rest_stats(request):
+    all_incomes = Income.objects.filter(owner=request.user)
+    today = datetime.datetime.today().date()
 
     months_data = {}
     week_days_data = {}
@@ -1029,23 +972,16 @@ def income_summary_rest(request):
             week_days_data[x] = get_amount_for_day(
                 x, today_day, today_month, today_year)
 
-    data = {"months": months_data, "days": week_days_data}
+    data = {'months': months_data, 'days': week_days_data}
     return JsonResponse({'data': data}, safe=False)
 
 
 @login_required(login_url='/authentication/login')
 def income_summary_view(request):
-
-    if not Currency.objects.filter(user=request.user).exists():
-        messages.info(request, 'Please choose your preferred currency')
-        return redirect('preferences')
-
     all_incomes = Income.objects.filter(owner=request.user)
 
     today = datetime.datetime.today().date()
     today2 = datetime.date.today().replace(day=1)
-    week_ago = today - datetime.timedelta(days=7)
-    month_ago = today - datetime.timedelta(days=30)
     year_ago = today.replace(month=1, day=1)
 
     todays_amount = 0
