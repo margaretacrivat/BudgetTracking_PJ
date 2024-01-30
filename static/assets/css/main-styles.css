@@ -1,8 +1,6 @@
 /*
 
-TemplateMo 591 villa agency
-
-https://templatemo.com/tm-591-villa-agency
+Template Budget Traking WebApp - Main Styles
 
 */
 
@@ -12,24 +10,26 @@ Table of contents
 01. font & reset css
 02. reset
 03. global styles
-04. header
+04. preloader style
 05. banner
 06. features
-07. testimonials
-08. contact
-09. footer
+07. overview
+08. contact - phone & emil company
+09. contact form
+10. footer
+11. responsive media
 
 --------------------------------------------- */
 /*
 ---------------------------------------------
-font & reset css
+01. Font & Reset CSS
 ---------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
 
 /*
 ---------------------------------------------
-reset
+02. Reset
 ---------------------------------------------
 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
@@ -76,7 +76,7 @@ header, nav, section, article, aside, footer, hgroup {
 * {
     margin: 0;
     padding: 0;
-    /*box-sizing: border-box;*/
+    box-sizing: border-box;
 }
 
 body {
@@ -97,13 +97,13 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 0;
+    margin-bottom: 0;
     font-weight: 700;
 }
 
 ul {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 p {
@@ -119,7 +119,7 @@ img {
 
 /*
 ---------------------------------------------
-Global Styles
+03. Global Styles
 ---------------------------------------------
 */
 html,
@@ -154,11 +154,6 @@ body {
     color: black;
 }
 
-/*.section-heading h2 em {*/
-/*    font-style: normal;*/
-/*    color: #0071f8;*/
-/*}*/
-
 .section-heading h6 {
     color: #f35525;
     font-size: 20px;
@@ -177,7 +172,7 @@ body {
     font-weight: 400;
     height: 50px;
     line-height: 50px;
-    padding: 0px 30px 0px 0px;
+    padding: 0 30px 0 0;
     border-radius: 25px;
     transition: all .3s;
 }
@@ -222,7 +217,7 @@ body {
 
 /*
 ---------------------------------------------
-Pre-loader Style
+04. Preloader Style
 ---------------------------------------------
 */
 
@@ -322,7 +317,7 @@ Pre-loader Style
 
 /*
 ---------------------------------------------
-Main Banner Style
+05. Main Banner Style
 ---------------------------------------------
 */
 
@@ -331,7 +326,7 @@ Main Banner Style
     background-repeat: no-repeat;
     background-size: cover;
     padding: 220px 20% 320px 5%;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .main-banner .item-1 {
@@ -346,14 +341,14 @@ Main Banner Style
     color: #fff;
     line-height: 92px;
     width: 100%;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     text-align: left;
     text-shadow: -2px 2px 4px #000;
 }
 
 /*
 ---------------------------------------------
-Featured Style
+06. Featured Style
 ---------------------------------------------
 */
 .featured .container {
@@ -367,12 +362,10 @@ Featured Style
 }
 
 .featured .left-image img {
-    /*padding-left: 60px;*/
-    /*padding-top: 60px;*/
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 0px 10px 15px -5px #000;
+    box-shadow: 0 10px 15px -5px #000;
     opacity: 1;
     z-index: 100;
 }
@@ -466,7 +459,7 @@ Featured Style
 
 .featured .info-table {
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     padding: 35px 30px;
     margin-top: 50px;
     text-align: center;
@@ -504,7 +497,7 @@ Featured Style
 
 /*
 ---------------------------------------------
-OVERVIEW Style
+07. OVERVIEW Style
 ---------------------------------------------
 */
 
@@ -524,7 +517,7 @@ OVERVIEW Style
 
 /*
 ---------------------------------------------
-Contact Style
+08. Contact Style - Phone & Emil Company
 ---------------------------------------------
 */
 
@@ -558,7 +551,7 @@ Contact Style
 
 .contact-content .item {
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 015px rgba(0, 0, 0, 0.15);
     padding: 35px 30px;
     background-color: #fff;
 }
@@ -592,7 +585,7 @@ Contact Style
 .contact-content #contact-form {
     margin-left: 30px;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     padding: 35px 30px;
     background-color: #fff;
 }
@@ -611,7 +604,7 @@ Contact Style
     border: none;
     margin-bottom: 30px;
     font-size: 14px;
-    padding: 0px 15px;
+    padding: 0 15px;
 }
 
 .contact-content #contact-form textarea {
@@ -630,7 +623,7 @@ Contact Style
     background-color: #1e1e1e;
     height: 44px;
     border-radius: 22px;
-    padding: 0px 20px;
+    padding: 0 20px;
     color: #fff;
     border: none;
     font-size: 15px;
@@ -644,7 +637,7 @@ Contact Style
 
 /*
 ---------------------------------------------
-Contact Form Style
+09. Contact Form Style
 ---------------------------------------------
 */
 
@@ -663,7 +656,7 @@ Contact Form Style
 
 .contact-page .item {
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     padding: 35px 30px;
     background-color: #fff;
     display: inline-block;
@@ -695,7 +688,7 @@ Contact Form Style
 .contact-page #contact-form {
     margin-left: 30px;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
     padding: 35px 30px;
     background-color: #fff;
 }
@@ -714,7 +707,7 @@ Contact Form Style
     border: none;
     margin-bottom: 30px;
     font-size: 14px;
-    padding: 0px 15px;
+    padding: 0 15px;
 }
 
 .contact-page #contact-form textarea {
@@ -733,7 +726,7 @@ Contact Form Style
     background-color: #1e1e1e;
     height: 44px;
     border-radius: 22px;
-    padding: 0px 20px;
+    padding: 0 20px;
     color: #fff;
     border: none;
     font-size: 15px;
@@ -747,7 +740,7 @@ Contact Form Style
 
 /*
 ---------------------------------------------
-Footer Style
+10. Footer Style
 ---------------------------------------------
 */
 
@@ -756,7 +749,6 @@ footer.footer-no-gap {
 }
 
 footer {
-    /*margin-top: 150px;*/
     background-color: #f3f3f3;
     min-height: 100px;
     padding-top: 10px;
@@ -764,7 +756,6 @@ footer {
 
 footer p {
     text-align: center;
-    /*line-height: 100px;*/
     color: #1a1818;
     font-size: 16px;
     font-weight: 400;
@@ -773,23 +764,23 @@ footer p {
 
 /*
 ---------------------------------------------
-Responsive Media Style
+11. Responsive Media Style
 ---------------------------------------------
 */
 
 @media only screen and (max-width: 860px) {
     .contact-content .phone {
-        margin-right: 0px;
+        margin-right: 0;
         margin-bottom: 20px;
     }
 
     .contact-content .email {
-        margin-left: 0px;
+        margin-left: 0;
         margin-bottom: 45px;
     }
 
     .contact-content #contact-form {
-        margin-left: 0px;
+        margin-left: 0;
     }
 }
 

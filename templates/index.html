@@ -19,13 +19,11 @@
     <!-- ***** Preloader End ***** -->
 
     <div class="main-banner">
-        {#        <div class="owl-carousel owl-banner">#}
         <div class="item item-1">
             <div class="header-text">
                 <h2>Welcome<br>to my website<br>application!</h2>
             </div>
         </div>
-        {#        </div>#}
     </div>
 
     <div class="featured section">
@@ -168,20 +166,6 @@
         </div>
     </div>
 
-    {#    <div class="video section">#}
-    {#        <div class="container">#}
-    {#            <div class="section-heading text-center">#}
-    {#                <h6>| Overview</h6>#}
-    {#                <h2>Manage your budget with the help of BudgetTracking#}
-    {#                    app.<br>#}
-    {#                    Get your data report quickly.<br>#}
-    {#                    You can choose to import your file or to#}
-    {#                    do your analysis directly inside the app by choosing#}
-    {#                    one of the options presented above!</h2>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-
     <div class="overview">
         <div class="container">
             <div class="section-heading text-center">
@@ -214,17 +198,13 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div id="map">
-                        {#                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth"#}
-                        {#                                width="100%" height="500px" frameborder="0"#}
-                        {#                                style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);"#}
-                        {#                                allowfullscreen=""></iframe>#}
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="item phone">
                                 <img src="/static/assets/img/phone-icon.png"
                                      alt="" style="max-width: 52px;">
-                                <h6>010-020-0340<br><span>Phone Number</span>
+                                <h6>(+4)-020-0340<br><span>Phone Number</span>
                                 </h6>
                             </div>
                         </div>
@@ -288,63 +268,9 @@
         </div>
     </div>
 
-
-    <!-- Scripts -->
     
-    <!-- Bootstrap core JavaScript -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/assets/js/isotope.min.js"></script>
-    {#    <script src="/static/assets/js/owl-carousel.js"></script>#}
-    <script src="/static/assets/js/counter.js"></script>
-    <script src="/static/assets/js/custom.js"></script>
-    <script src="/static/assets/js/script.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
-
-    <script>
-        var map = L.map('map');
-        map.setView([51.505, -0.09], 13);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        navigator.geolocation.watchPosition(success, error);
-
-        let marker, circle, zoomed;
-
-        function success(pos) {
-            const lat = pos.coords.latitude;
-            const lng = pos.coords.longitude;
-            const accuracy = pos.coords.accuracy;
-
-            if (marker) {
-                map.removeLayer(marker);
-                map.removeLayer(circle);
-            }
-
-            marker = L.marker([lat, lng]).addTo(map);
-            circle = L.circle([lat, lng], {radius: accuracy}).addTo(map);
-
-            if (!zoomed) {
-                zoomed = map.fitBounds(circle.getBounds());
-            }
-
-            map.setView([lat, lng]);
-        }
-
-        function error(err) {
-            if (err.code === 1) {
-                alert('Please allow geolocation access');
-            } else {
-                alert('Cannot get current location');
-            }
-        }
-
-    </script>
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/locationMap.js' %}"></script>
 
     <footer>
         {% block footer_content %}
@@ -357,4 +283,3 @@
     </footer>
 
 {% endblock content %}
-

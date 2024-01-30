@@ -1,95 +1,24 @@
 /*
 ---------------------------------------------
-Login Form Style
----------------------------------------------
-*/
-
-/* Bordered form */
-form {
-  border: 3px solid #f1f1f1;
-}
-
-/* Full-width inputs */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
-
-/* Add a hover effect for buttons */
-button:hover {
-  opacity: 0.8;
-}
-
-/* Extra style for the cancel button (red) */
-.cancel btn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #f44336;
-}
-
-/* Center the avatar image inside this container */
-.img container {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-/* Avatar image */
-.img avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-
-/* The "Forgot password" text */
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
-  }
-  .cancel btn {
-    width: 100%;
-  }
-}
-
-/*
----------------------------------------------
 Signup Form Style
 ---------------------------------------------
 */
 
 .container-fluid {
+  margin-top: 10px;
+  padding: 50px 400px 30px 400px;
   background-color: peru;
-  padding-bottom: 100px;
   background-image: url(../img/globe-connect.jpg);
-  background-position: center;
+  background-position: center bottom;
   background-repeat: no-repeat;
   background-size: cover;
+  justify-content: center ;
+  align-items: center;
 }
 
 .card {
   background: transparent;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(150px);
   padding-top: 10px;
 }
 
@@ -121,13 +50,62 @@ Login Form Style
 ---------------------------------------------
 */
 
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/*!* Extra style for the cancel button (red) *!*/
+/*.cancel btn {*/
+/*  width: auto;*/
+/*  padding: 10px 18px;*/
+/*  background-color: #f44336;*/
+/*}*/
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+form {
+  padding: 41px;
+  justify-content: center;
+  align-items: center;
+  /*border: 10px;*/
+}
+
 .container-log {
+  margin-top: 52px;
+  padding: 50px 400px 38px 400px;
+  /*height: calc(100vh - 55px); !* Subtracting the navbar height *!*/
   background-color: blue;
-  padding-bottom: 100px;
   background-image: url(../img/glob-connect.jpg);
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover ;
+  justify-content: center ;
+  align-items: center;
 }
 
 .card-log {
@@ -136,23 +114,24 @@ Login Form Style
   backdrop-filter: blur(20px);
   box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   padding-top: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-log h3 {
   color: #fff;
+  padding-top: 30px;
   padding-bottom: 16px;
 }
 
-form {
-  padding: 30px 40px;
-  border: 10px;
+.card-log .card-form {
+  padding-top: 10px;
 }
 
 .card-log .input-box {
   position: relative;
   width: 100%;
-  height: 100px;
-  /*background: #0dcaf0;*/
+  height: 95px;
   margin: 30px 0;
 }
 
@@ -205,29 +184,51 @@ form {
 .card-log .btn {
   width: 100%;
   background: #fff;
+  color: #333;
   height: 45px;
-  border: none;
   outline: none;
   border-radius: 40px;
+  border: 1px solid #333;
   /*box-shadow: 0 0 10px rgba(0, 0, 0, .1);*/
   cursor: pointer;
   font-size: 18px;
-  color: #333;
   font-weight: 600;
 }
+
+.card-log .cancel-button .btn {
+  width: 20%;
+  float: right;
+  /*margin-left: 250px;*/
+  background: #fff;
+  height: 38px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-log .btn:hover {
+  background: rgba(11, 140, 22, 0.89);
+}
+.card-log .cancel-button .btn:hover {
+  background: rgba(205, 214, 217, 0.65);
+}
+
 
 .card-log .register-link p {
   font-size: 15px;
   text-align: center;
-  margin: 20px 0 15px;
+  margin: 10px 0 15px;
   color: black;
+  padding-bottom: 30px;
 }
 
 .register-link a {
   color: #fff;
   text-decoration: none;
   font-weight: 600;
-  align-item: center;
 }
 
 .register-link a:hover {
@@ -235,36 +236,70 @@ form {
   color: blue;
 }
 
-
 /*
 ---------------------------------------------
 Reset Password Form Style
 ---------------------------------------------
 */
 
-.card-reset {
-  background: transparent;
-  backdrop-filter: blur(20px);
-  padding: 30px 30px 30px 30px;
-  margin:  100px 50px 50px;
-  border: 1px solid #94938f;
-  border-radius: 4px 4px 4px 4px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);
+/*.card-reset {*/
+/*  background: transparent;*/
+/*  backdrop-filter: blur(20px);*/
+/*  padding: 30px 30px 30px 30px;*/
+/*  margin:  100px 50px 50px;*/
+/*  border: 1px solid #94938f;*/
+/*  border-radius: 4px 4px 4px 4px;*/
+/*  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, .3);*/
+/*}*/
+
+/*.card-title {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.register-link-psw {*/
+/*  text-align: center;*/
+/*}*/
+
+/*.register-link-psw a {*/
+/*  color: #0D6EFD;*/
+/*}*/
+
+/*.register-link-psw a:hover, .login-link-psw a:hover {*/
+/*  color: blue;*/
+/*}*/
+
+
+/* Change styles for span and cancel button on extra small screens */
+/*@media screen and (max-width: 300px) {*/
+/*  span.psw {*/
+/*    display: block;*/
+/*    float: none;*/
+/*  }*/
+/*  !*.cancel btn {*!*/
+/*  !*  width: 100%;*!*/
+/*  !*}*!*/
+/*}*/
+
+
+/*media*/
+
+@media only screen and (max-width: 1200px) {
+    .container-fluid {
+      padding: 50px 100px 30px 100px;
+    }
+    .container-log {
+      padding: 50px 100px 50px 100px;
+    }
 }
 
-.card-title {
-  text-align: center;
+@media only screen and (max-width: 860px) {
+    .container-fluid {
+      padding: 50px 40px 25px 40px;
+    }
+    .container-log {
+      padding: 50px 40px 42px 40px;
+    }
+    .card-log .cancel-button .btn {
+      width: 30%;
+    }
 }
-
-.register-link-psw {
-  text-align: center;
-}
-
-.register-link-psw a {
-  color: #0D6EFD;
-}
-
-.register-link-psw a:hover, .login-link-psw a:hover {
-  color: blue;
-}
-

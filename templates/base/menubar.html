@@ -10,11 +10,12 @@
 
     <!-- ***** Menu Start ***** -->
     <ul class="navbar-menu">
+     {% include 'user/_messages.html' %}
         <ul class="navbar-left-side">
             <!-- right menu -->
             <li><a href="{% url 'home' %}" class="nav-link active-item">Home</a></li>
-            <li><a href="#" class="nav-link">Personal Budget</a></li>
-            <li><a href="#" class="nav-link">Project Budget</a></li>
+            <li><a href="" class="nav-link">Personal Budget</a></li>
+            <li><a href="" class="nav-link">Project Budget</a></li>
         </ul>
         <!-- left menu -->
         <ul class="navbar-right-side">
@@ -46,10 +47,8 @@
             </li>
         </ul>
     </ul>
-{#                <a class='menu-trigger'>#}
-{#                    <span>Menu</span>#}
-{#                </a>#}
     <!-- ***** Menu End ***** -->
+
     <div class="hamburger">
         <span class="bar"></span>
         <span class="bar"></span>

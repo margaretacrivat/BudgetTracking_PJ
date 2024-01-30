@@ -25,7 +25,7 @@ from reportlab.platypus import Table, TableStyle
 
 @login_required(login_url='/authentication/login')
 def personal_budget_view(request):
-    return render(request, 'personal_budget/index.html')
+    return render(request, 'personalbudget/index.html')
 
 
 @login_required(login_url='/authentication/login')
@@ -77,7 +77,7 @@ def budget_main_view(request):
     except Currency.DoesNotExist:
         currency = 'RON - Romanian  Leu'
 
-    return render(request, 'personal_budget/budget_main.html',{'category_data': category_data,
+    return render(request, 'personalbudget/budget_main.html', {'category_data': category_data,
                                                                'source_data': source_data, 'currency': currency,
                                                                'this_month_total_expenses': this_month_total_expenses,
                                                                'this_month_total_income': this_month_total_income,
@@ -104,7 +104,7 @@ def expenses_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'personal_budget/expenses/user_expenses.html', context)
+    return render(request, 'personalbudget/expenses/user_expenses.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -117,7 +117,7 @@ def add_expense(request):
     }
 
     if request.method == 'GET':
-        return render(request, 'personal_budget/expenses/add_expense.html', context)
+        return render(request, 'personalbudget/expenses/add_expense.html', context)
 
     if request.method == 'POST':
         item = request.POST['item']
@@ -130,22 +130,22 @@ def add_expense(request):
 
         if not item:
             messages.error(request, 'Item is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not cost:
             messages.error(request, 'Cost is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not qty:
             messages.error(request, 'Quantity is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
 
         Expense.objects.create(owner=request.user, item=item, category=category,
                                description=description, cost=cost, qty=qty,
@@ -167,7 +167,7 @@ def edit_expense(request, id):
         'categories': categories
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/expenses/edit_expense.html', context)
+        return render(request, 'personalbudget/expenses/edit_expense.html', context)
 
     if request.method == 'POST':
         item = request.POST['item']
@@ -180,22 +180,22 @@ def edit_expense(request, id):
 
         if not item:
             messages.error(request, 'Item is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html', context)
+            return render(request, 'personalbudget/expenses/edit_expense.html', context)
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/expenses/add_expense.html', context)
+            return render(request, 'personalbudget/expenses/add_expense.html', context)
         if not cost:
             messages.error(request, 'Cost is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html', context)
+            return render(request, 'personalbudget/expenses/edit_expense.html', context)
         if not qty:
             messages.error(request, 'Quantity is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html', context)
+            return render(request, 'personalbudget/expenses/edit_expense.html', context)
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html', context)
+            return render(request, 'personalbudget/expenses/edit_expense.html', context)
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/expenses/edit_expense.html', context)
+            return render(request, 'personalbudget/expenses/edit_expense.html', context)
 
         expense.owner = request.user
         expense.item = item
@@ -249,7 +249,9 @@ def export_expenses_csv(request):
                                       str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['Item', 'Category', 'Description', 'Amount', 'Date'])
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    writer.writerow(['Item', 'Category', 'Description', f'Amount ({currency})', 'Date'])
 
     expenses = Expense.objects.filter(owner=request.user)
 
@@ -270,7 +272,9 @@ def export_expenses_excel(request):
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
 
-    columns = ['Item', 'Category', 'Description', 'Amount', 'Date']
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    columns = ['Item', 'Category', 'Description', f'Amount ({currency})', 'Date']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
@@ -304,7 +308,10 @@ def export_expenses_pdf(request):
     title_y = A4[1] - 70
     pdf.drawCentredString(A4[0] / 2, title_y, title_text)
 
-    headers = ['Item', 'Category', 'Description', 'Amount', 'Date']
+    # for the proper formatting of the currency, we used 'strip()'-> to remove non-printable characters or whitespaces
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    headers = ['Item', 'Category', 'Description', f'Amount ({currency})', 'Date']
     data = [headers]
 
     expenses = Expense.objects.filter(owner=request.user)
@@ -322,8 +329,8 @@ def export_expenses_pdf(request):
          ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
          ('FONTSIZE', (0, 0), (-1, 0), 14),
          ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 30),
-         ('LEFTPADDING', (0, 0), (-1, 0), 30),
+         ('RIGHTPADDING', (0, 0), (-1, 0), 25),
+         ('LEFTPADDING', (0, 0), (-1, 0), 25),
          ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
          ('TOPPADDING', (0, 0), (-1, 0), 10)]
     ))
@@ -334,7 +341,7 @@ def export_expenses_pdf(request):
     # Increase the X-coordinate value to move the table more to the right
     # Increase the Y-coordinate value for more space at the top
     table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 45, canvas_height - len(data) * 8)  # Adjust the multiplier as needed
+    table.drawOn(pdf, 35, canvas_height - len(data) * 8)  # Adjust the multiplier as needed
 
     pdf.save()
     return response
@@ -435,7 +442,7 @@ def income_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'personal_budget/income/user_income.html', context)
+    return render(request, 'personalbudget/income/user_income.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -447,14 +454,14 @@ def add_income(request):
         'values': request.POST
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/income/add_income.html', context)
+        return render(request, 'personalbudget/income/add_income.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
 
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/income/add_income.html', context)
+            return render(request, 'personalbudget/income/add_income.html', context)
 
         source = request.POST['source']
         description = request.POST['description']
@@ -462,11 +469,11 @@ def add_income(request):
 
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/income/add_income.html', context)
+            return render(request, 'personalbudget/income/add_income.html', context)
 
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/income/add_income.html', context)
+            return render(request, 'personalbudget/income/add_income.html', context)
 
         Income.objects.create(owner=request.user, amount=amount, source=source,
                               description=description, date=date)
@@ -487,14 +494,14 @@ def edit_income(request, id):
         'sources': sources
     }
     if request.method == 'GET':
-        return render(request, 'personal_budget/income/edit_income.html', context)
+        return render(request, 'personalbudget/income/edit_income.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
 
         if not amount:
             messages.error(request, 'Amount is required')
-            return render(request, 'personal_budget/income/edit_income.html', context)
+            return render(request, 'personalbudget/income/edit_income.html', context)
 
         source = request.POST['source']
         description = request.POST['description']
@@ -502,11 +509,11 @@ def edit_income(request, id):
 
         if not description:
             messages.error(request, 'Description is required')
-            return render(request, 'personal_budget/income/edit_income.html', context)
+            return render(request, 'personalbudget/income/edit_income.html', context)
 
         if not date:
             messages.error(request, 'Date is required')
-            return render(request, 'personal_budget/income/edit_income.html', context)
+            return render(request, 'personalbudget/income/edit_income.html', context)
 
         income.amount = amount
         income.source = source
@@ -549,13 +556,14 @@ def export_income_csv(request):
                                       str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['Amount', 'Source', 'Description', 'Date'])
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    writer.writerow(['Source', 'Description', f'Amount ({currency})', 'Date'])
 
     incomes = Income.objects.filter(owner=request.user)
 
     for income in incomes:
-        writer.writerow([income.amount, income.source, income.description,
-                         income.date])
+        writer.writerow([income.source, income.description, income.amount, income.date])
     return response
 
 
@@ -570,13 +578,15 @@ def export_income_excel(request):
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
 
-    columns = ['Amount', 'Source', 'Description', 'Date']
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    columns = ['Source', 'Description', f'Amount ({currency})', 'Date']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Income.objects.filter(owner=request.user).values_list(
-        'amount', 'source', 'description', 'date')
+        'source', 'description', 'amount', 'date')
 
     for row in rows:
         row_num += 1
@@ -605,13 +615,15 @@ def export_income_pdf(request):
     title_y = A4[1] - 80
     pdf.drawCentredString(A4[0] / 2, title_y, title_text)
 
-    headers = ['Amount', 'Source', 'Description', 'Date']
+    # for the proper formatting of the currency, we used 'strip()'-> to remove non-printable characters or whitespaces
+    currency = Currency.objects.get(user=request.user).currency.split('-')[0].strip()
+
+    headers = ['Source', 'Description', f'Amount ({currency})', 'Date']
     data = [headers]
 
     incomes = Income.objects.filter(owner=request.user)
-
     for income in incomes:
-        data.append([income.amount, income.source, income.description, income.date])
+        data.append([income.source, income.description, income.amount, income.date])
 
     table = Table(data)
     table.setStyle(TableStyle(
@@ -622,8 +634,8 @@ def export_income_pdf(request):
          ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
          ('FONTSIZE', (0, 0), (-1, 0), 14),
          ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 30),
-         ('LEFTPADDING', (0, 0), (-1, 0), 30),
+         ('RIGHTPADDING', (0, 0), (-1, 0), 25),
+         ('LEFTPADDING', (0, 0), (-1, 0), 25),
          ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
          ('TOPPADDING', (0, 0), (-1, 0), 10)]
     ))
@@ -634,7 +646,7 @@ def export_income_pdf(request):
     # Increase the X-coordinate value to move the table more to the right
     # Increase the Y-coordinate value for more space at the top
     table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 85, canvas_height - len(data) * 1)
+    table.drawOn(pdf, 80, canvas_height - len(data) * 1)
 
     pdf.save()
     return response
@@ -770,7 +782,7 @@ def summary_budget_view(request):
         },
     }
 
-    return render(request, 'personal_budget/summary/summary_budget.html', context)
+    return render(request, 'personalbudget/summary/summary_budget.html', context)
 
 
 def current_month_balance_stats(request):
@@ -876,7 +888,7 @@ def expenses_summary_view(request):
 
         },
     }
-    return render(request, 'personal_budget/summary/expenses_summary.html', context)
+    return render(request, 'personalbudget/summary/expenses_summary.html', context)
 
 
 def expenses_summary_rest_stats(request):
@@ -1036,7 +1048,7 @@ def income_summary_view(request):
 
         },
     }
-    return render(request, 'personal_budget/summary/income_summary.html', context)
+    return render(request, 'personalbudget/summary/income_summary.html', context)
 
 
 
