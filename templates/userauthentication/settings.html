@@ -14,7 +14,7 @@
                         <h3 class="text-center pt-2">Account Settings</h3>
                     </div>
                     <form method="POST" action="{% url 'settings' %}">
-                        {% include 'user/_messages.html' %} {% csrf_token %}
+                        {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
                         <div class="input-box-set">
                             <label for="username"><b>Update username</b></label>

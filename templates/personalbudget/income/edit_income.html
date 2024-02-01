@@ -30,7 +30,7 @@
                 <h4>Edit Income</h4>
                 <form action="{% url 'edit-income' income.id %}"
                       method="post">
-                    {% include 'user/_messages.html' %} {% csrf_token %}
+                    {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
                         <label for="">Source</label>

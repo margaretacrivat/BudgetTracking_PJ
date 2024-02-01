@@ -13,7 +13,7 @@
 
             <!-- Form -->
             <form class="card-form" method="POST" action="{% url 'login' %}" enctype="multipart/form-data">
-                {% include 'user/_messages.html' %} {% csrf_token %}
+                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
                 <div class="input-box">
                     <label for="username"><b>Username</b></label>
@@ -34,7 +34,7 @@
                     <a href="#">Forgot password?</a>
                 </div>
 
-                <button class="btn" type="submit" value="login" onclick="auth()">Login</button>
+                <button class="btn btn-login" type="submit" value="login" onclick="auth()">Login</button>
                 <div class="cancel-button">
                     <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
                 </div>

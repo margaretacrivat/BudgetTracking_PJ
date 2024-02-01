@@ -16,10 +16,6 @@ def home(request):
     items = Items.objects.all()
     context = {'items': items}
 
-    if not request.user.is_authenticated and request.path == reverse('personalbudget/index.html'):
-        messages.warning(request, 'You need to register to access this page.')
-        return redirect('login')
-
     if request.user.is_authenticated:
         html_template = get_template('homepage.html')
 

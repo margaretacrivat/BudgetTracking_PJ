@@ -27,8 +27,8 @@ urlpatterns = [
     # Path to render the urls apps
     path('', include('budget.urls')),
     path('personalbudget/', include('personalbudget.urls')),
-
-    path('authentication/', include('userauthentication.urls')),
+    path('projectbudget/', include('projectbudget.urls')),
     path('preferences/', include('preferences.urls')),
+    path('userauthentication/', include('userauthentication.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

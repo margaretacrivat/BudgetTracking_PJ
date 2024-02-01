@@ -29,7 +29,7 @@
                 <h4>Edit Expense</h4>
                 <form action="{% url 'edit-expense' expense.id %}"
                       method="post">
-                    {% include 'user/_messages.html' %} {% csrf_token %}
+                    {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
                         <label for="">Item</label>

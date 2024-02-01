@@ -5,8 +5,7 @@ Signup Form Style
 */
 
 .container-fluid {
-  margin-top: 10px;
-  padding: 50px 400px 30px 400px;
+  padding: 80px 400px 30px 400px;
   background-color: peru;
   background-image: url(../img/globe-connect.jpg);
   background-position: center bottom;
@@ -18,18 +17,30 @@ Signup Form Style
 
 .card {
   background: transparent;
-  backdrop-filter: blur(150px);
+  backdrop-filter: blur(10px);
   padding-top: 10px;
+  border: 1px solid #fff;
 }
 
 .card h3 {
   color: #fff;
-  margin-bottom: 14px;
+  margin-bottom: 5px;
 }
 
 .card .card-body label {
   color: white;
   padding-top: 4px;
+}
+
+.card .card-body p {
+  color: white;
+  font-size: 15px;
+  padding-top: 4px;
+}
+
+.invalid-feedback {
+  color: red;
+  background: #d93d2f;
 }
 
 .card .card-footer {
@@ -43,6 +54,17 @@ input[type='submit'] {
   text-align: center;
 }
 
+.card-footer .btn-submit {
+  font-size: 18px;
+}
+.card-footer .btn-cancel {
+  color: white;
+}
+
+.card .card-terms p {
+  color: white;
+  text-align: center;
+}
 
 /*
 ---------------------------------------------
@@ -71,7 +93,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+button .btn-login:hover {
   opacity: 0.8;
 }
 
@@ -216,7 +238,6 @@ form {
   background: rgba(205, 214, 217, 0.65);
 }
 
-
 .card-log .register-link p {
   font-size: 15px;
   text-align: center;
@@ -285,7 +306,7 @@ Reset Password Form Style
 
 @media only screen and (max-width: 1200px) {
     .container-fluid {
-      padding: 50px 100px 30px 100px;
+      padding: 80px 100px 30px 100px;
     }
     .container-log {
       padding: 50px 100px 50px 100px;
@@ -294,7 +315,7 @@ Reset Password Form Style
 
 @media only screen and (max-width: 860px) {
     .container-fluid {
-      padding: 50px 40px 25px 40px;
+      padding: 80px 40px 25px 40px;
     }
     .container-log {
       padding: 50px 40px 42px 40px;

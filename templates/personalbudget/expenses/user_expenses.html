@@ -52,7 +52,7 @@
 
             <!-- ***** Expenses data Table ***** -->
             <div id="dataTable">
-                {% include 'user/_messages.html' %}
+                {% include 'userauthentication/_messages.html' %}
 
                 <div class="breadcrumb-event-add">
                     <a href="{% url 'add-expense' %}" class="btn">
@@ -77,7 +77,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {# if user has some expenses, then display them #}
+                        {# if userauthentication has some expenses, then display them #}
                         {% if expenses.count %}
                             {% for expense in page_obj %}
                                 {# display dinamic data #}

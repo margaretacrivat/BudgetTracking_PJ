@@ -28,7 +28,7 @@
             <div class="add-form-body" id="addIncomeForm">
                 <h4>Add Income Form</h4>
                 <form action="{% url 'add-income' %}" method="post" autocomplete="off">
-                    {% csrf_token %} {% include 'user/_messages.html' %}
+                    {% csrf_token %} {% include 'userauthentication/_messages.html' %}
 
                     <div class="form-group">
                         <label for="">Source</label>

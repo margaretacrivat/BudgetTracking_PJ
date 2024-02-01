@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center pt-2">Sign Up</h3>
+            </div>
+
+            <!-- Form -->
+            <form class="card-form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+
+                <div class="card-body">
+{#                    {{ user_form.as_p }}#}
+                    <p>Username:</p>
+                    {{ user_form.username }}
+{#                    {{ user_form.username_error }}#}
+                    <div class="invalid-feedback" style="display:none"></div>
+
+                    <p>First Name:</p>
+                    {{ user_form.first_name }}
+                    <p>Last Name:</p>
+                    {{ user_form.last_name }}
+                    <p>Email:</p>
+                    {{ user_form.email }}
+                    <p>Password1:</p>
+                    {{ user_form.password1 }}
+                    <p>Password2:</p>
+                    {{ user_form.password2 }}
+                </div>
+
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-submit btn-outline-success">Submit
+                    </button>
+
+                    <a href="{% url 'home' %}" class="btn btn-cancel btn-outline-secondary"
+                       >Cancel</a>
+                </div>
+            </form>
+            <div class="card-terms">
+                <p>By clicking the Sign Up button, you agree to our <br>
+                    <a href="">Terms and Conditions</a> and <a href="">Policy
+                        Privacy</a>
+                </p>
+                <p>Already have an account?<a href="{% url 'login' %}"> Login here</a></p>                
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/signup.js' %}"></script>
+    
+{% endblock %}

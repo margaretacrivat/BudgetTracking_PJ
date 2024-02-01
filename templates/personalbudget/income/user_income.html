@@ -53,7 +53,7 @@
 
             <!-- ***** Income data Table ***** -->
             <div id="dataTable">
-                {% include 'user/_messages.html' %}
+                {% include 'userauthentication/_messages.html' %}
 
                 <div class="breadcrumb-event-add">
                     <a href="{% url 'add-income' %}" class="btn">
@@ -75,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        {# if user has some incomes, then display them #}
+                        {# if userauthentication has some incomes, then display them #}
                         {% if income.count %}
                             {% for income in page_obj %}
                                 <tr>
