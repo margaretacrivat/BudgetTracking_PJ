@@ -20,17 +20,24 @@
                     <p>Username:</p>
                     {{ user_form.username }}
 {#                    {{ user_form.username_error }}#}
-                    <div class="invalid-feedback" style="display:none"></div>
+                    <div class="userInvalidFeedback invalid-feedback text-danger" style="display:none"></div>
+                    <p class="text-sm text-success usernameSuccessOutput"></p>
 
                     <p>First Name:</p>
                     {{ user_form.first_name }}
                     <p>Last Name:</p>
                     {{ user_form.last_name }}
+
                     <p>Email:</p>
                     {{ user_form.email }}
-                    <p>Password1:</p>
+                    <div class="emailFeedbackArea invalid-feedback text-danger" style="display:none"></div>
+                    <p class="text-sm text-success emailSuccessOutput"></p>
+
+                    <p class="psw-1">Password1:</p>
                     {{ user_form.password1 }}
-                    <p>Password2:</p>
+                    <small class="showPasswordToggle">Show</small>
+                    
+                    <p class="psw-2">Password2:</p>
                     {{ user_form.password2 }}
                 </div>
 
@@ -47,7 +54,7 @@
                     <a href="">Terms and Conditions</a> and <a href="">Policy
                         Privacy</a>
                 </p>
-                <p>Already have an account?<a href="{% url 'login' %}"> Login here</a></p>                
+                <p>Already have an account?<a href="{% url 'login' %}"> Login here</a></p>
             </div>
         </div>
     </div>

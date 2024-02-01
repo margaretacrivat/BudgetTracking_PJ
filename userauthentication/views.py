@@ -6,6 +6,8 @@ from .forms import LoginForm, SignUpForm
 import json
 from django.http import JsonResponse
 from django.views import View
+from validate_email import validate_email
+
 
 # Create your views here.
 
@@ -20,9 +22,27 @@ class UsernameValidationView(View):
                 return JsonResponse({'username_error': 'username should only contain alphanumeric characters'}, status=400)
             # check if the user already exist
             if User.objects.filter(username=username).exists():
-                return JsonResponse({'username_error': 'username in use, choose another one'}, status=409)
+                return JsonResponse({'username_error': 'username in use, please choose another one'}, status=409)
 
             return JsonResponse({'username_valid': True})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+
+class EmailValidationView(View):
+    def post(self, request):
+        try:
+            data = json.loads(request.body)
+            email = data['email']
+            # validate email
+            if not validate_email(email):
+                return JsonResponse({'email_error': 'email is invalid'}, status=400)
+            # check if the email is taken
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({'email_error': 'email in use, please choose another one'}, status=409)
+
+            return JsonResponse({'email_valid': True})
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)

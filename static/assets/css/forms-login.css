@@ -39,8 +39,21 @@ Signup Form Style
 }
 
 .invalid-feedback {
-  color: red;
-  background: #d93d2f;
+  color: black;
+  background: rgba(180, 245, 128, 0.72);
+}
+
+.card-body .showPasswordToggle {
+  float: right;
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: all;
+}
+
+.card-body .showPasswordToggle:hover {
+  transform: scale(1.2);
 }
 
 .card .card-footer {

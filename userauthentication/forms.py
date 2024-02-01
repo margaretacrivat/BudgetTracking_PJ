@@ -15,30 +15,35 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(
             attrs={'placeholder': 'Please enter first name',
                    'class': 'form-control',
+                   'autocomplete': 'given-name',
                    }
         ))
     last_name = forms.CharField(
         widget=forms.TextInput(
             attrs={'placeholder': 'Please enter last name',
-                   'class': 'form-control'
+                   'class': 'form-control',
+                   'autocomplete': 'family-name',
                    }
         ))
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={'placeholder': 'Please enter email',
                    'class': 'form-control',
+                   'autocomplete': 'email',
                    }
         ))
-    password1 = forms.EmailField(
-        widget=forms.EmailInput(
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(
             attrs={'placeholder': 'Password',
                    'class': 'form-control',
+                   'autocomplete': 'new-password',
                    }
         ))
-    password2 = forms.EmailField(
-        widget=forms.EmailInput(
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(
             attrs={'placeholder': 'Repeat Password',
                    'class': 'form-control',
+                   'autocomplete': 'new-password',
                    }
         ))
 
