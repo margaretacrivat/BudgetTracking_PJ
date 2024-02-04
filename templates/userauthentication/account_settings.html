@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Account settings {% endblock %}
+
+{% block content %}
+
+    <div class="container-settings">
+        <div class="card-set">
+            <div class="card-header-set">
+                <h3 class="text-center pt-2">Account Settings</h3>
+            </div>
+
+            <!-- Form -->
+            <form class='card-form-set' method="POST" action="{% url 'account-settings' %}">
+                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+
+
+                <div class="input-box-set">
+                    <label for="password"><b>Current Password</b></label>
+                    {{ user_form.password1 }}
+                    <input type="password" placeholder="Enter Password"
+                           name="password" id="id_password1"
+                           required>
+{#                    <i class='bx bxs-lock-alt'></i>#}
+                </div>
+                <small class="showPasswordToggle">Show</small>
+                
+                <div class="input-box-set">
+                    <label><b>Enter the new password</b></label>
+                    <input type="password"
+                           placeholder="Enter the new password"
+                           name="new_password1" id="new_password1"
+                           required>
+                </div>
+                <small class="showPasswordToggle">Show</small>
+                
+                <div class="input-box-set">
+                    <label><b>Confirm new password</b></label>
+                    <input type="password"
+                           placeholder="Confirm new password"
+                           name="new_password2" id="new_password2"
+                           required>
+                </div>
+
+                <button class="btn btn-secondary btn-sm" type="submit" value="update"
+                        >Change Password</button>
+                <div class="delete-account">
+                    <p style="text-align: center">Do you want to delete your account?<a
+                            href=""
+                            class="btn btn-danger btn-sm"> Delete
+                        Account</a></p>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/signup.js' %}"></script>
+
+{% endblock %}

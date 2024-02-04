@@ -19,6 +19,7 @@
                     <label for="username"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username"
                            name="username" id="username"
+                           value="{{ field_values.username }}"  {# to keep the value #}
                            required>
                     <i class='bx bxs-user'></i>
                 </div>
@@ -31,7 +32,7 @@
                 </div>
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot password?</a>
+                    <a href="{% url 'reset-password-link' %}">Forgot password?</a>
                 </div>
 
                 <button class="btn btn-login" type="submit" value="login" onclick="auth()">Login</button>
@@ -46,7 +47,6 @@
                 <p>Don't have an account?<a href="{% url 'signup' %}"> Sign Up here</a></p>
             </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

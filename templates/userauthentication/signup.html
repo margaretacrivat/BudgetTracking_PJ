@@ -16,10 +16,11 @@
                 {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
                 <div class="card-body">
-{#                    {{ user_form.as_p }}#}
+
+                    {# {{ user_form.as_p }}#}
                     <p>Username:</p>
                     {{ user_form.username }}
-{#                    {{ user_form.username_error }}#}
+                    {# {{ user_form.username_error }}#}
                     <div class="userInvalidFeedback invalid-feedback text-danger" style="display:none"></div>
                     <p class="text-sm text-success usernameSuccessOutput"></p>
 
@@ -33,22 +34,46 @@
                     <div class="emailFeedbackArea invalid-feedback text-danger" style="display:none"></div>
                     <p class="text-sm text-success emailSuccessOutput"></p>
 
-                    <p class="psw-1">Password1:</p>
+                    <p class="psw-1">Password:</p>
                     {{ user_form.password1 }}
+                    <div class="passwordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
+                    <p class="text-sm text-success passwordSuccessOutput"></p>
+
+                    {#                    {% if user_form.password1.errors %}#}
+                    {#                        <div class="password1FeedbackArea invalid-feedback text-danger">#}
+                    {#                            {% for error in user_form.password1.errors %}#}
+                    {#                                {{ error }}#}
+                    {#                            {% endfor %}#}
+                    {#                        </div>#}
+                    {#                    {% endif %}#}
                     <small class="showPasswordToggle">Show</small>
-                    
-                    <p class="psw-2">Password2:</p>
+                
+                    <p class="psw-2">Password confirmation:</p>
                     {{ user_form.password2 }}
+                    <div class="password2FeedbackArea invalid-feedback text-danger" style="display:none"></div>
+                
+                    {% if user_form.password2.errors %}
+                        <div class="password2FeedbackArea invalid-feedback text-danger">
+                            {% for error in user_form.password2.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <p>
+                        Enter the same password as before for verification.
+                    </p>
+
                 </div>
 
                 <div class="card-footer text-center">
-                    <button type="submit" class="btn btn-submit btn-outline-success">Submit
-                    </button>
+                    <button type="submit" class="btn btn-submit btn-outline-success"
+                    >Submit </button>
 
                     <a href="{% url 'home' %}" class="btn btn-cancel btn-outline-secondary"
-                       >Cancel</a>
+                    >Cancel</a>
                 </div>
             </form>
+        
             <div class="card-terms">
                 <p>By clicking the Sign Up button, you agree to our <br>
                     <a href="">Terms and Conditions</a> and <a href="">Policy
@@ -59,7 +84,8 @@
         </div>
     </div>
 
+
     <!-- Scripts -->
     <script src="{% static 'assets/js/signup.js' %}"></script>
-    
+
 {% endblock %}

@@ -28,13 +28,13 @@ const showMonthsIncomeChart = (data) => {
         const dataset = {
             label: getMonthRep(labels[i]),
             data: monthsdata[i],
-            options: {
-                plugins: {
-                    lineTension: 0,
-                    fill: false,
-                    borderColor: getRandomColor(),
-                }
-            }
+            // options: {
+            //     plugins: {
+            //         lineTension: 0,
+            //         fill: false,
+            //         borderColor: getRandomColor(),
+            //     }
+            // }
         };
         datasets.push(dataset);
     }
@@ -48,6 +48,9 @@ const showMonthsIncomeChart = (data) => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+            lineTension: 0,
+            fill: false,
+            borderColor: getRandomColor(),
                 // title: {
                 //     display: true,
                 //     text: 'Source Cumulative Comparison (Last 3 months)',

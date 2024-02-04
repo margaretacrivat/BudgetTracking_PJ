@@ -43,7 +43,7 @@ urlpatterns = [
     path('income-stats/', views.income_stats_last_3months,
          name='income-stats'),
 
-    path('summary-budget/', views.summary_budget_view, name='summary-budget'),
+    path('summary-budget/', views.summary_budget_main_view, name='summary-budget'),
     path('current_month_balance_stats/', views.current_month_balance_stats, name='current_month_balance_stats'),
     path('current_year_balance_stats/', views.current_year_balance_stats, name='current_year_balance_stats'),
 

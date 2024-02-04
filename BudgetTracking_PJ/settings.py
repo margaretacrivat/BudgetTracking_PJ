@@ -19,10 +19,20 @@ from django.contrib import messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ACCOUNT_LOGOUT_REDIRECT_URL = "home"
+# ACCOUNT_LOGIN_LOGOUT_REDIRECT
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+# EMAIL_RESET_PASSWORD
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get('EMAIL_HOST')
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_PORT = 587
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -102,6 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 6,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -144,7 +157,7 @@ MESSAGE_TAGS = {
     messages.INFO: 'info',
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
-    messages.ERROR: 'danger'
+    messages.ERROR: 'danger',
 }
 
 

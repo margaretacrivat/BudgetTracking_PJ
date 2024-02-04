@@ -36,7 +36,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={'placeholder': 'Password',
                    'class': 'form-control',
-                   'autocomplete': 'new-password',
+                   'autocomplete': 'current-password',
                    }
         ))
     password2 = forms.CharField(
@@ -67,3 +67,4 @@ class LoginForm(forms.Form):
                 'class': 'form-control'
             }
         ))
+
