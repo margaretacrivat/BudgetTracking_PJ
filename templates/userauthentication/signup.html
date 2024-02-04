@@ -50,15 +50,7 @@
                 
                     <p class="psw-2">Password confirmation:</p>
                     {{ user_form.password2 }}
-                    <div class="password2FeedbackArea invalid-feedback text-danger" style="display:none"></div>
-                
-                    {% if user_form.password2.errors %}
-                        <div class="password2FeedbackArea invalid-feedback text-danger">
-                            {% for error in user_form.password2.errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                    <div class="confirmPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
                     <p>
                         Enter the same password as before for verification.
                     </p>
@@ -75,7 +67,7 @@
             </form>
         
             <div class="card-terms">
-                <p>By clicking the Sign Up button, you agree to our <br>
+                <p>By clicking the SignUp button, you agree to our <br>
                     <a href="">Terms and Conditions</a> and <a href="">Policy
                         Privacy</a>
                 </p>

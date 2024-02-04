@@ -6,7 +6,7 @@ Settings Form Style
 
 .container-settings {
     margin-top: 52px;
-    padding: 80px 400px 195px 400px;
+    padding: 38px 400px 35px 400px;
     background-color: peru;
     background-image: url(../img/world-3d-model.jpg);
     background-position: center;
@@ -33,6 +33,27 @@ Settings Form Style
     padding-top: 10px;
 }
 
+.card-set .card-form-set .invalid-feedback {
+  color: black;
+  background: rgba(180, 245, 128, 0.72);
+}
+
+.card-set .card-form-set .showPasswordToggle,
+.card-set .card-form-set .showPasswordToggle1,
+.card-set .card-form-set .showPasswordToggle2 {
+  float: right;
+  color: #2f2e2e;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: all;
+}
+
+.card-set .card-form-set .showPasswordToggle:hover,
+.card-set .card-form-set .showPasswordToggle1:hover,
+.card-set .card-form-set .showPasswordToggle2:hover {
+  transform: scale(1.2);
+}
 
 .input-box-set input {
     width: 100%;
@@ -53,15 +74,15 @@ Settings Form Style
 
 /*media*/
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1280px) {
     .container-settings {
-        padding: 80px 40px 195px 40px;
+        padding: 38px 40px 35px 40px;
     }
 }
 
 @media only screen and (max-width: 860px) {
     .container-settings {
-        padding: 80px 40px 195px 40px;
+        padding: 38px 40px 35px 40px;
     }
     .card-log .cancel-button .btn {
         width: 30%;
@@ -70,7 +91,7 @@ Settings Form Style
 
 @media only screen and (max-width: 620px) {
     .container-settings {
-        padding: 80px 40px 198px 40px;
+        padding: 38px 40px 35px 40px;
     }
     .card-log .cancel-button .btn {
         width: 30%;

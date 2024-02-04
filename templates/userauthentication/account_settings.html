@@ -9,6 +9,8 @@
         <div class="card-set">
             <div class="card-header-set">
                 <h3 class="text-center pt-2">Account Settings</h3>
+                <hr>
+                <h5 class="text-center pt-2">Change your password</h5>
             </div>
 
             <!-- Form -->
@@ -16,35 +18,38 @@
                 {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
 
-                <div class="input-box-set">
-                    <label for="password"><b>Current Password</b></label>
+                <div class="input-box-set"><b>Current Password</b>
                     {{ user_form.password1 }}
                     <input type="password" placeholder="Enter Password"
-                           name="password" id="id_password1"
-                           required>
-{#                    <i class='bx bxs-lock-alt'></i>#}
+                           name="password" id="current_password",
+                           autocomplete="on">
                 </div>
-                <small class="showPasswordToggle">Show</small>
-                
-                <div class="input-box-set">
-                    <label><b>Enter the new password</b></label>
+                 <div class="currentPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
+                <p class="text-sm text-success currentPasswordSuccessOutput"></p>
+                <small class="showPasswordToggle1">Show</small>
+
+                <div class="input-box-set"><b>Enter the new password</b>
                     <input type="password"
                            placeholder="Enter the new password"
                            name="new_password1" id="new_password1"
-                           required>
+                           autocomplete="on">
                 </div>
-                <small class="showPasswordToggle">Show</small>
-                
-                <div class="input-box-set">
-                    <label><b>Confirm new password</b></label>
+                <div class="newPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
+                <p class="text-sm text-success newPasswordSuccessOutput"></p>
+                <small class="showPasswordToggle2">Show</small>
+
+                <div class="input-box-set"><b>Confirm new password</b>
                     <input type="password"
                            placeholder="Confirm new password"
-                           name="new_password2" id="new_password2"
-                           required>
+                           name="id_password2" id="new_password2"
+                           autocomplete="on">
                 </div>
+                <div class="confirmNewPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
 
-                <button class="btn btn-secondary btn-sm" type="submit" value="update"
-                        >Change Password</button>
+                <button type="submit" class="btn btn-submit-psw btn-secondary btn-sm"
+                >Submit
+                </button>
+
                 <div class="delete-account">
                     <p style="text-align: center">Do you want to delete your account?<a
                             href=""
@@ -52,13 +57,12 @@
                         Account</a></p>
                 </div>
             </form>
-        </div>
 
+        </div>
     </div>
 
 
-
     <!-- Scripts -->
-    <script src="{% static 'assets/js/signup.js' %}"></script>
+    <script src="{% static 'assets/js/accountSettings.js' %}"></script>
 
 {% endblock %}
