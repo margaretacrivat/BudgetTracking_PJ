@@ -21,6 +21,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('access-page/', views.access_page_view, name='access-page'),
 ]
 
 

@@ -41,7 +41,7 @@
                 <div class="col-lg-5">
                     <div class="section-heading">
                         <h6>| Featured</h6>
-                        <h2>Personal Budget</h2>
+                        <h2><a href="{% url 'access-page' %}">Personal Budget</a></h2>
                     </div>
                     <div class="accordion" id="accordionExample{{ item.id }}">
                         {% for item in items %}
@@ -111,7 +111,7 @@
                 <div class="col-lg-5">
                     <div class="section-heading">
                         <h6>| Featured</h6>
-                        <h2>Project Budget</h2>
+                        <h2><a href="{% url 'access-page' %}">Project Budget</a></h2>
                     </div>
                     <div class="accordion" id="accordionExample{{ item.id }}">
                         {% for item in items %}

@@ -1,0 +1,292 @@
+/*
+---------------------------------------------
+Settings Form Style
+---------------------------------------------
+*/
+
+.container-settings {
+    margin-top: 52px;
+    padding: 40px 400px 41px 400px;
+    background-color: peru;
+    background-image: url(../img/world-3d-model.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-set {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid #1a1d20;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    padding-top: 5px;
+}
+
+.card-set h3 {
+    color: black;
+    margin-bottom: 5px;
+}
+
+.card-set .card-form-set {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+.toggle-old-password {
+    color: black;
+    font-size: 20px;
+    background-color: transparent;
+    margin-left: 580px;
+    margin-top: 40px;
+    width: 10%;
+    position: absolute;
+}
+
+.toggle-new-password {
+    color: black;
+    font-size: 20px;
+    background-color: transparent;
+    margin-left: 580px;
+    margin-top: 140px;
+    width: 10%;
+    position: absolute;
+}
+
+
+/*
+---------------------------------------------
+Reset Password Style
+---------------------------------------------
+*/
+
+.container-reset {
+  width: 45%;
+  margin-top: 100px;
+  margin-left: 40px;
+  padding: 40px;
+  background-color: rgba(217, 213, 210, 0.89);
+  backdrop-filter: blur(10px);
+  outline: none;
+  border: 2px solid rgba(45, 44, 44, 0.2);
+  border-radius: 10px;
+  justify-content: center ;
+  align-items: center;
+}
+
+.card-title-reset {
+  text-align: center;
+}
+
+.input-box-reset {
+  padding-bottom: 10px;
+}
+
+.input-box-reset input {
+  width: 100%;
+  height: 70%;
+  background: transparent;
+  outline: none;
+  border: 2px solid rgba(33, 32, 32, 0.2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #1f1e1e;
+  padding: 20px 45px 20px 40px;
+}
+
+.input-box-reset input::placeholder {
+  color: #3b3a3a;
+}
+
+.card-form-reset button .btn-submit-reset {
+  color: #c05757;
+}
+
+.card-form-reset .cancel-button {
+  float: right;
+  padding-top: 20px;
+}
+
+
+/*
+---------------------------------------------
+Delete Account Style
+---------------------------------------------
+*/
+
+.container-delete {
+  margin-top: 52px;
+  padding: 111px 400px 230px 400px;
+  background-color: blue;
+  background-image: url(../img/disconnect-success.jpg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover ;
+  justify-content: center ;
+  align-items: center;
+}
+
+.card-delete {
+  color: #fff;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #fff;
+}
+
+.card-delete .card-header-delete h3 {
+  color: darkred;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card-delete .card-form-delete {
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+.card-form-delete .delete-account .btn {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card-form-delete .signup-button p {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.card-form-delete .cancel-button .btn {
+    color: lightgrey;
+    background: green;
+}
+
+.card-form-delete .cancel-button .btn:hover {
+    background: #989b9b;
+    transform: scale(1.05);
+    border: 1px solid green;
+}
+
+
+/*media*/
+
+@media only screen and (max-width: 1530px) {
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 500px;
+  }
+}
+
+
+@media only screen and (max-width: 1400px) {
+    .container-settings {
+       padding: 40px 220px 39px 220px;
+   }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 480px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+    .container-settings {
+       padding: 40px 180px 40px 180px;
+   }
+  .container-fluid {
+      padding: 38px 40px 35px 40px;
+  }
+  .container-reset {
+      width: 55%;
+  }
+  .container-delete {
+     padding: 109px 200px 232px 200px
+  }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 480px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+    .container-settings {
+       padding: 40px 120px 38px 120px;
+   }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 480px;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+   .container-settings {
+       padding: 43px 100px 38px 100px;
+   }
+  .container-fluid {
+      padding: 38px 40px 35px 40px;
+  }
+  .container-reset {
+      width: 85%;
+  }
+  .container-delete {
+     padding: 110px 40px 233px 40px
+  }
+  .toggle-old-password, .toggle-new-password {
+    margin-left: 400px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+    .container-settings {
+      padding: 31px 100px 28px 100px;
+  }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 400px;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+    .container-settings {
+      padding: 31px 100px 28px 100px;
+  }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 320px;
+  }
+}
+
+
+@media only screen and (max-width: 680px) {
+    .container-settings {
+      padding: 31px 40px 28px 40px;
+  }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 280px;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .container-settings {
+      padding: 38px 40px 35px 40px;
+  }
+  .container-delete {
+      padding: 110px 40px 233px 40px
+  }
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 350px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 310px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+    .toggle-old-password, .toggle-new-password {
+    margin-left: 250px;
+  }
+}
+
+
+
+
+
+

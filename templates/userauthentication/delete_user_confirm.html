@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Delete User Account Confirm Page{% endblock %}
+
+{% block content %}
+
+    <div class="container-delete">
+        <div class="card-delete">
+            <div class="card-header-delete">
+                <h3 class="text-center pt-2">Delete your account</h3>
+                <hr>
+            </div>
+
+            <form class='card-form-delete' method="POST">
+                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+
+                <div class="delete-account">
+                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                </div>
+
+                <div class="signup-button">
+                <p class="text-center pt-2">If you want to create an other account, 
+                    <br> please click on the <a href="{% url 'signup' %}">Sign Up </a>here</p>
+                </div>
+
+                <div class="cancel-button">
+                    <a href="{% url 'home' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

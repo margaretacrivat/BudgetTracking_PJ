@@ -1,6 +1,5 @@
 from audioop import reverse
-from django.shortcuts import redirect
-from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.loader import get_template
 from .models import Items
@@ -21,3 +20,6 @@ def home(request):
 
     return HttpResponse(html_template.render(context, request))
 
+
+def access_page_view(request):
+    return render(request, 'access_page.html')

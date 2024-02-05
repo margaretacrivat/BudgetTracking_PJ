@@ -14,47 +14,31 @@
             </div>
 
             <!-- Form -->
-            <form class='card-form-set' method="POST" action="{% url 'account-settings' %}">
+            <form class='card-form-set' method="POST" action="{% url 'account-settings' %}" enctype="multipart/form-data">
                 {% include 'userauthentication/_messages.html' %} {% csrf_token %}
 
-
-                <div class="input-box-set"><b>Current Password</b>
-                    {{ user_form.password1 }}
-                    <input type="password" placeholder="Enter Password"
-                           name="password" id="current_password",
-                           autocomplete="on">
-                </div>
-                 <div class="currentPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
-                <p class="text-sm text-success currentPasswordSuccessOutput"></p>
-                <small class="showPasswordToggle1">Show</small>
-
-                <div class="input-box-set"><b>Enter the new password</b>
-                    <input type="password"
-                           placeholder="Enter the new password"
-                           name="new_password1" id="new_password1"
-                           autocomplete="on">
-                </div>
-                <div class="newPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
-                <p class="text-sm text-success newPasswordSuccessOutput"></p>
-                <small class="showPasswordToggle2">Show</small>
-
-                <div class="input-box-set"><b>Confirm new password</b>
-                    <input type="password"
-                           placeholder="Confirm new password"
-                           name="id_password2" id="new_password2"
-                           autocomplete="on">
-                </div>
-                <div class="confirmNewPasswordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
-
+                <button type="button" class="toggle-old-password bx bxs-hide" id="oldPasswordToggleBtn"></button>
+             
+                <button type="button" class="toggle-new-password bx bxs-hide" id="newPasswordToggleBtn"></button>
+            
+                {{ fm.as_p }}
+                {% if fm.errors %}
+                    <div class="alert alert-danger">
+                        {{ fm.errors }}
+                    </div>
+                {% endif %}
+            
+                
+            
                 <button type="submit" class="btn btn-submit-psw btn-secondary btn-sm"
                 >Submit
                 </button>
-
                 <div class="delete-account">
-                    <p style="text-align: center">Do you want to delete your account?<a
-                            href=""
-                            class="btn btn-danger btn-sm"> Delete
-                        Account</a></p>
+                    <p style="text-align: center">Do you want to delete your account?
+                        <a href="{% url 'delete-account' user.id %}"
+                            class="btn btn-danger btn-sm">
+                            Delete Account</a>
+                    </p>
                 </div>
             </form>
 

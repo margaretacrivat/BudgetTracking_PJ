@@ -1,0 +1,95 @@
+/*
+---------------------------------------------
+Access Personal & Project Budget Pages Style
+---------------------------------------------
+*/
+
+.container-access {
+  margin-top: 52px;
+  padding: 123px 400px 230px 400px;
+  /*height: calc(100vh - 55px); !* Subtracting the navbar height *!*/
+  background-color: blue;
+  background-image: url(../img/disconnect-success.jpg);
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover ;
+  justify-content: center ;
+  align-items: center;
+}
+
+.card-access {
+  color: #fff;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #fff;
+}
+
+.card-access .card-header-access h3 {
+  color: darkred;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.card-access .card-header-access h5 {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.card-body-access {
+  flex-direction: column;
+  padding-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-body-access p {
+  color: #e7e3e3;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.card-body-access .login-button {
+  padding-bottom: 20px;
+}
+
+.card-body-access .cancel-button .btn {
+  color: lightgrey;
+  background: green;
+}
+
+.card-body-access .cancel-button .btn:hover {
+  background: #989b9b;
+  transform: scale(1.07);
+  border: 1px solid green;
+}
+
+.signup-button,
+.login-button,
+.cancel-button {
+    text-align: center;
+}
+
+
+/*media*/
+
+@media only screen and (max-width: 1200px) {
+  .container-access {
+     padding: 123px 200px 230px 200px;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+.container-access {
+     padding: 123px 60px 233px 60px;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+.container-access {
+     padding: 123px 40px 233px 40px;
+  }
+}

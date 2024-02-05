@@ -110,13 +110,6 @@ button .btn-login:hover {
   opacity: 0.8;
 }
 
-/*!* Extra style for the cancel button (red) *!*/
-/*.cancel btn {*/
-/*  width: auto;*/
-/*  padding: 10px 18px;*/
-/*  background-color: #f44336;*/
-/*}*/
-
 /* The "Forgot password" text */
 span.psw {
   float: right;
@@ -272,26 +265,31 @@ form {
 }
 
 
-
 /*media*/
 
 @media only screen and (max-width: 1200px) {
-    .container-fluid {
-      padding: 80px 100px 30px 100px;
-    }
-    .container-log {
-      padding: 50px 100px 50px 100px;
-    }
+  .container-fluid {
+    padding: 80px 100px 30px 100px;
+  }
+  .container-log {
+    padding: 50px 100px 50px 100px;
+  }
 }
 
 @media only screen and (max-width: 860px) {
-    .container-fluid {
-      padding: 80px 40px 25px 40px;
-    }
-    .container-log {
-      padding: 50px 40px 42px 40px;
-    }
-    .card-log .cancel-button .btn {
-      width: 30%;
-    }
+  .container-fluid {
+    padding: 80px 40px 25px 40px;
+  }
+  .container-log {
+    padding: 50px 40px 42px 40px;
+  }
+  .card-log .cancel-button .btn {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .card-log .cancel-button .btn {
+    width: 30%;
+  }
 }

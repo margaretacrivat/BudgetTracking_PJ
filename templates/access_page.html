@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Welcome page {% endblock %}
+
+{% block content %}
+
+    <div class="container-access">
+        <div class="card-access">
+            <div class="card-header-access">
+                <h3 class="text-center pt-2">Access Page Denied</h3>
+                <hr>
+                <h5 class="text-center pt-2">You have to login to access this page!</h5>
+            </div>
+
+            <div class="card-body-access">
+                <div class="signup-button">
+                    <p>Don't have an account?<a href="{% url 'signup' %}"> Sign Up</a> here</p>
+                </div>
+                
+                <div class="login-button">
+                    <p>Already have an account?<a href="{% url 'login' %}"> Login</a> here</p>
+                </div>
+
+                <div class="cancel-button">
+                    <a href="{% url 'home' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

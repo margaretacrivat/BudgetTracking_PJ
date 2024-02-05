@@ -1,25 +1,21 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout, password_validation
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import check_password
-from django.core.mail import EmailMessage
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import update_session_auth_hash
+from django.urls import reverse_lazy
+
 from .forms import LoginForm, SignUpForm
 from .models import PasswordHistory
 import json
 from django.http import JsonResponse
 from django.views import View
 from validate_email import validate_email
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
-from .utils import account_activation_token
-from django.core.mail import send_mail, get_connection
+from numpy import generic
+from django.views.generic import DeleteView
 
 
 # Create your views here.
@@ -134,61 +130,19 @@ def user_logout(request):
 
 
 # ---->>>>>>>>>> ACCOUNT SETTINGS - CHANGE CURRENT PASSWORD VIEW <<<<<<<<<<<<----#
-class CurrentPasswordValidationView(View):
-    def post(self, request):
-        try:
-            data = json.loads(request.body)
-            current_password = data['current_password']
 
-            # Get the user's actual password
-            user = request.user
-
-            # Authenticate the user with the entered current password
-            auth_user = authenticate(username=user.username, password=current_password)
-
-            # Check if authentication is successful
-            if not auth_user:
-                return JsonResponse({'password_error': 'Current password does not match'}, status=400)
-
-            # Redirect to the login page
-            return JsonResponse({'password_valid': True})
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-
-
-class SetNewPasswordValidationView(View):
-    def post(self, request):
-        try:
-            data = json.loads(request.body)
-            new_password = data['new_password1']
-
-            # Django's built-in password validators
-            try:
-                password_validation.validate_password(new_password)
-            except password_validation.ValidationError as e:
-                return JsonResponse({'password_error': str(e)}, status=400)
-
-            # Get the user's actual password
-            user = request.user
-
-            # Update the user's password
-            user.set_password(new_password)
-            user.save()
-
-            # If the current password is valid, log out the user
-            logout(request)
-
+# change password
+def set_new_password(request):
+    if request.method == 'POST':
+        fm = PasswordChangeForm(user=request.user, data=request.POST)
+        if fm.is_valid():
+            fm.save()
             messages.success(request, 'Your password was successfully changed! Please login')
-            return JsonResponse({'password_valid': True, 'redirect': '/userauthentication/login/'})
-
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-
-
-class CustomPasswordChangeView(PasswordChangeView):
-    template_name = 'userauthentication/account_settings.html'
-    success_url = reverse_lazy('login')
+            # print('Redirecting to login page...')
+            return redirect('login')
+    else:
+        fm = PasswordChangeForm(user=request.user)
+    return render(request, 'userauthentication/account_settings.html', {'fm': fm})
 
 
 # render the page where the user can supply the email
@@ -197,7 +151,13 @@ class ForgotRequestResetPassword(View):
         return render(request, 'userauthentication/forgot_reset_password.html')
 
 
-# class CompletePasswordChange(View):
-#     def get(self, request):
-#         return render(request, 'userauthentication/set_new_password.html')
+class DeleteUserAccount(SuccessMessageMixin, DeleteView):
+    model = User
+    template_name = 'userauthentication/delete_user_confirm.html'
+    success_message = 'Your account has been deleted! Please Sign Up'
+    success_url = reverse_lazy('signup')
+
+
+
+
 
