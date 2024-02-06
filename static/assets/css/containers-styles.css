@@ -55,7 +55,7 @@ BREADCRUMB BAR Styles
     padding-bottom: 3px;
 }
 
-.breadcrumb-event-add, .breadcrumb-event-delete{
+.breadcrumb-event-add, .breadcrumb-event-delete {
     padding: 5px 5px 0 0;
     margin-left: 1000px;
 }
@@ -64,7 +64,7 @@ BREADCRUMB BAR Styles
     min-width: 20px;
     font-weight: 500;
     color: white;
-    background:  darkblue;
+    background: darkblue;
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 }
@@ -83,7 +83,7 @@ Container DASHBOARD
 ---------------------------------------------
 */
 
-.container-dashboard{
+.container-dashboard {
     background: transparent;
     padding-top: 20px;
     padding-left: 110px;
@@ -125,7 +125,8 @@ Container DASHBOARD
 #dashboardMain1 .card .card-body:nth-child(2),
 #dashboardMain1 .card .card-body:nth-child(3),
 #dashboardMain1 .card .card-body:nth-child(4),
-#dashboardMain1 .card .card-body:nth-child(5) {
+#dashboardMain1 .card .card-body:nth-child(5),
+#dashboardMain1 .card .card-body:nth-child(6) {
     margin-bottom: 5px;
 }
 
@@ -350,8 +351,8 @@ ADD Expense
     padding: 20px 20px 100px 20px;
     margin-top: 10px;
     margin-bottom: 25px;
-    margin-left: 10px;
-    width: 99%;
+    margin-left: 210px;
+    width: 70%;
     grid-area: main;
 
     display: grid;
@@ -377,10 +378,73 @@ ADD Expense
 #addExpenseForm .form-group label {
     padding-top: 2px;
 }
+
 #addExpenseForm #date {
     width: 20%;
 }
 
+.update-button-field .btn-cancel {
+    margin-top: 24px;
+    padding: 5px;
+    font-weight: 500;
+    background: #a8a4a4;
+    color: white;
+    float: right;
+    width: 10%;
+}
+
+/*
+---------------------------------------------
+Edit Expense
+---------------------------------------------
+*/
+
+.edit-expense-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 20px 20px 100px 20px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    margin-left: 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 587px;
+    gap: 20px;
+    grid-template-areas:
+        "editExpenseForm";
+}
+
+#editExpenseForm h4 {
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+#editExpenseForm .form-group label {
+    padding-top: 2px;
+}
+
+#editExpenseForm #date {
+    width: 20%;
+}
+
+.update-button-field .btn-cancel {
+    margin-top: 24px;
+    padding: 5px;
+    font-weight: 500;
+    background: #a8a4a4;
+    color: white;
+    float: right;
+    width: 10%;
+    justify-content: space-around;
+}
 
 /*
 ---------------------------------------------
@@ -397,13 +461,13 @@ ADD Income
     padding: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 10px;
-    width: 99%;
+    margin-left: 210px;
+    width: 70%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 140px;
+    grid-template-rows: 1fr 115px;
     gap: 20px;
     grid-template-areas:
         "addIncomeForm";
@@ -423,6 +487,7 @@ ADD Income
 #addIncomeForm .form-group label {
     padding-top: 2px;
 }
+
 #addIncomeForm #date {
     width: 20%;
 }
@@ -450,47 +515,6 @@ Export Files and Search Field Styles
 
 /*
 ---------------------------------------------
-Edit Expense
----------------------------------------------
-*/
-
-.edit-expense-form {
-    background: transparent;
-    backdrop-filter: blur(20px);
-    border: 1px solid darkgrey;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 100px 20px;
-    margin-top: 10px;
-    margin-bottom: 25px;
-    margin-left: 10px;
-    width: 99%;
-    grid-area: main;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 587px;
-    gap: 20px;
-    grid-template-areas:
-        "editExpenseForm";
-}
-#editExpenseForm h4 {
-    font-size: 28px;
-    text-shadow: 0 1px 1px #000;
-    text-align: center;
-    color: #b2b2b2;
-}
-
-#editExpenseForm .form-group label {
-    padding-top: 2px;
-}
-
-#editExpenseForm #date {
-    width: 20%;
-}
-
-/*
----------------------------------------------
 Edit Income
 ---------------------------------------------
 */
@@ -504,17 +528,18 @@ Edit Income
     padding: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 10px;
-    width: 99%;
+    margin-left: 210px;
+    width: 70%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 140px;
+    grid-template-rows: 1fr 115px;
     gap: 20px;
     grid-template-areas:
         "editIncomeForm";
 }
+
 #editIncomeForm h4 {
     font-size: 28px;
     text-shadow: 0 1px 1px #000;
@@ -580,7 +605,7 @@ Container Expenses page
     margin-bottom: 60px;
     width: 80%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #Chart2 {
@@ -591,7 +616,7 @@ Container Expenses page
     /*margin-left: 20px;*/
     width: 90%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #Chart1:hover, #Chart2:hover {
@@ -668,7 +693,7 @@ Container SUMMARY GENERAL - Charts
     margin-left: 20px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #summaryChart2 {
@@ -679,7 +704,7 @@ Container SUMMARY GENERAL - Charts
     margin-left: 20px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #summaryChart1:hover, #summaryChart2:hover {
@@ -835,7 +860,7 @@ Container SUMMARY EXPENSES & INCOME - Charts
     margin-left: 20px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #Chart4 {
@@ -846,7 +871,7 @@ Container SUMMARY EXPENSES & INCOME - Charts
     margin-left: 30px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 7px 25px rgba(0,0,0,0.8);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.8);
 }
 
 #Chart3:hover, #Chart4:hover {
@@ -893,7 +918,7 @@ Table Pagination
 }
 
 .show-pagination {
-    float: right!important;
+    float: right !important;
 }
 
 
@@ -905,9 +930,11 @@ Table Pagination
     #searchTableField {
         padding: 0 5px 0 120px;
     }
+
     .breadcrumb-event-add {
         margin-left: 900px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -917,10 +944,12 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 90%;
         margin-left: 30px;
@@ -931,9 +960,11 @@ Table Pagination
     #searchTableField {
         padding: 0 5px 0 120px;
     }
+
     .breadcrumb-event-add {
         margin-left: 800px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -943,10 +974,12 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 90%;
         margin-left: 30px;
@@ -958,12 +991,15 @@ Table Pagination
         width: 115%;
         padding: 49px 7px 0 0;
     }
+
     #searchTableField {
         padding: 0 5px 0 100px;
     }
+
     .breadcrumb-event-add {
         margin-left: 700px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -973,13 +1009,30 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 90%;
         margin-left: 30px;
+    }
+
+    .add-expense-form, .edit-expense-form,
+    .add-income-form, .edit-income-form {
+        margin-left: 65px;
+    }
+
+    #addExpenseForm #date, #editExpenseForm #date,
+    #addIncomeForm #date, #editIncomeForm #date {
+        width: 50%;
+    }
+
+    .update-button-field .btn-cancel {
+        padding: 5px;
+        width: 30%;
     }
 }
 
@@ -988,12 +1041,15 @@ Table Pagination
         width: 115%;
         padding: 49px 7px 0 0;
     }
+
     #searchTableField {
         padding: 0 5px 0 100px;
     }
+
     .breadcrumb-event-add {
         margin-left: 600px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -1003,13 +1059,30 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 90%;
         margin-left: 30px;
+    }
+
+    .add-expense-form, .edit-expense-form,
+    .add-income-form, .edit-income-form {
+        margin-left: 65px;
+    }
+
+    #addExpenseForm #date, #editExpenseForm #date,
+    #addIncomeForm #date, #editIncomeForm #date {
+        width: 50%;
+    }
+
+    .update-button-field .btn-cancel {
+        padding: 5px;
+        width: 30%;
     }
 }
 
@@ -1019,6 +1092,7 @@ Table Pagination
         width: 100%;
         padding: 49px 7px 0 0;
     }
+
     .container-dashboard {
         padding-left: 140px;
         width: 100%;
@@ -1031,17 +1105,21 @@ Table Pagination
             "dashboardMain2"
             "dashboardMain3";
     }
+
     #dashboardMain1 .fa.fa-main,
     #dashboardMain2 .fa.fa-main,
     #dashboardMain3 .fa.fa-main {
         font-size: 70px;
     }
+
     #searchTableField {
         padding: 0 5px 0 100px;
     }
+
     .breadcrumb-event-add {
         margin-left: 550px;
     }
+
     .container-summary {
         margin-top: 10px;
         padding: 20px;
@@ -1053,27 +1131,34 @@ Table Pagination
             "Chart3"
             "Chart4";
     }
+
     .dashboard-column, .dashboard-column-summary {
         padding-left: 40px;
     }
+
     #dashboardArea1, #dashboardArea2 {
         padding-left: 40px;
         justify-content: space-around;
     }
+
     #Chart3, #Chart4 {
         padding-bottom: 100px;
         margin-left: 90px;
         width: 80%;
     }
+
     .chart-container3 {
         margin-top: 20px;
     }
+
     .chart-container4 {
         margin-top: 260px;
     }
+
     .breadcrumb-event-back .btn {
         margin-top: 10px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -1083,13 +1168,30 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 90%;
         margin-left: 30px;
+    }
+
+    .add-expense-form, .edit-expense-form,
+    .add-income-form, .edit-income-form {
+        margin-left: 65px;
+    }
+
+    #addExpenseForm #date, #editExpenseForm #date,
+    #addIncomeForm #date, #editIncomeForm #date {
+        width: 50%;
+    }
+
+    .update-button-field .btn-cancel {
+        padding: 5px;
+        width: 30%;
     }
 }
 
@@ -1099,6 +1201,7 @@ Table Pagination
         width: 105%;
         padding: 49px 7px 0 0;
     }
+
     .container-dashboard {
         padding-left: 140px;
         width: 100%;
@@ -1111,20 +1214,25 @@ Table Pagination
             "dashboardMain2"
             "dashboardMain3";
     }
+
     #dashboardMain1 .fa.fa-main,
     #dashboardMain2 .fa.fa-main,
     #dashboardMain3 .fa.fa-main {
         font-size: 70px;
     }
+
     #dataTable {
         font-size: 14px;
     }
+
     #Chart1 {
         margin-left: 20px;
     }
+
     #Chart2 {
         padding-bottom: 100px;
     }
+
     .container-summary {
         margin-top: 10px;
         padding: 20px;
@@ -1136,22 +1244,28 @@ Table Pagination
             "Chart3"
             "Chart4";
     }
+
     #Chart3, #Chart4 {
         width: 80%;
         padding-bottom: 90px;
     }
+
     .chart-container3 {
         margin-top: 20px;
     }
+
     .chart-container4 {
         margin-top: 260px;
     }
+
     #searchTableField {
         padding: 0 5px 0 100px;
     }
+
     .breadcrumb-event-add {
         margin-left: 500px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -1161,13 +1275,30 @@ Table Pagination
             "summary1 summary2"
             "summaryChart1 summaryChart2"
     }
+
     #summary1, #summary2 {
         padding-left: 30px;
         margin-left: 0;
     }
+
     #summaryChart1, #summaryChart2 {
         width: 80%;
         margin-left: 70px;
+    }
+
+    .add-expense-form, .edit-expense-form,
+    .add-income-form, .edit-income-form {
+        margin-left: 65px;
+    }
+
+    #addExpenseForm #date, #editExpenseForm #date,
+    #addIncomeForm #date, #editIncomeForm #date {
+        width: 50%;
+    }
+
+    .update-button-field .btn-cancel {
+        padding: 5px;
+        width: 30%;
     }
 }
 
@@ -1177,6 +1308,7 @@ Table Pagination
         width: 110%;
         padding: 49px 7px 0 0;
     }
+
     .container-dashboard {
         padding-left: 140px;
         width: 100%;
@@ -1189,6 +1321,7 @@ Table Pagination
             "dashboardMain2"
             "dashboardMain3";
     }
+
     #dashboardMain1 .fa.fa-main,
     #dashboardMain2 .fa.fa-main,
     #dashboardMain3 .fa.fa-main {
@@ -1196,6 +1329,7 @@ Table Pagination
         font-size: 25px;
         transform: translateY(-100%);
     }
+
     #dashboardMain1 .bx.bx-card,
     #dashboardMain2 .bx.bx-card,
     #dashboardMain3 .bx.bx-card {
@@ -1203,11 +1337,13 @@ Table Pagination
         font-size: 30px;
         transform: translateY(-100%);
     }
+
     #dashboardMain1 .card .card-header,
     #dashboardMain2 .card .card-header,
     #dashboardMain3 .card .card-header {
         font-size: 22px;
     }
+
     #dashboardMain1 .card .card-header:hover span,
     #dashboardMain2 .card .card-header:hover span,
     #dashboardMain3 .card .card-header:hover span {
@@ -1215,9 +1351,9 @@ Table Pagination
     }
 
     .container-tables {
-        padding: 20px 10px 1040px 20px;
+        padding: 20px 10px 30px 20px;
         grid-template-columns: 570px;
-        grid-template-rows: 50px 50px 100px 100px 250px;
+        grid-template-rows: 50px 50px 10px 100px;
         gap: 20px;
         grid-template-areas:
             "exportFile"
@@ -1226,27 +1362,34 @@ Table Pagination
             "Chart1"
             "Chart2";
     }
+
     #searchTableField {
-    padding: 0 5px 0 260px;
+        padding: 0 5px 0 260px;
     }
+
     #dataTable {
-    font-size: 10px;
+        font-size: 10px;
     }
+
     #Chart1, #Chart2 {
         margin-left: 70px;
         width: 70%;
         padding-bottom: 100px;
-        }
+    }
+
     .chart-container1 {
         margin-top: 350px;
     }
+
     .chart-container2 {
         margin-top: 800px;
     }
+
     .breadcrumb-event-add {
         margin-left: 420px;
     }
-     .container-summary {
+
+    .container-summary {
         margin-top: 10px;
         padding: 20px;
         grid-template-columns: 500px;
@@ -1257,24 +1400,30 @@ Table Pagination
             "Chart3"
             "Chart4";
     }
+
     #dashboardArea1, #dashboardArea2 {
         justify-content: space-around;
     }
+
     .dashboard-column, .dashboard-column-summary {
         font-size: 20px;
         width: 200px;
     }
+
     #Chart3, #Chart4 {
         margin-left: 40px;
         width: 80%;
         padding-bottom: 90px;
     }
+
     .chart-container3 {
         margin-top: 20px;
     }
+
     .chart-container4 {
         margin-top: 250px;
     }
+
     .container-summary-general {
         width: 100%;
         display: grid;
@@ -1286,151 +1435,26 @@ Table Pagination
             "summaryChart1"
             "summaryChart2"
     }
+
     #summaryChart1, #summaryChart2 {
         width: 80%;
         margin-left: 70px;
     }
 
+    .add-expense-form, .edit-expense-form,
+    .add-income-form, .edit-income-form {
+        margin-left: 65px;
+    }
+
+    #addExpenseForm #date, #editExpenseForm #date,
+    #addIncomeForm #date, #editIncomeForm #date {
+        width: 50%;
+    }
+
+    .update-button-field .btn-cancel {
+        padding: 5px;
+        width: 30%;
+    }
 }
 
-
-
-/*@media (max-width: 560px) {*/
-/*    .container-main {*/
-/*        width: 140%;*/
-/*    }*/
-/*    .breadcrumb-event-add {*/
-/*        margin-left: 420px;*/
-/*    }*/
-/*}*/
-
-    /*.card-container-expenses {*/
-    /*    grid-area: initial !important;*/
-    /*}*/
-/*    .container-main {*/
-/*        !*padding-left: 0;*!*/
-/*        padding: 55px 7px 7px 0;*/
-/*        !*left: 20px;*!*/
-/*    }*/
-/*    !*!*width: 110%;*!*!*/
-/*    !*!*min-height: 100vh;*!*!*/
-/*    !*!*padding-left: 60px;*!*!*/
-/*    !*}*!*/
-/*    .container-breadcrumb-bar {*/
-/*        margin-left: 0;*/
-/*    }*/
-/*    .container-breadcrumb {*/
-/*        padding: 0 80px 0 5px;*/
-/*    }*/
-/*    .breadcrumb {*/
-/*    margin: 5px 0 5px 20px;*/
-/*}*/
-/*    .breadcrumb-event {*/
-/*        padding: 5px 5px;*/
-/*    }*/
-/*    .breadcrumb-event a {*/
-/*        min-width: 140px;*/
-/*        height: 40px;*/
-/*    }*/
-/*    .search-bar-form {*/
-/*        width: 100%;*/
-/*    }*/
-    /*.container-tables {*/
-    /*    padding: 10px 30px 10px 20px;*/
-    /*    margin-top: 15px;*/
-    /*}*/
-    /*.expenses-list {*/
-    /*    margin-left: 10px;*/
-    /*    margin-right: 10px;*/
-    /*    margin-top: 20px;*/
-    /*    overflow: auto;*/
-    /*}*/
-/*}*/
-
-/*Small <=768 px*/
-/*@media screen and (max-width: 768px) {*/
-/*    .container-main {*/
-/*        padding: 55px 7px 7px 0;*/
-/*        !*left: 0;*!*/
-/*    }*/
-/*!*    .container-main {*!*/
-/*!*    width: calc(100% - 50px);*!*/
-/*!*    min-height: 100vh;*!*/
-/*!*    left: 50px;*!*/
-/*!*}*!*/
-/*    .container-breadcrumb-bar {*/
-/*        margin-left: 0;*/
-/*    }*/
-/*    .container-breadcrumb {*/
-/*        padding: 0 80px 0 5px;*/
-/*    }*/
-/*    .breadcrumb {*/
-/*    margin: 5px 0 5px 20px;*/
-/*}*/
-/*    .breadcrumb-event {*/
-/*        padding: 5px 5px;*/
-/*    }*/
-/*    .breadcrumb-event a {*/
-/*        min-width: 140px;*/
-/*        height: 40px;*/
-/*    }*/
-/*    .search-bar-form {*/
-/*        width: 100%;*/
-/*    }*/
-/*    .container-tables {*/
-/*        padding: 10px 10px 10px 10px;*/
-/*        margin-top: 15px;*/
-/*    }*/
-/*    .expenses-list {*/
-/*        margin-left: 10px;*/
-/*        margin-right: 10px;*/
-/*        margin-top: 20px;*/
-/*        overflow: auto;*/
-/*        font-size: 10px;*/
-/*    }*/
-/*}*/
-
-
-/*Extra Small <=567 px*/
-/*@media screen and (max-width: 567px) {*/
-/*    .container-main {*/
-/*        padding: 55px 7px 7px 0;*/
-/*        !*left: 0;*!*/
-/*    }*/
-/*!*    .container-main {*!*/
-/*!*    width: calc(100% - 50px);*!*/
-/*!*    min-height: 100vh;*!*/
-/*!*    left: 50px;*!*/
-/*!*}*!*/
-/*    .container-breadcrumb-bar {*/
-/*        margin-left: 0;*/
-/*    }*/
-/*    .container-breadcrumb {*/
-/*        padding: 0 10px 0 5px;*/
-/*    }*/
-/*    .breadcrumb {*/
-/*        margin: 5px 0 5px 20px;*/
-/*    }*/
-/*    .breadcrumb-event {*/
-/*        padding: 5px 5px;*/
-/*    }*/
-/*    .breadcrumb-event a {*/
-/*        !*min-width: 20px;*!*/
-/*        height: 40px;*/
-/*    }*/
-/*    .search-bar-form {*/
-/*        width: 100%;*/
-/*    }*/
-/*    .container-tables {*/
-/*        padding: 10px 10px 10px 10px;*/
-/*        margin-top: 15px;*/
-/*    }*/
-/*    .expenses-list {*/
-/*        margin-left: 10px;*/
-/*        margin-right: 10px;*/
-/*        margin-top: 20px;*/
-/*        overflow: auto;*/
-/*        font-size: 6px;*/
-/*    }*/
-/*}*/
 

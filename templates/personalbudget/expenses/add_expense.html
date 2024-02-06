@@ -73,8 +73,12 @@
                         <input type="date" class="form-control form-control-sm"
                                name="expense_date" id="date" value="{{ values.date }}">
                     </div>
-                    <input type="submit" value="Submit"
-                           class="btn btn-primary btn-primary-sm">
+
+                    <div class="update-button-field">
+                        <input type="submit" value="Submit"
+                               class="btn btn-primary btn-primary-sm">
+                        <a href="{% url 'expenses' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>

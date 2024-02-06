@@ -8,7 +8,7 @@
     <div class="container-main">
 
         {% include 'base/sidebar.html' %}
-    
+
         <!-- ***** Breadcrumb Start ***** -->
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
@@ -56,30 +56,29 @@
                     </div>
                     <div class="form-group">
                         <label for="cost" style="color:black;">Cost</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
+                        <input type="number" class="form-control form-control-sm"
                                name="cost" id="cost" value="{{ values.cost }}">
                     </div>
                     <div class="form-group">
                         <label for="qty" style="color:black;">Qty</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
+                        <input type="number" class="form-control form-control-sm"
                                name="qty" id="qty" value="{{ values.qty }}">
                     </div>
                     <div class="form-group">
                         <label for="amount" style="color:black;">Amount</label>
-                        <input type="number"
-                               class="form-control form-control-sm"
+                        <input type="number" class="form-control form-control-sm"
                                name="amount" id="amount" value="{{ values.amount }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="date" style="color:black">
-                            Date of Expense</label>
+                        <label for="date" style="color:black">Date of Expense</label>
                         <input type="date" class="form-control form-control-sm"
-                               name="expense_date" id="date" value="{{ values.date }}">
+                               name="expense_date" id="date" value="{{ formatted_date }}">
                     </div>
-                    <input type="submit" value="Save"
-                           class="btn btn-primary btn-primary-sm">
+                    <div class="update-button-field">
+                        <input type="submit" value="Save"
+                               class="btn btn-primary btn-primary-sm">
+                        <a href="{% url 'expenses' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>

@@ -37,39 +37,11 @@ def budget_main_view(request):
     expenses = Expense.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
     incomes = Income.objects.filter(owner=request.user, date__range=[first_day_of_month, last_day_of_month])
 
-    def get_categories_expenses(expense):
-        return expense.category
+    category_data = expenses.values('category').annotate(amount=Sum('amount'))
+    source_data = incomes.values('source').annotate(amount=Sum('amount'))
 
-    category_list = list(set(map(get_categories_expenses, expenses)))
-
-    def get_sources_income(income):
-        return income.source
-
-    source_list = list(set(map(get_sources_income, incomes)))
-
-    def get_expense_category_amount(category):
-        amount = 0
-        filtered_by_category = expenses.filter(category=category)
-
-        for item in filtered_by_category:
-            amount += item.amount
-        return amount
-
-    def get_income_source_amount(source):
-        amount = 0
-        filtered_by_source = incomes.filter(source=source)
-
-        for item in filtered_by_source:
-            amount += item.amount
-        return amount
-
-    category_data = [{'category': category, 'amount': get_expense_category_amount(category)} for category in
-                     category_list]
-    source_data = [{'source': source, 'amount': get_income_source_amount(source)} for source in
-                   source_list]
-
-    this_month_total_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
-    this_month_total_income = incomes.aggregate(Sum('amount'))['amount__sum'] or 0
+    this_month_total_expenses = expenses.aggregate(total_expenses=Sum('amount'))['total_expenses'] or 0
+    this_month_total_income = incomes.aggregate(total_income=Sum('amount'))['total_income'] or 0
     remaining_budget = this_month_total_income - this_month_total_expenses
 
     try:
@@ -82,6 +54,7 @@ def budget_main_view(request):
                                                                'this_month_total_expenses': this_month_total_expenses,
                                                                'this_month_total_income': this_month_total_income,
                                                                'remaining_budget': remaining_budget})
+
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
 
@@ -161,10 +134,15 @@ def edit_expense(request, id):
     # The Logic for editing expenses
     expense = Expense.objects.get(pk=id)
     categories = Category.objects.all()
+
+    # Format the date as "yyyy-MM-dd"
+    formatted_date = expense.date.strftime('%Y-%m-%d')
+
     context = {
         'expense': expense,
         'values': expense,
-        'categories': categories
+        'categories': categories,
+        'formatted_date': formatted_date
     }
     if request.method == 'GET':
         return render(request, 'personalbudget/expenses/edit_expense.html', context)
@@ -200,7 +178,7 @@ def edit_expense(request, id):
         expense.owner = request.user
         expense.item = item
         expense.category = category
-        expense.description = category
+        expense.description = description
         expense.cost = cost
         expense.qty = qty
         expense.amount = amount
@@ -500,14 +478,19 @@ def add_income(request):
 
 @login_required(login_url='/authentication/login')
 def edit_income(request, id):
-    # The Logic for editing income
     income = Income.objects.get(pk=id)
     sources = Source.objects.all()
+
+    # Format the date as "yyyy-MM-dd"
+    formatted_date = income.date.strftime('%Y-%m-%d')
+
     context = {
         'income': income,
         'values': income,
-        'sources': sources
+        'sources': sources,
+        'formatted_date': formatted_date
     }
+
     if request.method == 'GET':
         return render(request, 'personalbudget/income/edit_income.html', context)
 
@@ -944,6 +927,40 @@ def expenses_summary_rest_stats(request):
 
 # ---->>>>>>>>>> INCOME SUMMARY / STATS - PAGE VIEWS <<<<<<<<<<<<----#
 
+@login_required(login_url='/authentication/login')
+def income_summary_view(request):
+    all_incomes = Income.objects.filter(owner=request.user)
+
+    today = datetime.datetime.today().date()
+    today_start = today.replace(day=1)
+
+    todays_data = all_incomes.filter(date=today).aggregate(amount=Sum('amount'), count=Count('id'))
+
+    this_week_data = all_incomes.filter(
+        date__gte=today - datetime.timedelta(days=today.weekday()),
+        date__lte=today + datetime.timedelta(days=(6 - today.weekday()))
+    ).aggregate(amount=Sum('amount'), count=Count('id'))
+
+    this_month_data = all_incomes.filter(date__gte=today_start).aggregate(amount=Sum('amount'), count=Count('id'))
+
+    this_year_data = all_incomes.filter(date__year=today.year).aggregate(amount=Sum('amount'), count=Count('id'))
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'currency': currency,
+        'today': todays_data,
+        'this_week': this_week_data,
+        'this_month': this_month_data,
+        'this_year': this_year_data,
+    }
+
+    return render(request, 'personalbudget/summary/income_summary.html', context)
+
+
 def income_summary_rest_stats(request):
     all_incomes = Income.objects.filter(owner=request.user)
     today = datetime.datetime.today().date()
@@ -990,37 +1007,4 @@ def income_summary_rest_stats(request):
     data = {'months': months_data, 'days': week_days_data}
     return JsonResponse({'data': data}, safe=False)
 
-
-@login_required(login_url='/authentication/login')
-def income_summary_view(request):
-    all_incomes = Income.objects.filter(owner=request.user)
-
-    today = datetime.datetime.today().date()
-    today_start = today.replace(day=1)
-
-    todays_data = all_incomes.filter(date=today).aggregate(amount=Sum('amount'), count=Count('id'))
-
-    this_week_data = all_incomes.filter(
-        date__gte=today - datetime.timedelta(days=today.weekday()),
-        date__lte=today + datetime.timedelta(days=(6 - today.weekday()))
-    ).aggregate(amount=Sum('amount'), count=Count('id'))
-
-    this_month_data = all_incomes.filter(date__gte=today_start).aggregate(amount=Sum('amount'), count=Count('id'))
-
-    this_year_data = all_incomes.filter(date__year=today.year).aggregate(amount=Sum('amount'), count=Count('id'))
-
-    try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
-    except Currency.DoesNotExist:
-        currency = 'RON'
-
-    context = {
-        'currency': currency,
-        'today': todays_data,
-        'this_week': this_week_data,
-        'this_month': this_month_data,
-        'this_year': this_year_data,
-    }
-
-    return render(request, 'personalbudget/summary/income_summary.html', context)
 
