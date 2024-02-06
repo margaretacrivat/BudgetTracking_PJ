@@ -7,7 +7,6 @@ from django.core.paginator import Paginator
 import json
 from .models import Expense, Category, Source, Income
 from preferences.models import Currency
-# from .filters import ExpenseFilter
 
 from django.db.models import Count, F, Sum
 import datetime
@@ -89,7 +88,7 @@ def budget_main_view(request):
 @login_required(login_url='/authentication/login')
 def expenses_view(request):
     # The Logic for expenses visualization
-    expenses = Expense.objects.filter(owner=request.user).order_by('date').values()
+    expenses = Expense.objects.filter(owner=request.user).values()
 
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
@@ -441,7 +440,7 @@ def expenses_stats_last_3months(request):
 def income_view(request):
     # The Logic for income visualization
     sources = Source.objects.all()
-    income = Income.objects.filter(owner=request.user).order_by('date').values()
+    income = Income.objects.filter(owner=request.user).values()
 
     paginator = Paginator(income, 5)
     page_number = request.GET.get('page')

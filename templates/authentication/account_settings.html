@@ -15,7 +15,7 @@
 
             <!-- Form -->
             <form class='card-form-set' method="POST" action="{% url 'account-settings' %}" enctype="multipart/form-data">
-                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+                {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <button type="button" class="toggle-old-password bx bxs-hide" id="oldPasswordToggleBtn"></button>
              

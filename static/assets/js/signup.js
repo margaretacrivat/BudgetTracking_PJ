@@ -32,7 +32,7 @@ usernameField.addEventListener('keyup', (e) => {
         usernameSuccessOutput.textContent = `Checking ${usernameVal}`;
 
         timeoutId = setTimeout(() => {
-            fetch('/userauthentication/validate-username/', {
+            fetch('/authentication/validate-username/', {
                 body: JSON.stringify({
                     username: usernameVal,
                     // password: passwordField.value, // pass the password along with the username
@@ -75,7 +75,7 @@ emailField.addEventListener('keyup', (e) => {
         emailSuccessOutput.textContent = `Checking ${emailVal}`; // to append what we are checking
 
         timeoutId = setTimeout(() => {
-            fetch('/userauthentication/validate-email/', {
+            fetch('/authentication/validate-email/', {
                 body: JSON.stringify({email: emailVal}),
                 method: 'POST',
             })
@@ -123,7 +123,7 @@ passwordField.addEventListener('keyup', (e) => {
         passwordSuccessOutput.style.display = 'block';
 
         timeoutId = setTimeout(() => {
-            fetch('/userauthentication/validate-password/', {
+            fetch('/authentication/validate-password/', {
                 body: JSON.stringify({password: passwordVal}),
                 method: 'POST',
             })

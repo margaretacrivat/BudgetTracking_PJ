@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Delete User Account Confirm Page{% endblock %}
+{% block title %} Delete User Account Confirm Page {% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
             </div>
 
             <form class='card-form-delete' method="POST">
-                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+                {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <div class="delete-account">
                     <button type="submit" class="btn btn-danger">Delete Account</button>

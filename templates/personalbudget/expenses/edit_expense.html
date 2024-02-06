@@ -29,16 +29,16 @@
                 <h4>Edit Expense</h4>
                 <form action="{% url 'edit-expense' expense.id %}"
                       method="post">
-                    {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
-                        <label for="">Item</label>
+                        <label for="item">Item</label>
                         <input type="text" class="form-control form-control-sm"
-                               name="item" value="{{ values.item }}">
+                               name="item" id="item" value="{{ values.item }}">
                     </div>
                     <div class="form-group">
-                        <label for="">Category</label>
-                        <select class="form-control" name="category">
+                        <label for="category">Category</label>
+                        <select class="form-control" name="category" id="category">
                             <option selected name="category"
                                     value="{{ values.category }}">
                                 {{ values.category }}</option>
@@ -50,33 +50,33 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Description</label>
+                        <label for="description">Description</label>
                         <input type="text" class="form-control form-control-sm"
-                               name="description" value="{{ values.description }}">
+                               name="description" id="description" value="{{ values.description }}">
                     </div>
                     <div class="form-group">
-                        <label for="" style="color:black;">Cost</label>
+                        <label for="cost" style="color:black;">Cost</label>
                         <input type="number"
                                class="form-control form-control-sm"
-                               name="cost" value="{{ values.cost }}">
+                               name="cost" id="cost" value="{{ values.cost }}">
                     </div>
                     <div class="form-group">
-                        <label for="" style="color:black;">Qty</label>
+                        <label for="qty" style="color:black;">Qty</label>
                         <input type="number"
                                class="form-control form-control-sm"
-                               name="qty" value="{{ values.qty }}">
+                               name="qty" id="qty" value="{{ values.qty }}">
                     </div>
                     <div class="form-group">
-                        <label for="" style="color:black;">Amount</label>
+                        <label for="amount" style="color:black;">Amount</label>
                         <input type="number"
                                class="form-control form-control-sm"
-                               name="amount" value="{{ values.amount }}">
+                               name="amount" id="amount" value="{{ values.amount }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="" style="color:black;">Date of
-                            Expense</label>
-                        <input id="date" type="date" class="form-control form-control-sm"
-                               name="expense_date" value="{{ values.date }}">
+                        <label for="date" style="color:black">
+                            Date of Expense</label>
+                        <input type="date" class="form-control form-control-sm"
+                               name="expense_date" id="date" value="{{ values.date }}">
                     </div>
                     <input type="submit" value="Save"
                            class="btn btn-primary btn-primary-sm">
@@ -85,5 +85,9 @@
         </div>
 
     </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/automaticField.js' %}"></script>
+
 
 {% endblock content %}

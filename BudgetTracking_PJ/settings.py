@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'personalbudget',
     'projectbudget',
     'preferences',
-    'userauthentication',
+    'authentication',
     # 'django_filters',
 ]
 

@@ -86,7 +86,7 @@ Container DASHBOARD
 .container-dashboard{
     background: transparent;
     padding-top: 20px;
-    padding-left: 70px;
+    padding-left: 110px;
     width: 100%;
     grid-area: main;
 
@@ -123,7 +123,9 @@ Container DASHBOARD
 }
 
 #dashboardMain1 .card .card-body:nth-child(2),
-#dashboardMain1 .card .card-body:nth-child(3) {
+#dashboardMain1 .card .card-body:nth-child(3),
+#dashboardMain1 .card .card-body:nth-child(4),
+#dashboardMain1 .card .card-body:nth-child(5) {
     margin-bottom: 5px;
 }
 
@@ -247,9 +249,9 @@ Container DASHBOARD
 
 .container-budget {
     background: transparent;
-    padding-top: 20px;
-    padding-left: 60px;
-    width: 90%;
+    margin-top: 10px;
+    padding: 30px;
+    width: 100%;
     grid-area: main;
 
     display: grid;
@@ -345,9 +347,9 @@ ADD Expense
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px;
+    padding: 20px 20px 100px 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     margin-left: 10px;
     width: 99%;
     grid-area: main;
@@ -458,9 +460,9 @@ Edit Expense
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px;
+    padding: 20px 20px 100px 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     margin-left: 10px;
     width: 99%;
     grid-area: main;
@@ -538,6 +540,7 @@ Container Expenses page
 .container-tables {
     background: transparent;
     margin-top: 10px;
+    margin-left: 5px;
     padding: 30px;
     width: 100%;
     grid-area: main;
@@ -646,15 +649,15 @@ Container SUMMARY GENERAL - Charts
 #summary1 {
     grid-area: summary1;
     border-radius: 10px;
-    padding: 0 20px 0 40px;
-    /*align-content: center;*/
-    /*align-items: center;*/
+    padding: 0 20px 0 130px;
+    text-align: center;
 }
 
 #summary2 {
     grid-area: summary2;
     border-radius: 10px;
-    padding: 0 20px 0 40px;
+    padding: 0 20px 0 130px;
+    text-align: center;
 }
 
 #summaryChart1 {

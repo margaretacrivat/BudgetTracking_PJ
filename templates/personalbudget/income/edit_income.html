@@ -30,11 +30,11 @@
                 <h4>Edit Income</h4>
                 <form action="{% url 'edit-income' income.id %}"
                       method="post">
-                    {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
-                        <label for="">Source</label>
-                        <select class="form-control" name="source">
+                        <label for="source">Source</label>
+                        <select class="form-control" name="source" id="source">
                             {% for source in sources %}
                                 <option name="source" value="{{ source.name }}">
                                     {{ source.name }}</option>
@@ -42,22 +42,22 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Description</label>
+                        <label for="description">Description</label>
                         <input type="text" class="form-control form-control-sm"
-                               name="description"
+                               name="description" id="description"
                                value="{{ values.description }}">
                     </div>
                     <div class="form-group">
-                        <label for="">Amount</label>
+                        <label for="amount">Amount</label>
                         <input type="number"
                                class="form-control form-control-sm"
-                               name="amount" value="{{ values.amount }}">
+                               name="amount" id="amount" value="{{ values.amount }}">
                     </div>
                     <div class="form-group">
-                        <label for="" style="color:black;">Date of
-                            Income</label>
-                        <input id="date" type="date" class="form-control form-control-sm"
-                               name="income_date" value="{{ values.date }}">
+                        <label for="date" style="color:black">
+                            Date of Income</label>
+                        <input type="date" class="form-control form-control-sm"
+                               name="income_date" id="date" value="{{ values.date }}">
                     </div>
 
                     <input type="submit" value="Save"

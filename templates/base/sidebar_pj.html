@@ -1,39 +1,51 @@
 {% load static %}
 
-<div class="sidebar close">
+<div class="sidebar close" style="background: linear-gradient(85deg, #9c9ca2, #e7e2e2)">
 
     <ul class="sidebar-menu">
         <li class="sidebar-title">
             <a class="d-flex align-items-center"
-               href="{% url 'personal-budget' %}" aria-label="">
+               href="{% url 'project-budget' %}" aria-label="">
                  <i class="fa fa-qrcode home-icon"></i>
                 <span class="title">Dashboard</span>
             </a>
         </li>
         <li class="sidebar-heading">
             <a class="d-flex align-items-center"
-               href="{% url 'budget-main' %}" aria-label="">
+               href="" aria-label="">
                 <i class="fa fa-usd home-icon"></i>
                 <span class="title">BUDGET</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
-                    <a class="side-item-link" href="{% url 'expenses' %}">
-                        <i class="fa fa-file icon"></i>
-                        <span class="item-title">Expenses</span>
+                    <a class="side-item-link" href="">
+                        <i class="fa fa-folder icon"></i>
+                        <span class="item-title">Projects</span>
                     </a>
                 </li>
                 <li class="side-item">
-                    <a class="side-item-link" href="{% url 'income' %}">
-                        <i class="fa fa-money-bill icon"></i>
-                        <span class="item-title">Income</span>
+                    <a class="side-item-link" href="">
+                        <i class="fa fa-file icon"></i>
+                        <span class="item-title">Logistic</span>
+                    </a>
+                </li>
+                <li class="side-item">
+                    <a class="side-item-link" href="">
+                        <i class="fa fa-road icon"></i>
+                        <span class="item-title">Displacements</span>
+                    </a>
+                </li>
+                <li class="side-item">
+                    <a class="side-item-link" href="">
+                        <i class="fa fa-users icon"></i>
+                        <span class="item-title">Workforce</span>
                     </a>
                 </li>
             </ul>
         </li>
 
         <li class="sidebar-heading">
-            <a class="d-flex align-items-center" href="{% url 'summary-budget' %}"
+            <a class="d-flex align-items-center" href=""
                aria-label="">
                 <i class="fa fa-area-chart home-icon"></i>
                 <span class="title">SUMMARY</span>
@@ -41,13 +53,13 @@
             <ul class="sidebar-list">
                 <li class="side-item">
                     <a class="side-item-link"
-                       href="{% url 'expenses-summary' %}">
+                       href="">
                         <i class="fa fa-chart-line icon"></i>
                         <span class="item-title">Expenses Summary</span>
                     </a>
                 </li>
                 <li class="side-item">
-                    <a class="side-item-link" href="{% url 'income-summary' %}">
+                    <a class="side-item-link" href="">
                         <i class="fa fa-chart-line icon"></i>
                         <span class="item-title">Income Summary</span>
                     </a>

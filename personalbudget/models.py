@@ -2,10 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
+
 # Create your models here.
 
 
-#---->>>>>>>>>> EXPENSES <<<<<<<<<<<<----#
+# ---->>>>>>>>>> EXPENSES <<<<<<<<<<<<----#
 
 class Expense(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -17,11 +18,32 @@ class Expense(models.Model):
     amount = models.FloatField(default=0)
     date = models.DateField(default=now)
 
+    def save(self, *args, **kwargs):
+        # Convert cost and qty to floats or integers if they are provided as strings
+        if isinstance(self.cost, str):
+            try:
+                self.cost = float(self.cost)
+            except ValueError:
+                self.cost = 0.0
+        if isinstance(self.qty, str):
+            try:
+                self.qty = int(self.qty)
+            except ValueError:
+                self.qty = 0
+
+        # Check if cost and qty are valid numeric values before performing multiplication
+        if isinstance(self.cost, (float, int)) and isinstance(self.qty, int):
+            self.amount = self.cost * self.qty
+        else:
+            self.amount = 0
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.category
 
     class Meta:
-        ordering: ['date']
+        ordering = ['date']
 
 
 class Category(models.Model):
@@ -34,7 +56,7 @@ class Category(models.Model):
         return self.name
 
 
-#---->>>>>>>>>> INCOMES <<<<<<<<<<<<----#
+# ---->>>>>>>>>> INCOMES <<<<<<<<<<<<----#
 
 class Income(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
@@ -47,7 +69,7 @@ class Income(models.Model):
         return self.source
 
     class Meta:
-        ordering: ['-date']
+        ordering = ['date']
 
 
 class Source(models.Model):

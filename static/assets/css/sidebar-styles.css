@@ -80,10 +80,6 @@ Sidebar Style
     border-top:  1px solid rgba(0,0,0,0.05);
 }
 
-/*.sidebar-menu .side-item:hover {*/
-/*    background: rgba(94, 90, 90, 0.55);*/
-/*}*/
-
 .sidebar-menu .side-item-link {
     font-weight: 500;
     color: #1a1d20;

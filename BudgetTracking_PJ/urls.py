@@ -29,6 +29,6 @@ urlpatterns = [
     path('personalbudget/', include('personalbudget.urls')),
     path('projectbudget/', include('projectbudget.urls')),
     path('preferences/', include('preferences.urls')),
-    path('userauthentication/', include('userauthentication.urls')),
+    path('authentication/', include('authentication.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

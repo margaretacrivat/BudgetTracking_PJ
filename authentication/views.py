@@ -9,7 +9,6 @@ from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse_lazy
 
 from .forms import LoginForm, SignUpForm
-from .models import PasswordHistory
 import json
 from django.http import JsonResponse
 from django.views import View
@@ -93,7 +92,7 @@ def user_signup(request):
             # print("Form is not valid. Errors:", user_form.errors)  # line for debugging
     else:
         user_form = SignUpForm()
-    return render(request, 'userauthentication/signup.html',
+    return render(request, 'authentication/signup.html',
                   {'user_form': user_form})
 
 
@@ -117,10 +116,10 @@ def user_login(request):
                 context = {'condition': condition,
                            'field_values': request.POST
                            }
-                return render(request, 'userauthentication/login.html', context)
+                return render(request, 'authentication/login.html', context)
     else:
         login_form = LoginForm()
-    return render(request, 'userauthentication/login.html',
+    return render(request, 'authentication/login.html',
                   {'login_form': login_form, 'login_msg': login_msg})
 
 
@@ -142,18 +141,18 @@ def set_new_password(request):
             return redirect('login')
     else:
         fm = PasswordChangeForm(user=request.user)
-    return render(request, 'userauthentication/account_settings.html', {'fm': fm})
+    return render(request, 'authentication/account_settings.html', {'fm': fm})
 
 
 # render the page where the user can supply the email
 class ForgotRequestResetPassword(View):
     def get(self, request):
-        return render(request, 'userauthentication/forgot_reset_password.html')
+        return render(request, 'authentication/forgot_reset_password.html')
 
 
 class DeleteUserAccount(SuccessMessageMixin, DeleteView):
     model = User
-    template_name = 'userauthentication/delete_user_confirm.html'
+    template_name = 'authentication/delete_user_confirm.html'
     success_message = 'Your account has been deleted! Please Sign Up'
     success_url = reverse_lazy('signup')
 

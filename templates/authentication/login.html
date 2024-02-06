@@ -13,7 +13,7 @@
 
             <!-- Form -->
             <form class="card-form" method="POST" action="{% url 'login' %}" enctype="multipart/form-data">
-                {% include 'userauthentication/_messages.html' %} {% csrf_token %}
+                {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <div class="input-box"><b>Username</b>
                     <input type="text" placeholder="Enter Username"

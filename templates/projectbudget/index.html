@@ -1,81 +1,90 @@
-{#{% extends 'base/base.html' %}#}
-{#{% load static %}#}
-{##}
-{#{% block title %} Dashboard {% endblock %}#}
-{##}
-{#{% block content %}#}
-{##}
-{#    <div class="container-main">#}
-{##}
-{#        {% include 'base/sidebar.html' %}#}
-{##}
-{#        <div class="container-breadcrumb-bar">#}
-{#            <nav aria-label="breadcrumb-nav">#}
-{#                <ol class="breadcrumb">#}
-{#                    <li class="breadcrumb-item">#}
-{#                        <a href="{% url 'personal-budget' %}">Personal Budget</a>#}
-{#                    </li>#}
-{#                    <li class="breadcrumb-item active"#}
-{#                        aria-current="page">#}
-{#                        Dashboard#}
-{#                    </li>#}
-{#                </ol>#}
-{#            </nav>#}
-{#        </div>#}
-{##}
-{#        <div class="container-dashboard">#}
-{#            <div id="dashboardMain1">#}
-{#                <div class="dashboard-column">#}
-{#                    <div class="card text-white">#}
-{#                        <a class="card-header" href="{% url 'budget-main' %}"><span>BUDGET</span>#}
-{#                            <h5 class="float-right">#}
-{#                                <i class='fa fa-usd fa-main'></i></h5>#}
-{#                        </a>#}
-{#                        <a class="card-body" href="{% url 'expenses' %}">#}
-{#                            <p class="card-text">Expenses</p>#}
-{#                            <i class='bx bxs-chevrons-right bx-card'></i>#}
-{#                        </a>#}
-{#                        <a class="card-body" href="{% url 'income' %}">#}
-{#                            <p class="card-text">Income</p>#}
-{#                            <i class='bx bxs-chevrons-right bx-card'></i>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div id="dashboardMain2">#}
-{#                <div class="dashboard-column">#}
-{#                    <div class="card text-white">#}
-{#                        <a class="card-header" href="{% url 'summary-budget' %}"><span>SUMMARY</span>#}
-{#                            <h5 class="float-right">#}
-{#                                <i class='fa fa-area-chart fa-main'></i></h5>#}
-{#                        </a>#}
-{#                        <a class="card-body" href="{% url 'expenses-summary' %}">#}
-{#                            <p class="card-text">Expenses Summary </p>#}
-{#                            <i class='bx bxs-chevrons-right bx-card'></i>#}
-{#                        </a>#}
-{#                        <a class="card-body" href="{% url 'income-summary' %}">#}
-{#                            <p class="card-text">Income Summary </p>#}
-{#                            <i class='bx bxs-chevrons-right bx-card'></i>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div id="dashboardMain3">#}
-{#                <div class="dashboard-column">#}
-{#                    <div class="card text-white">#}
-{#                        <a class="card-header" href="{% url 'settings' %}"><span>SETTINGS</span>#}
-{#                            <h5 class="float-right">#}
-{#                                <i class='fa fa-cog fa-main'></i></h5>#}
-{#                        </a>#}
-{#                        <a class="card-body" href="{% url 'preferences' %}">#}
-{#                            <p class="card-text">Preferences</p>#}
-{#                            <i class='bx bxs-chevrons-right bx-card'></i>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{##}
-{#{% endblock content %}#}
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Dashboard Project Budget {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'project-budget' %}">Project Budget</a>
+                    </li>
+                    <li class="breadcrumb-item active"
+                        aria-current="page">
+                        Dashboard
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container-dashboard">
+            <div id="dashboardMain1">
+                <div class="dashboard-column">
+                    <div class="card text-white" style="background-color: #797979">
+                        <a class="card-header" href=""><span>BUDGET</span>
+                            <h5 class="float-right">
+                                <i class='fa fa-usd fa-main'></i></h5>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Projects</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Logistic</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Displacements</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Workforce</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="dashboardMain2">
+                <div class="dashboard-column">
+                    <div class="card text-white">
+                        <a class="card-header" href=""><span>SUMMARY</span>
+                            <h5 class="float-right">
+                                <i class='fa fa-area-chart fa-main'></i></h5>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Expenses Summary </p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                        <a class="card-body" href="">
+                            <p class="card-text">Income Summary </p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="dashboardMain3">
+                <div class="dashboard-column">
+                    <div class="card text-white">
+                        <a class="card-header" href="{% url 'settings' %}"><span>SETTINGS</span>
+                            <h5 class="float-right">
+                                <i class='fa fa-cog fa-main'></i></h5>
+                        </a>
+                        <a class="card-body" href="{% url 'preferences' %}">
+                            <p class="card-text">Preferences</p>
+                            <i class='bx bxs-chevrons-right bx-card'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}

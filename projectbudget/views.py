@@ -8,4 +8,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/authentication/login')
 def project_budget_view(request):
-    return render(request, 'personalbudget/index.html')
+    return render(request, 'projectbudget/index.html')
