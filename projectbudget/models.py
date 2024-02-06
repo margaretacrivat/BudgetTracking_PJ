@@ -48,10 +48,10 @@ class ProjectScope(models.Model):
 # ---->>>>>>>>>> ETAPE PROIECT <<<<<<<<<<<<----#
 
 
-class ProjectStages(models.Model):
+class ProjectStage(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='stages', on_delete=models.CASCADE)
-    project_stage = models.OneToOneField(Project, on_delete=models.CASCADE, primary_key=True)
+    project = models.ForeignKey(Project, related_name='stage', on_delete=models.CASCADE)
+    project_stage = models.ForeignKey(Project, related_name='project_stage', on_delete=models.CASCADE)
     budget = models.FloatField(default=0)
     reimbursed_amount = models.FloatField(default=0)
     start_date = models.DateField(default=now)
@@ -64,15 +64,32 @@ class ProjectStages(models.Model):
         ordering = ['start_date']
 
 
+class Person(models.Model):
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    person_name = models.CharField(max_length=100, null=False)
+    age = models.IntegerField(null=False)
+    is_internal = models.BooleanField(default=True)
+    institution = models.CharField(max_length=200)
+    department = models.CharField(max_length=20, null=False)
+    email = models.EmailField()
+    phone = models.CharField(max_length=50, null=True)
+    city = models.CharField(max_length=100, null=False)
+    country = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.person_name
+
+
 class Logistic(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='logistics', on_delete=models.CASCADE)
-    project_stage = models.OneToOneField(Project, on_delete=models.CASCADE, primary_key=True)
+    project = models.ForeignKey(Project, related_name='logistic', on_delete=models.CASCADE)
+    project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     expense_type = models.CharField(max_length=100)
     document_type = models.CharField(max_length=100)
     document_series = models.CharField(max_length=100)
     supplier_name = models.CharField(max_length=100)
-    description_acquisition = models.TextField()
+    acquisition_description = models.TextField()
+    acquisition_owner = models.ForeignKey(Person, related_name='acquisition', on_delete=models.SET_NULL, null=True)
     amount = models.FloatField(default=0)
     date = models.DateField(default=now)
 
@@ -91,12 +108,14 @@ class ExpensesType(models.Model):
 
 
 class Displacement(models.Model):
+    id = models.AutoField(primary_key=True, default=0)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='displacements', on_delete=models.CASCADE)
-    project_stage = models.OneToOneField(Project, on_delete=models.CASCADE, primary_key=True)
-    person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
+    person_name = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
+    project = models.ForeignKey(Project, related_name='displacement', on_delete=models.CASCADE)
+    project_stage = models.ForeignKey(ProjectStage, related_name='displacement_stage', on_delete=models.CASCADE)
     document_series = models.CharField(max_length=100)
     displaced_to = models.TextField()
+    displacement_type = models.CharField(max_length=100, default=0)
     amount = models.FloatField(default=0)
     days_no = models.IntegerField(default=0)
     start_date = models.DateField(default=now)
@@ -109,33 +128,25 @@ class Displacement(models.Model):
         ordering = ['start_date']
 
 
+class DisplacementType(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Workforce(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='workforces', on_delete=models.CASCADE)
-    project_stage = models.OneToOneField(Project, on_delete=models.CASCADE, primary_key=True)
-    person = models.ForeignKey('Person', on_delete=models.SET_NULL, null=True)
+    person_name = models.ForeignKey(Person, related_name='workforce', on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, related_name='workforce_project', on_delete=models.CASCADE)
+    project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
+    person_role = models.CharField(max_length=100)
     days_no = models.IntegerField(default=0)
     salary_per_hour = models.FloatField(default=0)
     amount = models.FloatField(default=0)
 
     def __str__(self):
-        return self.person
-
-
-class Person(models.Model):
-    owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, null=False)
-    age = models.IntegerField(null=False)
-    project = models.ManyToManyField(Project, related_name='persons')
-    person_role = models.CharField(max_length=100)
-    department = models.CharField(max_length=20, null=False)
-    email = models.EmailField()
-    phone = models.CharField(max_length=50, null=True)
-    address = models.TextField()
-    city = models.CharField(max_length=100, null=False)
-
-    def __str__(self):
-        return self.name
+        return self.person_name
 
 
 class PersonRole(models.Model):
@@ -143,3 +154,6 @@ class PersonRole(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
