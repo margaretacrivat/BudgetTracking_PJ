@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import (Project, ProjectScope, ProjectStage,
+from .models import (Project, ProjectType, ProjectStage,
                      Person, Logistic, ExpensesType, Displacement,
                      DisplacementType, Workforce, PersonRole)
 
@@ -7,7 +7,7 @@ from .models import (Project, ProjectScope, ProjectStage,
 
 
 admin.site.register(Project)
-admin.site.register(ProjectScope)
+admin.site.register(ProjectType)
 admin.site.register(ProjectStage)
 admin.site.register(Person)
 admin.site.register(Logistic)

@@ -383,15 +383,15 @@ ADD Expense
     width: 20%;
 }
 
-.update-button-field .btn-cancel {
-    margin-top: 24px;
-    padding: 5px;
-    font-weight: 500;
-    background: #a8a4a4;
-    color: white;
-    float: right;
-    width: 10%;
-}
+/*.update-button-field .btn-cancel {*/
+/*    margin-top: 24px;*/
+/*    padding: 5px;*/
+/*    font-weight: 500;*/
+/*    background: #a8a4a4;*/
+/*    color: white;*/
+/*    float: right;*/
+/*    width: 10%;*/
+/*}*/
 
 /*
 ---------------------------------------------
@@ -433,17 +433,6 @@ Edit Expense
 
 #editExpenseForm #date {
     width: 20%;
-}
-
-.update-button-field .btn-cancel {
-    margin-top: 24px;
-    padding: 5px;
-    font-weight: 500;
-    background: #a8a4a4;
-    color: white;
-    float: right;
-    width: 10%;
-    justify-content: space-around;
 }
 
 /*
@@ -1029,11 +1018,6 @@ Table Pagination
     #addIncomeForm #date, #editIncomeForm #date {
         width: 50%;
     }
-
-    .update-button-field .btn-cancel {
-        padding: 5px;
-        width: 30%;
-    }
 }
 
 @media (max-width: 1100px) {
@@ -1078,11 +1062,6 @@ Table Pagination
     #addExpenseForm #date, #editExpenseForm #date,
     #addIncomeForm #date, #editIncomeForm #date {
         width: 50%;
-    }
-
-    .update-button-field .btn-cancel {
-        padding: 5px;
-        width: 30%;
     }
 }
 
@@ -1188,11 +1167,6 @@ Table Pagination
     #addIncomeForm #date, #editIncomeForm #date {
         width: 50%;
     }
-
-    .update-button-field .btn-cancel {
-        padding: 5px;
-        width: 30%;
-    }
 }
 
 @media (max-width: 800px) {
@@ -1295,11 +1269,6 @@ Table Pagination
     #addIncomeForm #date, #editIncomeForm #date {
         width: 50%;
     }
-
-    .update-button-field .btn-cancel {
-        padding: 5px;
-        width: 30%;
-    }
 }
 
 @media (max-width: 680px) {
@@ -1353,7 +1322,7 @@ Table Pagination
     .container-tables {
         padding: 20px 10px 30px 20px;
         grid-template-columns: 570px;
-        grid-template-rows: 50px 50px 10px 100px;
+        grid-template-rows: 50px 50px 200px 100px;
         gap: 20px;
         grid-template-areas:
             "exportFile"
@@ -1449,11 +1418,6 @@ Table Pagination
     #addExpenseForm #date, #editExpenseForm #date,
     #addIncomeForm #date, #editIncomeForm #date {
         width: 50%;
-    }
-
-    .update-button-field .btn-cancel {
-        padding: 5px;
-        width: 30%;
     }
 }
 

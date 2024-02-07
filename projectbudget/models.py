@@ -15,30 +15,19 @@ class Project(models.Model):
     project_manager = models.CharField(max_length=100)
     funder = models.TextField()
     contract = models.TextField()
-    project_scope = models.CharField(max_length=100)
+    project_type = models.CharField(max_length=100)
     budget = models.FloatField(default=0)
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 
-    @property
-    def project_upper(self):
-        return self.project.upper()
-
-    def save(self, *args, **kwargs):
-        self.acronym = self.project.upper()
-        super().save(*args, **kwargs)
-
     def __str__(self):
-        return self.project_upper
-
-    def get_type_str(self):
-        return f"Type: {self.project_scope}"
+        return f"Type: {self.project_type}"
 
     class Meta:
         ordering = ['start_date']
 
 
-class ProjectScope(models.Model):
+class ProjectType(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):

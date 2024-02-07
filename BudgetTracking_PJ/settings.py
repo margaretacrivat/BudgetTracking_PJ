@@ -160,4 +160,14 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+DATE_INPUT_FORMATS = [
+    '%Y-%m-%d',         # 'yyyy-mm-dd'
+    '%m/%d/%Y',         # 'mm/dd/yyyy'
+    '%m/%d/%y',         # 'mm/dd/yy'
+    '%b %d %Y',         # 'Mon dd yyyy' (e.g., 'Jan 1 2023')
+    '%b. %d, %Y',       # 'Mon. dd, yyyy' (e.g., 'Jan. 1, 2023')
+    '%B %d, %Y',        # 'Month dd, yyyy' (e.g., 'January 1, 2023')
+    '%b %d, %Y',        # 'Mon dd, yyyy' (e.g., 'Jan 1, 2023')
+]
+
 

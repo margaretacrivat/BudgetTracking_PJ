@@ -1,0 +1,19 @@
+/*
+---------------------------------------------
+General Styles for Personal and Budget Pages
+---------------------------------------------
+*/
+
+.update-button-field {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-button-field .btn-cancel {
+    margin-top: 24px;
+    padding: 5px;
+    font-weight: 500;
+    background: #a8a4a4;
+    color: white;
+}
+

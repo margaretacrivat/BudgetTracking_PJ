@@ -63,7 +63,7 @@ def expenses_view(request):
     # The Logic for expenses visualization
     expenses = Expense.objects.filter(owner=request.user).values()
 
-    paginator = Paginator(expenses, 5)
+    paginator = Paginator(expenses, 7)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
@@ -420,7 +420,7 @@ def income_view(request):
     sources = Source.objects.all()
     income = Income.objects.filter(owner=request.user).values()
 
-    paginator = Paginator(income, 5)
+    paginator = Paginator(income, 7)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 

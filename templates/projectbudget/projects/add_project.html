@@ -1,0 +1,155 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} ADD Project {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <!-- ***** Breadcrumb Start ***** -->
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'projects' %}">Projects</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add Project
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- ***** Breadcrumb End ***** -->
+
+        <div class="add-project-form">
+            <div class="add-form-body" id="addProjectForm">
+                <h4>Add Project Form</h4>
+                <form action="{% url 'add-project' %}" method="post">
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
+
+                    <div class="form-group">
+                        <!-- Render each field individually -->
+                        {% for field in form %}
+                            {% if field.name == 'project_title' %}
+                                <div class="inline-fields project-title">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'project' %}
+                                <div class="inline-fields project-acronym">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'project_stages' %}
+                                <div class="inline-fields project-stages">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'project_manager' %}
+                                <div class="inline-fields project-manager">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'funder' %}
+                                <div class="inline-fields project-funder">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'contract' %}
+                                <div class="inline-fields project-contract">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                </div>
+                            {% elif field.name == 'project_type' %}
+                                <div class="inline-fields project-type">
+                                    <label for="project_type">Project Type</label>
+                                    <div class="input-group">
+                                        <select name="project_type" id="project_type" 
+                                                class="form-control project-type-select">
+                                            {% for type in project_type %}
+                                                <option value="{{ type }}"
+                                                        class="project-type-option-{{ forloop.counter }}" id="optionType">
+                                                    {{ type }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'start_date' %}
+                                <div class="inline-fields project-date">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    <div class="input-group">
+                                        <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'end_date' %}
+                                <div class="inline-fields project-date">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    <div class="input-group">
+                                        <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'budget' %}
+                                <div class="inline-fields project-budget">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    <div class="input-group">
+                                        <input type="text" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.0' }}">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div>
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                            <!-- Render field errors if any -->
+                            {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="update-button-field">
+                            <a href="{% url 'projects' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                            <input type="submit" value="Submit"
+                                   class="btn btn-primary btn-primary-sm">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/inputValue.js' %}"></script>
+    <script>
+        // Get the project type select element
+        const projectTypeSelect = document.getElementById('project_type');
+
+        // Add event listener for change event
+        projectTypeSelect.addEventListener('change', function () {
+            // Get the selected option
+            const selectedOption = projectTypeSelect.options[projectTypeSelect.selectedIndex];
+            // Get the class of the selected option
+            const selectedClass = selectedOption.getAttribute('class');
+
+            // Remove any existing background color class from all options
+            projectTypeSelect.querySelectorAll('option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Add the class of the selected option to the selected option
+            selectedOption.classList.add('selected');
+        });
+    </script>
+
+
+{% endblock content %}

@@ -75,9 +75,9 @@
                                name="expense_date" id="date" value="{{ formatted_date }}">
                     </div>
                     <div class="update-button-field">
+                        <a href="{% url 'expenses' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
                         <input type="submit" value="Save"
                                class="btn btn-primary btn-primary-sm">
-                        <a href="{% url 'expenses' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
                     </div>
                 </form>
             </div>

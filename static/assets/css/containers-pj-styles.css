@@ -1,0 +1,228 @@
+/*
+---------------------------------------------
+Container Projects Pages Style
+---------------------------------------------
+*/
+
+.color-explanation {
+    margin-top: 20px;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.ongoing-project {
+    background-color: lightgreen;
+}
+
+.ending-soon-project {
+    background-color: #f6c446;
+}
+
+.expired-project {
+    background-color: #bebebe;
+}
+
+
+/*
+---------------------------------------------
+ADD Project Form
+---------------------------------------------
+*/
+
+.add-project-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 20px 20px 350px 20px;
+    margin-top: 10px;
+    margin-bottom: 21px;
+    margin-left: 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 587px;
+    gap: 20px;
+    grid-template-areas:
+        "addProjectForm";
+}
+
+#addProjectForm {
+    grid-area: addProjectForm;
+}
+
+#addProjectForm h4 {
+    font-size: 28px;
+    /*margin-top: 10px;*/
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.project-funder, .project-contract {
+    display: flex;
+    height: 40px;
+    text-align: center;
+}
+
+.project-funder #id_funder,
+.project-contract #id_contract {
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    width: 60%;
+    font-weight: 400;
+}
+
+.project-stages #id_project_stages {
+    width: 10%;
+}
+
+.add-project-form .inline-fields {
+    margin-bottom: 20px;
+}
+
+.project-type,
+.project-budget {
+    display: flex;
+}
+
+.project-type .input-group {
+    width: 180px;
+    margin-left: 10px;
+}
+
+.project-budget {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.project-budget .input-group {
+    width: 300px;
+    margin-left: 10px;
+}
+
+.project-acronym {
+    width: 50%;
+}
+
+.project-acronym input[type="text"] {
+    text-transform: uppercase;
+}
+
+.project-date {
+    display: inline-block;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.project-date .input-group {
+    width: auto;
+}
+
+.project-date .input-group:last-child {
+    margin-right: 40px;
+}
+
+/*
+---------------------------------------------
+Project Types Element Selection
+---------------------------------------------
+*/
+
+.project-type-select option.project-type-option-1 {
+    background-color: transparent;
+}
+.project-type-select option.project-type-option-2 {
+    background-color: #f1d898;
+}
+.project-type-select option.project-type-option-3 {
+    background-color: rgb(145, 180, 250);
+}
+.project-type-select option.project-type-option-4 {
+    background-color: #6adc6a;
+}
+
+
+
+
+
+/* ---------------- MEDIA QUERIES ----------------*/
+
+/*make it responsive to all devices*/
+
+/*@media (max-width: 1240px) {*/
+
+/*    .add-project-form, .edit-expense-form,*/
+/*    .add-income-form, .edit-income-form {*/
+/*        margin-left: 65px;*/
+/*    }*/
+
+/*    #addExpenseForm #date, #editExpenseForm #date,*/
+/*    #addIncomeForm #date, #editIncomeForm #date {*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 1100px) {*/
+
+/*    .add-expense-form, .edit-expense-form,*/
+/*    .add-income-form, .edit-income-form {*/
+/*        margin-left: 65px;*/
+/*    }*/
+
+/*    #addExpenseForm #date, #editExpenseForm #date,*/
+/*    #addIncomeForm #date, #editIncomeForm #date {*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 1000px) {*/
+
+/*    .add-expense-form, .edit-expense-form,*/
+/*    .add-income-form, .edit-income-form {*/
+/*        margin-left: 65px;*/
+/*    }*/
+
+/*    #addExpenseForm #date, #editExpenseForm #date,*/
+/*    #addIncomeForm #date, #editIncomeForm #date {*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 800px) {*/
+
+/*    .add-expense-form, .edit-expense-form,*/
+/*    .add-income-form, .edit-income-form {*/
+/*        margin-left: 65px;*/
+/*    }*/
+
+/*    #addExpenseForm #date, #editExpenseForm #date,*/
+/*    #addIncomeForm #date, #editIncomeForm #date {*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 680px) {*/
+/*    */
+/*    .add-expense-form, .edit-expense-form,*/
+/*    .add-income-form, .edit-income-form {*/
+/*        margin-left: 65px;*/
+/*    }*/
+
+/*    #addExpenseForm #date, #editExpenseForm #date,*/
+/*    #addIncomeForm #date, #editIncomeForm #date {*/
+/*        width: 50%;*/
+/*    }*/
+/*}*/
