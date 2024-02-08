@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-{#            <div id="exportFile">#}
-{#                <a href="{% url 'export-expenses-csv' %}" class="btn">#}
-{#                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-{#                </a>#}
-{#                <a href="{% url 'export-expenses-excel' %}" class="btn">#}
-{#                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
-{#                </a>#}
-{#                <a href="{% url 'export-expenses-pdf' %}" class="btn">#}
-{#                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
-{#                </a>#}
-{#            </div>#}
+            {#            <div id="exportFile">#}
+            {#                <a href="{% url 'export-expenses-csv' %}" class="btn">#}
+            {#                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
+            {#                </a>#}
+            {#                <a href="{% url 'export-expenses-excel' %}" class="btn">#}
+            {#                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
+            {#                </a>#}
+            {#                <a href="{% url 'export-expenses-pdf' %}" class="btn">#}
+            {#                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
+            {#                </a>#}
+            {#            </div>#}
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -99,11 +99,15 @@
                                     <td>{{ project.end_date }}</td>
                                     <td>
                                         <a href="{% url 'edit-project' project.id %}"
-                                           class="btn btn-secondary btn-sm">Edit</a>
+                                           style="color:gray; font-size:20px">
+                                            <i class="fas fa-edit edit-input"></i>
+                                        </a>
                                     </td>
                                     <td>
-                                        <a href=""
-                                           class="btn btn-danger btn-sm">Delete</a>
+                                        <a href="{% url 'delete-project' project.id %}"
+                                           style="color:red; font-size:20px">
+                                            <i class="fas fa-trash-alt delete-input"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -176,20 +180,26 @@
             </div>
 
             <!-- ***** Expenses Charts ***** -->
-{#            <div class="chart-container1" id="Chart1">#}
-{#                <h6>Category Cumulative Distribution (last 6 months)</h6>#}
-{#                <hr>#}
-{#                <canvas id="expensesCategoryChart"></canvas>#}
-{#            </div>#}
-{#            <div class="chart-container2" id="Chart2">#}
-{#                <h6>Category Cumulative Comparison (last 3 months)</h6>#}
-{#                <hr>#}
-{#                <canvas id="monthsExpensesChart"></canvas>#}
-{#            </div>#}
+            {#            <div class="chart-container1" id="Chart1">#}
+            {#                <h6>Category Cumulative Distribution (last 6 months)</h6>#}
+            {#                <hr>#}
+            {#                <canvas id="expensesCategoryChart"></canvas>#}
+            {#            </div>#}
+            {#            <div class="chart-container2" id="Chart2">#}
+            {#                <h6>Category Cumulative Comparison (last 3 months)</h6>#}
+            {#                <hr>#}
+            {#                <canvas id="monthsExpensesChart"></canvas>#}
+            {#            </div>#}
         </div>
     </div>
+    
+    <!-- Chart Scripts -->
 
+    {#    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>#}
+    {#    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>#}
 
+    
+    
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchProject.js' %}"></script>
     <script>
@@ -202,8 +212,8 @@
             const rows = document.querySelectorAll('tbody tr');
             rows.forEach(row => {
                 // Get the start and end date cells from the row
-                const startDateCell = row.querySelector('td:nth-child(9)');
-                const endDateCell = row.querySelector('td:nth-child(10)');
+                const startDateCell = row.querySelector('td:nth-child(10)');
+                const endDateCell = row.querySelector('td:nth-child(11)');
 
                 // Parse the start and end dates
                 const startDate = new Date(startDateCell.textContent);
@@ -243,9 +253,5 @@
         });
     </script>
 
-    <!-- Chart Scripts -->
-
-    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
-    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
 
 {% endblock content %}

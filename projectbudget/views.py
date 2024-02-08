@@ -78,11 +78,8 @@ def add_project(request):
 @login_required(login_url='/authentication/login')
 def edit_project(request, id):
     print("Received project ID:", id)
-    # The Logic for editing expenses
     project = Project.objects.get(pk=id)
     project_type = ProjectType.objects.values_list('name', flat=True).distinct()
-
-    # formatted_date = project.date.strftime('%Y-%m-%d')
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
@@ -101,12 +98,19 @@ def edit_project(request, id):
         'form': form,
         'project': project,
         'project_type': project_type,
-        # 'formatted_date': formatted_date,
         'start_date': project.start_date,
         'end_date': project.end_date
     }
 
     return render(request, 'projectbudget/projects/edit_project.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def delete_project(request, id):
+    project = Project.objects.get(pk=id)
+    project.delete()
+    messages.success(request, 'Project deleted')
+    return redirect('projects')
 
 
 def search_project(request):
@@ -137,4 +141,6 @@ def search_project(request):
 
         data = project.values()
         return JsonResponse(list(data), safe=False)
+
+
 

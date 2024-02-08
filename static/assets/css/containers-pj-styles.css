@@ -63,62 +63,101 @@ ADD Project Form
 
 #addProjectForm h4 {
     font-size: 28px;
-    /*margin-top: 10px;*/
     text-shadow: 0 1px 1px #000;
     text-align: center;
     color: #b2b2b2;
 }
 
-.project-funder, .project-contract {
+.project-funder,
+.project-contract {
     display: flex;
-    height: 40px;
     text-align: center;
+    width: 80%;
+    justify-content: space-around;
 }
 
+.project label {
+    margin-top: 20px;
+}
+
+.project-type label {
+    margin-top: 10px;
+}
+.project-manager label,
+.project-funder label,
+.project-contract label {
+    margin-top: 20px;
+}
+
+.project-budget label {
+    margin-bottom: 10px;
+}
+
+.institution #id_institution,
+.project-title #id_project_title,
 .project-funder #id_funder,
 .project-contract #id_contract {
     margin-left: 10px;
-    padding-left: 10px;
-    padding-top: 5px;
+    width: 100%;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.project {
+    display: flex;
+    width: 50%;
+    text-align: center;
+}
+
+.project input[type="text"] {
+    text-transform: uppercase;
+}
+
+.project #id_project,
+.project-manager #id_project_manager {
+    margin-left: 10px;
     width: 60%;
     font-weight: 400;
+    border-radius: 6px;
 }
 
 .project-stages #id_project_stages {
-    width: 10%;
+    margin-left: 10px;
+    width: 8%;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.project-stages input[type="number"] {
+    text-align: center;
 }
 
 .add-project-form .inline-fields {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .project-type,
 .project-budget {
     display: flex;
+    align-items: center;
 }
 
 .project-type .input-group {
     width: 180px;
     margin-left: 10px;
+    text-align: center;
+    align-content: center;
 }
 
-.project-budget {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+.project-type option {
+    text-align: center;
 }
 
 .project-budget .input-group {
-    width: 300px;
+    width: 500px;
     margin-left: 10px;
-}
-
-.project-acronym {
-    width: 50%;
-}
-
-.project-acronym input[type="text"] {
-    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .project-date {
@@ -132,7 +171,7 @@ ADD Project Form
 }
 
 .project-date .input-group:last-child {
-    margin-right: 40px;
+    margin-right: 60px;
 }
 
 /*
@@ -178,9 +217,6 @@ Edit Project Form
         "editProjectForm";
 }
 
-
-
-
 #editProjectForm {
     grid-area: editProjectForm;
 }
@@ -192,9 +228,9 @@ Edit Project Form
     color: #b2b2b2;
 }
 
-.edit-project-form .inline-fields {
-    margin-bottom: 20px;
-}
+/*.edit-project-form .inline-fields {*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
 
 

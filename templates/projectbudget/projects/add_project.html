@@ -44,7 +44,7 @@
                                     {{ field }}
                                 </div>
                             {% elif field.name == 'project' %}
-                                <div class="inline-fields project-acronym">
+                                <div class="inline-fields project">
                                     <label for="project">Project</label>
                                     {{ field }}
                                 </div>
@@ -72,15 +72,25 @@
                                 <div class="inline-fields project-type">
                                     <label for="project_type">Project Type</label>
                                     <div class="input-group">
-                                        <select name="project_type" id="project_type" 
+                                        <select name="project_type" id="project_type"
                                                 class="form-control project-type-select">
                                             {% for type in project_type %}
                                                 <option value="{{ type }}"
-                                                        class="project-type-option-{{ forloop.counter }}" id="optionType">
+                                                        class="project-type-option-{{ forloop.counter }}"
+                                                        id="optionType">
                                                     {{ type }}
                                                 </option>
                                             {% endfor %}
                                         </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'budget' %}
+                                <div class="inline-fields project-budget">
+                                    <label for="budget">Budget</label>
+                                    <div class="input-group">
+                                        <input type="text" name="budget" id="budget"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.0' }}">
                                     </div>
                                 </div>
                             {% elif field.name == 'start_date' %}
@@ -97,15 +107,6 @@
                                     <div class="input-group">
                                         <input type="date" name="end_date" id="endDate"
                                                class="form-control" data-date-format="mm/dd/yyyy">
-                                    </div>
-                                </div>
-                            {% elif field.name == 'budget' %}
-                                <div class="inline-fields project-budget">
-                                    <label for="budget">Budget</label>
-                                    <div class="input-group">
-                                        <input type="text" name="budget" id="budget"
-                                               class="form-control budget-input"
-                                               value="{{ field.value|default:'0.0' }}">
                                     </div>
                                 </div>
                             {% else %}
