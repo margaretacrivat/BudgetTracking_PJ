@@ -9,7 +9,7 @@ urlpatterns = [
     path('expenses/', views.expenses_view, name='expenses'),
     path('add-expense/', views.add_expense, name='add-expense'),
     path('edit-expense/<int:id>/', views.edit_expense, name='edit-expense'),
-    path('delete-expense/<int:id>/', views.delete_expense, name='delete-expense'),
+    path('delete-expense/<int:id>/', csrf_exempt(views.delete_expense), name='delete-expense'),
     path('search-expenses/', csrf_exempt(views.search_expenses),
          name='search-expenses'),
 

@@ -192,11 +192,17 @@ def edit_expense(request, id):
 
 @login_required(login_url='/authentication/login')
 def delete_expense(request, id):
-    expense = Expense.objects.get(pk=id)
-    expense.delete()
-    messages.success(request, 'Item deleted')
-    return redirect('expenses')
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        expense = Expense.objects.get(pk=id)
+        expense.delete()
+        return JsonResponse({'message': 'Item deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
 
+    # expense = Expense.objects.get(pk=id)
+    # expense.delete()
+    # messages.success(request, 'Item deleted')
+    # return redirect('expenses')
 
 def search_expenses(request):
     if request.method == 'POST':

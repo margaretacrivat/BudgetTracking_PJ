@@ -17,4 +17,116 @@ General Styles-Personal & Project Budget Pages
     color: white;
 }
 
+/*
+----------------------------------------------
+Modal Window Styles
+----------------------------------------------
+*/
+
+.modal {
+    display: none; /* modal window initial hidden */
+    position: fixed; /* modal windows positioned relativ  to window view */
+    z-index: 1; /* make modal window show above the other elements */
+    left: 0;
+    top: 0;
+    padding: 100px 300px 20px 450px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* background semi-transparent */
+}
+
+/* modal window content styles */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* modal window positioned in the center of the screen */
+    border: 3px solid #888;
+    width: 60%; /* modal content width */
+    border-radius: 10px;
+}
+
+/* closing button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content p:nth-of-type(1) {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    color: red;
+}
+
+.modal-content p:nth-of-type(2) {
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.modal-content p:nth-of-type(3) {
+    color: #be926a;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+/* buttons from modal windows */
+.modal-content button {
+    margin: 15px auto; /* center-align the buttons horizontally */
+    padding: 10px 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    width: 20%;
+    /*text-align: center; !* each button is on a new line *!*/
+    /*display: block;*/
+    float: right;
+}
+
+.modal-content .modal-button {
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    background-color: #f8f8f8;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex; /* Use flexbox to control button order */
+    /*justify-content: flex-end; !* Align buttons to the end (right) *!*/
+}
+
+/* Specify styles for the "Yes" and "No" buttons */
+#confirmDeleteBtn {
+    border: 1px solid darkred;
+    background-color: #f44336;
+    margin-right: 80px;
+}
+
+#cancelDeleteBtn {
+    color: black;
+    border: 1px solid grey;
+    background-color: #fbfcfb;
+    text-align: center;
+}
+
+#cancelDeleteBtn:hover {
+    background-color: #7cb27c;
+    transform: scale(1.1);
+}
+
+#confirmDeleteBtn:hover {
+    background-color: rgba(161, 31, 26, 0.89);
+    transform: scale(1.1);
+}
 

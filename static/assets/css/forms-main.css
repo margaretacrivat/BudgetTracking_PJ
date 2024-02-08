@@ -96,14 +96,13 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #04AA6D;
+.card-form .card-footer button {
   color: white;
-  padding: 14px 20px;
+  padding: 8px 5px;
   margin: 8px 0;
-  border: none;
   cursor: pointer;
   width: 100%;
+  border: 1px solid darkgreen;
 }
 
 button .btn-login:hover {
