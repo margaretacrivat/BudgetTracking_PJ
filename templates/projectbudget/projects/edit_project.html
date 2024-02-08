@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Add Project {% endblock %}
+{% block title %} Edit Project {% endblock %}
 
 {% block content %}
 
@@ -17,17 +17,17 @@
                             href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Add Project
+                        Edit Project
                     </li>
                 </ol>
             </nav>
         </div>
         <!-- ***** Breadcrumb End ***** -->
 
-        <div class="add-project-form">
-            <div class="add-form-body" id="addProjectForm">
-                <h4>Add Project Form</h4>
-                <form action="{% url 'add-project' %}" method="post">
+        <div class="edit-project-form">
+            <div class="edit-form-body" id="editProjectForm">
+                <h4>Edit Project Form</h4>
+                <form action="{% url 'edit-project' project.id %}" method="post">
                     {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
@@ -88,15 +88,15 @@
                                     <label for="start_date">Start Date</label>
                                     <div class="input-group">
                                         <input type="date" name="start_date" id="startDate"
-                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                               class="form-control" value="{{ start_date|date:'Y-m-d' }}">
                                     </div>
                                 </div>
                             {% elif field.name == 'end_date' %}
                                 <div class="inline-fields project-date">
-                                    <label for="end_date">End Date</label>
+                                    <label for="end-date">End Date</label>
                                     <div class="input-group">
                                         <input type="date" name="end_date" id="endDate"
-                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                               class="form-control" value="{{ end_date|date:'Y-m-d' }}" >
                                     </div>
                                 </div>
                             {% elif field.name == 'budget' %}

@@ -10,4 +10,5 @@ urlpatterns = [
     path('add-project/', views.add_project, name='add-project'),
     path('search-project/', csrf_exempt(views.search_project),
          name='search-project'),
+    path('edit-project/<int:id>/', views.edit_project, name='edit-project'),
 ]

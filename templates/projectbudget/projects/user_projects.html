@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-            {#            <div id="exportFile">#}
-            {#                <a href="{% url 'export-expenses-csv' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-            {#                </a>#}
-            {#                <a href="{% url 'export-expenses-excel' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
-            {#                </a>#}
-            {#                <a href="{% url 'export-expenses-pdf' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
-            {#                </a>#}
-            {#            </div>#}
+{#            <div id="exportFile">#}
+{#                <a href="{% url 'export-expenses-csv' %}" class="btn">#}
+{#                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
+{#                </a>#}
+{#                <a href="{% url 'export-expenses-excel' %}" class="btn">#}
+{#                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
+{#                </a>#}
+{#                <a href="{% url 'export-expenses-pdf' %}" class="btn">#}
+{#                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
+{#                </a>#}
+{#            </div>#}
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -67,6 +67,7 @@
                     <table class="table table-stripped table-hover">
                         <thead>
                         <tr>
+                            <th>Institution</th>
                             <th>Project Title</th>
                             <th>Project</th>
                             <th>Project Stages</th>
@@ -82,11 +83,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {# if user has projects, then display them #}
                         {% if projects.count %}
                             {% for project in page_obj %}
-                                {#  display dinamic data #}
                                 <tr {% if project.end_date < today %} class="expired-project" {% endif %}>
+                                    <td>{{ project.institution }}</td>
                                     <td>{{ project.project_title }}</td>
                                     <td>{{ project.project }}</td>
                                     <td>{{ project.project_stages }}</td>
@@ -98,7 +98,7 @@
                                     <td>{{ project.start_date }}</td>
                                     <td>{{ project.end_date }}</td>
                                     <td>
-                                        <a href=""
+                                        <a href="{% url 'edit-project' project.id %}"
                                            class="btn btn-secondary btn-sm">Edit</a>
                                     </td>
                                     <td>
@@ -116,6 +116,7 @@
                             <table class="table table-stripped table-hover">
                             <thead>
                             <tr>
+                                <th>Institution</th>
                                 <th>Project Title</th>
                                 <th>Project</th>
                                 <th>Project Stages</th>
@@ -175,76 +176,76 @@
             </div>
 
             <!-- ***** Expenses Charts ***** -->
-            {#            <div class="chart-container1" id="Chart1">#}
-            {#                <h6>Category Cumulative Distribution (last 6 months)</h6>#}
-            {#                <hr>#}
-            {#                <canvas id="expensesCategoryChart"></canvas>#}
-            {#            </div>#}
-            {#            <div class="chart-container2" id="Chart2">#}
-            {#                <h6>Category Cumulative Comparison (last 3 months)</h6>#}
-            {#                <hr>#}
-            {#                <canvas id="monthsExpensesChart"></canvas>#}
-            {#            </div>#}
+{#            <div class="chart-container1" id="Chart1">#}
+{#                <h6>Category Cumulative Distribution (last 6 months)</h6>#}
+{#                <hr>#}
+{#                <canvas id="expensesCategoryChart"></canvas>#}
+{#            </div>#}
+{#            <div class="chart-container2" id="Chart2">#}
+{#                <h6>Category Cumulative Comparison (last 3 months)</h6>#}
+{#                <hr>#}
+{#                <canvas id="monthsExpensesChart"></canvas>#}
+{#            </div>#}
         </div>
     </div>
 
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchProject.js' %}"></script>
-<script>
-    window.addEventListener("DOMContentLoaded", function () {
-        // Get today's date from the Django context
-        const today = new Date("{{ today|date:'Y-m-d' }}");
-        today.setHours(0, 0, 0, 0); // Set time to midnight
+    <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            // Get today's date from the Django context
+            const today = new Date("{{ today|date:'Y-m-d' }}");
+            today.setHours(0, 0, 0, 0); // Set time to midnight
 
-        // Get all rows in the table body
-        const rows = document.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            // Get the start and end date cells from the row
-            const startDateCell = row.querySelector('td:nth-child(9)');
-            const endDateCell = row.querySelector('td:nth-child(10)');
+            // Get all rows in the table body
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                // Get the start and end date cells from the row
+                const startDateCell = row.querySelector('td:nth-child(9)');
+                const endDateCell = row.querySelector('td:nth-child(10)');
 
-            // Parse the start and end dates
-            const startDate = new Date(startDateCell.textContent);
-            const endDate = new Date(endDateCell.textContent);
+                // Parse the start and end dates
+                const startDate = new Date(startDateCell.textContent);
+                const endDate = new Date(endDateCell.textContent);
 
-            // Check if the date parsing was successful
-            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                return; // Skip this row if parsing failed
-            }
-
-            // Calculate the difference in months between end date and today
-            const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
-            const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());
-
-            // Calculate the remaining days in the current month
-            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-            const remainingDays = daysInMonth - today.getDate();
-
-            // Compare the start date and end date with today's date
-            if (endDate < today) {
-                // Project has expired
-                row.classList.add('expired-project');
-            } else if (startDate <= today && endDate >= today) {
-                // Project is ongoing
-                row.classList.add('ongoing-project');
-                // Check if the project is ending within the next month
-                if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                    row.classList.remove('ongoing-project'); // Remove ongoing class
-                    row.classList.add('ending-soon-project'); // Add ending soon class
+                // Check if the date parsing was successful
+                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                    return; // Skip this row if parsing failed
                 }
-            } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
-                // Project has not started yet and is ending in 1 month or less
-                row.classList.add('ending-soon-project');
-                console.log("Project is ending soon");
-            }
+
+                // Calculate the difference in months between end date and today
+                const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
+                const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());
+
+                // Calculate the remaining days in the current month
+                const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+                const remainingDays = daysInMonth - today.getDate();
+
+                // Compare the start date and end date with today's date
+                if (endDate < today) {
+                    // Project has expired
+                    row.classList.add('expired-project');
+                } else if (startDate <= today && endDate >= today) {
+                    // Project is ongoing
+                    row.classList.add('ongoing-project');
+                    // Check if the project is ending within the next month
+                    if (monthsDiffEnd === 0 && remainingDays <= 30) {
+                        row.classList.remove('ongoing-project'); // Remove ongoing class
+                        row.classList.add('ending-soon-project'); // Add ending soon class
+                    }
+                } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
+                    // Project has not started yet and is ending in 1 month or less
+                    row.classList.add('ending-soon-project');
+                    console.log("Project is ending soon");
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-    {#    <!-- Chart Scripts -->#}
+    <!-- Chart Scripts -->
 
-    {#    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>#}
-    {#    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>#}
+    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
 
 {% endblock content %}

@@ -2,7 +2,7 @@ import json
 from datetime import date
 
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .forms import ProjectForm
@@ -75,10 +75,46 @@ def add_project(request):
     return render(request, 'projectbudget/projects/add_project.html', context)
 
 
+@login_required(login_url='/authentication/login')
+def edit_project(request, id):
+    print("Received project ID:", id)
+    # The Logic for editing expenses
+    project = Project.objects.get(pk=id)
+    project_type = ProjectType.objects.values_list('name', flat=True).distinct()
+
+    # formatted_date = project.date.strftime('%Y-%m-%d')
+
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.owner = request.user
+            form.save()
+            messages.success(request, 'Project updated successfully')
+            return redirect('projects')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form = ProjectForm(instance=project)
+
+    context = {
+        'form': form,
+        'project': project,
+        'project_type': project_type,
+        # 'formatted_date': formatted_date,
+        'start_date': project.start_date,
+        'end_date': project.end_date
+    }
+
+    return render(request, 'projectbudget/projects/edit_project.html', context)
+
+
 def search_project(request):
     if request.method == 'POST':
         search_str = json.loads(request.body).get('searchText')
-        expenses = Project.objects.filter(
+        project = Project.objects.filter(
+            institution__istartswith=search_str,
+            owner=request.user) | Project.objects.filter(
             project_title__icontains=search_str,
             owner=request.user) | Project.objects.filter(
             project__icontains=search_str,
@@ -98,5 +134,7 @@ def search_project(request):
             start_date__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
             end_date__istartswith=search_str, owner=request.user)
-        data = expenses.values()
+
+        data = project.values()
         return JsonResponse(list(data), safe=False)
+

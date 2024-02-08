@@ -9,8 +9,9 @@ from django.utils.timezone import now
 
 class Project(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    institution = models.CharField(max_length=200)
     project_title = models.CharField(max_length=200)
-    project = models.CharField(max_length=20, primary_key=True)
+    project = models.CharField(max_length=20)
     project_stages = models.IntegerField(default=0)
     project_manager = models.CharField(max_length=100)
     funder = models.TextField()
@@ -97,8 +98,8 @@ class ExpensesType(models.Model):
 
 
 class Displacement(models.Model):
-    id = models.AutoField(primary_key=True, default=0)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    institution = models.CharField(max_length=200)
     person_name = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
     project = models.ForeignKey(Project, related_name='displacement', on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, related_name='displacement_stage', on_delete=models.CASCADE)

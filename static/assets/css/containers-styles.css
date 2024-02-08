@@ -14,13 +14,7 @@ Container pages Style
         "side main";
     grid-auto-flow: dense;
     width: 99%;
-    /*height: 100vh;*/
-    /*gap: 20px;*/
-    /*padding-top: 55px;*/
-    /*position: absolute;*/
-    /*min-height: 100vh;*/
     padding: 52px 7px 0 0;
-    /*left: 180px;*/
     background: transparent;
 }
 
@@ -383,16 +377,6 @@ ADD Expense
     width: 20%;
 }
 
-/*.update-button-field .btn-cancel {*/
-/*    margin-top: 24px;*/
-/*    padding: 5px;*/
-/*    font-weight: 500;*/
-/*    background: #a8a4a4;*/
-/*    color: white;*/
-/*    float: right;*/
-/*    width: 10%;*/
-/*}*/
-
 /*
 ---------------------------------------------
 Edit Expense
@@ -437,7 +421,7 @@ Edit Expense
 
 /*
 ---------------------------------------------
-ADD Income
+Add Income
 ---------------------------------------------
 */
 

@@ -42,7 +42,7 @@ ADD Project Form
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 350px 20px;
+    padding: 20px 20px 400px 20px;
     margin-top: 10px;
     margin-bottom: 21px;
     margin-left: 210px;
@@ -142,19 +142,59 @@ Project Types Element Selection
 */
 
 .project-type-select option.project-type-option-1 {
-    background-color: transparent;
-}
-.project-type-select option.project-type-option-2 {
     background-color: #f1d898;
 }
-.project-type-select option.project-type-option-3 {
+.project-type-select option.project-type-option-2 {
     background-color: rgb(145, 180, 250);
 }
-.project-type-select option.project-type-option-4 {
+.project-type-select option.project-type-option-3 {
     background-color: #6adc6a;
 }
 
+/*
+---------------------------------------------
+Edit Project Form
+---------------------------------------------
+*/
 
+.edit-project-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px 10px 10px 10px;
+    padding: 20px 20px 400px 20px;
+    margin-top: 10px;
+    margin-bottom: 21px;
+    margin-left: 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 587px;
+    gap: 20px;
+    grid-template-areas:
+        "editProjectForm";
+}
+
+
+
+
+#editProjectForm {
+    grid-area: editProjectForm;
+}
+
+#editProjectForm h4 {
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.edit-project-form .inline-fields {
+    margin-bottom: 20px;
+}
 
 
 

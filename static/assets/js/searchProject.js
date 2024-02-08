@@ -35,6 +35,7 @@ searchField.addEventListener('keyup',(e)=> {
                     data.forEach((item) => {
                         tbody.innerHTML += `
                         <tr>
+                        <td>${item.institution}</td>
                         <td>${item.project_title}</td>
                         <td>${item.project}</td>
                         <td>${item.project_stages}</td>

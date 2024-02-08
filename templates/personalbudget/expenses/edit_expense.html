@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Expenses {% endblock %}
+{% block title %} Edit Expense {% endblock %}
 
 {% block content %}
 
@@ -39,8 +39,7 @@
                     <div class="form-group">
                         <label for="category">Category</label>
                         <select class="form-control" name="category" id="category">
-                            <option selected name="category"
-                                    value="{{ values.category }}">
+                            <option selected name="category" value="{{ values.category }}">
                                 {{ values.category }}</option>
                             {% for category in categories %}
                                 <option name="category"
@@ -86,7 +85,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{% static 'assets/js/automaticField.js' %}"></script>
+    <script src="{% static 'assets/js/automaticCalculator.js' %}"></script>
 
 
 {% endblock content %}
