@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-            {#            <div id="exportFile">#}
-            {#                <a href="{% url 'export-expenses-csv' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-            {#                </a>#}
-            {#                <a href="{% url 'export-expenses-excel' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
-            {#                </a>#}
-            {#                <a href="{% url 'export-expenses-pdf' %}" class="btn">#}
-            {#                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
-            {#                </a>#}
-            {#            </div>#}
+                        <div id="exportFile">
+                            <a href="{% url 'export-projects-csv' %}" class="btn">
+                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                            </a>
+                            <a href="{% url 'export-projects-excel' %}" class="btn">
+                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                            </a>
+                            <a href="{% url 'export-projects-pdf' %}" class="btn">
+                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                            </a>
+                        </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -192,14 +192,14 @@
             {#            </div>#}
         </div>
     </div>
-    
+
     <!-- Chart Scripts -->
 
     {#    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>#}
     {#    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>#}
 
-    
-    
+
+
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchProject.js' %}"></script>
     <script>

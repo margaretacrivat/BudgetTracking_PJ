@@ -14,16 +14,14 @@
             </div>
 
             <div class="card-body-access">
+                <div class="login-button">
+                    <a href="{% url 'login' %}" class="btn btn-login">Login</a>
+                </div>
                 <div class="signup-button">
                     <p>Don't have an account?<a href="{% url 'signup' %}"> Sign Up</a> here</p>
                 </div>
-                
-                <div class="login-button">
-                    <p>Already have an account?<a href="{% url 'login' %}"> Login</a> here</p>
-                </div>
-
                 <div class="cancel-button">
-                    <a href="{% url 'home' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                    <a href="{% url 'home' %}" class="btn btn-cancel">Cancel</a>
                 </div>
 
             </div>

@@ -6,7 +6,7 @@ Access Personal & Project Budget Pages Style
 
 .container-access {
   margin-top: 52px;
-  padding: 123px 400px 230px 400px;
+  padding: 123px 400px 228px 400px;
   /*height: calc(100vh - 55px); !* Subtracting the navbar height *!*/
   background-color: blue;
   background-image: url(../img/disconnect-success.jpg);
@@ -56,13 +56,29 @@ Access Personal & Project Budget Pages Style
   padding-bottom: 20px;
 }
 
+.card-body-access .login-button .btn {
+  color: lightgrey;
+  font-size: 18px;
+  background: #3d63af;
+}
+
+.card-body-access .login-button .btn:hover {
+  color: grey;
+  font-weight: 500;
+  background: rgba(215, 238, 243, 0.44);
+  transform: scale(1.07);
+  border: 1px solid rgba(0, 0, 255, 0.53);
+}
+
 .card-body-access .cancel-button .btn {
   color: lightgrey;
   background: green;
 }
 
 .card-body-access .cancel-button .btn:hover {
-  background: #989b9b;
+  color: grey;
+  font-weight: 500;
+  background: rgba(215, 238, 243, 0.44);
   transform: scale(1.07);
   border: 1px solid green;
 }

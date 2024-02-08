@@ -1,8 +1,7 @@
-from audioop import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
-from .models import Items
+from .models import PersonalDescription, ProjectDescription
 
 # Create your views here.
 
@@ -12,8 +11,12 @@ from .models import Items
 
 def home(request):
     html_template = get_template('index.html')
-    items = Items.objects.all()
-    context = {'items': items}
+    personal_description = PersonalDescription.objects.all()
+    project_description = ProjectDescription.objects.all()
+    context = {
+        'personal_description': personal_description,
+        'project_description': project_description,
+    }
 
     if request.user.is_authenticated:
         html_template = get_template('homepage.html')

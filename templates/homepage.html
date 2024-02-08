@@ -43,26 +43,26 @@
                         <h6>| Featured</h6>
                         <a href="{% url 'personal-budget' %}"><h2>Personal Budget</h2></a>
                     </div>
-                    <div class="accordion" id="accordionExample{{ item.id }}">
-                        {% for item in items %}
+                    <div class="accordion" id="accordionExample{{ description.id }}">
+                        {% for description in personal_description %}
                             <div class="accordion-item">
                                 <h2 class="accordion-header"
-                                    id="headingOne{{ item.id }}">
+                                    id="headingOne{{ description.id }}">
                                     <button class="accordion-button"
                                             type="button"
                                             data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne{{ item.id }}"
+                                            data-bs-target="#collapseOne{{ description.id }}"
                                             aria-expanded="false"
-                                            aria-controls="collapseOne{{ item.id }}">
-                                        {{ item.name }}
+                                            aria-controls="collapseOne{{ description.id }}">
+                                        {{ description.name }}
                                     </button>
                                 </h2>
-                                <div id="collapseOne{{ item.id }}"
+                                <div id="collapseOne{{ description.id }}"
                                      class="accordion-collapse collapse show"
-                                     aria-labelledby="headingOne{{ item.id }}"
-                                     data-bs-parent="#accordionExample{{ item.id }}">
+                                     aria-labelledby="headingOne{{ description.id }}"
+                                     data-bs-parent="#accordionExample{{ description.id }}">
                                     <div class="accordion-body">
-                                        {{ item.description }}
+                                        {{ description.description }}
                                     </div>
                                 </div>
                             </div>
@@ -113,26 +113,26 @@
                         <h6>| Featured</h6>
                         <a  href="#"><h2>Project Budget</h2></a>
                     </div>
-                    <div class="accordion" id="accordionExample{{ item.id }}">
-                        {% for item in items %}
+                    <div class="accordion" id="accordionExample{{ description.id }}">
+                        {% for description in project_description %}
                             <div class="accordion-item">
                                 <h2 class="accordion-header"
-                                    id="headingOne{{ item.id }}">
+                                    id="headingOne{{ description.id }}">
                                     <button class="accordion-button"
                                             type="button"
                                             data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne{{ item.id }}"
+                                            data-bs-target="#collapseOne{{ description.id }}"
                                             aria-expanded="true"
-                                            aria-controls="collapseOne{{ item.id }}">
-                                        {{ item.name }}
+                                            aria-controls="collapseOne{{ description.id }}">
+                                        {{ description.name }}
                                     </button>
                                 </h2>
-                                <div id="collapseOne{{ item.id }}"
+                                <div id="collapseOne{{ description.id }}"
                                      class="accordion-collapse collapse show"
-                                     aria-labelledby="headingOne{{ item.id }}"
-                                     data-bs-parent="#accordionExample{{ item.id }}">
+                                     aria-labelledby="headingOne{{ description.id }}"
+                                     data-bs-parent="#accordionExample{{ description.id }}">
                                     <div class="accordion-body">
-                                        {{ item.description }}
+                                        {{ description.description }}
                                     </div>
                                 </div>
                             </div>
@@ -170,12 +170,10 @@
         <div class="container">
             <div class="section-heading text-center">
                 <h6>| Overview</h6>
-                <h2>Manage your budget with the help of BudgetTracking
-                    app.<br>
-                    Get your data report quickly.<br>
-                    You can choose to import your file or to
-                    do your analysis directly inside the app by choosing
-                    one of the options presented above!</h2>
+                <h2>Take control of your finances with BudgetTracking. <br>
+                    Effortlessly access your budget data reports. <br>
+                    Gain instant insights into your finances directly
+                    within the app by selecting from the available options above!</h2>
             </div>
         </div>
     </div>
@@ -225,7 +223,7 @@
                             <div class="col-lg-12">
                                 <fieldset>
                                     <label for="name">Full Name</label>
-                                    <input type="text" name="name" id="fullName"
+                                    <input type="text" name="name" id="name"
                                            placeholder="Your Name..."
                                            autocomplete="off" required="">
                                 </fieldset>

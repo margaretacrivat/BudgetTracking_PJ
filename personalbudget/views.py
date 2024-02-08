@@ -1,21 +1,21 @@
-from dateutil.relativedelta import relativedelta
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator
 import json
 from .models import Expense, Category, Source, Income
 from preferences.models import Currency
-
-from django.db.models import Count, F, Sum
+from django.db.models import Count, Sum
 import datetime
 import csv
 import xlwt
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import Table, TableStyle
+from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
 
 
 # Create your views here.
@@ -227,7 +227,7 @@ def export_expenses_csv(request):
                                       str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+
     try:
         currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
@@ -254,7 +254,6 @@ def export_expenses_excel(request):
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
 
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     try:
         currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
@@ -283,25 +282,27 @@ def export_expenses_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Expenses' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = canvas.Canvas(response, pagesize=A4)
-    pdf.setTitle('PDF Expenses_Report')
+    pdf = SimpleDocTemplate(response, pagesize=A4, title='PDF Expenses_Report')
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
+    title_style.alignment = 1
+    title_style.fontSize = 18
+
+    elements = []
 
     # Add a title
     title_text = 'Expenses Report'
-    pdf.setFont('Helvetica-Bold', 16)
+    elements.append(Paragraph(title_text, title_style))
 
-    # Adjust the Y-coordinate for the title to add space above
-    title_y = A4[1] - 70
-    pdf.drawCentredString(A4[0] / 2, title_y, title_text)
+    # Add spacer to create space between title and table header
+    elements.append(Spacer(1, 24))
 
-    # for the proper formatting of the currency, we used 'strip()'-> to remove non-printable characters or whitespaces
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     try:
         currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Item', 'Category', 'Description', f'Amount ({currency})', 'Date']
+    headers = ['Item', 'Category', 'Description', f'Amount\n({currency})', 'Date']
     data = [headers]
 
     expenses = Expense.objects.filter(owner=request.user)
@@ -310,30 +311,33 @@ def export_expenses_pdf(request):
         data.append([expense.item, expense.category, expense.description,
                      expense.amount, expense.date])
 
+    # Define style for table
+    table_style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('RIGHTPADDING', (0, 0), (-1, 0), 5),
+        ('LEFTPADDING', (0, 0), (-1, 0), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
+        ('TOPPADDING', (0, 0), (-1, 0), 5),
+        ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 25),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 25),  # Increase right padding for all cells
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+    ])
+
     table = Table(data)
-    table.setStyle(TableStyle(
-        [('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-         ('GRID', (0, 0), (-1, -1), 1, colors.black),
-         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-         ('FONTSIZE', (0, 0), (-1, 0), 14),
-         ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 25),
-         ('LEFTPADDING', (0, 0), (-1, 0), 25),
-         ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
-         ('TOPPADDING', (0, 0), (-1, 0), 10)]
-    ))
+    table.setStyle(table_style)
+    elements.append(table)
 
-    canvas_width = 600
-    canvas_height = 600
+    pdf.build(elements)
 
-    # Increase the X-coordinate value to move the table more to the right
-    # Increase the Y-coordinate value for more space at the top
-    table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 35, canvas_height - len(data) * 8)  # Adjust the multiplier as needed
-
-    pdf.save()
     return response
 
 
@@ -607,22 +611,24 @@ def export_income_excel(request):
 
 def export_income_pdf(request):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; attachment; filename=Income' + \
+    response['Content-Disposition'] = 'inline; attachment; filename=Incomes' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = canvas.Canvas(response, pagesize=A4)
-    pdf.setTitle('PDF Income_Report')
+    pdf = SimpleDocTemplate(response, pagesize=A4, title='PDF Incomes_Report')
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
+    title_style.alignment = 1
+    title_style.fontSize = 18
+
+    elements = []
 
     # Add a title
     title_text = 'Incomes Report'
-    pdf.setFont('Helvetica-Bold', 16)
+    elements.append(Paragraph(title_text, title_style))
 
-    # Adjust the Y-coordinate for the title to add space above
-    title_y = A4[1] - 80
-    pdf.drawCentredString(A4[0] / 2, title_y, title_text)
+    # Add spacer to create space between title and table header
+    elements.append(Spacer(1, 24))
 
-    # for the proper formatting of the currency, we used 'strip()'-> to remove non-printable characters or whitespaces
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     try:
         currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
     except Currency.DoesNotExist:
@@ -635,30 +641,33 @@ def export_income_pdf(request):
     for income in incomes:
         data.append([income.source, income.description, income.amount, income.date])
 
+    # Define style for table
+    table_style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('RIGHTPADDING', (0, 0), (-1, 0), 5),
+        ('LEFTPADDING', (0, 0), (-1, 0), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
+        ('TOPPADDING', (0, 0), (-1, 0), 5),
+        ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 25),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 25),  # Increase right padding for all cells
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
+    ])
+
     table = Table(data)
-    table.setStyle(TableStyle(
-        [('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-         ('GRID', (0, 0), (-1, -1), 1, colors.black),
-         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-         ('FONTSIZE', (0, 0), (-1, 0), 14),
-         ('TEXTFONT', (0, 0), (-1, 0), 'Times-Bold'),
-         ('RIGHTPADDING', (0, 0), (-1, 0), 25),
-         ('LEFTPADDING', (0, 0), (-1, 0), 25),
-         ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
-         ('TOPPADDING', (0, 0), (-1, 0), 10)]
-    ))
+    table.setStyle(table_style)
+    elements.append(table)
 
-    canvas_width = 600
-    canvas_height = 600
+    pdf.build(elements)
 
-    # Increase the X-coordinate value to move the table more to the right
-    # Increase the Y-coordinate value for more space at the top
-    table.wrapOn(pdf, canvas_width, canvas_height)
-    table.drawOn(pdf, 80, canvas_height - len(data) * 1)
-
-    pdf.save()
     return response
 
 
