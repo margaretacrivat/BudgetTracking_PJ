@@ -49,7 +49,7 @@ def budget_main_view(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    return render(request, 'personalbudget/budget_main.html', {'category_data': category_data,
+    return render(request, 'personalbudget/personal_budget.html', {'category_data': category_data,
                                                                'source_data': source_data, 'currency': currency,
                                                                'this_month_total_expenses': this_month_total_expenses,
                                                                'this_month_total_income': this_month_total_income,
