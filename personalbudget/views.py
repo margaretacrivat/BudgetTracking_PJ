@@ -60,7 +60,6 @@ def budget_main_view(request):
 
 @login_required(login_url='/authentication/login')
 def expenses_view(request):
-    # The Logic for expenses visualization
     expenses = Expense.objects.filter(owner=request.user).values()
 
     paginator = Paginator(expenses, 7)
@@ -131,11 +130,9 @@ def add_expense(request):
 
 @login_required(login_url='/authentication/login')
 def edit_expense(request, id):
-    # The Logic for editing expenses
     expense = Expense.objects.get(pk=id)
     categories = Category.objects.all()
 
-    # Format the date as "yyyy-MM-dd"
     formatted_date = expense.date.strftime('%Y-%m-%d')
 
     context = {
@@ -199,10 +196,6 @@ def delete_expense(request, id):
     else:
         return JsonResponse({'error': 'Invalid request'}, status=400)
 
-    # expense = Expense.objects.get(pk=id)
-    # expense.delete()
-    # messages.success(request, 'Item deleted')
-    # return redirect('expenses')
 
 def search_expenses(request):
     if request.method == 'POST':
@@ -348,9 +341,10 @@ def export_expenses_pdf(request):
 
 
 # ---->>>>>>>>>> EXPENSES STATS <<<<<<<<<<<<----#
+    # The Logic for expenses visualization from the last 6 months on each category #
 
 def expenses_category_stats_last_6months(request):
-    # The Logic for expenses visualization from the last 6 months on each category #
+
     todays_date = datetime.date.today()
     six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
     expenses = Expense.objects.filter(owner=request.user,

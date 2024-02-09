@@ -56,7 +56,7 @@ class Category(models.Model):
         return self.name
 
 
-# ---->>>>>>>>>> INCOMES <<<<<<<<<<<<----#
+# ---->>>>>>>>>> INCOME <<<<<<<<<<<<----#
 
 class Income(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)

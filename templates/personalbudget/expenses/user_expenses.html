@@ -54,7 +54,7 @@
 
             <!-- ***** Expenses data Table ***** -->
             <div id="dataTable">
-                {% include 'authentication/_messages.html' %}
+                {% include 'authentication/_messages.html' %} 
 
                 <div class="breadcrumb-event-add">
                     <a href="{% url 'add-expense' %}" class="btn">
@@ -109,12 +109,10 @@
                                            class="btn btn-secondary btn-sm">Edit</a>
                                     </td>
                                     <td>
-                                        {# <a href="{% url 'delete-expense' expense.id %}"#}
-                                        {# class="btn btn-danger btn-sm">Delete</a>#}
-
                                         <!-- Delete button which will open the modal window for delete confirmation -->
                                         <button onclick="confirmDelete({{ expense.id }})" class="btn btn-danger btn-sm"
-                                        >Delete</button>
+                                        >Delete
+                                        </button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -176,12 +174,12 @@
 
             <!-- ***** Expenses Charts ***** -->
             <div class="chart-container1" id="Chart1">
-                <h6>Category Cumulative Distribution (last 6 months)</h6>
+                <h6>Expenses Category Cumulative Distribution<br>(last 6 months)</h6>
                 <hr>
                 <canvas id="expensesCategoryChart"></canvas>
             </div>
             <div class="chart-container2" id="Chart2">
-                <h6>Category Cumulative Comparison (last 3 months)</h6>
+                <h6>Expenses Category Cumulative Comparison<br>(last 3 months)</h6>
                 <hr>
                 <canvas id="monthsExpensesChart"></canvas>
             </div>
