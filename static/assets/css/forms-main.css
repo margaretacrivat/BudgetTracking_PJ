@@ -109,6 +109,7 @@ button .btn-login:hover {
   opacity: 0.8;
 }
 
+
 /* The "Forgot password" text */
 span.psw {
   float: right;
@@ -116,7 +117,7 @@ span.psw {
 }
 
 form {
-  padding: 41px;
+  padding: 40px 40px 0 40px;
   justify-content: center;
   align-items: center;
   /*border: 10px;*/
@@ -124,7 +125,7 @@ form {
 
 .container-log {
   margin-top: 52px;
-  padding: 50px 400px 38px 400px;
+  padding: 50px 400px 50px 400px;
   /*height: calc(100vh - 55px); !* Subtracting the navbar height *!*/
   background-color: blue;
   background-image: url(../img/glob-connect.jpg);
@@ -225,9 +226,10 @@ form {
 
 .card-log .cancel-button .btn {
   width: 20%;
-  float: right;
-  /*margin-left: 250px;*/
-  background: #fff;
+  /*float: right;*/
+  background-color: #b0afaf;
+  margin-top: 5px;
+  /*margin-left: 350px;*/
   height: 38px;
   border-radius: 20px;
   border: 1px solid #333;
@@ -241,7 +243,7 @@ form {
   background: rgba(11, 140, 22, 0.89);
 }
 .card-log .cancel-button .btn:hover {
-  background: rgba(205, 214, 217, 0.65);
+  background: #3d63af;
 }
 
 .card-log .register-link p {

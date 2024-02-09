@@ -130,3 +130,45 @@ Modal Window Styles
     transform: scale(1.1);
 }
 
+
+/* ---------------- MEDIA QUERIES ----------------*/
+
+@media (max-width: 1345px) {
+    .modal {
+        padding: 50px 50px 20px 100px;
+    }
+
+    .modal-content {
+        width: 60%;
+    }
+}
+
+@media (max-width: 1240px) {
+    .modal {
+        padding: 50px 50px 20px 100px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .modal {
+        padding: 50px 50px 20px 100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .modal {
+        padding: 50px 50px 20px 60px;
+    }
+}
+
+@media (max-width: 800px) {
+    .modal {
+        padding: 50px 50px 20px 60px;
+    }
+}
+
+@media (max-width: 680px) {
+    .modal {
+        padding: 50px 50px 20px 50px;
+    }
+}

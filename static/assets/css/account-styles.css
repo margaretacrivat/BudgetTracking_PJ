@@ -33,21 +33,23 @@ Settings Form Style
 }
 
 .toggle-old-password {
+    border: none;
     color: black;
     font-size: 20px;
     background-color: transparent;
     margin-left: 580px;
-    margin-top: 40px;
+    margin-top: 55px;
     width: 10%;
     position: absolute;
 }
 
 .toggle-new-password {
+    border: none;
     color: black;
     font-size: 20px;
     background-color: transparent;
     margin-left: 580px;
-    margin-top: 140px;
+    margin-top: 152px;
     width: 10%;
     position: absolute;
 }
@@ -115,7 +117,7 @@ Delete Account Style
 
 .container-delete {
   margin-top: 52px;
-  padding: 111px 400px 230px 400px;
+  padding: 119px 400px 230px 400px;
   background-color: blue;
   background-image: url(../img/disconnect-success.jpg);
   background-position: center bottom;
@@ -147,6 +149,7 @@ Delete Account Style
 }
 
 .card-form-delete .delete-account .btn {
+    margin-left: 230px;
     font-size: 20px;
     margin-bottom: 20px;
 }
