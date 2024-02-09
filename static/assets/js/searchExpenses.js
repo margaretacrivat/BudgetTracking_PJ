@@ -1,20 +1,17 @@
 const searchField = document.querySelector("#searchField");
-
 const tableOutput = document.querySelector(".table-output");
 const appTable = document.querySelector(".app-table");
 const paginationContainer = document.querySelector(".pagination-container");
-tableOutput.style.display = 'none';
 const noResults = document.querySelector(".no-results");
 const tbody = document.querySelector(".table-body")
 
+tableOutput.style.display = 'none';
 searchField.addEventListener('keyup',(e)=> {
     const searchValue = e.target.value;
-
     if (searchValue.trim().length > 0) {
         paginationContainer.style.display = 'none';
         tbody.innerHTML = "";
         console.log("/searchValue", searchValue);
-
         fetch("/personalbudget/search-expenses/", {
             body: JSON.stringify({ searchText: searchValue }),
             method: "POST",
@@ -24,9 +21,6 @@ searchField.addEventListener('keyup',(e)=> {
                 console.log("data", data);
                 appTable.style.display = 'none';
                 tableOutput.style.display = 'block';
-
-                // console.log("data.length", data.length)
-
                 if(data.length === 0) {
                     noResults.style.display = "block";
                     tableOutput.style.display = 'none';
