@@ -81,7 +81,6 @@ def expenses_view(request):
 
 @login_required(login_url='/authentication/login')
 def add_expense(request):
-    # The Logic for adding expenses
     categories = Category.objects.all()
     context = {
         'categories': categories,
@@ -218,7 +217,7 @@ def search_expenses(request):
         return JsonResponse(list(data), safe=False)
 
 
-# ---->>>>>>>>>> EXPENSES - EXPORT FILES VIEWS <<<<<<<<<<<<----#
+# ---->>>>>>>>>> EXPENSES - EXPORT Table VIEWS <<<<<<<<<<<<----#
 
 def export_expenses_csv(request):
     response = HttpResponse(content_type='text/csv')
@@ -325,8 +324,8 @@ def export_expenses_pdf(request):
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 25),  # Increase left padding for all cells
-        ('RIGHTPADDING', (0, 0), (-1, -1), 25),  # Increase right padding for all cells
+        ('LEFTPADDING', (0, 0), (-1, -1), 15),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 15),  # Increase right padding for all cells
         ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
         ('TOPPADDING', (0, 0), (-1, -1), 5),
     ])

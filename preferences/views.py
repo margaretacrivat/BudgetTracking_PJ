@@ -31,7 +31,6 @@ def preferences_view(request):
             Currency.objects.create(owner=request.user, currency=currency)
 
         messages.success(request, 'Changes saved')
-        # return redirect('preferences')  # Redirect after a successful POST
 
     return render(request, 'preferences/index.html',
                   {'currencies': currency_data, 'user_preferences': user_preferences})
@@ -40,5 +39,4 @@ def preferences_view(request):
 def settings_view(request):
     return render(request, 'preferences/settings.html')
 
-
-
+# return redirect('preferences')  # Redirect after a successful POST

@@ -34,9 +34,10 @@
             </div>
 
             <div class="currency-form-body" id="currencyForm">
-            <h5>Choose Currency</h5>
+                <h5>Choose Currency</h5>
                 <form class="form-preferences" action="{% url 'preferences' %}" method="post">
-                    {% csrf_token %} {% include 'authentication/_messages.html' %}
+                    {% include 'authentication/_messages.html' %} {% csrf_token %} 
+                
                     <div class="input-group">
                         <select class="custom-select" name="currency" id="inputGroupSelect04">
                             {% if user_preferences.currency %}
