@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-
+from decimal import Decimal
 
 # Create your models here.
 
@@ -13,9 +13,9 @@ class Expense(models.Model):
     item = models.CharField(max_length=1000)
     category = models.CharField(max_length=500)
     description = models.TextField()
-    cost = models.FloatField(default=0)
+    cost = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     qty = models.IntegerField(default=0)
-    amount = models.FloatField(default=0)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     date = models.DateField(default=now)
 
     def save(self, *args, **kwargs):
@@ -62,7 +62,7 @@ class Income(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     source = models.CharField(max_length=500)
     description = models.TextField()
-    amount = models.FloatField(default=0)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     date = models.DateField(default=now)
 
     def __str__(self):

@@ -41,21 +41,18 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input type="text" class="form-control form-control-sm"
-                               name="description" id="description"
-                               value="{{ values.description }}">
+                        <input type="text" class="form-control"
+                               name="description" id="description" value="{{ values.description }}">
                     </div>
                     <div class="form-group">
-                        <label for="amount">Amount</label>
-                        <input type="text" class="form-control form-control-sm amount-income-input"
-                               name="amount" id="amount"
-                               value="{{ values.amount|default:'0.00' }}">
+                        <label for="amount">Amount ({{ currency }})</label>
+                        <input type="text" class="form-control amount-income-input"
+                               name="amount" id="amount" value="{{ values.amount|default:'0.00' }}">
                     </div>
                     <div class="form-group">
-                        <label for="date" style="color:black;">Date of Income</label>
-                        <input type="date" class="form-control form-control-sm"
-                               name="income_date" id="date"
-                               value="{{ values.date }}">
+                        <label for="date">Date of Income</label>
+                        <input type="date" class="form-control"
+                               name="income_date" id="date" value="{{ values.date }}">
                     </div>
                 
                     <div class="update-button-field">

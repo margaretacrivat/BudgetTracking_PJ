@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -45,7 +47,7 @@ def budget_main_view(request):
     remaining_budget = this_month_total_income - this_month_total_expenses
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -67,7 +69,7 @@ def expenses_view(request):
     page_obj = Paginator.get_page(paginator, page_number)
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -82,9 +84,16 @@ def expenses_view(request):
 @login_required(login_url='/authentication/login')
 def add_expense(request):
     categories = Category.objects.all()
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
     context = {
         'categories': categories,
-        'values': request.POST
+        'values': request.POST,
+        'currency': currency
     }
 
     if request.method == 'GET':
@@ -134,11 +143,17 @@ def edit_expense(request, id):
 
     formatted_date = expense.date.strftime('%Y-%m-%d')
 
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
     context = {
         'expense': expense,
         'values': expense,
         'categories': categories,
-        'formatted_date': formatted_date
+        'formatted_date': formatted_date,
+        'currency': currency
     }
     if request.method == 'GET':
         return render(request, 'personalbudget/expenses/edit_expense.html', context)
@@ -227,18 +242,18 @@ def export_expenses_csv(request):
     writer = csv.writer(response)
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    writer.writerow(['Item', 'Category', 'Description', f'Amount ({currency})', 'Date'])
+    writer.writerow(['Item', 'Category', 'Description', f'Cost ({currency})', 'Qty', f'Amount ({currency})', 'Date'])
 
     expenses = Expense.objects.filter(owner=request.user)
 
     for expense in expenses:
-        formatted_amount = f'{expense.amount:.2f}'
-        writer.writerow([expense.item, expense.category, expense.description,
-                         formatted_amount, expense.date])
+        # formatted_amount = '{:.2f}'.format(expense.amount)
+        writer.writerow([expense.item, expense.category, expense.description, expense.cost, expense.qty,
+                         expense.amount, expense.date])
     return response
 
 
@@ -263,26 +278,27 @@ def export_expenses_excel(request):
     date_style.num_format_str = 'MM/DD/YYYY'
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    columns = ['Item', 'Category', 'Description', f'Amount ({currency})', 'Date']
+    columns = ['Item', 'Category', 'Description', f'Cost ({currency})', 'Qty', f'Amount ({currency})', 'Date']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Expense.objects.filter(owner=request.user).values_list(
-        'item', 'category', 'description', 'amount', 'date')
+        'item', 'category', 'description', 'cost', 'qty', 'amount', 'date')
 
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            if col_num == 4:  # Check if it's the Date column
+            if col_num == 6:
                 ws.write(row_num, col_num, row[col_num], date_style)
-            elif col_num == 3:  # Check if it's the Amount column
-                amount_with_decimal = "{:.1f}".format(row[col_num])  # Format the amount with one decimal place
-                ws.write(row_num, col_num, amount_with_decimal, xlwt.Style.easyxf("align: horiz right"))  # Aligning to the right
+            elif col_num == 3 or col_num == 5:
+                formatted_value = "{:.2f}".format(row[col_num])  # Format the value with two decimal place
+                amount_style = xlwt.easyxf('align: horiz right')
+                ws.write(row_num, col_num, formatted_value, amount_style)
             else:
                 ws.write(row_num, col_num, row[col_num])
 
@@ -312,18 +328,19 @@ def export_expenses_pdf(request):
     elements.append(Spacer(1, 24))
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Item', 'Category', 'Description', f'Amount\n({currency})', 'Date']
+    headers = ['Item', 'Category', 'Description', f'Cost\n({currency})', 'Qty', f'Amount\n({currency})', 'Date']
     data = [headers]
 
     expenses = Expense.objects.filter(owner=request.user)
 
     for expense in expenses:
-        data.append([expense.item, expense.category, expense.description,
-                     expense.amount, expense.date])
+        formatted_date = expense.date.strftime('%d-%m-%Y')
+        data.append([expense.item, expense.category, expense.description, expense.cost, expense.qty,
+                         expense.amount, formatted_date])
 
     # Define style for table
     table_style = TableStyle([
@@ -340,8 +357,8 @@ def export_expenses_pdf(request):
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 15),  # Increase left padding for all cells
-        ('RIGHTPADDING', (0, 0), (-1, -1), 15),  # Increase right padding for all cells
+        ('LEFTPADDING', (0, 0), (-1, -1), 12),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 12),  # Increase right padding for all cells
         ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
         ('TOPPADDING', (0, 0), (-1, -1), 5),
     ])
@@ -444,7 +461,7 @@ def income_view(request):
     page_obj = Paginator.get_page(paginator, page_number)
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -461,9 +478,16 @@ def income_view(request):
 def add_income(request):
     # The Logic for adding income
     sources = Source.objects.all()
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
     context = {
         'sources': sources,
-        'values': request.POST
+        'values': request.POST,
+        'currency': currency
     }
     if request.method == 'GET':
         return render(request, 'personalbudget/income/add_income.html', context)
@@ -503,11 +527,17 @@ def edit_income(request, id):
     # Format the date as "yyyy-MM-dd"
     formatted_date = income.date.strftime('%Y-%m-%d')
 
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
     context = {
         'income': income,
         'values': income,
         'sources': sources,
-        'formatted_date': formatted_date
+        'formatted_date': formatted_date,
+        'currency': currency
     }
 
     if request.method == 'GET':
@@ -575,9 +605,9 @@ def export_income_csv(request):
                                       str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -601,9 +631,17 @@ def export_income_excel(request):
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
 
-    # currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    # Alignment style for header titles
+    alignment = xlwt.Alignment()
+    alignment.horz = xlwt.Alignment.HORZ_CENTER
+    alignment.vert = xlwt.Alignment.VERT_CENTER
+    font_style_bold.alignment = alignment
+
+    date_style = xlwt.XFStyle()
+    date_style.num_format_str = 'MM/DD/YYYY'
+
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -617,9 +655,15 @@ def export_income_excel(request):
 
     for row in rows:
         row_num += 1
-
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]))
+            if col_num == 3:
+                ws.write(row_num, col_num, row[col_num], date_style)
+            elif col_num == 2:
+                formatted_value = "{:.2f}".format(row[col_num])  # Format the value with two decimal place
+                amount_style = xlwt.easyxf('align: horiz right')
+                ws.write(row_num, col_num, formatted_value, amount_style)
+            else:
+                ws.write(row_num, col_num, row[col_num])
 
     wb.save(response)
 
@@ -647,16 +691,18 @@ def export_income_pdf(request):
     elements.append(Spacer(1, 24))
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Source', 'Description', f'Amount ({currency})', 'Date']
+    headers = ['Source', 'Description', f'Amount\n({currency})', 'Date']
     data = [headers]
 
     incomes = Income.objects.filter(owner=request.user)
+
     for income in incomes:
-        data.append([income.source, income.description, income.amount, income.date])
+        formatted_date = income.date.strftime('%d-%m-%Y')
+        data.append([income.source, income.description, income.amount, formatted_date])
 
     # Define style for table
     table_style = TableStyle([
@@ -794,10 +840,9 @@ def summary_budget_main_view(request):
     this_year_balance_amount = this_year_income_amount - this_year_expenses_amount
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
-
 
     context = {
         'currency': currency,
@@ -889,7 +934,7 @@ def expenses_summary_view(request):
     this_year_data = all_expenses.filter(date__year=today.year).aggregate(amount=Sum('amount'), count=Count('id'))
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -906,8 +951,6 @@ def expenses_summary_view(request):
 def expenses_summary_rest_stats(request):
     all_expenses = Expense.objects.filter(owner=request.user)
     today = datetime.datetime.today().date()
-
-    today_amount = 0
 
     months_data = {}
     week_days_data = {}
@@ -972,7 +1015,7 @@ def income_summary_view(request):
     this_year_data = all_incomes.filter(date__year=today.year).aggregate(amount=Sum('amount'), count=Count('id'))
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 

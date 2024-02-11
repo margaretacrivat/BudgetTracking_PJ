@@ -74,7 +74,7 @@
                         {% for entry in category_data %}
                             <tr>
                                 <td>{{ entry.category }}</td>
-                                <td>{{ entry.amount }}</td>
+                                <td>{{ entry.amount|floatformat:"2" }}</td>
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -101,7 +101,7 @@
                         {% for entry_i in source_data %}
                             <tr>
                                 <td>{{ entry_i.source }}</td>
-                                <td>{{ entry_i.amount }}</td>
+                                <td>{{ entry_i.amount|floatformat:"2" }}</td>
                             </tr>
                         {% endfor %}
                     {% else %}

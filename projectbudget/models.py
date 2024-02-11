@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from decimal import Decimal
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class Project(models.Model):
     funder = models.CharField(max_length=200)
     contract = models.CharField(max_length=200)
     project_type = models.CharField(max_length=100)
-    budget = models.FloatField(default=0)
+    budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 
@@ -42,8 +43,8 @@ class ProjectStage(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, related_name='stage', on_delete=models.CASCADE)
     project_stage = models.ForeignKey(Project, related_name='project_stage', on_delete=models.CASCADE)
-    budget = models.FloatField(default=0)
-    reimbursed_amount = models.FloatField(default=0)
+    budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 
@@ -80,7 +81,7 @@ class Logistic(models.Model):
     supplier_name = models.CharField(max_length=100)
     acquisition_description = models.TextField()
     acquisition_owner = models.ForeignKey(Person, related_name='acquisition', on_delete=models.SET_NULL, null=True)
-    amount = models.FloatField(default=0)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     date = models.DateField(default=now)
 
     def __str__(self):
@@ -106,7 +107,7 @@ class Displacement(models.Model):
     document_series = models.CharField(max_length=100)
     displaced_to = models.TextField()
     displacement_type = models.CharField(max_length=100, default=0)
-    amount = models.FloatField(default=0)
+    amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     days_no = models.IntegerField(default=0)
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
@@ -132,8 +133,8 @@ class Workforce(models.Model):
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     person_role = models.CharField(max_length=100)
     days_no = models.IntegerField(default=0)
-    salary_per_hour = models.FloatField(default=0)
-    amount = models.FloatField(default=0)
+    salary_per_hour = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
 
     def __str__(self):
         return self.person_name

@@ -54,7 +54,7 @@
                                name="description" id="description" value="{{ values.description }}">
                     </div>
                     <div class="form-group">
-                        <label for="cost" style="color:black;">Cost</label>
+                        <label for="cost" style="color:black;">Cost ({{ currency }})</label>
                         <input type="text" class="form-control form-control-sm cost-input"
                                name="cost" id="cost" value="{{ values.cost|default:'0.00' }}">
                     </div>
@@ -64,7 +64,7 @@
                                name="qty" id="qty" value="{{ values.qty }}">
                     </div>
                     <div class="form-group">
-                        <label for="amount" style="color:black;">Amount</label>
+                        <label for="amount" style="color:black;">Amount ({{ currency }})</label>
                         <input type="text" class="form-control form-control-sm"
                                name="amount" id="amount" value="" readonly>
                     </div>

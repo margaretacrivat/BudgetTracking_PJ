@@ -359,7 +359,7 @@ ADD Expense
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 100px 20px;
+    padding: 20px 20px 200px 20px;
     margin-top: 10px;
     margin-bottom: 25px;
     margin-left: 210px;
@@ -386,11 +386,11 @@ ADD Expense
     color: #b2b2b2;
 }
 
-#addExpenseForm .form-group label {
-    padding-top: 2px;
+#addExpenseForm #date {
+    width: 20%;
 }
 
-#addExpenseForm #date {
+#addExpenseForm #qty {
     width: 20%;
 }
 
@@ -406,7 +406,7 @@ Edit Expense
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 100px 20px;
+    padding: 20px 20px 200px 20px;
     margin-top: 10px;
     margin-bottom: 25px;
     margin-left: 210px;
@@ -428,11 +428,11 @@ Edit Expense
     color: #b2b2b2;
 }
 
-#editExpenseForm .form-group label {
-    padding-top: 2px;
+#editExpenseForm #date {
+    width: 20%;
 }
 
-#editExpenseForm #date {
+#editExpenseForm #qty {
     width: 20%;
 }
 
@@ -448,16 +448,16 @@ Add Income
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     margin-left: 210px;
     width: 70%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 115px;
+    grid-template-rows: 1fr 85px;
     gap: 20px;
     grid-template-areas:
         "addIncomeForm";
@@ -474,33 +474,8 @@ Add Income
     color: #b2b2b2;
 }
 
-#addIncomeForm .form-group label {
-    padding-top: 2px;
-}
-
 #addIncomeForm #date {
     width: 20%;
-}
-
-
-/*
----------------------------------------------
-Export Files and Search Field Styles
----------------------------------------------
-*/
-
-#searchField {
-    width: 90%;
-    font-size: 16px;
-    padding: 5px 0 5px 40px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
-.container-tables .bx.bx-search {
-    position: absolute;
-    padding-left: 5px;
-    font-size: 18px;
-    transform: translateY(110%);
 }
 
 /*
@@ -515,16 +490,16 @@ Edit Income
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px 10px 10px 10px;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 18px;
     margin-left: 210px;
     width: 70%;
     grid-area: main;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 115px;
+    grid-template-rows: 1fr 85px;
     gap: 20px;
     grid-template-areas:
         "editIncomeForm";
@@ -537,14 +512,49 @@ Edit Income
     color: #b2b2b2;
 }
 
-#editIncomeForm .form-group label {
-    padding-top: 2px;
-}
-
 #editIncomeForm #date {
     width: 20%;
 }
 
+/*
+---------------------------------------------
+Common edit input fields Add & Edit
+---------------------------------------------
+*/
+
+#addExpenseForm .form-group,
+#addIncomeForm .form-group,
+#editExpenseForm .form-group,
+#editIncomeForm .form-group {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+
+#addExpenseForm .form-group input[type=text],
+#addIncomeForm .form-group input[type=text],
+#editExpenseForm .form-group input[type=text],
+#editIncomeForm .form-group input[type=text] {
+    padding: 12px 20px;
+    margin: 0;
+}
+
+#addExpenseForm .form-group label,
+#addIncomeForm .form-group label,
+#editExpenseForm .form-group label,
+#editIncomeForm .form-group label {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+#addExpenseForm .form-group input,
+#addIncomeForm .form-group input,
+#editExpenseForm .form-group input,
+#editIncomeForm .form-group input {
+  font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+}
 
 /*
 ---------------------------------------------
@@ -648,6 +658,28 @@ Expenses Table
     text-align: center;
     vertical-align: middle;
 }
+
+
+/*
+---------------------------------------------
+Export Files and Search Field Styles
+---------------------------------------------
+*/
+
+#searchField {
+    width: 90%;
+    font-size: 16px;
+    padding: 5px 0 5px 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.container-tables .bx.bx-search {
+    position: absolute;
+    padding-left: 5px;
+    font-size: 18px;
+    transform: translateY(110%);
+}
+
 
 /*
 ---------------------------------------------
