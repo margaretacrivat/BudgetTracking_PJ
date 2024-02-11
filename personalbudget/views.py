@@ -49,7 +49,7 @@ def budget_main_view(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    return render(request, 'personalbudget/personal_budget.html', {'category_data': category_data,
+    return render(request, 'personalbudget/budget_report.html', {'category_data': category_data,
                                                                'source_data': source_data, 'currency': currency,
                                                                'this_month_total_expenses': this_month_total_expenses,
                                                                'this_month_total_income': this_month_total_income,
@@ -236,8 +236,9 @@ def export_expenses_csv(request):
     expenses = Expense.objects.filter(owner=request.user)
 
     for expense in expenses:
+        formatted_amount = f'{expense.amount:.2f}'
         writer.writerow([expense.item, expense.category, expense.description,
-                         expense.amount, expense.date])
+                         formatted_amount, expense.date])
     return response
 
 
@@ -251,6 +252,15 @@ def export_expenses_excel(request):
     row_num = 0
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
+
+    # Alignment style for header titles
+    alignment = xlwt.Alignment()
+    alignment.horz = xlwt.Alignment.HORZ_CENTER
+    alignment.vert = xlwt.Alignment.VERT_CENTER
+    font_style_bold.alignment = alignment
+
+    date_style = xlwt.XFStyle()
+    date_style.num_format_str = 'MM/DD/YYYY'
 
     try:
         currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
@@ -268,7 +278,13 @@ def export_expenses_excel(request):
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]))
+            if col_num == 4:  # Check if it's the Date column
+                ws.write(row_num, col_num, row[col_num], date_style)
+            elif col_num == 3:  # Check if it's the Amount column
+                amount_with_decimal = "{:.1f}".format(row[col_num])  # Format the amount with one decimal place
+                ws.write(row_num, col_num, amount_with_decimal, xlwt.Style.easyxf("align: horiz right"))  # Aligning to the right
+            else:
+                ws.write(row_num, col_num, row[col_num])
 
     wb.save(response)
 
@@ -528,10 +544,12 @@ def edit_income(request, id):
 
 
 def delete_income(request, id):
-    income = Income.objects.get(pk=id)
-    income.delete()
-    messages.success(request, 'Record removed')
-    return redirect('income')
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        income = Income.objects.get(pk=id)
+        income.delete()
+        return JsonResponse({'message': 'Item deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 def search_income(request):

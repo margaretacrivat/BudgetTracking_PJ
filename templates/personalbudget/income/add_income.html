@@ -47,9 +47,9 @@
                     </div>
                     <div class="form-group">
                         <label for="amount">Amount</label>
-                        <input type="number" class="form-control form-control-sm"
+                        <input type="text" class="form-control form-control-sm amount-income-input"
                                name="amount" id="amount"
-                               value="{{ values.amount }}">
+                               value="{{ values.amount|default:'0.00' }}">
                     </div>
                     <div class="form-group">
                         <label for="date" style="color:black;">Date of Income</label>
@@ -70,5 +70,8 @@
 
     </div>
 
-
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/amountIncomeInput.js' %}"></script>
+    
+    
 {% endblock content %}

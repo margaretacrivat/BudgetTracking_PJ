@@ -19,6 +19,20 @@ General Styles-Personal & Project Budget Pages
 
 /*
 ----------------------------------------------
+Amount Field - readonly
+----------------------------------------------
+*/
+
+
+#amount[readonly] {
+    background-color: #f0f0f0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
+}
+
+
+/*
+----------------------------------------------
 Modal Window Styles
 ----------------------------------------------
 */
@@ -129,6 +143,9 @@ Modal Window Styles
     background-color: rgba(161, 31, 26, 0.89);
     transform: scale(1.1);
 }
+
+
+
 
 
 /* ---------------- MEDIA QUERIES ----------------*/

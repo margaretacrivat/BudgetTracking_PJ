@@ -55,8 +55,8 @@
                     </div>
                     <div class="form-group">
                         <label for="cost" style="color:black;">Cost</label>
-                        <input type="number" class="form-control form-control-sm"
-                               name="cost" id="cost" value="{{ values.cost }}">
+                        <input type="text" class="form-control form-control-sm cost-input"
+                               name="cost" id="cost" value="{{ values.cost|default:'0.00' }}">
                     </div>
                     <div class="form-group">
                         <label for="qty" style="color:black;">Qty</label>
@@ -65,8 +65,8 @@
                     </div>
                     <div class="form-group">
                         <label for="amount" style="color:black;">Amount</label>
-                        <input type="number" class="form-control form-control-sm"
-                               name="amount" id="amount" value="{{ values.amount }}" readonly>
+                        <input type="text" class="form-control form-control-sm"
+                               name="amount" id="amount" value="" readonly>
                     </div>
                     <div class="form-group">
                         <label for="date" style="color:black">Date of Expense</label>
@@ -86,6 +86,7 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/automaticCalculator.js' %}"></script>
+    <script src="{% static 'assets/js/costValue.js' %}"></script>
 
 
 {% endblock content %}

@@ -328,7 +328,24 @@ Container DASHBOARD
     text-shadow: 0 1px 1px #000;
     color: #b2b2b2;
     padding-left: 30px;
+    text-align: center;
+    vertical-align: middle;
 }
+
+
+#budgetCardExpenses .table thead tr th,
+#budgetCardIncome .table thead tr th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+#budgetCardExpenses .table tbody tr td,
+#budgetCardIncome .table tbody tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+
 
 /*
 ---------------------------------------------
@@ -622,6 +639,15 @@ Expenses Table
     padding-top: 20px;
 }
 
+.app-table .table thead tr th {
+    text-align: center;
+    vertical-align: middle; /* Align vertically in the middle */
+}
+
+.app-table .table tbody tr td {
+    text-align: center;
+    vertical-align: middle;
+}
 
 /*
 ---------------------------------------------

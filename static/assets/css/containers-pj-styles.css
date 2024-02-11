@@ -180,13 +180,13 @@ Project Types Element Selection
 ---------------------------------------------
 */
 
-.project-type-select option.project-type-option-1 {
+.project-type-select option.project-type-option-2 {
     background-color: #f1d898;
 }
-.project-type-select option.project-type-option-2 {
+.project-type-select option.project-type-option-3 {
     background-color: rgb(145, 180, 250);
 }
-.project-type-select option.project-type-option-3 {
+.project-type-select option.project-type-option-4 {
     background-color: #6adc6a;
 }
 

@@ -32,14 +32,10 @@
                     <label><input type="checkbox" id="rememberForgot">Remember me</label>
                     <a href="{% url 'forgot-reset-password' %}">Forgot password?</a>
                 </div>
-
-                <button class="btn btn-login" type="submit" value="login" onclick="auth()">Login</button>
+                <button class="btn btn-login" type="submit" value="login">Login</button>
                 <div class="cancel-button">
                     <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
                 </div>
-                {#  {% if form.errors %}#}
-                {#  <p>Please, check your username and password</p>#}
-                {# {% endif %}#}
             </form>
             <div class="register-link">
                 <p>Don't have an account?<a href="{% url 'signup' %}"> Sign Up </a>here</p>

@@ -80,8 +80,6 @@ class PasswordValidationView(View):
 def user_signup(request):
     if request.method == 'POST':
         user_form = SignUpForm(request.POST)
-        # print("Is form valid?", user_form.is_valid())  # line for debugging
-        # print("Form errors:", user_form.errors)  # line for debugging
         if user_form.is_valid():
             user_form.save()
 
@@ -89,7 +87,6 @@ def user_signup(request):
             return redirect('login')
         else:
             messages.error(request, 'Form is not valid')
-            # print("Form is not valid. Errors:", user_form.errors)  # line for debugging
     else:
         user_form = SignUpForm()
     return render(request, 'authentication/signup.html',
@@ -112,11 +109,16 @@ def user_login(request):
                     return redirect('home')
             else:
                 messages.error(request, 'Invalid credentials, please try again')
-                condition = 'invalid credentials'
-                context = {'condition': condition,
-                           'field_values': request.POST
-                           }
+                context = {
+                    'field_values': request.POST
+                }
                 return render(request, 'authentication/login.html', context)
+        else:
+            messages.error(request, 'Please enter your username and password.')
+            context = {
+                'field_values': request.POST
+            }
+            return render(request, 'authentication/login.html', context)
     else:
         login_form = LoginForm()
     return render(request, 'authentication/login.html',

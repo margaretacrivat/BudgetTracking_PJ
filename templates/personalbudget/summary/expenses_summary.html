@@ -42,7 +42,11 @@
                         </h5></div>
                         <div class="card-body">
                             <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ today.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% if today.amount %}
+                                <p class="card-text">{{ today.amount|floatformat:"2" }} {{ currency }}</p>
+                            {% else %}
+                                <p class="card-text">{{ today.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -54,7 +58,11 @@
                         </h5></div>
                         <div class="card-body">
                             <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_week.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% if this_week.amount %}
+                                <p class="card-text">{{ this_week.amount|floatformat:"2" }} {{ currency }}</p>
+                            {% else %}
+                                <p class="card-text">{{ this_week.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -68,7 +76,11 @@
                         </h5></div>
                         <div class="card-body">
                             <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_month.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% if this_month.amount %}
+                                <p class="card-text">{{ this_month.amount|floatformat:"2" }} {{ currency }}</p>
+                            {% else %}
+                                <p class="card-text">{{ this_month.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -80,12 +92,16 @@
                         </h5></div>
                         <div class="card-body">
                             <i class="fa fa-money-bill-alt"></i>
-                            <p class="card-text">{{ this_year.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% if this_year.amount %}
+                                <p class="card-text">{{ this_year.amount|floatformat:"2" }} {{ currency }}</p>
+                            {% else %}
+                                <p class="card-text">{{ this_year.amount|default_if_none:"0" }} {{ currency }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- ***** This Week and This Year - Expenses Charts ***** -->
             <div class="chart-container3" id="Chart3">
                 <h6>This Week Total Expenses On Days</h6>
@@ -97,7 +113,7 @@
                 <hr>
                 <canvas id="yearExpensesChart"></canvas>
             </div>
-            
+
         </div>
     </div>
 

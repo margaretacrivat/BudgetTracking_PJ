@@ -17,11 +17,22 @@ function updateAmount() {
         var amount = cost * qty;
 
         // Actualize amount field
-        amountInput.value = amount.toFixed(1); // show tithes
+        // amountInput.value = parseFloat(amount.toFixed(2)); // show tithes
+
+        // Convert amount to string with two decimal places
+        var amountString = amount.toFixed(2);
+
+        // Actualize amount field
+        amountInput.value = amountString;
+
     } else {
         // If cost is not a valid number, erase the field qty
         qtyInput.value = '';
         // If cost or qty are not valid numbers, set amount value to empty
-        amountInput.value = '';
+        amountInput.value = '0.00';
     }
 }
+
+window.addEventListener('DOMContentLoaded', function() {
+    updateAmount();
+});
