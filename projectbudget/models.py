@@ -11,8 +11,8 @@ from decimal import Decimal
 class Project(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
+    project = models.CharField(max_length=50)
     project_title = models.CharField(max_length=200)
-    project = models.CharField(max_length=20)
     project_stages = models.IntegerField(default=0)
     project_manager = models.CharField(max_length=100)
     funder = models.CharField(max_length=200)

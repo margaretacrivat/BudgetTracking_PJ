@@ -34,4 +34,6 @@ a:link, a:visited {
     text-align: center;
 }
 
-
+#changelist-form #result_list tr td {
+    text-align: center;
+}

@@ -40,12 +40,12 @@ def projects_view(request):
     projects = Project.objects.filter(owner=request.user).values()
     today = datetime.date.today()
 
-    paginator = Paginator(projects, 5)
+    paginator = Paginator(projects, 7)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
@@ -55,12 +55,17 @@ def projects_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'projectbudget/projects/user_projects.html', context)
+    return render(request, 'projectbudget/project/user_projects.html', context)
 
 
 @login_required(login_url='/authentication/login')
 def add_project(request):
     project_type = ProjectType.objects.values_list('name', flat=True).distinct()
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
 
     if request.method == 'POST':
         form = ProjectForm(request.POST)
@@ -78,10 +83,11 @@ def add_project(request):
 
     context = {
         'project_type': project_type,
-        'form': form
+        'form': form,
+        'currency': currency
     }
 
-    return render(request, 'projectbudget/projects/add_project.html', context)
+    return render(request, 'projectbudget/project/add_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -89,6 +95,13 @@ def edit_project(request, id):
     print("Received project ID:", id)
     project = Project.objects.get(pk=id)
     project_type = ProjectType.objects.values_list('name', flat=True).distinct()
+
+    # formatted_date = project.date.strftime('%Y-%m-%d')
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
 
     if request.method == 'POST':
         form = ProjectForm(request.POST, instance=project)
@@ -108,18 +121,21 @@ def edit_project(request, id):
         'project': project,
         'project_type': project_type,
         'start_date': project.start_date,
-        'end_date': project.end_date
+        'end_date': project.end_date,
+        'currency': currency
     }
 
-    return render(request, 'projectbudget/projects/edit_project.html', context)
+    return render(request, 'projectbudget/project/edit_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
 def delete_project(request, id):
-    project = Project.objects.get(pk=id)
-    project.delete()
-    messages.success(request, 'Project deleted')
-    return redirect('projects')
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        project = Project.objects.get(pk=id)
+        project.delete()
+        return JsonResponse({'message': 'Project deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 def search_project(request):
@@ -128,19 +144,19 @@ def search_project(request):
         project = Project.objects.filter(
             institution__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
-            project_title__icontains=search_str,
-            owner=request.user) | Project.objects.filter(
             project__icontains=search_str,
+            owner=request.user) | Project.objects.filter(
+            project_title__icontains=search_str,
             owner=request.user) | Project.objects.filter(
             project_stages__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
-            project_manager__istartswith=search_str,
+            project_manager__icontains=search_str,
             owner=request.user) | Project.objects.filter(
-            funder__istartswith=search_str,
+            funder__icontains=search_str,
             owner=request.user) | Project.objects.filter(
             contract__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
-            project_type__istartswith=search_str,
+            project_type__icontains=search_str,
             owner=request.user) | Project.objects.filter(
             budget__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
@@ -162,17 +178,17 @@ def export_projects_csv(request):
     writer = csv.writer(response)
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    writer.writerow(['Institution', 'Project Title', 'Project', 'Project Stages', 'Project Manager',
+    writer.writerow(['Institution', 'Project', 'Project Title', 'Project Stages', 'Project Manager',
                      'Funder', 'Contract', 'Project Type', f'Budget ({currency})', 'Start Date', 'End Date'])
 
     projects = Project.objects.filter(owner=request.user)
 
     for project in projects:
-        writer.writerow([project.institution, project.project_title, project.project, project.project_stages,
+        writer.writerow([project.institution, project.project, project.project_title, project.project_stages,
                          project.project_manager, project.funder, project.contract, project.project_type,
                          project.budget, project.start_date, project.end_date])
     return response
@@ -189,25 +205,41 @@ def export_projects_excel(request):
     font_style_bold = xlwt.XFStyle()
     font_style_bold.font.bold = True
 
+    # Alignment style for header titles
+    alignment = xlwt.Alignment()
+    alignment.horz = xlwt.Alignment.HORZ_CENTER
+    alignment.vert = xlwt.Alignment.VERT_CENTER
+    font_style_bold.alignment = alignment
+
+    date_style = xlwt.XFStyle()
+    date_style.num_format_str = 'MM/DD/YYYY'
+
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    columns = ['Institution', 'Project Title', 'Project', 'Project Stages', 'Project Manager', 'Funder',
+    columns = ['Institution', 'Project', 'Project Title', 'Project Stages', 'Project Manager', 'Funder',
                'Contract', 'Project Type', f'Budget ({currency})', 'Start Date', 'End Date']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Project.objects.filter(owner=request.user).values_list(
-        'institution', 'project_title', 'project', 'project_stages', 'project_manager', 'funder',
+        'institution', 'project', 'project_title', 'project_stages', 'project_manager', 'funder',
         'contract', 'project_type', 'budget', 'start_date', 'end_date')
 
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            ws.write(row_num, col_num, str(row[col_num]))
+            if col_num == 9 or col_num == 10:
+                ws.write(row_num, col_num, row[col_num], date_style)
+            elif col_num == 8:
+                formatted_value = "{:.2f}".format(row[col_num])  # Format the value with two decimals
+                amount_style = xlwt.easyxf('align: horiz right')
+                ws.write(row_num, col_num, formatted_value, amount_style)
+            else:
+                ws.write(row_num, col_num, str(row[col_num]))
 
     wb.save(response)
 
@@ -235,21 +267,23 @@ def export_projects_pdf(request):
     elements.append(Spacer(1, 24))
 
     try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0]
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Institution', 'Project\nTitle', 'Project', 'Project\nStages', 'Project\nManager', 'Funder',
+    headers = ['Institution', 'Project', 'Project\nTitle', 'Project\nStages', 'Project\nManager', 'Funder',
                'Contract', 'Project\nType', f'Budget\n({currency})', 'Start Date', 'End Date']
     data = [headers]
 
     projects = Project.objects.filter(owner=request.user)
 
     for project in projects:
+        formatted_start_date = project.start_date.strftime('%d-%m-%Y')
+        formatted_end_date = project.end_date.strftime('%d-%m-%Y')
         data.append([
-            project.institution, project.project_title, project.project, project.project_stages,
+            project.institution, project.project, project.project_title, project.project_stages,
             project.project_manager, project.funder, project.contract, project.project_type,
-            project.budget, project.start_date, project.end_date
+            project.budget, formatted_start_date, formatted_end_date
         ])
 
     # Define style for table
@@ -259,7 +293,7 @@ def export_projects_pdf(request):
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('FONTSIZE', (0, 0), (-1, -1), 12),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('RIGHTPADDING', (0, 0), (-1, 0), 5),
@@ -267,10 +301,10 @@ def export_projects_pdf(request):
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 7),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 7),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('TOPPADDING', (0, 0), (-1, -1), 12),
     ])
 
     table = Table(data)

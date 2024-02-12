@@ -357,10 +357,10 @@ def export_expenses_pdf(request):
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 12),  # Increase left padding for all cells
-        ('RIGHTPADDING', (0, 0), (-1, -1), 12),  # Increase right padding for all cells
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('LEFTPADDING', (0, 0), (-1, -1), 10),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 10),  # Increase right padding for all cells
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
+        ('TOPPADDING', (0, 0), (-1, -1), 10),
     ])
 
     table = Table(data)
@@ -721,8 +721,8 @@ def export_income_pdf(request):
         ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
         ('LEFTPADDING', (0, 0), (-1, -1), 25),  # Increase left padding for all cells
         ('RIGHTPADDING', (0, 0), (-1, -1), 25),  # Increase right padding for all cells
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
-        ('TOPPADDING', (0, 0), (-1, -1), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
+        ('TOPPADDING', (0, 0), (-1, -1), 10),
     ])
 
     table = Table(data)
