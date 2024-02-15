@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-{#                        <div id="exportFile">#}
-{#                            <a href="{% url 'export-projects-csv' %}" class="btn">#}
-{#                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-{#                            </a>#}
+                        <div id="exportFile">
+                            <a href="{% url 'export-project-stages-csv' %}" class="btn">
+                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                            </a>
 {#                            <a href="{% url 'export-projects-excel' %}" class="btn">#}
 {#                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
 {#                            </a>#}
 {#                            <a href="{% url 'export-projects-pdf' %}" class="btn">#}
 {#                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
 {#                            </a>#}
-{#                        </div>#}
+                        </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -67,7 +67,7 @@
                     <table class="table table-stripped table-hover">
                         <thead>
                         <tr>
-                            <th>Project</th>
+                            <th>Project Name</th>
                             <th>Project Stage</th>
                             <th>Budget<br>({{ currency }})</th>
                             <th>Reimbursed Amount<br>({{ currency }})</th>
@@ -96,7 +96,7 @@
                             {% for project_stage in page_obj %}
                                 {# display dinamic data #}
                                 <tr {% if project_stage.end_date < today %} class="expired-project" {% endif %}>
-                                    <td>{{ project_stage.project.project }}</td>
+                                    <td>{{ project_stage.project_name.project_name }}</td>
                                     <td>{{ project_stage.project_stage }}</td>
                                     <td>{{ project_stage.budget|floatformat:"2" }}</td>
                                     <td>{{ project_stage.reimbursed_amount|floatformat:"2" }}</td>
@@ -126,7 +126,7 @@
                             <table class="table table-stripped table-hover">
                             <thead>
                             <tr>
-                                <th>Project</th>
+                                <th>Project Name</th>
                                 <th>Project Stage</th>
                                 <th>Budget<br>({{ currency }})</th>
                                 <th>Reimbursed Amount<br>({{ currency }})</th>

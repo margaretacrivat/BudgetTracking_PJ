@@ -14,7 +14,7 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Budget</a>
+                            href="">Project Budget</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Projects
@@ -68,16 +68,16 @@
                         <thead>
                         <tr>
                             <th>Institution</th>
-                            <th>Project</th>
-                            <th>Project Title</th>
-                            <th>Project Stages</th>
-                            <th>Project Manager</th>
+                            <th>Project<br>Name</th>
+                            <th>Project<br>Title</th>
+                            <th>Project<br>Stages</th>
+                            <th>Project<br>Manager</th>
                             <th>Funder</th>
                             <th>Contract</th>
-                            <th>Project Type</th>
+                            <th>Project<br>Type</th>
                             <th>Budget<br>({{ currency }})</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Start<br>Date</th>
+                            <th>End<br>Date</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -102,7 +102,7 @@
                                 {# display dinamic data #}
                                 <tr {% if project.end_date < today %} class="expired-project" {% endif %}>
                                     <td>{{ project.institution }}</td>
-                                     <td>{{ project.project }}</td>
+                                    <td>{{ project.project_name }}</td>
                                     <td>{{ project.project_title }}</td>
                                     <td>{{ project.project_stages }}</td>
                                     <td>{{ project.project_manager }}</td>
@@ -137,16 +137,16 @@
                             <thead>
                             <tr>
                                 <th>Institution</th>
-                                <th>Project</th>
-                                <th>Project Title</th>
-                                <th>Project Stages</th>
-                                <th>Project Manager</th>
+                                <th>Project<br>Name</th>
+                                <th>Project<br>Title</th>
+                                <th>Project<br>Stages</th>
+                                <th>Project<br>Manager</th>
                                 <th>Funder</th>
                                 <th>Contract</th>
-                                <th>Project Type</th>
+                                <th>Project<br>Type</th>
                                 <th>Budget<br>({{ currency }})</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Start<br>Date</th>
+                                <th>End<br>Date</th>
                                 <th></th>
                                 <th></th>
                             </tr>

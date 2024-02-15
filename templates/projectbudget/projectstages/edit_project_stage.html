@@ -33,13 +33,13 @@
                     <div class="form-group">
                         <!-- Render each field individually -->
                         {% for field in form_stage %}
-                            {% if field.name == 'project' %}
-                                <div class="inline-fields project">
-                                    <label for="project">Project</label>
+                            {% if field.name == 'project_name' %}
+                                <div class="inline-fields project-name">
+                                    <label for="projectName">Project Name</label>
                                     <div class="input-group">
-                                        <select name="project" id="project" class="form-control project">
-                                            {% for project in form_stage.fields.project.queryset %}
-                                                <option value="{{ project.id }}">{{ project.project }}</option>
+                                        <select name="project_name" id="projectName" class="form-control project-name">
+                                            {% for project_name in form_stage.fields.project_name.queryset %}
+                                                <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

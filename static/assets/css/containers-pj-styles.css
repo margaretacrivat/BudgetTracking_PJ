@@ -78,6 +78,7 @@ ADD Project Form
 }
 
 .institution,
+.project-name,
 .project-title,
 .project-stages,
 .project-manager,
@@ -91,18 +92,21 @@ ADD Project Form
     margin-bottom: 10px;
 }
 
-.project {
-    display: flex;
+
+.project-name .input-group {
     width: 50%;
     text-align: center;
+    align-content: center;
 }
 
-.project label {
-    margin-top: 20px;
-}
-
-.project input[type="text"] {
+.project-name input[type="text"] {
     text-transform: uppercase;
+}
+
+.project-title .input-group {
+    width: 88%;
+    text-align: center;
+    align-content: center;
 }
 
 .project-type label {
@@ -114,6 +118,7 @@ ADD Project Form
 }
 
 .institution #institution,
+.project-name #projectName,
 .project-title #projectTitle,
 .project-funder #funder,
 .project-contract #contract {
@@ -123,7 +128,7 @@ ADD Project Form
     border-radius: 6px;
 }
 
-.project #project,
+/*.project-name #projectName,*/
 .project-manager #projectManager {
     margin-left: 10px;
     width: 60%;
@@ -140,12 +145,6 @@ ADD Project Form
 
 .project-stages input[type="number"] {
     text-align: center;
-}
-
-.project-title .input-group {
-    width: 88%;
-    text-align: center;
-    align-content: center;
 }
 
 .project-manager .input-group {
@@ -283,28 +282,21 @@ ADD Project Stage Form
     padding-bottom: 5px;
 }
 
+.project-name,
 .project-stage-name,
 .budget-forecast,
 .reimbursed-amount {
     display: flex;
     flex-direction: row;
-    align-items: center;
     margin-bottom: 10px;
 }
 
-.project {
-    display: flex;
-    width: 30%;
+.project-name {
     text-align: center;
 }
 
-.project label {
+.project-name label {
     padding-bottom: 10px;
-    padding-right: 25px;
-}
-
-.project input[type="text"] {
-    text-transform: uppercase;
 }
 
 .budget-forecast label,
@@ -312,13 +304,7 @@ ADD Project Stage Form
     padding-top: 20px;
 }
 
-.project #project {
-    margin-left: 10px;
-    width: 60%;
-    font-weight: 400;
-    border-radius: 6px;
-}
-
+.project-name .input-group,
 .project-stage-name .input-group {
     margin-left: 10px;
     width: 50%;
@@ -326,7 +312,7 @@ ADD Project Stage Form
     border-radius: 6px;
 }
 
-.project-stage-name input[type="number"] {
+.project-stage-name input[type="text"] {
     text-align: center;
 }
 

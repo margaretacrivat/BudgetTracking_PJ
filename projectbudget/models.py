@@ -11,7 +11,7 @@ from decimal import Decimal
 class Project(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
-    project = models.CharField(max_length=50)
+    project_name = models.CharField(max_length=50)
     project_title = models.CharField(max_length=200)
     project_stages = models.IntegerField(default=0)
     project_manager = models.CharField(max_length=100)
@@ -41,7 +41,7 @@ class ProjectType(models.Model):
 
 class ProjectStage(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.CharField(max_length=200)
     budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
@@ -73,7 +73,7 @@ class Person(models.Model):
 
 class Logistic(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     expense_type = models.CharField(max_length=100)
     document_type = models.CharField(max_length=100)
@@ -102,7 +102,7 @@ class Displacement(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
     person_name = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     document_series = models.CharField(max_length=100)
     displaced_to = models.TextField()
@@ -129,7 +129,7 @@ class DisplacementType(models.Model):
 class Workforce(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     person_name = models.ForeignKey(Person, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     person_role = models.CharField(max_length=100)
     days_no = models.IntegerField(default=0)

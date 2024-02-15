@@ -139,7 +139,7 @@ def search_project(request):
         project = Project.objects.filter(
             institution__istartswith=search_str,
             owner=request.user) | Project.objects.filter(
-            project__icontains=search_str,
+            project_name__icontains=search_str,
             owner=request.user) | Project.objects.filter(
             project_title__icontains=search_str,
             owner=request.user) | Project.objects.filter(
@@ -177,13 +177,13 @@ def export_projects_csv(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    writer.writerow(['Institution', 'Project', 'Project Title', 'Project Stages', 'Project Manager',
+    writer.writerow(['Institution', 'Project Name', 'Project Title', 'Project Stages', 'Project Manager',
                      'Funder', 'Contract', 'Project Type', f'Budget ({currency})', 'Start Date', 'End Date'])
 
     projects = Project.objects.filter(owner=request.user)
 
     for project in projects:
-        writer.writerow([project.institution, project.project, project.project_title, project.project_stages,
+        writer.writerow([project.institution, project.project_name, project.project_title, project.project_stages,
                          project.project_manager, project.funder, project.contract, project.project_type,
                          project.budget, project.start_date, project.end_date])
     return response
@@ -214,14 +214,14 @@ def export_projects_excel(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    columns = ['Institution', 'Project', 'Project Title', 'Project Stages', 'Project Manager', 'Funder',
+    columns = ['Institution', 'Project Name', 'Project Title', 'Project Stages', 'Project Manager', 'Funder',
                'Contract', 'Project Type', f'Budget ({currency})', 'Start Date', 'End Date']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Project.objects.filter(owner=request.user).values_list(
-        'institution', 'project', 'project_title', 'project_stages', 'project_manager', 'funder',
+        'institution', 'project_name', 'project_title', 'project_stages', 'project_manager', 'funder',
         'contract', 'project_type', 'budget', 'start_date', 'end_date')
 
     for row in rows:
@@ -266,7 +266,7 @@ def export_projects_pdf(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Institution', 'Project', 'Project\nTitle', 'Project\nStages', 'Project\nManager', 'Funder',
+    headers = ['Institution', 'Project\nName', 'Project\nTitle', 'Project\nStages', 'Project\nManager', 'Funder',
                'Contract', 'Project\nType', f'Budget\n({currency})', 'Start Date', 'End Date']
     data = [headers]
 
@@ -276,7 +276,7 @@ def export_projects_pdf(request):
         formatted_start_date = project.start_date.strftime('%d-%m-%Y')
         formatted_end_date = project.end_date.strftime('%d-%m-%Y')
         data.append([
-            project.institution, project.project, project.project_title, project.project_stages,
+            project.institution, project.project_name, project.project_title, project.project_stages,
             project.project_manager, project.funder, project.contract, project.project_type,
             project.budget, formatted_start_date, formatted_end_date
         ])
@@ -288,7 +288,7 @@ def export_projects_pdf(request):
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('RIGHTPADDING', (0, 0), (-1, 0), 5),
@@ -315,7 +315,7 @@ def export_projects_pdf(request):
 
 @login_required(login_url='/authentication/login')
 def project_stages_view(request):
-    project_stages = ProjectStage.objects.filter(owner=request.user).select_related('project')
+    project_stages = ProjectStage.objects.filter(owner=request.user).select_related('project_name')
     today = datetime.date.today()
 
     paginator = Paginator(project_stages, 7)
@@ -357,7 +357,7 @@ def add_project_stage(request):
         form_stage = ProjectStageForm()
         # transmit the existing projects as options
         projects = Project.objects.all()
-        form_stage.fields['project'].queryset = projects
+        form_stage.fields['project_name'].queryset = projects
 
     context = {
         'form_stage': form_stage,
@@ -408,3 +408,28 @@ def delete_project_stage(request, id):
         return JsonResponse({'message': 'Project Stage deleted'}, status=200)
     else:
         return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+# ---->>>>>>>>>> PROJECTS - EXPORT FILES VIEWS <<<<<<<<<<<<----#
+
+def export_project_stages_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=ProjectStages' + \
+                                      str(datetime.datetime.now()) + '.csv'
+
+    writer = csv.writer(response)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    writer.writerow(['Project Name', 'Project Stage', f'Budget ({currency})', f'Reimbursed Amount ({currency})',
+                     'Start Date', 'End Date'])
+
+    project_stages = ProjectStage.objects.filter(owner=request.user)
+
+    for project_stage in project_stages:
+        writer.writerow([project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
+                         project_stage.reimbursed_amount, project_stage.start_date, project_stage.end_date])
+    return response

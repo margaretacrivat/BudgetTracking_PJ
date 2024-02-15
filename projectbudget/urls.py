@@ -22,4 +22,8 @@ urlpatterns = [
     path('edit-project-stage/<int:id>/', views.edit_project_stage, name='edit-project-stage'),
     path('delete-project-stage/<int:id>/', views.delete_project_stage, name='delete-project-stage'),
 
+    path('export-project-stages-csv/', views.export_project_stages_csv, name='export-project-stages-csv'),
+    # path('export-project-stages-excel/', views.export_project_stages_excel, name='export-project-stages-excel'),
+    # path('export-project-stages-pdf/', views.export_project_stages_pdf, name='export-project-stages-pdf'),
+
 ]
