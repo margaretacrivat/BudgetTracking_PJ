@@ -3,10 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 import json
-
 from reportlab.lib.units import inch
-
-from .forms import ProjectForm
+from .forms import ProjectForm, ProjectStageForm
 from .models import (Project, ProjectType, ProjectStage, Person,
                      Logistic, ExpensesType, Displacement,
                      DisplacementType, Workforce, PersonRole)
@@ -21,7 +19,6 @@ from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, 
 from reportlab.lib.styles import getSampleStyleSheet
 
 
-
 # Create your views here.
 
 
@@ -32,11 +29,10 @@ def project_budget_view(request):
     return render(request, 'projectbudget/index.html')
 
 
-# ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#
+# ---->>>>>>>>>> PROJECTS - PAGE VIEWS <<<<<<<<<<<<----#
 
 @login_required(login_url='/authentication/login')
 def projects_view(request):
-    # The Logic for expenses visualization
     projects = Project.objects.filter(owner=request.user).values()
     today = datetime.date.today()
 
@@ -79,7 +75,7 @@ def add_project(request):
             messages.error(request, 'Invalid form data')
     else:
         # Initialize the form with initial data for the budget field
-        form = ProjectForm(initial={'budget': '0.0'})
+        form = ProjectForm()
 
     context = {
         'project_type': project_type,
@@ -92,7 +88,6 @@ def add_project(request):
 
 @login_required(login_url='/authentication/login')
 def edit_project(request, id):
-    print("Received project ID:", id)
     project = Project.objects.get(pk=id)
     project_type = ProjectType.objects.values_list('name', flat=True).distinct()
 
@@ -314,3 +309,102 @@ def export_projects_pdf(request):
     pdf.build(elements)
 
     return response
+
+
+# ---->>>>>>>>>> PROJECT STAGES - PAGE VIEWS <<<<<<<<<<<<----#
+
+@login_required(login_url='/authentication/login')
+def project_stages_view(request):
+    project_stages = ProjectStage.objects.filter(owner=request.user).select_related('project')
+    today = datetime.date.today()
+
+    paginator = Paginator(project_stages, 7)
+    page_number = request.GET.get('page')
+    page_obj = Paginator.get_page(paginator, page_number)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'project_stages': project_stages,
+        'today': today,
+        'page_obj': page_obj,
+        'currency': currency
+    }
+    return render(request, 'projectbudget/projectstages/project_stages.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def add_project_stage(request):
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    if request.method == 'POST':
+        form_stage = ProjectStageForm(request.POST)
+        if form_stage.is_valid():
+            project = form_stage.save(commit=False)
+            project.owner = request.user
+            form_stage.save()
+            messages.success(request, 'Project Stage saved successfully')
+            return redirect('project-stages')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form_stage = ProjectStageForm()
+        # transmit the existing projects as options
+        projects = Project.objects.all()
+        form_stage.fields['project'].queryset = projects
+
+    context = {
+        'form_stage': form_stage,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/projectstages/add_project_stage.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def edit_project_stage(request, id):
+    project_stage = ProjectStage.objects.get(pk=id)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    if request.method == 'POST':
+        form_stage = ProjectStageForm(request.POST, instance=project_stage)
+        if form_stage.is_valid():
+            project = form_stage.save(commit=False)
+            project.owner = request.user
+            form_stage.save()
+            messages.success(request, 'Project Stage updated successfully')
+            return redirect('project-stages')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form_stage = ProjectStageForm(instance=project_stage)
+
+    context = {
+        'project_stage': project_stage,
+        'form_stage': form_stage,
+        'start_date': project_stage.start_date,
+        'end_date': project_stage.end_date,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/projectstages/edit_project_stage.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def delete_project_stage(request, id):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        project_stage = ProjectStage.objects.get(pk=id)
+        project_stage.delete()
+        return JsonResponse({'message': 'Project Stage deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)

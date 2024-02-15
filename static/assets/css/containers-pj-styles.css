@@ -41,66 +41,54 @@ ADD Project Form
     backdrop-filter: blur(20px);
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 400px 20px;
-    margin-top: 10px;
-    margin-bottom: 21px;
-    margin-left: 210px;
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
     width: 70%;
     grid-area: main;
 
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 587px;
-    gap: 20px;
-    grid-template-areas:
-        "addProjectForm";
+    display: flex;
+    flex-direction: column;
 }
 
-#addProjectForm {
-    grid-area: addProjectForm;
-}
+/*#addProjectForm {*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
 #addProjectForm h4 {
+    margin: 10px 0;
     font-size: 28px;
     text-shadow: 0 1px 1px #000;
     text-align: center;
     color: #b2b2b2;
 }
 
-.project-funder,
-.project-contract {
-    display: flex;
-    text-align: center;
-    width: 80%;
-    justify-content: space-around;
-}
-
-.project label {
-    margin-top: 20px;
-}
-
-.project-type label {
-    margin-top: 10px;
-}
-.project-manager label,
-.project-funder label,
-.project-contract label {
-    margin-top: 20px;
-}
-
-.project-budget label {
+.add-project-form .inline-fields {
     margin-bottom: 10px;
 }
 
-.institution #id_institution,
-.project-title #id_project_title,
-.project-funder #id_funder,
-.project-contract #id_contract {
-    margin-left: 10px;
-    width: 100%;
-    font-weight: 400;
-    border-radius: 6px;
+.add-project-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.institution,
+.project-title,
+.project-stages,
+.project-manager,
+.project-funder,
+.project-contract,
+.project-type,
+.project-budget {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .project {
@@ -109,21 +97,43 @@ ADD Project Form
     text-align: center;
 }
 
+.project label {
+    margin-top: 20px;
+}
+
 .project input[type="text"] {
     text-transform: uppercase;
 }
 
-.project #id_project,
-.project-manager #id_project_manager {
+.project-type label {
+    padding-top: 5px;
+}
+
+.project-budget label {
+    padding-top: 30px;
+}
+
+.institution #institution,
+.project-title #projectTitle,
+.project-funder #funder,
+.project-contract #contract {
+    margin-left: 10px;
+    width: 100%;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.project #project,
+.project-manager #projectManager {
     margin-left: 10px;
     width: 60%;
     font-weight: 400;
     border-radius: 6px;
 }
 
-.project-stages #id_project_stages {
+.project-stages .input-group {
     margin-left: 10px;
-    width: 8%;
+    width: 20%;
     font-weight: 400;
     border-radius: 6px;
 }
@@ -132,14 +142,16 @@ ADD Project Form
     text-align: center;
 }
 
-.add-project-form .inline-fields {
-    margin-bottom: 10px;
+.project-title .input-group {
+    width: 88%;
+    text-align: center;
+    align-content: center;
 }
 
-.project-type,
-.project-budget {
-    display: flex;
-    align-items: center;
+.project-manager .input-group {
+    width: 83%;
+    text-align: center;
+    align-content: center;
 }
 
 .project-type .input-group {
@@ -156,22 +168,23 @@ ADD Project Form
 .project-budget .input-group {
     width: 500px;
     margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    padding-top: 10px;
 }
 
 .project-date {
-    display: inline-block;
+    display: flex;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .project-date .input-group {
     width: auto;
+    padding-right: 20px;
+    margin-left: 10px;
 }
 
 .project-date .input-group:last-child {
-    margin-right: 60px;
+    padding-top: 10px;
+    padding-right: 60px;
 }
 
 /*
@@ -180,15 +193,17 @@ Project Types Element Selection
 ---------------------------------------------
 */
 
-.project-type-select option.project-type-option-2 {
-    background-color: #f1d898;
-}
-.project-type-select option.project-type-option-3 {
-    background-color: rgb(145, 180, 250);
-}
-.project-type-select option.project-type-option-4 {
-    background-color: #6adc6a;
-}
+/*.project-type-select option.project-type-option-2 {*/
+/*    background-color: #f1d898;*/
+/*}*/
+
+/*.project-type-select option.project-type-option-3 {*/
+/*    background-color: rgb(145, 180, 250);*/
+/*}*/
+
+/*.project-type-select option.project-type-option-4 {*/
+/*    background-color: #6adc6a;*/
+/*}*/
 
 /*
 ---------------------------------------------
@@ -228,9 +243,150 @@ Edit Project Form
     color: #b2b2b2;
 }
 
-/*.edit-project-form .inline-fields {*/
-/*    margin-bottom: 20px;*/
-/*}*/
+
+/*
+---------------------------------------------
+ADD Project Stage Form
+---------------------------------------------
+*/
+
+.add-project-stage-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#addProjectStageForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.add-project-stage-form .inline-fields {
+    margin-bottom: 10px;
+}
+
+.add-project-stage-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.project-stage-name,
+.budget-forecast,
+.reimbursed-amount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.project {
+    display: flex;
+    width: 30%;
+    text-align: center;
+}
+
+.project label {
+    padding-bottom: 10px;
+    padding-right: 25px;
+}
+
+.project input[type="text"] {
+    text-transform: uppercase;
+}
+
+.budget-forecast label,
+.reimbursed-amount label {
+    padding-top: 20px;
+}
+
+.project #project {
+    margin-left: 10px;
+    width: 60%;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.project-stage-name .input-group {
+    margin-left: 10px;
+    width: 50%;
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+.project-stage-name input[type="number"] {
+    text-align: center;
+}
+
+.budget-forecast .input-group,
+.reimbursed-amount .input-group {
+    width: 500px;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.project-date {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+}
+
+.project-date label {
+    padding-top: 10px;
+}
+
+.project-date .input-group {
+    width: auto;
+    padding-right: 20px;
+    margin-left: 10px;
+}
+
+.project-date .input-group:last-child {
+    padding-top: 10px;
+    padding-right: 60px;
+}
+
+
+/*
+---------------------------------------------
+Edit Project Stage Form
+---------------------------------------------
+*/
+
+.edit-project-stage-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#editProjectStageForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
 
 
 
@@ -238,67 +394,37 @@ Edit Project Form
 
 /*make it responsive to all devices*/
 
-/*@media (max-width: 1240px) {*/
+@media (max-width: 1240px) {
+    .add-project-form, .edit-project-form {
+        margin-left: 120px;
+        width: 80%;
+    }
+}
 
-/*    .add-project-form, .edit-expense-form,*/
-/*    .add-income-form, .edit-income-form {*/
-/*        margin-left: 65px;*/
-/*    }*/
+@media (max-width: 1100px) {
+    .add-project-form, .edit-project-form {
+        margin-left: 100px;
+        width: 80%;
+    }
+}
 
-/*    #addExpenseForm #date, #editExpenseForm #date,*/
-/*    #addIncomeForm #date, #editIncomeForm #date {*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
+@media (max-width: 1000px) {
+    .add-project-form, .edit-project-form {
+        margin-left: 70px;
+        width: 80%;
+    }
+}
 
-/*@media (max-width: 1100px) {*/
+@media (max-width: 800px) {
+    .add-project-form, .edit-project-form {
+        margin-left: 50px;
+        width: 80%;
+    }
+}
 
-/*    .add-expense-form, .edit-expense-form,*/
-/*    .add-income-form, .edit-income-form {*/
-/*        margin-left: 65px;*/
-/*    }*/
-
-/*    #addExpenseForm #date, #editExpenseForm #date,*/
-/*    #addIncomeForm #date, #editIncomeForm #date {*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
-
-/*@media (max-width: 1000px) {*/
-
-/*    .add-expense-form, .edit-expense-form,*/
-/*    .add-income-form, .edit-income-form {*/
-/*        margin-left: 65px;*/
-/*    }*/
-
-/*    #addExpenseForm #date, #editExpenseForm #date,*/
-/*    #addIncomeForm #date, #editIncomeForm #date {*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
-
-/*@media (max-width: 800px) {*/
-
-/*    .add-expense-form, .edit-expense-form,*/
-/*    .add-income-form, .edit-income-form {*/
-/*        margin-left: 65px;*/
-/*    }*/
-
-/*    #addExpenseForm #date, #editExpenseForm #date,*/
-/*    #addIncomeForm #date, #editIncomeForm #date {*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
-
-/*@media (max-width: 680px) {*/
-/*    */
-/*    .add-expense-form, .edit-expense-form,*/
-/*    .add-income-form, .edit-income-form {*/
-/*        margin-left: 65px;*/
-/*    }*/
-
-/*    #addExpenseForm #date, #editExpenseForm #date,*/
-/*    #addIncomeForm #date, #editIncomeForm #date {*/
-/*        width: 50%;*/
-/*    }*/
-/*}*/
+@media (max-width: 680px) {
+    .add-project-form, .edit-project-form {
+        margin-left: 40px;
+        width: 80%;
+    }
+}

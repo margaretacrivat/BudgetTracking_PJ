@@ -35,44 +35,72 @@
                         {% for field in form %}
                             {% if field.name == 'institution' %}
                                 <div class="inline-fields institution">
-                                    <label for="institution">Institution</label>
-                                    {{ field }}
+                                    <label for="institution" >Institution</label>
+                                    <div class="input-group">
+                                        <input type="text" name="institution" id="institution"
+                                               class="form-control institution-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>
                              {% elif field.name == 'project' %}
                                 <div class="inline-fields project">
                                     <label for="project">Project</label>
-                                    {{ field }}
+                                    <div class="input-group">
+                                        <input type="text" name="project" id="project"
+                                               class="form-control project-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>   
                             {% elif field.name == 'project_title' %}
                                 <div class="inline-fields project-title">
-                                    <label for="project_title">Project Title</label>
-                                    {{ field }}
+                                    <label for="projectTitle">Project Title</label>
+                                    <div class="input-group">
+                                        <input type="text" name="project_title" id="projectTitle"
+                                               class="form-control project-title-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>
                             {% elif field.name == 'project_stages' %}
                                 <div class="inline-fields project-stages">
-                                    <label for="project_stages">Project Stages</label>
-                                    {{ field }}
+                                    <label for="projectStages">Project Stages</label>
+                                    <div class="input-group">
+                                        <input type="number" name="project_stages" id="projectStages"
+                                               class="form-control project-stages-input"
+                                               value="{{ field.value }}">
+                                    </div>
                                 </div>
                             {% elif field.name == 'project_manager' %}
                                 <div class="inline-fields project-manager">
-                                    <label for="project_manager">Project Manager</label>
-                                    {{ field }}
+                                    <label for="projectManager">Project Manager</label>
+                                    <div class="input-group">
+                                        <input type="text" name="project_manager" id="projectManager"
+                                               class="form-control project-manager-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>
                             {% elif field.name == 'funder' %}
                                 <div class="inline-fields project-funder">
                                     <label for="funder">Funder</label>
-                                    {{ field }}
+                                    <div class="input-group">
+                                        <input type="text" name="funder" id="funder"
+                                               class="form-control funder-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>
                             {% elif field.name == 'contract' %}
                                 <div class="inline-fields project-contract">
                                     <label for="contract">Contract</label>
-                                    {{ field }}
+                                    <div class="input-group">
+                                        <input type="text" name="contract" id="contract"
+                                               class="form-control contract-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
                                 </div>
                             {% elif field.name == 'project_type' %}
                                 <div class="inline-fields project-type">
-                                    <label for="project_type">Project Type</label>
+                                    <label for="projectType">Project Type</label>
                                     <div class="input-group">
-                                        <select name="project_type" id="project_type"
+                                        <select name="project_type" id="projectType"
                                                 class="form-control project-type-select">
                                             {% for type in project_type %}
                                                 <option value="{{ type }}"
@@ -86,16 +114,16 @@
                                 </div>
                             {% elif field.name == 'budget' %}
                                 <div class="inline-fields project-budget">
-                                    <label for="budget">Budget</label>
+                                    <label for="projectBudget">Budget</label>
                                     <div class="input-group">
-                                        <input type="text" name="budget" id="budget"
+                                        <input type="text" name="budget" id="projectBudget"
                                                class="form-control budget-input"
-                                               value="{{ field.value|default:'0.0' }}">
+                                               value="{{ field.value|default:'0.00' }}">
                                     </div>
                                 </div>
                             {% elif field.name == 'start_date' %}
                                 <div class="inline-fields project-date">
-                                    <label for="start_date">Start Date</label>
+                                    <label for="startDate">Start Date</label>
                                     <div class="input-group">
                                         <input type="date" name="start_date" id="startDate"
                                                class="form-control" data-date-format="mm/dd/yyyy">
@@ -103,7 +131,7 @@
                                 </div>
                             {% elif field.name == 'end_date' %}
                                 <div class="inline-fields project-date">
-                                    <label for="end_date">End Date</label>
+                                    <label for="endDate">End Date</label>
                                     <div class="input-group">
                                         <input type="date" name="end_date" id="endDate"
                                                class="form-control" data-date-format="mm/dd/yyyy">
@@ -136,27 +164,6 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/budgetValue.js' %}"></script>
-
-    <script>
-        // Get the project type select element
-        const projectTypeSelect = document.getElementById('project_type');
-
-        // Add event listener for change event
-        projectTypeSelect.addEventListener('change', function () {
-            // Get the selected option
-            const selectedOption = projectTypeSelect.options[projectTypeSelect.selectedIndex];
-            // Get the class of the selected option
-            const selectedClass = selectedOption.getAttribute('class');
-
-            // Remove any existing background color class from all options
-            projectTypeSelect.querySelectorAll('option').forEach(option => {
-                option.classList.remove('selected');
-            });
-
-            // Add the class of the selected option to the selected option
-            selectedOption.classList.add('selected');
-        });
-    </script>
 
 
 {% endblock content %}

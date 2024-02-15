@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import ModelForm, DateInput
-from .models import Project
+from django.forms import ModelForm
+from .models import Project, ProjectStage
 
 
 class ProjectForm(ModelForm):
@@ -8,4 +8,16 @@ class ProjectForm(ModelForm):
         model = Project
         fields = '__all__'
         exclude = ('owner',)
+
+
+class ProjectStageForm(ModelForm):
+    class Meta:
+        model = ProjectStage
+        fields = '__all__'
+        exclude = ('owner',)
+        widgets = {
+            'project': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
 

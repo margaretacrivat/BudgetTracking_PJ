@@ -54,7 +54,7 @@
 
             <!-- ***** Expenses data Table ***** -->
             <div id="dataTable">
-                {% include 'authentication/_messages.html' %}
+                {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <div class="breadcrumb-event-add">
                     <a href="{% url 'add-project' %}" class="btn">
@@ -92,7 +92,7 @@
                                 <p>This action cannot pe undone.</p>
                                 <div class="modal-button">
                                     <button id="cancelDeleteBtn" onclick="closeModal()">Cancel</button>
-                                    <button id="confirmDeleteBtn" onclick="deleteExpense()">Delete</button>
+                                    <button id="confirmDeleteBtn" onclick="deleteProject()">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                     <td>{{ project.funder }}</td>
                                     <td>{{ project.contract }}</td>
                                     <td>{{ project.project_type }}</td>
-                                    <td>{{ project.budget|floatformat:"2"  }}</td>
+                                    <td>{{ project.budget|floatformat:"2" }}</td>
                                     <td>{{ project.start_date }}</td>
                                     <td>{{ project.end_date }}</td>
                                     <td>
@@ -137,7 +137,7 @@
                             <thead>
                             <tr>
                                 <th>Institution</th>
-                                 <th>Project</th>
+                                <th>Project</th>
                                 <th>Project Title</th>
                                 <th>Project Stages</th>
                                 <th>Project Manager</th>
@@ -194,26 +194,9 @@
                 </div>
 
             </div>
-
-            <!-- ***** Expenses Charts ***** -->
-            {#            <div class="chart-container1" id="Chart1">#}
-            {#                <h6>Category Cumulative Distribution (last 6 months)</h6>#}
-            {#                <hr>#}
-            {#                <canvas id="expensesCategoryChart"></canvas>#}
-            {#            </div>#}
-            {#            <div class="chart-container2" id="Chart2">#}
-            {#                <h6>Category Cumulative Comparison (last 3 months)</h6>#}
-            {#                <hr>#}
-            {#                <canvas id="monthsExpensesChart"></canvas>#}
-            {#            </div>#}
         </div>
     </div>
-
-    <!-- Chart Scripts -->
-
-    {#    <script src="{% static 'assets/js/statsExpenses.js' %}"></script>#}
-    {#    <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>#}
-
+    
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchProject.js' %}"></script>
@@ -269,6 +252,5 @@
             });
         });
     </script>
-
 
 {% endblock content %}

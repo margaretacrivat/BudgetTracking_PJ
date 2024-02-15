@@ -41,8 +41,8 @@ class ProjectType(models.Model):
 
 class ProjectStage(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='stage', on_delete=models.CASCADE)
-    project_stage = models.ForeignKey(Project, related_name='project_stage', on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_stage = models.CharField(max_length=200)
     budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
@@ -73,14 +73,14 @@ class Person(models.Model):
 
 class Logistic(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='logistic', on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     expense_type = models.CharField(max_length=100)
     document_type = models.CharField(max_length=100)
     document_series = models.CharField(max_length=100)
     supplier_name = models.CharField(max_length=100)
     acquisition_description = models.TextField()
-    acquisition_owner = models.ForeignKey(Person, related_name='acquisition', on_delete=models.SET_NULL, null=True)
+    acquisition_owner = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     date = models.DateField(default=now)
 
@@ -102,8 +102,8 @@ class Displacement(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
     person_name = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, related_name='displacement', on_delete=models.CASCADE)
-    project_stage = models.ForeignKey(ProjectStage, related_name='displacement_stage', on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     document_series = models.CharField(max_length=100)
     displaced_to = models.TextField()
     displacement_type = models.CharField(max_length=100, default=0)
@@ -128,8 +128,8 @@ class DisplacementType(models.Model):
 
 class Workforce(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    person_name = models.ForeignKey(Person, related_name='workforce', on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, related_name='workforce_project', on_delete=models.CASCADE)
+    person_name = models.ForeignKey(Person, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     person_role = models.CharField(max_length=100)
     days_no = models.IntegerField(default=0)

@@ -1,11 +1,20 @@
 document.querySelectorAll('.budget-input').forEach(function (input) {
+    if (input.value.trim() === '0' || input.value.trim() === '') {
+        input.value = '0.00';
+    } else {
+        // Dacă valoarea inițială nu este 0 sau goală, asigurați-vă că are două zecimale
+        var floatValue = parseFloat(input.value).toFixed(2);
+        input.value = floatValue;
+    }
+
     input.addEventListener('input', function (event) {
         var value = event.target.value.trim().replace(/[^\d.]/g, '').replace(/^0+/, '');
         var cursorPosition = event.target.selectionStart;
 
         // Check if the value is empty
         if (value === '') {
-            event.target.value = '0.0';
+            // event.target.value = value;
+            event.target.value = '0.00';
             event.target.setSelectionRange(0, 0);
             return;
         }
@@ -21,21 +30,21 @@ document.querySelectorAll('.budget-input').forEach(function (input) {
             }
         }
 
-        // Ensure that decimal part has only one digit
+        // Ensure that decimal part has two digit
         if (value.includes('.')) {
             var parts = value.split('.');
-            var decimalPart = parts[1].substring(0, 1);
+            var decimalPart = parts[1].substring(0, 2);
             value = parts[0] + '.' + decimalPart;
             // Keep cursor unchanged if after decimal point
             if (cursorPosition > parts[0].length) {
                 cursorPosition = event.target.selectionStart;
             }
         } else {
-            // No decimal point entered yet, append '.0'
-            value += '.0';
+            // No decimal point entered yet, append '.00'
+            value += '.00';
             // Move cursor to integer part if after decimal point
-            if (cursorPosition > value.length - 2) {
-                cursorPosition = value.length - 2;
+            if (cursorPosition > value.length - 3) {
+                cursorPosition = value.length - 3;
             }
         }
 
