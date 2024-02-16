@@ -299,6 +299,10 @@ ADD Project Stage Form
     padding-bottom: 10px;
 }
 
+.project-stage-name label {
+    margin-top: 20px;
+}
+
 .budget-forecast label,
 .reimbursed-amount label {
     padding-top: 20px;
@@ -320,7 +324,6 @@ ADD Project Stage Form
 .reimbursed-amount .input-group {
     width: 500px;
     margin-left: 10px;
-    padding-top: 10px;
 }
 
 .project-date {
@@ -372,6 +375,150 @@ Edit Project Stage Form
     text-shadow: 0 1px 1px #000;
     text-align: center;
     color: #b2b2b2;
+}
+
+/*
+---------------------------------------------
+ADD Acquisition Form - Logistic
+---------------------------------------------
+*/
+
+.add-acquisition-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#addAcquisitionForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.add-acquisition-form .inline-fields {
+    margin-bottom: 10px;
+}
+
+.add-acquisition-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.project-name,
+.project-stage,
+.acquisition-name,
+.acquisition-type,
+.document-type,
+.document-series,
+.supplier-name,
+.acquisition-description,
+.acquisition-owner,
+.amount {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.project-name-input,
+.project-stage-input {
+    text-align: center;
+}
+
+.project-name label {
+    padding-bottom: 10px;
+}
+
+.project-stage label {
+    padding-top: 5px;
+}
+
+.acquisition-type label {
+    padding-top: 5px;
+}
+
+.document-type label,
+.document-series label,
+.supplier-name label,
+.acquisition-description label,
+.acquisition-owner label {
+    margin-top: 20px;
+}
+
+.amount label {
+    padding-top: 20px;
+}
+
+.project-name .input-group,
+.project-stage .input-group {
+    margin-left: 10px;
+    width: 50%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.acquisition-name label {
+    padding-top: 20px;
+}
+
+.acquisition-name .input-group,
+.acquisition-owner .input-group {
+    margin-left: 10px;
+    width: 80%;
+    font-weight: 400;
+}
+
+.acquisition-type .input-group,
+.document-type .input-group,
+.document-series .input-group {
+    margin-left: 10px;
+    width: 81%;
+    font-weight: 400;
+}
+
+.supplier-name .input-group {
+    margin-left: 10px;
+    width: 83%;
+    font-weight: 400;
+}
+
+.acquisition-description .input-group {
+    margin-left: 10px;
+    width: 75%;
+    font-weight: 400;
+}
+
+.amount .input-group {
+    width: 500px;
+    margin-left: 10px;
+}
+
+.acquisition-date {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+}
+
+.acquisition-date label {
+    padding-top: 10px;
+}
+
+.acquisition-date .input-group {
+    width: auto;
+    padding-right: 20px;
+    margin-left: 10px;
 }
 
 

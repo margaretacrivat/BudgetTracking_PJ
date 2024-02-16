@@ -4,9 +4,9 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 import json
 from reportlab.lib.units import inch
-from .forms import ProjectForm, ProjectStageForm
+from .forms import ProjectForm, ProjectStageForm, LogisticForm
 from .models import (Project, ProjectType, ProjectStage, Person,
-                     Logistic, ExpensesType, Displacement,
+                     Logistic, AcquisitionType, Displacement,
                      DisplacementType, Workforce, PersonRole)
 from preferences.models import Currency
 from django.core.paginator import Paginator
@@ -410,7 +410,7 @@ def delete_project_stage(request, id):
         return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
-# ---->>>>>>>>>> PROJECTS - EXPORT FILES VIEWS <<<<<<<<<<<<----#
+# ---->>>>>>>>>> PROJECT STAGES - EXPORT FILES VIEWS <<<<<<<<<<<<----#
 
 def export_project_stages_csv(request):
     response = HttpResponse(content_type='text/csv')
@@ -433,3 +433,233 @@ def export_project_stages_csv(request):
         writer.writerow([project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
                          project_stage.reimbursed_amount, project_stage.start_date, project_stage.end_date])
     return response
+
+
+def export_project_stages_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=ProjectStages' + \
+                                      str(datetime.datetime.now()) + '.xls'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('ProjectStages')
+    row_num = 0
+    font_style_bold = xlwt.XFStyle()
+    font_style_bold.font.bold = True
+
+    # Alignment style for header titles
+    alignment = xlwt.Alignment()
+    alignment.horz = xlwt.Alignment.HORZ_CENTER
+    alignment.vert = xlwt.Alignment.VERT_CENTER
+    font_style_bold.alignment = alignment
+
+    date_style = xlwt.XFStyle()
+    date_style.num_format_str = 'MM/DD/YYYY'
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    columns = ['Project Name', 'Project Stage', f'Budget ({currency})', f'Reimbursed Amount ({currency})',
+               'Start Date', 'End Date']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style_bold)
+
+    rows = ProjectStage.objects.filter(owner=request.user).values_list(
+        'project_name__project_name', 'project_stage', 'budget', 'reimbursed_amount', 'start_date', 'end_date')
+
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            if col_num == 4 or col_num == 5:
+                ws.write(row_num, col_num, row[col_num], date_style)
+            elif col_num == 2 or col_num == 3:
+                formatted_value = "{:.2f}".format(row[col_num])
+                amount_style = xlwt.easyxf('align: horiz right')
+                ws.write(row_num, col_num, formatted_value, amount_style)
+            else:
+                ws.write(row_num, col_num, str(row[col_num]))
+
+    wb.save(response)
+
+    return response
+
+
+def export_project_stages_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=ProjectStages' + \
+                                      str(datetime.datetime.now()) + '.pdf'
+
+    pdf = SimpleDocTemplate(response,  pagesize=A4, title='PDF Project_Stages_Report', topMargin=0.5*inch)
+    styles = getSampleStyleSheet()
+    title_style = styles['Title']
+    title_style.alignment = 1
+    title_style.fontSize = 18
+
+    elements = []
+
+    # Add a title
+    title_text = 'Project Stages Report'
+    elements.append(Paragraph(title_text, title_style))
+
+    # Add spacer to create space between title and table header
+    elements.append(Spacer(1, 24))
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    headers = ['Project\nName', 'Project\nStages', f'Budget\n({currency})', f'Reimbursed Amount\n({currency})',
+               'Start Date', 'End Date']
+    data = [headers]
+
+    project_stages = ProjectStage.objects.filter(owner=request.user)
+
+    for project_stage in project_stages:
+        formatted_start_date = project_stage.start_date.strftime('%d-%m-%Y')
+        formatted_end_date = project_stage.end_date.strftime('%d-%m-%Y')
+        data.append([
+            project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
+            project_stage.reimbursed_amount, formatted_start_date, formatted_end_date
+        ])
+
+    # Define style for table
+    table_style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('RIGHTPADDING', (0, 0), (-1, 0), 5),
+        ('LEFTPADDING', (0, 0), (-1, 0), 5),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
+        ('TOPPADDING', (0, 0), (-1, 0), 5),
+        ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+        ('TOPPADDING', (0, 0), (-1, -1), 12),
+    ])
+
+    table = Table(data)
+    table.setStyle(table_style)
+    elements.append(table)
+
+    pdf.build(elements)
+
+    return response
+
+
+# ---->>>>>>>>>> PROJECT LOGISTIC - PAGE VIEWS <<<<<<<<<<<<----#
+
+@login_required(login_url='/authentication/login')
+def logistic_view(request):
+    logistic = Logistic.objects.filter(owner=request.user).select_related('project_name')
+    today = datetime.date.today()
+
+    paginator = Paginator(logistic, 7)
+    page_number = request.GET.get('page')
+    page_obj = Paginator.get_page(paginator, page_number)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'logistic': logistic,
+        'today': today,
+        'page_obj': page_obj,
+        'currency': currency
+    }
+    return render(request, 'projectbudget/logistic/logistic.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def add_acquisition(request):
+    acquisition_type = AcquisitionType.objects.values_list('name', flat=True).distinct()
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    # transmit the existing projects and project stages as options
+    projects = Project.objects.all()
+    project_stages = ProjectStage.objects.all()
+
+    if request.method == 'POST':
+        form_acquisition = LogisticForm(request.POST)
+        if form_acquisition.is_valid():
+            acquisition_instance = form_acquisition.save(commit=False)
+            acquisition_instance.owner = request.user
+            acquisition_instance.save()
+            messages.success(request, 'Acquisition saved successfully')
+            return redirect('logistic')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form_acquisition = LogisticForm()
+
+    context = {
+        'form_acquisition': form_acquisition,
+        'currency': currency,
+        'projects': projects,
+        'project_stages': project_stages,
+        'acquisition_type': acquisition_type,
+    }
+
+    return render(request, 'projectbudget/logistic/add_acquisition.html', context)
+
+
+# @login_required(login_url='/authentication/login')
+# def edit_acquisition(request, id):
+#     acquisition = Logistic.objects.get(pk=id)
+#     acquisition_type = AcquisitionType.objects.values_list('name', flat=True).distinct()
+#
+#     try:
+#         currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+#     except Currency.DoesNotExist:
+#         currency = 'RON'
+#
+#     projects = Project.objects.all()
+#     project_stages = ProjectStage.objects.all()
+#
+#     if request.method == 'POST':
+#         form_acquisition = LogisticForm(request.POST, instance=acquisition)
+#         if form_acquisition.is_valid():
+#             acquisition_instance = form_acquisition.save(commit=False)
+#             acquisition_instance.owner = request.user
+#             acquisition_instance.save()
+#             messages.success(request, 'Acquisition updated successfully')
+#             return redirect('logistic')
+#         else:
+#             messages.error(request, 'Invalid form data')
+#     else:
+#         form_acquisition = LogisticForm(instance=acquisition)
+#
+#     context = {
+#         'form_acquisition': form_acquisition,
+#         'currency': currency,
+#         'projects': projects,
+#         'project_stages': project_stages,
+#         'acquisition_type': acquisition_type,
+#     }
+#
+#     return render(request, 'projectbudget/logistic/edit_acquisition.html', context)
+
+
+# @login_required(login_url='/authentication/login')
+# def delete_project_stage(request, id):
+#     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         project_stage = ProjectStage.objects.get(pk=id)
+#         project_stage.delete()
+#         return JsonResponse({'message': 'Project Stage deleted'}, status=200)
+#     else:
+#         return JsonResponse({'error': 'Invalid request'}, status=400)
+

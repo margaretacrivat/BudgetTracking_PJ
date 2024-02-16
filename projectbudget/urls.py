@@ -14,7 +14,7 @@ urlpatterns = [
          name='search-project'),
 
     path('export-projects-csv/', views.export_projects_csv, name='export-projects-csv'),
-    path('export-project-excel/', views.export_projects_excel, name='export-projects-excel'),
+    path('export-projects-excel/', views.export_projects_excel, name='export-projects-excel'),
     path('export-projects-pdf/', views.export_projects_pdf, name='export-projects-pdf'),
 
     path('project-stages/', views.project_stages_view, name='project-stages'),
@@ -23,7 +23,10 @@ urlpatterns = [
     path('delete-project-stage/<int:id>/', views.delete_project_stage, name='delete-project-stage'),
 
     path('export-project-stages-csv/', views.export_project_stages_csv, name='export-project-stages-csv'),
-    # path('export-project-stages-excel/', views.export_project_stages_excel, name='export-project-stages-excel'),
-    # path('export-project-stages-pdf/', views.export_project_stages_pdf, name='export-project-stages-pdf'),
+    path('export-project-stages-excel/', views.export_project_stages_excel, name='export-project-stages-excel'),
+    path('export-project-stages-pdf/', views.export_project_stages_pdf, name='export-project-stages-pdf'),
+
+    path('logistic/', views.logistic_view, name='logistic'),
+    path('add-acquisition/', views.add_acquisition, name='add-acquisition'),
 
 ]

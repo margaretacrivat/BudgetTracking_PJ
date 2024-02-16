@@ -1,0 +1,176 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Add Acquisition {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <!-- ***** Breadcrumb Start ***** -->
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'projects' %}">Logistic</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add Acquisition
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- ***** Breadcrumb End ***** -->
+
+        <div class="add-acquisition-form">
+            <div class="add-form-body" id="addAcquisitionForm">
+                <h4>Add Acquisition Form</h4>
+                <form action="{% url 'add-acquisition' %}" method="post">
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
+
+                    <div class="form-group">
+                        <!-- Render each field individually -->
+                        {% for field in form_acquisition %}
+                            {% if field.name == 'project_name' %}
+                                <div class="inline-fields project-name">
+                                    <label for="projectName">Project Name</label>
+                                    <div class="input-group">
+                                        <select name="project_name" id="projectName" class="form-control project-name-input">
+                                            {% for project in projects %}
+                                                <option value="{{ project.id }}">{{ project.project_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'project_stage' %}
+                                <div class="inline-fields project-stage">
+                                    <label for="projectStage">Project Stage</label>
+                                    <div class="input-group">
+                                        <select name="project_stage" id="projectStage"
+                                                class="form-control project-stage-input">
+                                            {% for project_stage in project_stages %}
+                                                <option value="{{ project_stage.id }}">{{ project_stage.project_stage }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'acquisition_name' %}
+                                <div class="inline-fields acquisition-name">
+                                    <label for="acquisitionName">Acquisition Name</label>
+                                    <div class="input-group">
+                                        <input type="text" name="acquisition_name" id="acquisitionName"
+                                               class="form-control acquisition-name-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>    
+                            {% elif field.name == 'acquisition_type' %}
+                                <div class="inline-fields acquisition-type">
+                                    <label for="acquisitionType">Acquisition Type</label>
+                                    <div class="input-group">
+                                        <select name="acquisition_type" id="acquisitionType"
+                                               class="form-control acquisition-type-input">
+                                        {% for type in acquisition_type %}
+                                                <option value="{{ type }}"
+                                                        class="acquisition-type-option-{{ forloop.counter }}"
+                                                        id="optionType">
+                                                    {{ type }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'document_type' %}
+                                <div class="inline-fields document-type">
+                                    <label for="documentType">Document Type</label>
+                                    <div class="input-group">
+                                        <input type="text" name="document_type" id="documentType"
+                                               class="form-control document-type-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'document_series' %}
+                                <div class="inline-fields document-series">
+                                    <label for="documentSeries">Document Series</label>
+                                    <div class="input-group">
+                                        <input type="text" name="document_series" id="documentSeries"
+                                               class="form-control document-series-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'supplier_name' %}
+                                <div class="inline-fields supplier-name">
+                                    <label for="supplierName">Supplier Name</label>
+                                    <div class="input-group">
+                                        <input type="text" name="supplier_name" id="supplierName"
+                                               class="form-control supplier-name-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'acquisition_description' %}
+                                <div class="inline-fields acquisition-description">
+                                    <label for="acquisitionDescription">Acquisition Description</label>
+                                    <div class="input-group">
+                                        <input type="text" name="acquisition_description" id="acquisitionDescription"
+                                               class="form-control acquisition-description-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'acquisition_owner' %}
+                                <div class="inline-fields acquisition-owner">
+                                    <label for="acquisitionOwner">Acquisition Owner</label>
+                                    <div class="input-group">
+                                        <input type="text" name="acquisition_owner" id="acquisitionOwner"
+                                               class="form-control acquisition-owner-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'amount' %}
+                                <div class="inline-fields amount">
+                                    <label for="amount">Amount</label>
+                                    <div class="input-group">
+                                        <input type="text" name="amount" id="amount"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.00' }}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'date' %}
+                                <div class="inline-fields acquisition-date">
+                                    <label for="acquisitionDate">Date</label>
+                                    <div class="input-group">
+                                        <input type="date" name="date" id="acquisitionDate"
+                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div>
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                            <!-- Render field errors if any -->
+                            {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="update-button-field">
+                            <a href="{% url 'logistic' %}"
+                               class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                            <input type="submit" value="Submit"
+                                   class="btn btn-primary btn-primary-sm">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/budgetValue.js' %}"></script>
+
+
+{% endblock content %}

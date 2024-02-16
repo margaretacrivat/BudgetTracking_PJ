@@ -11,10 +11,10 @@ from decimal import Decimal
 class Project(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
-    project_name = models.CharField(max_length=50)
+    project_name = models.CharField(max_length=100)
     project_title = models.CharField(max_length=200)
     project_stages = models.IntegerField(default=0)
-    project_manager = models.CharField(max_length=100)
+    project_manager = models.CharField(max_length=200)
     funder = models.CharField(max_length=200)
     contract = models.CharField(max_length=200)
     project_type = models.CharField(max_length=100)
@@ -61,9 +61,9 @@ class Person(models.Model):
     age = models.IntegerField(null=False)
     is_internal = models.BooleanField(default=True)
     institution = models.CharField(max_length=200)
-    department = models.CharField(max_length=20, null=False)
+    department = models.CharField(max_length=100, null=False)
     email = models.EmailField()
-    phone = models.CharField(max_length=50, null=True)
+    phone = models.CharField(max_length=100, null=True)
     city = models.CharField(max_length=100, null=False)
     country = models.CharField(max_length=100, null=False)
 
@@ -75,23 +75,24 @@ class Logistic(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
-    expense_type = models.CharField(max_length=100)
+    acquisition_name = models.CharField(max_length=200)
+    acquisition_type = models.CharField(max_length=100)
     document_type = models.CharField(max_length=100)
     document_series = models.CharField(max_length=100)
-    supplier_name = models.CharField(max_length=100)
+    supplier_name = models.CharField(max_length=200)
     acquisition_description = models.TextField()
-    acquisition_owner = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
+    acquisition_owner = models.CharField(max_length=200)
     amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     date = models.DateField(default=now)
 
     def __str__(self):
-        return self.expense_type
+        return f"Type: {self.acquisition_type}"
 
     class Meta:
         ordering = ['date']
 
 
-class ExpensesType(models.Model):
+class AcquisitionType(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -101,7 +102,7 @@ class ExpensesType(models.Model):
 class Displacement(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     institution = models.CharField(max_length=200)
-    person_name = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
+    person_name = models.CharField(max_length=200)
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     document_series = models.CharField(max_length=100)
@@ -128,7 +129,7 @@ class DisplacementType(models.Model):
 
 class Workforce(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    person_name = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person_name = models.CharField(max_length=200)
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     person_role = models.CharField(max_length=100)

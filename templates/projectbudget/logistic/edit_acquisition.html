@@ -1,0 +1,140 @@
+{#{% extends 'base/base.html' %}#}
+{#{% load static %}#}
+{##}
+{#{% block title %} Edit Acquisition {% endblock %}#}
+{##}
+{#{% block content %}#}
+{##}
+{#    <div class="container-main">#}
+{##}
+{#        {% include 'base/sidebar_pj.html' %}#}
+{##}
+{#        <!-- ***** Breadcrumb Start ***** -->#}
+{#        <div class="container-breadcrumb-bar">#}
+{#            <nav aria-label="breadcrumb-nav">#}
+{#                <ol class="breadcrumb">#}
+{#                    <li class="breadcrumb-item"><a#}
+{#                            href="{% url 'projects' %}">Logistic</a>#}
+{#                    </li>#}
+{#                    <li class="breadcrumb-item active" aria-current="page">#}
+{#                        Edit Acquisition#}
+{#                    </li>#}
+{#                </ol>#}
+{#            </nav>#}
+{#        </div>#}
+{#        <!-- ***** Breadcrumb End ***** -->#}
+{##}
+{#        <div class="edit-acquisition-form">#}
+{#            <div class="edit-form-body" id="editAcquisitionForm">#}
+{#                <h4>Edit Acquisition Form</h4>#}
+{#                <form action="{% url 'edit-acquisition' acquisition_type.id %}" method="post">#}
+{#                    {% include 'authentication/_messages.html' %} {% csrf_token %}#}
+{##}
+{#                    <div class="form-group">#}
+{#                        <!-- Render each field individually -->#}
+{#                        {% for field in form_stage %}#}
+{#                            {% if field.name == 'project_name' %}#}
+{#                                <div class="inline-fields project-name">#}
+{#                                    <label for="projectName">Project Name</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <select name="project_name" id="projectName" class="form-control project-name">#}
+{#                                            {% for project_name in form_stage.fields.project_name.queryset %}#}
+{#                                                <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>#}
+{#                                            {% endfor %}#}
+{#                                        </select>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif field.name == 'project_stage' %}#}
+{#                                <div class="inline-fields project-stage-name">#}
+{#                                    <label for="projectStageName">Project Stage</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <input type="text" name="project_stage" id="projectStageName"#}
+{#                                               class="form-control project-stage-name-input"#}
+{#                                               value="{% if field.value %}{{ field.value }}{% endif %}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif field.name == 'budget' %}#}
+{#                                <div class="inline-fields budget-forecast">#}
+{#                                    <label for="budgetForecast">Budget Forecast</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <input type="text" name="budget" id="budgetForecast"#}
+{#                                               class="form-control budget-input"#}
+{#                                               value="{{ field.value|default:'0.00' }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif field.name == 'reimbursed_amount' %}#}
+{#                                <div class="inline-fields reimbursed-amount">#}
+{#                                    <label for="reimbursedAmount">Reimbursed Amount</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <input type="text" name="reimbursed_amount" id="reimbursedAmount"#}
+{#                                               class="form-control budget-input"#}
+{#                                               value="{{ field.value|default:'0.00' }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif field.name == 'start_date' %}#}
+{#                                <div class="inline-fields project-date">#}
+{#                                    <label for="startDate">Start Date</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <input type="date" name="start_date" id="startDate"#}
+{#                                               class="form-control" value="{{ start_date|date:'Y-m-d' }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% elif field.name == 'end_date' %}#}
+{#                                <div class="inline-fields project-date">#}
+{#                                    <label for="endDate">End Date</label>#}
+{#                                    <div class="input-group">#}
+{#                                        <input type="date" name="end_date" id="endDate"#}
+{#                                               class="form-control" value="{{ end_date|date:'Y-m-d' }}">#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            {% else %}#}
+{#                                <div>#}
+{#                                    {{ field.label_tag }}#}
+{#                                    {{ field }}#}
+{#                                </div>#}
+{#                            {% endif %}#}
+{#                            <!-- Render field errors if any -->#}
+{#                            {% for error in field.errors %}#}
+{#                                <div class="text-danger">{{ error }}</div>#}
+{#                            {% endfor %}#}
+{#                        {% endfor %}#}
+{##}
+{#                        <div class="update-button-field">#}
+{#                            <a href="{% url 'project-stages' %}" class="btn btn-cancel btn-outline-secondary">Cancel</a>#}
+{#                            <input type="submit" value="Submit"#}
+{#                                   class="btn btn-primary btn-primary-sm">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </form>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{#    <!-- Scripts -->#}
+{#    <script src="{% static 'assets/js/budgetValue.js' %}"></script>#}
+{##}
+    {#    <script>#}
+    {#        // Get the project type select element#}
+    {#        const projectTypeSelect = document.getElementById('projectType');#}
+    {##}
+    {#        // Add event listener for change event#}
+    {#        projectTypeSelect.addEventListener('change', function () {#}
+    {#            // Get the selected option#}
+    {#            const selectedOption = projectTypeSelect.options[projectTypeSelect.selectedIndex];#}
+    {#            // Get the class of the selected option#}
+    {#            const selectedClass = selectedOption.getAttribute('class');#}
+    {##}
+    {#            // Remove any existing background color class from all options#}
+    {#            projectTypeSelect.querySelectorAll('option').forEach(option => {#}
+    {#                option.classList.remove('selected');#}
+    {#            });#}
+    {##}
+    {#            // Add the class of the selected option to the selected option#}
+    {#            selectedOption.classList.add('selected');#}
+    {#        });#}
+    {#    </script>#}
+{##}
+{##}
+{#{% endblock content %}#}

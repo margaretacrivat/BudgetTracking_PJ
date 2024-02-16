@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Project, ProjectStage
+from .models import Project, ProjectStage, Logistic
 
 
 class ProjectForm(ModelForm):
@@ -18,6 +18,19 @@ class ProjectStageForm(ModelForm):
         widgets = {
             'project': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+class LogisticForm(ModelForm):
+    class Meta:
+        model = Logistic
+        fields = '__all__'
+        exclude = ('owner',)
+        widgets = {
+            'project': forms.Select(attrs={'class': 'form-control'}),
+            'project_stage': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
 
 
 
