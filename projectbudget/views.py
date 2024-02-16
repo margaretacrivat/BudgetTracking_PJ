@@ -559,10 +559,10 @@ def export_project_stages_pdf(request):
 
 @login_required(login_url='/authentication/login')
 def logistic_view(request):
-    logistic = Logistic.objects.filter(owner=request.user).select_related('project_name')
+    acquisition = Logistic.objects.filter(owner=request.user).select_related('project_name')
     today = datetime.date.today()
 
-    paginator = Paginator(logistic, 7)
+    paginator = Paginator(acquisition, 7)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
@@ -572,12 +572,12 @@ def logistic_view(request):
         currency = 'RON'
 
     context = {
-        'logistic': logistic,
+        'acquisition': acquisition,
         'today': today,
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'projectbudget/logistic/logistic.html', context)
+    return render(request, 'projectbudget/logistic/logistic_acquisitions.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -607,59 +607,60 @@ def add_acquisition(request):
         form_acquisition = LogisticForm()
 
     context = {
-        'form_acquisition': form_acquisition,
-        'currency': currency,
+        'acquisition_type': acquisition_type,
         'projects': projects,
         'project_stages': project_stages,
-        'acquisition_type': acquisition_type,
+        'form_acquisition': form_acquisition,
+        'currency': currency,
     }
 
     return render(request, 'projectbudget/logistic/add_acquisition.html', context)
 
 
-# @login_required(login_url='/authentication/login')
-# def edit_acquisition(request, id):
-#     acquisition = Logistic.objects.get(pk=id)
-#     acquisition_type = AcquisitionType.objects.values_list('name', flat=True).distinct()
-#
-#     try:
-#         currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
-#     except Currency.DoesNotExist:
-#         currency = 'RON'
-#
-#     projects = Project.objects.all()
-#     project_stages = ProjectStage.objects.all()
-#
-#     if request.method == 'POST':
-#         form_acquisition = LogisticForm(request.POST, instance=acquisition)
-#         if form_acquisition.is_valid():
-#             acquisition_instance = form_acquisition.save(commit=False)
-#             acquisition_instance.owner = request.user
-#             acquisition_instance.save()
-#             messages.success(request, 'Acquisition updated successfully')
-#             return redirect('logistic')
-#         else:
-#             messages.error(request, 'Invalid form data')
-#     else:
-#         form_acquisition = LogisticForm(instance=acquisition)
-#
-#     context = {
-#         'form_acquisition': form_acquisition,
-#         'currency': currency,
-#         'projects': projects,
-#         'project_stages': project_stages,
-#         'acquisition_type': acquisition_type,
-#     }
-#
-#     return render(request, 'projectbudget/logistic/edit_acquisition.html', context)
+@login_required(login_url='/authentication/login')
+def edit_acquisition(request, id):
+    acquisition = Logistic.objects.get(pk=id)
+    acquisition_type = AcquisitionType.objects.values_list('name', flat=True).distinct()
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    projects = Project.objects.all()
+    project_stages = ProjectStage.objects.all()
+
+    if request.method == 'POST':
+        form_acquisition = LogisticForm(request.POST, instance=acquisition)
+        if form_acquisition.is_valid():
+            acquisition_instance = form_acquisition.save(commit=False)
+            acquisition_instance.owner = request.user
+            acquisition_instance.save()
+            messages.success(request, 'Acquisition updated successfully')
+            return redirect('logistic')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form_acquisition = LogisticForm(instance=acquisition)
+
+    context = {
+        'acquisition': acquisition,
+        'acquisition_type': acquisition_type,
+        'projects': projects,
+        'project_stages': project_stages,
+        'form_acquisition': form_acquisition,
+        'date': acquisition.date,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/logistic/edit_acquisition.html', context)
 
 
-# @login_required(login_url='/authentication/login')
-# def delete_project_stage(request, id):
-#     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         project_stage = ProjectStage.objects.get(pk=id)
-#         project_stage.delete()
-#         return JsonResponse({'message': 'Project Stage deleted'}, status=200)
-#     else:
-#         return JsonResponse({'error': 'Invalid request'}, status=400)
-
+@login_required(login_url='/authentication/login')
+def delete_acquisition(request, id):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        acquisition = Logistic.objects.get(pk=id)
+        acquisition.delete()
+        return JsonResponse({'message': 'Acquisition deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)

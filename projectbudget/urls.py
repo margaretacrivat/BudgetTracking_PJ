@@ -28,5 +28,7 @@ urlpatterns = [
 
     path('logistic/', views.logistic_view, name='logistic'),
     path('add-acquisition/', views.add_acquisition, name='add-acquisition'),
+    path('edit-acquisition/<int:id>/', views.edit_acquisition, name='edit-acquisition'),
+    path('delete-acquisition/<int:id>/', views.delete_acquisition, name='delete-acquisition'),
 
 ]
