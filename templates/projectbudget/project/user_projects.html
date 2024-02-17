@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-                        <div id="exportFile">
-                            <a href="{% url 'export-projects-csv' %}" class="btn">
-                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
-                            </a>
-                            <a href="{% url 'export-projects-excel' %}" class="btn">
-                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
-                            </a>
-                            <a href="{% url 'export-projects-pdf' %}" class="btn">
-                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
-                            </a>
-                        </div>
+            <div id="exportFile">
+                <a href="{% url 'export-projects-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+                <a href="{% url 'export-projects-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+                <a href="{% url 'export-projects-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
+            </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <!-- ***** Expenses data Table ***** -->
+            <!-- ***** Projects data Table ***** -->
             <div id="dataTable">
                 {% include 'authentication/_messages.html' %} {% csrf_token %}
 
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="app-table">
-                    <table class="table table-stripped table-hover">
+                    <table id= "projectTable" class="table table-stripped table-hover">
                         <thead>
                         <tr>
                             <th>Institution</th>
@@ -110,8 +110,8 @@
                                     <td>{{ project.contract }}</td>
                                     <td>{{ project.project_type }}</td>
                                     <td>{{ project.budget|floatformat:"2" }}</td>
-                                    <td>{{ project.start_date }}</td>
-                                    <td>{{ project.end_date }}</td>
+                                    <td class="start-date-status">{{ project.start_date|date:'m/d/Y' }}</td>
+                                    <td class="end-date-status">{{ project.end_date|date:'m/d/Y' }}</td>
                                     <td>
                                         <a href="{% url 'edit-project' project.id %}"
                                            style="color:gray; font-size:20px">
@@ -120,7 +120,7 @@
                                     </td>
                                     <td>
                                         <!-- Delete button which will open the modal window for delete confirmation -->
-                                        <button onclick="confirmDelete({{ project.id }})" 
+                                        <button onclick="confirmDelete({{ project.id }})"
                                                 style="color:red; font-size:20px; background: none; border: none;">
                                             <i class="fas fa-trash-alt delete-input"></i>
                                         </button>
@@ -196,24 +196,28 @@
             </div>
         </div>
     </div>
-    
+
 
     <!-- Scripts -->
-    <script src="{% static 'assets/js/searchProject.js' %}"></script>
+    <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteProject.js' %}"></script>
-    
+
+    <!-- Projects Status Scripts -->
     <script>
         window.addEventListener("DOMContentLoaded", function () {
             // Get today's date from the Django context
-            const today = new Date("{{ today|date:'Y-m-d' }}");
+            const today = new Date("{{ today|date:'m/d/Y' }}");
             today.setHours(0, 0, 0, 0); // Set time to midnight
 
-            // Get all rows in the table body
-            const rows = document.querySelectorAll('tbody tr');
+            // Select the table element using the ID assigned in the Django template
+            const table = document.getElementById('projectTable');
+
+            // Select all rows in the table body
+            const rows = document.querySelectorAll('#projectTable > tbody > tr');
             rows.forEach(row => {
                 // Get the start and end date cells from the row
-                const startDateCell = row.querySelector('td:nth-child(10)');
-                const endDateCell = row.querySelector('td:nth-child(11)');
+                const startDateCell = row.querySelector('.start-date-status');
+                const endDateCell = row.querySelector('.end-date-status');
 
                 // Parse the start and end dates
                 const startDate = new Date(startDateCell.textContent);

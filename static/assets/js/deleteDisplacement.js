@@ -1,8 +1,8 @@
-function confirmDelete(acquisitionId) {
+function confirmDelete(displacementId) {
     var modal = document.getElementById("deleteConfirmationModal");
     modal.style.display = "block";
 
-    document.getElementById("confirmDeleteBtn").setAttribute("data-acquisition-id", acquisitionId);
+    document.getElementById("confirmDeleteBtn").setAttribute("data-displacement-id", displacementId);
 }
 
 function closeModal() {
@@ -10,10 +10,10 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-function deleteAcquisition() {
-    var acquisitionId = document.getElementById("confirmDeleteBtn").getAttribute("data-acquisition-id");
+function deleteDisplacement() {
+    var displacementId = document.getElementById("confirmDeleteBtn").getAttribute("data-displacement-id");
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/projectbudget/delete-acquisition/" + acquisitionId + "/", true);
+    xhr.open("POST", "/projectbudget/delete-displacement/" + displacementId + "/", true);
     var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     // Set CSRF token in request headers
@@ -22,11 +22,9 @@ function deleteAcquisition() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                // Handle successful deletion
-                window.location.reload(); // Optionally reload the page
+                window.location.reload();
             } else {
-                // Handle error
-                console.error("Error deleting acquisition:", xhr.statusText);
+                console.error("Error deleting displacement:", xhr.statusText);
             }
             closeModal();
         }

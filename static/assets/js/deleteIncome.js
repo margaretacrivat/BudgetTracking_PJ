@@ -1,11 +1,8 @@
-
-// delete Income
-
 function confirmDelete(incomeId) {
     var modal = document.getElementById("deleteConfirmationModal");
     modal.style.display = "block";
 
-    // Set expenseId for deletion
+    // Set incomeId for deletion
     document.getElementById("confirmDeleteBtn").setAttribute("data-income-id", incomeId);
 }
 
@@ -22,14 +19,12 @@ function deleteIncome() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                // Handle successful deletion
-                window.location.reload(); // Optionally reload the page
+                window.location.reload();
             } else {
                 // Handle error
                 console.error("Error deleting expense:", xhr.statusText);
-                // Display error message to the user
             }
-            closeModal(); // Close the modal regardless of the response
+            closeModal();
         }
     };
     xhr.send();

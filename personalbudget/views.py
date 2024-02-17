@@ -227,7 +227,7 @@ def search_expenses(request):
             owner=request.user) | Expense.objects.filter(
             amount__istartswith=search_str,
             owner=request.user) | Expense.objects.filter(
-            date__istartswith=search_str, owner=request.user)
+            date__icontains=search_str, owner=request.user)
         data = expenses.values()
         return JsonResponse(list(data), safe=False)
 
@@ -592,7 +592,7 @@ def search_income(request):
             owner=request.user) | Income.objects.filter(
             description__icontains=search_str,
             owner=request.user) | Income.objects.filter(
-            date__istartswith=search_str, owner=request.user)
+            date__icontains=search_str, owner=request.user)
         data = income.values()
         return JsonResponse(list(data), safe=False)
 

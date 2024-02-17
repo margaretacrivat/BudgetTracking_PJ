@@ -29,6 +29,18 @@ Container Projects Pages Style
     background-color: #bebebe;
 }
 
+.ongoing-project-stage {
+    background-color: lightgreen;
+}
+
+.ending-soon-project-stage {
+    background-color: #f6c446;
+}
+
+.expired-project-stage {
+    background-color: #bebebe;
+}
+
 
 /*
 ---------------------------------------------
@@ -551,6 +563,181 @@ Edit Acquisition Form - Logistic
     color: #b2b2b2;
 }
 
+
+
+/*
+---------------------------------------------
+ADD Displacement Form
+---------------------------------------------
+*/
+
+.add-displacement-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#addDisplacementForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.add-displacement-form .inline-fields {
+    margin-bottom: 10px;
+}
+
+.add-displacement-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.institution,
+.person-name,
+.project-name,
+.project-stage,
+.document-series,
+.displaced-to,
+.displacement-type,
+.amount,
+.days-no {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.project-name-input,
+.project-stage-input {
+    text-align: center;
+}
+
+.person-name label,
+.project-name label {
+    padding-bottom: 10px;
+}
+
+.project-stage label {
+    padding-top: 5px;
+}
+
+.displacement-type label,
+.days-no label {
+    padding-top: 5px;
+}
+
+.person-name label,
+.document-series label,
+.displaced-to label {
+    margin-top: 20px;
+}
+
+.amount label {
+    padding-top: 20px;
+}
+
+
+.person-name .input-group {
+    margin-left: 10px;
+    width: 85%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.project-name .input-group,
+.project-stage .input-group,
+.displacement-type .input-group {
+    margin-left: 10px;
+    width: 50%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.document-series .input-group {
+    margin-left: 10px;
+    width: 80%;
+    font-weight: 400;
+}
+
+.displaced-to .input-group {
+    margin-left: 10px;
+    width: 85%;
+    font-weight: 400;
+}
+
+.days-no .input-group {
+    margin-left: 10px;
+    width: 15%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+
+.amount .input-group {
+    width: 500px;
+    margin-left: 10px;
+}
+
+.displacement-date {
+    display: flex;
+    padding-top: 10px;
+    align-items: center;
+}
+
+.displacement-date label {
+    padding-top: 10px;
+}
+
+.displacement-date .input-group {
+    width: auto;
+    padding-right: 20px;
+    margin-left: 10px;
+}
+
+
+
+/*
+---------------------------------------------
+Edit Displacement Form
+---------------------------------------------
+*/
+
+.edit-displacement-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#editDisplacementForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
 
 /* ---------------- MEDIA QUERIES ----------------*/
 

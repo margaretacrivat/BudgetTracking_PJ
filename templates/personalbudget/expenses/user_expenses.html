@@ -103,7 +103,7 @@
                                     <td>{{ expense.cost|floatformat:"2" }}</td>
                                     <td>{{ expense.qty }}</td>
                                     <td>{{ expense.amount|floatformat:"2" }}</td>
-                                    <td>{{ expense.date }}</td>
+                                    <td>{{ expense.date|date:'m/d/Y' }}</td>
                                     <td>
                                         <a href="{% url 'edit-expense' expense.id %}"
                                            class="btn btn-secondary btn-sm">Edit</a>
@@ -187,7 +187,7 @@
     </div>
     
     <!-- Scripts -->
-    <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
+    <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteExpense.js' %}"></script>
 
     <!-- Chart Scripts -->

@@ -1,24 +1,23 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} User Income {% endblock %}
+{% block title %} Projects Displacement {% endblock %}
 
 {% block content %}
 
     <div class="container-main">
 
-        {% include 'base/sidebar.html' %}
+        {% include 'base/sidebar_pj.html' %}
 
         <!-- ***** Breadcrumb Start ***** -->
         <div class="container-breadcrumb-bar">
-            <nav aria-label="breadcrumb">
+            <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="{% url 'budget-main' %}">Budget</a>
+                            href="">Projects</a>
                     </li>
-                    <li class="breadcrumb-item active"
-                        aria-current="page">
-                        Income
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Projects Displacement
                     </li>
                 </ol>
             </nav>
@@ -28,19 +27,19 @@
         <div class="container-tables">
             <!-- ***** Back to the Dashboard ***** -->
             <div class="breadcrumb-event-back">
-                <a href="{% url 'personal-budget' %}" class="btn btn-secondary">
+                <a href="{% url 'project-budget' %}" class="btn btn-secondary">
                     <i class="fa fa-angle-left home-icon"></i>
                     <span>Back to Dashboard</span></a>
             </div>
-            <!-- ***** Export Table in the CSV, Excel and PDF format ***** -->
+            <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
             <div id="exportFile">
-                <a href="{% url 'export-income-csv' %}" class="btn">
+                <a href="{% url 'export-displacements-csv' %}" class="btn">
                     <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
                 </a>
-                <a href="{% url 'export-income-excel' %}" class="btn">
+                <a href="{% url 'export-displacements-excel' %}" class="btn">
                     <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
                 </a>
-                <a href="{% url 'export-income-pdf' %}" class="btn">
+                <a href="{% url 'export-displacements-pdf' %}" class="btn">
                     <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
                 </a>
             </div>
@@ -53,85 +52,109 @@
                 </div>
             </div>
 
-            <!-- ***** Income data Table ***** -->
+            <!-- ***** Displacement data Table ***** -->
             <div id="dataTable">
-                {% include 'authentication/_messages.html' %}
+                {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <div class="breadcrumb-event-add">
-                    <a href="{% url 'add-income' %}" class="btn">
+                    <a href="{% url 'add-displacement' %}" class="btn">
                         <i class="bx bxs-plus-circle add-icon"></i>
-                        Add Income
+                        Add Displacement
                     </a>
                 </div>
 
                 <div class="app-table">
                     <table class="table table-stripped table-hover">
                         <thead>
-                            <tr>
-                                <th>Source</th>
-                                <th>Description</th>
-                                <th>Amount<br>({{ currency }})</th>
-                                <th>Date</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>Institution</th>
+                            <th>Person<br>Name</th>
+                            <th>Project<br>Name</th>
+                            <th>Project<br>Stage</th>
+                            <th>Document<br>Series</th>
+                            <th>Displaced<br>To...</th>
+                            <th>Displacement<br>Type</th>
+                            <th>Amount<br>({{ currency }})</th>
+                            <th>Days<br>No...</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody>
                         <div id="deleteConfirmationModal" class="modal">
                             <div class="modal-content">
                                 <span class="close" onclick="closeModal()">&times;</span>
-                                <p>Delete Income</p>
+                                <p>Delete Displacement</p>
                                 <hr>
                                 <p>Are you sure you want to delete this Record?</p>
                                 <p>This action cannot pe undone.</p>
                                 <div class="modal-button">
                                     <button id="cancelDeleteBtn" onclick="closeModal()">Cancel</button>
-                                    <button id="confirmDeleteBtn" onclick="deleteIncome()">Delete</button>
+                                    <button id="confirmDeleteBtn" onclick="deleteDisplacement()">Delete</button>
                                 </div>
                             </div>
                         </div>
-                        {# if user has some incomes, then display them #}
-                        {% if income.count %}
-                            {% for income in page_obj %}
-                                <tr>
-                                    <td>{{ income.source }}</td>
-                                    <td>{{ income.description }}</td>
-                                    <td>{{ income.amount|floatformat:"2" }}</td>
-                                    <td>{{ income.date|date:'m/d/Y' }}</td>
+                        {# if user has some projects acquisition, then display them#}
+                        {% if displacement.count %}
+                            {% for displacement in page_obj %}
+                                <tr {% if displacement.end_date < today %} class="expired-project" {% endif %}>
+                                    <td>{{ displacement.institution }}</td>
+                                    <td>{{ displacement.person_name }}</td>
+                                    <td>{{ displacement.project_name.project_name }}</td>
+                                    <td>{{ displacement.project_stage }}</td>
+                                    <td>{{ displacement.document_series }}</td>
+                                    <td>{{ displacement.displaced_to }}</td>
+                                    <td>{{ displacement.displacement_type }}</td>
+                                    <td>{{ displacement.amount|floatformat:"2" }}</td>
+                                    <td>{{ displacement.days_no }}</td>
+                                    <td>{{ displacement.start_date|date:'m/d/Y' }}</td>
+                                    <td>{{ displacement.end_date|date:'m/d/Y' }}</td>
                                     <td>
-                                        <a href="{% url 'edit-income' income.id %}"
-                                           class="btn btn-secondary btn-sm">Edit</a>
+                                        <a href="{% url 'edit-displacement' displacement.id %}"
+                                           style="color:gray; font-size:20px">
+                                            <i class="fas fa-edit edit-input"></i>
+                                        </a>
                                     </td>
                                     <td>
                                         <!-- Delete button which will open the modal window for delete confirmation -->
-                                        <button onclick="confirmDelete({{ income.id }})" class="btn btn-danger btn-sm"
-                                            >Delete
+                                        <button onclick="confirmDelete({{ displacement.id }})"
+                                                style="color:red; font-size:20px; background: none; border: none;">
+                                            <i class="fas fa-trash-alt delete-input"></i>
                                         </button>
                                     </td>
                                 </tr>
                             {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                            </table>
+                            </div>
 
-                <p class="no-results" style="display: none;">No results </p>
-                <div class="table-output">
-                    <table class="table table-stripped table-hover">
-                        <thead>
+                            <p class="no-results" style="display: none;">No results </p>
+                            <div class="table-output">
+                            <table class="table table-stripped table-hover">
+                            <thead>
                             <tr>
-                                <th>Source</th>
-                                <th>Description</th>
+                                <th>Institution</th>
+                                <th>Person<br>Name</th>
+                                <th>Project<br>Name</th>
+                                <th>Project<br>Stage</th>
+                                <th>Document<br>Series</th>
+                                <th>Displaced<br>To...</th>
+                                <th>Displacement<br>Type</th>
                                 <th>Amount<br>({{ currency }})</th>
-                                <th>Date</th>
+                                <th>Days<br>No...</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th></th>
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody class="table-body">
-                        </tbody>
+                            </thead>
+                            <tbody class="table-body">
+                            </tbody>
                         {% endif %}
-                    </table>
-                </div>
+                        </table>
+                        </div>
 
                 <!-- ***** Returns a number of our current page ***** -->
                 <div class="pagination-container">
@@ -162,28 +185,13 @@
                 </div>
 
             </div>
-
-            <!-- ***** Income Charts ***** -->
-            <div class="chart-container1" id="Chart1">
-                <h6>Source Cumulative Distribution (last 6 months)</h6>
-                <hr>
-                <canvas id="incomeSourceChart"></canvas>
-            </div>
-            <div class="chart-container2" id="Chart2">
-                <h6>Source Cumulative Comparison (last 3 months)</h6>
-                <hr>
-                <canvas id="monthsIncomeChart"></canvas>
-            </div>
         </div>
     </div>
 
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchField.js' %}"></script>
-    <script src="{% static 'assets/js/deleteIncome.js' %}"></script>
+    <script src="{% static 'assets/js/deleteDisplacement.js' %}"></script>
 
-    <!-- Chart Scripts -->
-    <script src="{% static 'assets/js/statsIncome.js' %}"></script>
-    <script src="{% static 'assets/js/monthsIncome.js' %}"></script>
 
 {% endblock content %}

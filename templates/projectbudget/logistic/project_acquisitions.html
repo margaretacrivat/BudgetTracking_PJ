@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} User Projects {% endblock %}
+{% block title %} Projects Logistic {% endblock %}
 
 {% block content %}
 
@@ -32,27 +32,27 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-            {#                        <div id="exportFile">#}
-            {#                            <a href="{% url 'export-projects-csv' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-            {#                            </a>#}
-            {#                            <a href="{% url 'export-projects-excel' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
-            {#                            </a>#}
-            {#                            <a href="{% url 'export-projects-pdf' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
-            {#                            </a>#}
-            {#                        </div>#}
+            <div id="exportFile">
+                <a href="{% url 'export-acquisitions-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+                <a href="{% url 'export-acquisitions-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+                <a href="{% url 'export-acquisitions-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
+            </div>
             <!-- ***** Search into the fields ***** -->
-            {#            <div id="searchTableField">#}
-            {#                <div class="form-group">#}
-            {#                    <i class="bx bx-search"></i>#}
-            {#                    <input type="text" class="form-control"#}
-            {#                           id="searchField" placeholder="Search...">#}
-            {#                </div>#}
-            {#            </div>#}
+            <div id="searchTableField">
+                <div class="form-group">
+                    <i class="bx bx-search"></i>
+                    <input type="text" class="form-control"
+                           id="searchField" placeholder="Search...">
+                </div>
+            </div>
 
-            <!-- ***** Expenses data Table ***** -->
+            <!-- ***** Acquisitions data Table ***** -->
             <div id="dataTable">
                 {% include 'authentication/_messages.html' %} {% csrf_token %}
 
@@ -110,7 +110,7 @@
                                     <td>{{ acquisition.acquisition_description }}</td>
                                     <td>{{ acquisition.acquisition_owner }}</td>
                                     <td>{{ acquisition.amount|floatformat:"2" }}</td>
-                                    <td>{{ acquisition.date }}</td>
+                                    <td>{{ acquisition.date|date:'m/d/Y' }}</td>
                                     <td>
                                         <a href="{% url 'edit-acquisition' acquisition.id %}"
                                            style="color:gray; font-size:20px">
@@ -183,14 +183,6 @@
                         {% endif %}
                     </ul>
                 </div>
-                {#                <div class="color-explanation">#}
-                {#                    <div class="color-circle ongoing-project"></div>#}
-                {#                    <span>Ongoing Project</span>#}
-                {#                    <div class="color-circle ending-soon-project"></div>#}
-                {#                    <span>Ending Soon</span>#}
-                {#                    <div class="color-circle expired-project"></div>#}
-                {#                    <span>Expired Project</span>#}
-                {#                </div>#}
 
             </div>
         </div>
@@ -198,58 +190,7 @@
 
 
     <!-- Scripts -->
-    {#    <script src="{% static 'assets/js/searchProject.js' %}"></script>#}
+    <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteAcquisition.js' %}"></script>
-
-    {#    <script>#}
-    {#        window.addEventListener("DOMContentLoaded", function () {#}
-    {#            // Get today's date from the Django context#}
-    {#            const today = new Date("{{ today|date:'Y-m-d' }}");#}
-    {#            today.setHours(0, 0, 0, 0); // Set time to midnight#}
-    {##}
-    {#            // Get all rows in the table body#}
-    {#            const rows = document.querySelectorAll('tbody tr');#}
-    {#            rows.forEach(row => {#}
-    {#                // Get the start and end date cells from the row#}
-    {#                const startDateCell = row.querySelector('td:nth-child(10)');#}
-    {#                const endDateCell = row.querySelector('td:nth-child(11)');#}
-    {##}
-    {#                // Parse the start and end dates#}
-    {#                const startDate = new Date(startDateCell.textContent);#}
-    {#                const endDate = new Date(endDateCell.textContent);#}
-    {##}
-    {#                // Check if the date parsing was successful#}
-    {#                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {#}
-    {#                    return; // Skip this row if parsing failed#}
-    {#                }#}
-    {##}
-    {#                // Calculate the difference in months between end date and today#}
-    {#                const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());#}
-    {#                const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());#}
-    {##}
-    {#                // Calculate the remaining days in the current month#}
-    {#                const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();#}
-    {#                const remainingDays = daysInMonth - today.getDate();#}
-    {##}
-    {#                // Compare the start date and end date with today's date#}
-    {#                if (endDate < today) {#}
-    {#                    // Project has expired#}
-    {#                    row.classList.add('expired-project');#}
-    {#                } else if (startDate <= today && endDate >= today) {#}
-    {#                    // Project is ongoing#}
-    {#                    row.classList.add('ongoing-project');#}
-    {#                    // Check if the project is ending within the next month#}
-    {#                    if (monthsDiffEnd === 0 && remainingDays <= 30) {#}
-    {#                        row.classList.remove('ongoing-project'); // Remove ongoing class#}
-    {#                        row.classList.add('ending-soon-project'); // Add ending soon class#}
-    {#                    }#}
-    {#                } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {#}
-    {#                    // Project has not started yet and is ending in 1 month or less#}
-    {#                    row.classList.add('ending-soon-project');#}
-    {#                    console.log("Project is ending soon");#}
-    {#                }#}
-    {#            });#}
-    {#        });#}
-    {#    </script>#}
 
 {% endblock content %}

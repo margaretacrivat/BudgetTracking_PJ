@@ -1,11 +1,7 @@
-
-// delete Project Stage
-
 function confirmDelete(project_stageId) {
     var modal = document.getElementById("deleteConfirmationModal");
     modal.style.display = "block";
 
-    // Set expenseId for deletion
     document.getElementById("confirmDeleteBtn").setAttribute("data-project-stage-id", project_stageId);
 }
 

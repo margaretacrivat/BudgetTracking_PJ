@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="app-table">
-                    <table class="table table-stripped table-hover">
+                    <table id="projectTable" class="table table-stripped table-hover">
                         <thead>
                         <tr>
                             <th>Project Name</th>
@@ -94,14 +94,13 @@
                         {# if user has some projects, then display their projects stages #}
                         {% if project_stages.count %}
                             {% for project_stage in page_obj %}
-                                {# display dinamic data #}
-                                <tr {% if project_stage.end_date < today %} class="expired-project" {% endif %}>
+                                <tr {% if project_stage.end_date < today %} class="expired-project-stage" {% endif %}>
                                     <td>{{ project_stage.project_name.project_name }}</td>
                                     <td>{{ project_stage.project_stage }}</td>
                                     <td>{{ project_stage.budget|floatformat:"2" }}</td>
                                     <td>{{ project_stage.reimbursed_amount|floatformat:"2" }}</td>
-                                    <td>{{ project_stage.start_date }}</td>
-                                    <td>{{ project_stage.end_date }}</td>
+                                    <td class="start-date">{{ project_stage.start_date|date:'m/d/Y' }}</td>
+                                    <td class="end-date">{{ project_stage.end_date|date:'m/d/Y' }}</td>
                                     <td>
                                         <a href="{% url 'edit-project-stage' project_stage.id %}"
                                            style="color:gray; font-size:20px">
@@ -170,12 +169,12 @@
                     </ul>
                 </div>
                 <div class="color-explanation">
-                    <div class="color-circle ongoing-project"></div>
-                    <span>Ongoing Project Stage</span>
-                    <div class="color-circle ending-soon-project"></div>
-                    <span>Ending Soon</span>
-                    <div class="color-circle expired-project"></div>
-                    <span>Expired Project Stage</span>
+{#                    <div class="color-circle ongoing-project-stage"></div>#}
+{#                    <span>Ongoing Project Stage</span>#}
+                    <div class="color-circle ending-soon-project-stage"></div>
+                    <span>Project Stage Ending Soon</span>
+                    <div class="color-circle expired-project-stage"></div>
+                    <span>Expired Project Stage </span>
                 </div>
 
             </div>
@@ -184,55 +183,40 @@
 
 
     <!-- Scripts -->
-    <script src="{% static 'assets/js/searchProject.js' %}"></script>
+    <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteProjectStage.js' %}"></script>
     
     <script>
         window.addEventListener("DOMContentLoaded", function () {
-            // Get today's date from the Django context
-            const today = new Date("{{ today|date:'Y-m-d' }}");
-            today.setHours(0, 0, 0, 0); // Set time to midnight
-
-            // Get all rows in the table body
-            const rows = document.querySelectorAll('tbody tr');
+            const today = new Date("{{ today|date:'m/d/Y' }}");
+            today.setHours(0, 0, 0, 0);
+            
+            const table = document.getElementById('projectTable');
+            
+            const rows = document.querySelectorAll('#projectTable > tbody > tr');
             rows.forEach(row => {
-                // Get the start and end date cells from the row
-                const startDateCell = row.querySelector('td:nth-child(5)');
-                const endDateCell = row.querySelector('td:nth-child(6)');
+                const startDateCell = row.querySelector('.start-date');
+                const endDateCell = row.querySelector('.end-date');
 
-                // Parse the start and end dates
                 const startDate = new Date(startDateCell.textContent);
                 const endDate = new Date(endDateCell.textContent);
 
-                // Check if the date parsing was successful
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                    return; // Skip this row if parsing failed
+                    return; 
                 }
-
-                // Calculate the difference in months between end date and today
                 const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
                 const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());
-
-                // Calculate the remaining days in the current month
+                
                 const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
                 const remainingDays = daysInMonth - today.getDate();
-
-                // Compare the start date and end date with today's date
+                
                 if (endDate < today) {
-                    // Project has expired
-                    row.classList.add('expired-project');
-                } else if (startDate <= today && endDate >= today) {
-                    // Project is ongoing
-                    row.classList.add('ongoing-project');
-                    // Check if the project is ending within the next month
-                    if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                        row.classList.remove('ongoing-project'); // Remove ongoing class
-                        row.classList.add('ending-soon-project'); // Add ending soon class
-                    }
-                } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
-                    // Project has not started yet and is ending in 1 month or less
-                    row.classList.add('ending-soon-project');
-                    console.log("Project is ending soon");
+                    row.classList.add('expired-project-stage');
+                } else if (monthsDiffEnd === 0 && remainingDays <= 30) {
+                        {#row.classList.remove('ongoing-project-stage'); #}
+                        row.classList.add('ending-soon-project-stage'); 
+                    } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
+                    row.classList.add('ending-soon-project-stage');
                 }
             });
         });
