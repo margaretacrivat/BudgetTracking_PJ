@@ -133,19 +133,18 @@ class Workforce(models.Model):
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.ForeignKey(ProjectStage, on_delete=models.CASCADE)
     person_role = models.CharField(max_length=100)
-    days_no = models.IntegerField(default=0)
     salary_per_hour = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
+    work_days = models.IntegerField(default=0)
     amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
 
     def __str__(self):
         return self.person_name
 
+    class Meta:
+        ordering = ['person_name']
 
-class PersonRole(models.Model):
-    name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
+
 
 
 

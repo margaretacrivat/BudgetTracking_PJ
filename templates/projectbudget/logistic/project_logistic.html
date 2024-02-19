@@ -14,7 +14,7 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Projects</a>
+                            href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Projects Logistic
@@ -99,7 +99,7 @@
                         {#                        if user has some projects acquisition, then display them#}
                         {% if acquisition.count %}
                             {% for acquisition in page_obj %}
-                                <tr {% if acquisition.end_date < today %} class="expired-project" {% endif %}>
+                                <tr {% if acquisition.date < today %} class="expired-acquisition" {% endif %}>
                                     <td>{{ acquisition.project_name.project_name }}</td>
                                     <td>{{ acquisition.project_stage }}</td>
                                     <td>{{ acquisition.acquisition_name }}</td>

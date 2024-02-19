@@ -41,4 +41,8 @@ urlpatterns = [
     path('export-displacements-csv/', views.export_displacements_csv, name='export-displacements-csv'),
     path('export-displacements-excel/', views.export_displacements_excel, name='export-displacements-excel'),
     path('export-displacements-pdf/', views.export_displacements_pdf, name='export-displacements-pdf'),
+
+    path('workforce/', views.workforce_view, name='workforce'),
+    path('add-workforce/', views.add_workforce, name='add-workforce'),
+
 ]

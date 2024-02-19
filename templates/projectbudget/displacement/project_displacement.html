@@ -14,7 +14,7 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="">Projects</a>
+                            href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Projects Displacement
@@ -96,10 +96,10 @@
                                 </div>
                             </div>
                         </div>
-                        {# if user has some projects acquisition, then display them#}
+                        {# if user has some projects displacement, then display them#}
                         {% if displacement.count %}
                             {% for displacement in page_obj %}
-                                <tr {% if displacement.end_date < today %} class="expired-project" {% endif %}>
+                                <tr {% if displacement.end_date < today %} class="expired-displacement" {% endif %}>
                                     <td>{{ displacement.institution }}</td>
                                     <td>{{ displacement.person_name }}</td>
                                     <td>{{ displacement.project_name.project_name }}</td>
@@ -191,7 +191,7 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchField.js' %}"></script>
-    <script src="{% static 'assets/js/deleteDisplacement.js' %}"></script>
+{#    <script src="{% static 'assets/js/deleteDisplacement.js' %}"></script>#}
 
 
 {% endblock content %}

@@ -37,10 +37,11 @@ Container Projects Pages Style
     background-color: #f6c446;
 }
 
-.expired-project-stage {
+.expired-project-stage,
+.expired-acquisition,
+.expired-displacement {
     background-color: #bebebe;
 }
-
 
 /*
 ---------------------------------------------
@@ -709,7 +710,6 @@ ADD Displacement Form
 }
 
 
-
 /*
 ---------------------------------------------
 Edit Displacement Form
@@ -738,6 +738,80 @@ Edit Displacement Form
     text-align: center;
     color: #b2b2b2;
 }
+
+
+
+/*
+---------------------------------------------
+ADD Workforce Form
+---------------------------------------------
+*/
+
+.add-workforce-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#addWorkforceForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.add-workforce-form .inline-fields {
+    margin-bottom: 10px;
+}
+
+.add-workforce-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.person-name,
+.project-name,
+.project-stage,
+.person-role,
+.days-no,
+.salary-per-hour,
+.amount {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.person-role label,
+.salary-per-hour label,
+.amount label {
+    padding-top: 20px;
+}
+
+.person-role .input-group {
+    margin-left: 10px;
+    width: 86%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.salary-per-hour .input-group,
+.amount .input-group {
+    width: 500px;
+    margin-left: 10px;
+}
+
 
 /* ---------------- MEDIA QUERIES ----------------*/
 

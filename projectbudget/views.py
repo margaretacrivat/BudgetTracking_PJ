@@ -4,15 +4,12 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 import json
 from reportlab.lib.units import inch
-from .forms import ProjectForm, ProjectStageForm, LogisticForm, DisplacementForm
-from .models import (Project, ProjectType, ProjectStage, Person,
-                     Logistic, AcquisitionType, Displacement,
-                     DisplacementType, Workforce, PersonRole)
+from .forms import ProjectForm, ProjectStageForm, LogisticForm, DisplacementForm, WorkforceForm
+from .models import (Project, ProjectType, ProjectStage, Person, Logistic, AcquisitionType, Displacement,
+                     DisplacementType, Workforce)
 from preferences.models import Currency
 from django.core.paginator import Paginator
-from django.db.models import Q, Func, F
 import datetime
-# from datetime import datetime
 import csv
 import xlwt
 from reportlab.lib import colors
@@ -547,7 +544,7 @@ def logistic_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'projectbudget/logistic/project_acquisitions.html', context)
+    return render(request, 'projectbudget/logistic/project_logistic.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -788,7 +785,7 @@ def export_acquisitions_pdf(request):
     return response
 
 
-# ---->>>>>>>>>> DISPLACEMENT - PAGE VIEWS <<<<<<<<<<<<----#
+# ---->>>>>>>>>> PROJECT DISPLACEMENT - PAGE VIEWS <<<<<<<<<<<<----#
 
 @login_required(login_url='/authentication/login')
 def displacement_view(request):
@@ -848,7 +845,6 @@ def add_displacement(request):
     }
 
     return render(request, 'projectbudget/displacement/add_displacement.html', context)
-
 
 
 @login_required(login_url='/authentication/login')
@@ -1047,3 +1043,65 @@ def export_displacements_pdf(request):
     pdf.build(elements)
 
     return response
+
+
+# ---->>>>>>>>>> PROJECT WORKFORCE - PAGE VIEWS <<<<<<<<<<<<----#
+
+@login_required(login_url='/authentication/login')
+def workforce_view(request):
+    workforce = Workforce.objects.filter(owner=request.user).select_related('project_name')
+    # today = datetime.date.today()
+
+    paginator = Paginator(workforce, 7)
+    page_number = request.GET.get('page')
+    page_obj = Paginator.get_page(paginator, page_number)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'workforce': workforce,
+        # 'today': today,
+        'page_obj': page_obj,
+        'currency': currency
+    }
+    return render(request, 'projectbudget/workforce/project_workforce.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def add_workforce(request):
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    projects = Project.objects.all()
+    project_stages = ProjectStage.objects.all()
+
+    if request.method == 'POST':
+        form_workforce = WorkforceForm(request.POST)
+        if form_workforce.is_valid():
+            workforce_instance = form_workforce.save(commit=False)
+            workforce_instance.owner = request.user
+            workforce_instance.save()
+            messages.success(request, 'Workforce saved successfully')
+            return redirect('workforce')
+        else:
+            messages.error(request, 'Invalid form data')
+            print(form_workforce.errors)
+    else:
+        form_workforce = WorkforceForm()
+
+    context = {
+        'projects': projects,
+        'project_stages': project_stages,
+        'form_workforce': form_workforce,
+        'currency': currency,
+    }
+
+    return render(request, 'projectbudget/workforce/add_workforce.html', context)
+
+
+

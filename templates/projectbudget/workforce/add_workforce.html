@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Add Workforce {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <!-- ***** Breadcrumb Start ***** -->
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'workforce' %}">Workforce</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add Workforce
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- ***** Breadcrumb End ***** -->
+
+        <div class="add-workforce-form">
+            <div class="add-form-body" id="addWorkforceForm">
+                <h4>Add Workforce Form</h4>
+                <form action="{% url 'add-workforce' %}" method="post">
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
+
+                    <div class="form-group">
+                        <!-- Render each field individually -->
+                        {% for field in form_workforce %}
+                            {% if field.name == 'person_name' %}
+                                <div class="inline-fields person-name">
+                                    <label for="personName">Person Name</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_name" id="personName"
+                                               class="form-control person-name-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'project_name' %}
+                                <div class="inline-fields project-name">
+                                    <label for="projectName">Project Name</label>
+                                    <div class="input-group">
+                                        <select name="project_name" id="projectName"
+                                                class="form-control project-name-input">
+                                            {% for project in projects %}
+                                                <option value="{{ project.id }}">{{ project.project_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'project_stage' %}
+                                <div class="inline-fields project-stage">
+                                    <label for="projectStage">Project Stage</label>
+                                    <div class="input-group">
+                                        <select name="project_stage" id="projectStage"
+                                                class="form-control project-stage-input">
+                                            {% for project_stage in project_stages %}
+                                                <option value="{{ project_stage.id }}">{{ project_stage.project_stage }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'person_role' %}
+                                <div class="inline-fields person-role">
+                                    <label for="personRole">Person Role</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_role" id="personRole"
+                                               class="form-control person-role-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'salary_per_hour' %}
+                                <div class="inline-fields salary-per-hour">
+                                    <label for="salaryPerHour">Salary/hour ({{ currency }})</label>
+                                    <div class="input-group">
+                                        <input type="text" name="salary_per_hour" id="salaryPerHour"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.00' }}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'work_days' %}
+                                <div class="inline-fields days-no">
+                                    <label for="workDays">Work Days</label>
+                                    <div class="input-group">
+                                        <input type="number" name="work_days" id="workDays"
+                                               class="form-control work-days-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'amount' %}
+                                <div class="inline-fields amount">
+                                    <label for="amount">Amount ({{ currency }})</label>
+                                    <div class="input-group">
+                                        <input type="text" name="amount" id="amount"
+                                               class="form-control" value="{{ field.value|default:'0.00' }}" readonly>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div>
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                            <!-- Render field errors if any -->
+                            {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="update-button-field">
+                            <a href="{% url 'workforce' %}"
+                               class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                            <input type="submit" value="Submit"
+                                   class="btn btn-primary btn-primary-sm">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/automaticSalary.js' %}"></script>
+    <script src="{% static 'assets/js/budgetValue.js' %}"></script>
+
+
+{% endblock content %}
