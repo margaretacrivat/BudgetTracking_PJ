@@ -812,6 +812,41 @@ ADD Workforce Form
     margin-left: 10px;
 }
 
+/*
+---------------------------------------------
+Edit Workforce Form
+---------------------------------------------
+*/
+
+.edit-workforce-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 10px 60px 60px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#editWorkforceForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.edit-workforce-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
 
 /* ---------------- MEDIA QUERIES ----------------*/
 

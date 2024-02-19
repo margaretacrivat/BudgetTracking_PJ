@@ -819,7 +819,6 @@ def add_displacement(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    # transmit the existing projects and project stages as options
     projects = Project.objects.all()
     project_stages = ProjectStage.objects.all()
 
@@ -863,9 +862,9 @@ def edit_displacement(request, id):
     if request.method == 'POST':
         form_displacement = DisplacementForm(request.POST, instance=displacement)
         if form_displacement.is_valid():
-            project = form_displacement.save(commit=False)
-            project.owner = request.user
-            form_displacement.save()
+            displacement_instance = form_displacement.save(commit=False)
+            displacement_instance.owner = request.user
+            displacement_instance.save()
             messages.success(request, 'Displacement updated successfully')
             return redirect('displacement')
         else:
@@ -1050,7 +1049,6 @@ def export_displacements_pdf(request):
 @login_required(login_url='/authentication/login')
 def workforce_view(request):
     workforce = Workforce.objects.filter(owner=request.user).select_related('project_name')
-    # today = datetime.date.today()
 
     paginator = Paginator(workforce, 7)
     page_number = request.GET.get('page')
@@ -1090,7 +1088,6 @@ def add_workforce(request):
             return redirect('workforce')
         else:
             messages.error(request, 'Invalid form data')
-            print(form_workforce.errors)
     else:
         form_workforce = WorkforceForm()
 
@@ -1104,4 +1101,47 @@ def add_workforce(request):
     return render(request, 'projectbudget/workforce/add_workforce.html', context)
 
 
+@login_required(login_url='/authentication/login')
+def edit_workforce(request, id):
+    workforce = Workforce.objects.get(pk=id)
 
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    projects = Project.objects.all()
+    project_stages = ProjectStage.objects.all()
+
+    if request.method == 'POST':
+        form_workforce = WorkforceForm(request.POST, instance=workforce)
+        if form_workforce.is_valid():
+            workforce_instance = form_workforce.save(commit=False)
+            workforce_instance.owner = request.user
+            workforce_instance.save()
+            messages.success(request, 'Workforce updated successfully')
+            return redirect('workforce')
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form_workforce = WorkforceForm(instance=workforce)
+
+    context = {
+        'workforce': workforce,
+        'projects': projects,
+        'project_stages': project_stages,
+        'form_workforce': form_workforce,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/workforce/edit_workforce.html', context)
+
+
+@login_required(login_url='/authentication/login')
+def delete_workforce(request, id):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        workforce = Workforce.objects.get(pk=id)
+        workforce.delete()
+        return JsonResponse({'message': 'Workforce deleted'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid request'}, status=400)

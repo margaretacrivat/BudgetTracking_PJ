@@ -44,5 +44,6 @@ urlpatterns = [
 
     path('workforce/', views.workforce_view, name='workforce'),
     path('add-workforce/', views.add_workforce, name='add-workforce'),
-
+    path('edit-workforce/<int:id>/', views.edit_workforce, name='edit-workforce'),
+    path('delete-workforce/<int:id>/', views.delete_workforce, name='delete-workforce'),
 ]
