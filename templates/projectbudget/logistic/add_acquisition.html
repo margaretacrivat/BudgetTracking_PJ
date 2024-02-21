@@ -126,6 +126,24 @@
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
                                 </div>
+                            {% elif field.name == 'work_place' %}
+                                <div class="inline-fields work-place">
+                                    <label for="workPlace">Work Place</label>
+                                    <div class="input-group">
+                                        <input type="text" name="work_place" id="workPlace"
+                                               class="form-control work-place-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'cpv_code' %}
+                                <div class="inline-fields cpv-code">
+                                    <label for="cpvCode">CPV Code</label>
+                                    <div class="input-group">
+                                        <input type="text" name="cpv_code" id="cpvCode"
+                                               class="form-control cpv-code-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>    
                             {% elif field.name == 'amount' %}
                                 <div class="inline-fields amount">
                                     <label for="amount">Amount</label>

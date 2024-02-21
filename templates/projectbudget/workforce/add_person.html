@@ -1,0 +1,158 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Add Person {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <!-- ***** Breadcrumb Start ***** -->
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="{% url 'persons' %}">Persons Information</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Add Person
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <!-- ***** Breadcrumb End ***** -->
+
+        <div class="add-person-form">
+            <div class="add-form-body" id="addPersonForm">
+                <h4>Add Person Form</h4>
+                <form action="{% url 'add-person' %}" method="post">
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
+
+                    <div class="form-group">
+                        <!-- Render each field individually -->
+                        {% for field in form_person %}
+                            {% if field.name == 'person_name' %}
+                                <div class="inline-fields person-name">
+                                    <label for="personName">Person Name</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_name" id="personName"
+                                               class="form-control person-name-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'person_id' %}
+                                <div class="inline-fields person-id">
+                                    <label for="personId">Person Id</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_id" id="personId"
+                                               class="form-control person-id-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'age' %}
+                                <div class="inline-fields age">
+                                    <label for="age">Age</label>
+                                    <div class="input-group">
+                                        <input type="number" name="age" id="age"
+                                               class="form-control age-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'is_internal' %}
+                                <div class="inline-fields is-internal">
+                                    <label for="isInternal">Is Internal</label>
+                                    <div class="input-group">
+                                        <select name="is_internal" id="isInternal"
+                                                class="form-control is-internal-input">
+                                            <option value="True" {% if field.value == 'True' %}selected{% endif %}>
+                                                True
+                                            </option>
+                                            <option value="False" {% if field.value == 'False' %}selected{% endif %}>
+                                                False
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'institution' %}
+                                <div class="inline-fields institution">
+                                    <label for="institution">Institution</label>
+                                    <div class="input-group">
+                                        <input type="text" name="institution" id="institution"
+                                               class="form-control institution-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'department' %}
+                                <div class="inline-fields department">
+                                    <label for="department">Department</label>
+                                    <div class="input-group">
+                                        <input type="text" name="department" id="department"
+                                               class="form-control department-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'email' %}
+                                <div class="inline-fields email">
+                                    <label for="email">Email</label>
+                                    <div class="input-group">
+                                        <input type="email" name="email" id="email"
+                                               class="form-control email-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'phone' %}
+                                <div class="inline-fields phone">
+                                    <label for="phone">Phone(+...)</label>
+                                    <div class="input-group">
+                                        <input type="tel" name="phone" id="phone"
+                                               class="form-control phone-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'city' %}
+                                <div class="inline-fields city">
+                                    <label for="city">City</label>
+                                    <div class="input-group">
+                                        <input type="text" name="city" id="city"
+                                               class="form-control city-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'country' %}
+                                <div class="inline-fields country">
+                                    <label for="country">Country</label>
+                                    <div class="input-group">
+                                        <input type="text" name="country" id="country"
+                                               class="form-control country-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div>
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endif %}
+                            <!-- Render field errors if any -->
+                            {% for error in field.errors %}
+                                <div class="text-danger">{{ error }}</div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        <div class="update-button-field">
+                            <a href="{% url 'persons' %}"
+                               class="btn btn-cancel btn-outline-secondary">Cancel</a>
+                            <input type="submit" value="Submit"
+                                   class="btn btn-primary btn-primary-sm">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

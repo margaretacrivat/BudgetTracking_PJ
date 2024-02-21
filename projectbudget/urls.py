@@ -46,4 +46,18 @@ urlpatterns = [
     path('add-workforce/', views.add_workforce, name='add-workforce'),
     path('edit-workforce/<int:id>/', views.edit_workforce, name='edit-workforce'),
     path('delete-workforce/<int:id>/', views.delete_workforce, name='delete-workforce'),
+
+    path('export-workforce-csv/', views.export_workforce_csv, name='export-workforce-csv'),
+    path('export-workforce-excel/', views.export_workforce_excel, name='export-workforce-excel'),
+    path('export-workforce-pdf/', views.export_workforce_pdf, name='export-workforce-pdf'),
+
+    path('persons/', views.persons_view, name='persons'),
+    path('add-person/', views.add_person, name='add-person'),
+    path('edit-person/<int:id>/', views.edit_person, name='edit-person'),
+    path('delete-person/<int:id>/', views.delete_person, name='delete-person'),
+
+    path('export-persons-csv/', views.export_persons_csv, name='export-persons-csv'),
+    path('export-persons-excel/', views.export_persons_excel, name='export-persons-excel'),
+    path('export-persons-pdf/', views.export_persons_pdf, name='export-persons-pdf'),
+
 ]

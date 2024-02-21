@@ -17,7 +17,7 @@
                             href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Projects Logistic
+                        Logistic
                     </li>
                 </ol>
             </nav>
@@ -76,7 +76,9 @@
                             <th>Supplier<br>Name</th>
                             <th>Acquisition<br>Description</th>
                             <th>Acquisition<br>Owner</th>
-                            <th>Amount<br>({{ currency }})</th>
+                            <th>Work Place</th>
+                            <th>CPV Code</th>
+                            <th>Total Amount<br>with VAT<br>({{ currency }})</th>
                             <th>Date</th>
                             <th></th>
                             <th></th>
@@ -109,6 +111,8 @@
                                     <td>{{ acquisition.supplier_name }}</td>
                                     <td>{{ acquisition.acquisition_description }}</td>
                                     <td>{{ acquisition.acquisition_owner }}</td>
+                                    <td>{{ acquisition.work_place }}</td>
+                                    <td>{{ acquisition.cpv_code }}</td>
                                     <td>{{ acquisition.amount|floatformat:"2" }}</td>
                                     <td>{{ acquisition.date|date:'m/d/Y' }}</td>
                                     <td>
@@ -144,7 +148,9 @@
                                 <th>Supplier<br>Name</th>
                                 <th>Acquisition<br>Description</th>
                                 <th>Acquisition<br>Owner</th>
-                                <th>Amount<br>({{ currency }})</th>
+                                <th>Work Place</th>
+                                <th>CPV Code</th>
+                                <th>Total Amount<br>with VAT<br>({{ currency }})</th>
                                 <th>Date</th>
                                 <th></th>
                                 <th></th>
@@ -182,6 +188,10 @@
                                 &raquo;</a></li>
                         {% endif %}
                     </ul>
+                </div>
+                <div class="color-explanation">
+                    <div class="color-circle expired-acquisition"></div>
+                    <span>Expired Acquisition </span>
                 </div>
 
             </div>

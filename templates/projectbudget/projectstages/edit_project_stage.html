@@ -39,7 +39,12 @@
                                     <div class="input-group">
                                         <select name="project_name" id="projectName" class="form-control project-name">
                                             {% for project_name in form_stage.fields.project_name.queryset %}
-                                                <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>
+                                                {% if project_name.id == selected_project_id %}
+                                                    <option value="{{ project_name.id }}"
+                                                            selected>{{ project_name.project_name }}</option>
+                                                {% else %}
+                                                    <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>
+                                                {% endif %}
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -114,27 +119,6 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/budgetValue.js' %}"></script>
-
-    {#    <script>#}
-    {#        // Get the project type select element#}
-    {#        const projectTypeSelect = document.getElementById('projectType');#}
-    {##}
-    {#        // Add event listener for change event#}
-    {#        projectTypeSelect.addEventListener('change', function () {#}
-    {#            // Get the selected option#}
-    {#            const selectedOption = projectTypeSelect.options[projectTypeSelect.selectedIndex];#}
-    {#            // Get the class of the selected option#}
-    {#            const selectedClass = selectedOption.getAttribute('class');#}
-    {##}
-    {#            // Remove any existing background color class from all options#}
-    {#            projectTypeSelect.querySelectorAll('option').forEach(option => {#}
-    {#                option.classList.remove('selected');#}
-    {#            });#}
-    {##}
-    {#            // Add the class of the selected option to the selected option#}
-    {#            selectedOption.classList.add('selected');#}
-    {#        });#}
-    {#    </script>#}
 
 
 {% endblock content %}

@@ -71,8 +71,7 @@
                             <th>Project Stage</th>
                             <th>Budget<br>({{ currency }})</th>
                             <th>Reimbursed Amount<br>({{ currency }})</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Project Stage Period</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -99,8 +98,9 @@
                                     <td>{{ project_stage.project_stage }}</td>
                                     <td>{{ project_stage.budget|floatformat:"2" }}</td>
                                     <td>{{ project_stage.reimbursed_amount|floatformat:"2" }}</td>
-                                    <td class="start-date">{{ project_stage.start_date|date:'m/d/Y' }}</td>
-                                    <td class="end-date">{{ project_stage.end_date|date:'m/d/Y' }}</td>
+                                    <td class="project-stage-period"> 
+                                        {{ project_stage.start_date|date:'m/d/Y' }} - {{ project_stage.end_date|date:'m/d/Y' }}
+                                    </td>
                                     <td>
                                         <a href="{% url 'edit-project-stage' project_stage.id %}"
                                            style="color:gray; font-size:20px">
@@ -129,8 +129,7 @@
                                 <th>Project Stage</th>
                                 <th>Budget<br>({{ currency }})</th>
                                 <th>Reimbursed Amount<br>({{ currency }})</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Project Stage Period</th>
                                 <th></th>
                                 <th></th>
                             </tr>

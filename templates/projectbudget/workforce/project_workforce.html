@@ -17,7 +17,7 @@
                             href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Projects Workforce
+                        Workforce
                     </li>
                 </ol>
             </nav>
@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-            {#                        <div id="exportFile">#}
-            {#                            <a href="{% url 'export-displacements-csv' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>#}
-            {#                            </a>#}
-            {#                            <a href="{% url 'export-displacements-excel' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>#}
-            {#                            </a>#}
-            {#                            <a href="{% url 'export-displacements-pdf' %}" class="btn">#}
-            {#                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>#}
-            {#                            </a>#}
-            {#                        </div>#}
+            <div id="exportFile">
+                <a href="{% url 'export-workforce-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+                <a href="{% url 'export-workforce-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+                <a href="{% url 'export-workforce-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
+            </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -62,18 +62,33 @@
                         Add Workforce
                     </a>
                 </div>
+                <div class="breadcrumb-person-information">
+                    <a href="{% url 'persons' %}" class="btn">
+                        <i class='bx bx-id-card info-icon'></i>
+                        Persons Personal Informations
+                    </a>
+{#                    <p>>by clicking here you can see#}
+{#                        <br>all the informations regarding#}
+{#                        <br>the persons involved in the project</p>#}
+                </div>
 
                 <div class="app-table">
                     <table class="table table-stripped table-hover">
                         <thead>
                         <tr>
-                            <th>Person<br>Name</th>
                             <th>Project<br>Name</th>
                             <th>Project<br>Stage</th>
+                            <th>Work Place</th>
+                            <th>Person<br>Work Id</th>
+                            <th>Person<br>Name</th>
                             <th>Person<br>Role</th>
                             <th>Salary/hour<br>({{ currency }})</th>
                             <th>Work<br>Days</th>
-                            <th>Amount<br>({{ currency }})</th>
+                            <th>Salary Realized<br>({{ currency }})</th>
+                            <th>Vacation<br>Leave Days</th>
+                            <th>Vacation Days<br>Reimbursed Amount<br>({{ currency }})</th>
+                            <th>Gross Salary<br>({{ currency }})</th>
+                            <th>Work Period</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -96,13 +111,21 @@
                         {% if workforce.count %}
                             {% for workforce in page_obj %}
                                 <tr {% if workforce.end_date < today %} class="expired-workforce" {% endif %}>
-                                    <td>{{ workforce.person_name }}</td>
                                     <td>{{ workforce.project_name.project_name }}</td>
                                     <td>{{ workforce.project_stage }}</td>
+                                    <td>{{ workforce.work_place }}</td>
+                                    <td>{{ workforce.person_work_id }}</td>
+                                    <td>{{ workforce.person_name }}</td>
                                     <td>{{ workforce.person_role }}</td>
                                     <td>{{ workforce.salary_per_hour|floatformat:"2" }}</td>
                                     <td>{{ workforce.work_days }}</td>
-                                    <td>{{ workforce.amount|floatformat:"2" }}</td>
+                                    <td>{{ workforce.salary_realized|floatformat:"2" }}</td>
+                                    <td>{{ workforce.vacation_leave_days }}</td>
+                                    <td>{{ workforce.vacation_reimbursed_amount|floatformat:"2" }}</td>
+                                    <td>{{ workforce.gross_salary_amount|floatformat:"2" }}</td>
+                                    <td class="work-period">
+                                        {{ workforce.start_date|date:'m/d/Y' }} - {{ workforce.end_date|date:'m/d/Y' }}
+                                    </td>
                                     <td>
                                         <a href="{% url 'edit-workforce' workforce.id %}"
                                            style="color:gray; font-size:20px">
@@ -127,13 +150,19 @@
                             <table class="table table-stripped table-hover">
                             <thead>
                             <tr>
-                                <th>Person<br>Name</th>
                                 <th>Project<br>Name</th>
                                 <th>Project<br>Stage</th>
+                                <th>Work Place</th>
+                                <th>Person<br>Work Id</th>
+                                <th>Person<br>Name</th>
                                 <th>Person<br>Role</th>
                                 <th>Salary/hour<br>({{ currency }})</th>
                                 <th>Work<br>Days</th>
-                                <th>Amount<br>({{ currency }})</th>
+                                <th>Salary Realized<br>({{ currency }})</th>
+                                <th>Vacation<br>Leave Days</th>
+                                <th>Vacation Days<br>Reimbursed Amount<br>({{ currency }})</th>
+                                <th>Gross Salary<br>({{ currency }})</th>
+                                <th>Work Period</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -170,6 +199,10 @@
                                 &raquo;</a></li>
                         {% endif %}
                     </ul>
+                </div>
+                <div class="color-explanation">
+                    <div class="color-circle expired-workforce"></div>
+                    <span>Expired Work Period</span>
                 </div>
 
             </div>

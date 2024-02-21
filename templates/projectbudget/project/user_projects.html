@@ -76,8 +76,8 @@
                             <th>Contract</th>
                             <th>Project<br>Type</th>
                             <th>Budget<br>({{ currency }})</th>
-                            <th>Start<br>Date</th>
-                            <th>End<br>Date</th>
+                            <th>Reimbursed Amount<br>({{ currency }})</th>
+                            <th>Project Period</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -110,8 +110,10 @@
                                     <td>{{ project.contract }}</td>
                                     <td>{{ project.project_type }}</td>
                                     <td>{{ project.budget|floatformat:"2" }}</td>
-                                    <td class="start-date-status">{{ project.start_date|date:'m/d/Y' }}</td>
-                                    <td class="end-date-status">{{ project.end_date|date:'m/d/Y' }}</td>
+                                    <td>{{ project.reimbursed_amount|floatformat:"2" }}</td>
+                                    <td class="project-period">
+                                        {{ project.start_date|date:'m/d/Y' }} - {{ project.end_date|date:'m/d/Y' }}
+                                    </td>
                                     <td>
                                         <a href="{% url 'edit-project' project.id %}"
                                            style="color:gray; font-size:20px">
@@ -145,8 +147,8 @@
                                 <th>Contract</th>
                                 <th>Project<br>Type</th>
                                 <th>Budget<br>({{ currency }})</th>
-                                <th>Start<br>Date</th>
-                                <th>End<br>Date</th>
+                                <th>Reimbursed Amount<br>({{ currency }})</th>
+                                <th>Project Period</th>
                                 <th></th>
                                 <th></th>
                             </tr>

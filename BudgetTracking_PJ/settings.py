@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'projectbudget',
     'preferences',
     'authentication',
+    'phonenumber_field',
     # 'django_filters',
 ]
 

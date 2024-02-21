@@ -34,12 +34,48 @@
                         <div class="form-group">
                             <!-- Render each field individually -->
                             {% for field in form_displacement %}
-                                {% if field.name == 'institution' %}
-                                    <div class="inline-fields institution">
-                                        <label for="institution">Institution</label>
+                                {% if field.name == 'project_name' %}
+                                    <div class="inline-fields project-name">
+                                        <label for="projectName">Project Name</label>
                                         <div class="input-group">
-                                            <input type="text" name="institution" id="institution"
-                                                   class="form-control institution-input"
+                                            <select name="project_name" id="projectName"
+                                                    class="form-control project-name-input">
+                                                {% for project in projects %}
+                                                    {% if project.id == selected_project_id %}
+                                                        <option value="{{ project.id }}"
+                                                                selected>{{ project.project_name }}</option>
+                                                    {% else %}
+                                                        <option value="{{ project.id }}">{{ project.project_name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'project_stage' %}
+                                    <div class="inline-fields project-stage">
+                                        <label for="projectStage">Project Stage</label>
+                                        <div class="input-group">
+                                            <select name="project_stage" id="projectStage"
+                                                    class="form-control project-stage-input">
+                                                {% for project_stage in project_stages %}
+                                                    {% if project_stage.id == selected_project_stage_id %}
+                                                        <option value="{{ project_stage.id }}"
+                                                                selected>{{ project_stage.project_stage }}</option>
+                                                    {% else %}
+                                                        <option value="{{ project_stage.id }}">
+                                                            {{ project_stage.project_stage }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                {% elif field.name == 'work_place' %}
+                                    <div class="inline-fields work-place">
+                                        <label for="workPlace">Work Place</label>
+                                        <div class="input-group">
+                                            <input type="text" name="work_place" id="workPlace"
+                                                   class="form-control work-place-input"
                                                    value="{% if field.value %}{{ field.value }}{% endif %}">
                                         </div>
                                     </div>
@@ -52,30 +88,7 @@
                                                    value="{% if field.value %}{{ field.value }}{% endif %}">
                                         </div>
                                     </div>
-                                {% elif field.name == 'project_name' %}
-                                    <div class="inline-fields project-name">
-                                        <label for="projectName">Project Name</label>
-                                        <div class="input-group">
-                                            <select name="project_name" id="projectName"
-                                                    class="form-control project-name-input">
-                                                {% for project in projects %}
-                                                    <option value="{{ project.id }}">{{ project.project_name }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
-                                {% elif field.name == 'project_stage' %}
-                                    <div class="inline-fields project-stage">
-                                        <label for="projectStage">Project Stage</label>
-                                        <div class="input-group">
-                                            <select name="project_stage" id="projectStage"
-                                                    class="form-control project-stage-input">
-                                                {% for project_stage in project_stages %}
-                                                    <option value="{{ project_stage.id }}">{{ project_stage.project_stage }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 {% elif field.name == 'document_series' %}
                                     <div class="inline-fields document-series">
                                         <label for="documentSeries">Document Series</label>
@@ -101,20 +114,29 @@
                                             <select name="displacement_type" id="displacementType"
                                                     class="form-control displacement-type-input">
                                                 {% for type in displacement_type %}
-                                                    <option value="{{ type }}"
-                                                            class="displacement-type-option-{{ forloop.counter }}"
-                                                            id="optionType">
-                                                        {{ type }}
-                                                    </option>
+                                                    {% if type == displacement.displacement_type %}
+                                                        <option value="{{ type }}" selected>{{ type }}</option>
+                                                    {% else %}
+                                                        <option value="{{ type }}">{{ type }}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                     </div>
-                                {% elif field.name == 'amount' %}
-                                    <div class="inline-fields amount">
-                                        <label for="amount">Amount</label>
+                                {% elif field.name == 'transportation_mean' %}
+                                    <div class="inline-fields transportation-mean">
+                                        <label for="transportationMean">Transportation Mean</label>
                                         <div class="input-group">
-                                            <input type="text" name="amount" id="amount"
+                                            <input type="text" name="transportation_mean" id="transportationMean"
+                                                   class="form-control transportation-mean-input"
+                                                   value="{% if field.value %}{{ field.value }}{% endif %}">
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'budget_per_day' %}
+                                    <div class="inline-fields budget-per-day">
+                                        <label for="budgetPerDay">Budget/Day</label>
+                                        <div class="input-group">
+                                            <input type="text" name="budget_per_day" id="budgetPerDay"
                                                    class="form-control budget-input"
                                                    value="{{ field.value|default:'0.00' }}">
                                         </div>
@@ -126,6 +148,43 @@
                                             <input type="number" name="days_no" id="daysNo"
                                                    class="form-control days-no-input"
                                                    value="{% if field.value %}{{ field.value }}{% endif %}">
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'total_budget' %}
+                                    <div class="inline-fields total-budget">
+                                        <label for="totalBudget">Total Budget</label>
+                                        <div class="input-group">
+                                            <input type="text" name="total_budget" id="totalBudget"
+                                                   class="form-control budget-input"
+                                                   value="{{ field.value|default:'0.00' }}">
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'other_expenses_description' %}
+                                    <div class="inline-fields other-expenses-description">
+                                        <label for="otherExpensesDescription">Other Expenses Description</label>
+                                        <div class="input-group">
+                                            <input type="text" name="other_expenses_description"
+                                                   id="otherExpensesDescription"
+                                                   class="form-control other-expenses-description-input"
+                                                   value="{% if field.value %}{{ field.value }}{% endif %}">
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'other_expenses_budget' %}
+                                    <div class="inline-fields other-expenses-budget">
+                                        <label for="otherExpensesBudget">Other Expenses Budget</label>
+                                        <div class="input-group">
+                                            <input type="text" name="other_expenses_budget" id="otherExpensesBudget"
+                                                   class="form-control budget-input"
+                                                   value="{{ field.value|default:'0.00' }}">
+                                        </div>
+                                    </div>
+                                {% elif field.name == 'total_amount' %}
+                                    <div class="inline-fields total-amount">
+                                        <label for="totalAmount">Total Amount</label>
+                                        <div class="input-group">
+                                            <input type="text" name="amount" id="totalAmount"
+                                                   class="form-control budget-input"
+                                                   value="{{ field.value|default:'0.00' }}">
                                         </div>
                                     </div>
                                 {% elif field.name == 'start_date' %}
@@ -172,6 +231,8 @@
 
 
     <!-- Scripts -->
+    <script src="{% static 'assets/js/automaticTotalBudget.js' %}"></script>
+    <script src="{% static 'assets/js/automaticTotalAmount.js' %}"></script>
     <script src="{% static 'assets/js/budgetValue.js' %}"></script>
 
     <script>

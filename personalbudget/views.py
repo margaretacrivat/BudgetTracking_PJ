@@ -1,3 +1,4 @@
+import textwrap
 from decimal import Decimal
 
 from django.shortcuts import render, redirect
@@ -7,6 +8,9 @@ from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator
 import json
+
+from reportlab.lib.units import inch
+
 from .models import Expense, Category, Source, Income
 from preferences.models import Currency
 from django.db.models import Count, Sum
@@ -312,7 +316,16 @@ def export_expenses_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Expenses' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response, pagesize=A4, title='PDF Expenses_Report')
+    # Page dimensions and margins
+    page_width, page_height = A4
+    left_margin = 0.5 * inch
+    right_margin = 0.5 * inch
+    top_margin = 0.5 * inch
+    bottom_margin = 0.5 * inch
+
+    pdf = SimpleDocTemplate(response, pagesize=(page_width, page_height), leftMargin=left_margin,
+                            rightMargin=right_margin, topMargin=top_margin, bottomMargin=bottom_margin,
+                            title='PDF Expenses_Report')
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -335,12 +348,34 @@ def export_expenses_pdf(request):
     headers = ['Item', 'Category', 'Description', f'Cost\n({currency})', 'Qty', f'Amount\n({currency})', 'Date']
     data = [headers]
 
+    # Get the default sample style sheet
+    styles = getSampleStyleSheet()
+    normal_style = styles['Normal']
+    normal_style.alignment = 1  # Center alignment
+    normal_style.spaceAfter = 10  # Space after each paragraph
+    normal_style.fontSize = 10  # Font dimension
+    normal_style.leading = 12  # Distance between lines
+
+    # Vertical center alignment
+    normal_style.alignment = 1  # 0 = left, 1 = centre, 2 = right
+    normal_style.textColor = colors.black
+    normal_style.alignment = 1
+    normal_style.alignment = 1
+    normal_style.alignment = 1
+
     expenses = Expense.objects.filter(owner=request.user)
 
     for expense in expenses:
-        formatted_date = expense.date.strftime('%d-%m-%Y')
+        formatted_date = expense.date.strftime('%m/%d/%Y')
+
+        # Modification for adding a paragraph with normal style
+        for field in ['item', 'description']:
+            field_value = getattr(expense, field)
+            if isinstance(field_value, str) and len(field_value.split()) > 3:
+                setattr(expense, field, Paragraph('<br/>'.join(textwrap.wrap(field_value, width=40))))
+
         data.append([expense.item, expense.category, expense.description, expense.cost, expense.qty,
-                         expense.amount, formatted_date])
+                     expense.amount, formatted_date])
 
     # Define style for table
     table_style = TableStyle([
@@ -349,18 +384,18 @@ def export_expenses_pdf(request):
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('RIGHTPADDING', (0, 0), (-1, 0), 5),
         ('LEFTPADDING', (0, 0), (-1, 0), 5),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
-        ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 10),  # Increase left padding for all cells
-        ('RIGHTPADDING', (0, 0), (-1, -1), 10),  # Increase right padding for all cells
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
-        ('TOPPADDING', (0, 0), (-1, -1), 10),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),  # Increase left padding for all cells
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),  # Increase right padding for all cells
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
     ])
 
     table = Table(data)
@@ -698,10 +733,32 @@ def export_income_pdf(request):
     headers = ['Source', 'Description', f'Amount\n({currency})', 'Date']
     data = [headers]
 
+    # Get the default sample style sheet
+    styles = getSampleStyleSheet()
+    normal_style = styles['Normal']
+    normal_style.alignment = 1  # Center alignment
+    normal_style.spaceAfter = 10  # Space after each paragraph
+    normal_style.fontSize = 10  # Font dimension
+    normal_style.leading = 12  # Distance between lines
+
+    # Vertical center alignment
+    normal_style.alignment = 1  # 0 = left, 1 = centre, 2 = right
+    normal_style.textColor = colors.black
+    normal_style.alignment = 1
+    normal_style.alignment = 1
+    normal_style.alignment = 1
+
     incomes = Income.objects.filter(owner=request.user)
 
     for income in incomes:
-        formatted_date = income.date.strftime('%d-%m-%Y')
+        formatted_date = income.date.strftime('%m/%d/%Y')
+
+        # Modification for adding a paragraph with normal style
+        for field in ['source', 'description']:
+            field_value = getattr(income, field)
+            if isinstance(field_value, str) and len(field_value.split()) > 3:
+                setattr(income, field, Paragraph('<br/>'.join(textwrap.wrap(field_value, width=40))))
+
         data.append([income.source, income.description, income.amount, formatted_date])
 
     # Define style for table
@@ -711,18 +768,18 @@ def export_income_pdf(request):
         ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
-        ('FONTSIZE', (0, 0), (-1, -1), 12),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('RIGHTPADDING', (0, 0), (-1, 0), 5),
         ('LEFTPADDING', (0, 0), (-1, 0), 5),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
         ('TOPPADDING', (0, 0), (-1, 0), 5),
-        ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 25),  # Increase left padding for all cells
-        ('RIGHTPADDING', (0, 0), (-1, -1), 25),  # Increase right padding for all cells
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
-        ('TOPPADDING', (0, 0), (-1, -1), 10),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 5),
     ])
 
     table = Table(data)

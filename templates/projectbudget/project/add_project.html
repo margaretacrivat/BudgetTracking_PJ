@@ -35,14 +35,14 @@
                         {% for field in form %}
                             {% if field.name == 'institution' %}
                                 <div class="inline-fields institution">
-                                    <label for="institution" >Institution</label>
+                                    <label for="institution">Institution</label>
                                     <div class="input-group">
                                         <input type="text" name="institution" id="institution"
                                                class="form-control institution-input"
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
                                 </div>
-                             {% elif field.name == 'project_name' %}
+                            {% elif field.name == 'project_name' %}
                                 <div class="inline-fields project-name">
                                     <label for="projectName">Project Name</label>
                                     <div class="input-group">
@@ -50,7 +50,7 @@
                                                class="form-control project-name-input"
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
-                                </div>   
+                                </div>
                             {% elif field.name == 'project_title' %}
                                 <div class="inline-fields project-title">
                                     <label for="projectTitle">Project Title</label>
@@ -117,6 +117,15 @@
                                     <label for="projectBudget">Budget</label>
                                     <div class="input-group">
                                         <input type="text" name="budget" id="projectBudget"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.00' }}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'reimbursed_amount' %}
+                                <div class="inline-fields reimbursed-amount">
+                                    <label for="reimbursedAmount">Reimbursed Amount</label>
+                                    <div class="input-group">
+                                        <input type="text" name="reimbursed_amount" id="reimbursedAmount"
                                                class="form-control budget-input"
                                                value="{{ field.value|default:'0.00' }}">
                                     </div>

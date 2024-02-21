@@ -39,7 +39,8 @@ Container Projects Pages Style
 
 .expired-project-stage,
 .expired-acquisition,
-.expired-displacement {
+.expired-displacement,
+.expired-workforce {
     background-color: #bebebe;
 }
 
@@ -56,21 +57,13 @@ ADD Project Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
     display: flex;
     flex-direction: column;
 }
-
-/*#addProjectForm {*/
-/*    flex: 1;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
 
 #addProjectForm h4 {
     margin: 10px 0;
@@ -98,7 +91,8 @@ ADD Project Form
 .project-funder,
 .project-contract,
 .project-type,
-.project-budget {
+.project-budget,
+.reimbursed-amount {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -141,7 +135,6 @@ ADD Project Form
     border-radius: 6px;
 }
 
-/*.project-name #projectName,*/
 .project-manager #projectManager {
     margin-left: 10px;
     width: 60%;
@@ -151,7 +144,7 @@ ADD Project Form
 
 .project-stages .input-group {
     margin-left: 10px;
-    width: 20%;
+    width: 15%;
     font-weight: 400;
     border-radius: 6px;
 }
@@ -177,7 +170,8 @@ ADD Project Form
     text-align: center;
 }
 
-.project-budget .input-group {
+.project-budget .input-group,
+.reimbursed-amount .input-group {
     width: 500px;
     margin-left: 10px;
     padding-top: 10px;
@@ -228,20 +222,14 @@ Edit Project Form
     backdrop-filter: blur(20px);
     border: 1px solid darkgrey;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    border-radius: 10px 10px 10px 10px;
-    padding: 20px 20px 400px 20px;
-    margin-top: 10px;
-    margin-bottom: 21px;
-    margin-left: 210px;
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 587px;
-    gap: 20px;
-    grid-template-areas:
-        "editProjectForm";
+    display: flex;
+    flex-direction: column;
 }
 
 #editProjectForm {
@@ -269,7 +257,7 @@ ADD Project Stage Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -374,7 +362,7 @@ Edit Project Stage Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -403,7 +391,7 @@ ADD Acquisition Form - Logistic
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -438,6 +426,8 @@ ADD Acquisition Form - Logistic
 .supplier-name,
 .acquisition-description,
 .acquisition-owner,
+.work-place,
+.cpv-code,
 .amount {
     display: flex;
     flex-direction: row;
@@ -469,6 +459,8 @@ ADD Acquisition Form - Logistic
     margin-top: 20px;
 }
 
+.work-place label,
+.cpv-code label,
 .amount label {
     padding-top: 20px;
 }
@@ -493,7 +485,22 @@ ADD Acquisition Form - Logistic
     font-weight: 400;
 }
 
-.acquisition-type .input-group,
+.work-place .input-group {
+    margin-left: 10px;
+    width: 87%;
+    font-weight: 400;
+}
+
+.acquisition-type .input-group {
+    margin-left: 10px;
+    width: 30%;
+    font-weight: 400;
+}
+
+.acquisition-type .acquisition-type-input {
+    text-align: center;
+}
+
 .document-type .input-group,
 .document-series .input-group {
     margin-left: 10px;
@@ -513,6 +520,7 @@ ADD Acquisition Form - Logistic
     font-weight: 400;
 }
 
+.cpv-code .input-group,
 .amount .input-group {
     width: 500px;
     margin-left: 10px;
@@ -548,7 +556,7 @@ Edit Acquisition Form - Logistic
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -579,7 +587,7 @@ ADD Displacement Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -612,7 +620,12 @@ ADD Displacement Form
 .document-series,
 .displaced-to,
 .displacement-type,
-.amount,
+.transportation-mean,
+.budget-per-day,
+.total-budget,
+.other-expenses-description,
+.other-expenses-budget,
+.total-amount,
 .days-no {
     display: flex;
     flex-direction: row;
@@ -644,10 +657,14 @@ ADD Displacement Form
     margin-top: 20px;
 }
 
-.amount label {
+.transportation-mean label,
+.budget-per-day label,
+.total-budget label,
+.other-expenses-description label,
+.other-expenses-budget label,
+.total-amount label {
     padding-top: 20px;
 }
-
 
 .person-name .input-group {
     margin-left: 10px;
@@ -658,13 +675,22 @@ ADD Displacement Form
 }
 
 .project-name .input-group,
-.project-stage .input-group,
-.displacement-type .input-group {
+.project-stage .input-group {
     margin-left: 10px;
     width: 50%;
     font-weight: 400;
     border-radius: 6px;
     padding-bottom: 10px;
+}
+
+.displacement-type .input-group {
+    margin-left: 10px;
+    width: 30%;
+    font-weight: 400;
+}
+
+.displacement-type .displacement-type-input {
+    text-align: center;
 }
 
 .document-series .input-group {
@@ -679,6 +705,12 @@ ADD Displacement Form
     font-weight: 400;
 }
 
+.transportation-mean .input-group {
+    margin-left: 10px;
+    width: 77%;
+    font-weight: 400;
+}
+
 .days-no .input-group {
     margin-left: 10px;
     width: 15%;
@@ -687,8 +719,17 @@ ADD Displacement Form
     padding-bottom: 10px;
 }
 
+.other-expenses-description .input-group {
+    margin-left: 10px;
+    width: 70%;
+    font-weight: 400;
+}
 
-.amount .input-group {
+
+.budget-per-day .input-group,
+.total-budget .input-group,
+.other-expenses-budget .input-group,
+.total-amount .input-group {
     width: 500px;
     margin-left: 10px;
 }
@@ -709,6 +750,13 @@ ADD Displacement Form
     margin-left: 10px;
 }
 
+#totalBudget[readonly],
+#totalAmount[readonly] {
+    background-color: #f0f0f0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
+}
+
 
 /*
 ---------------------------------------------
@@ -723,7 +771,7 @@ Edit Displacement Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -740,7 +788,6 @@ Edit Displacement Form
 }
 
 
-
 /*
 ---------------------------------------------
 ADD Workforce Form
@@ -754,7 +801,7 @@ ADD Workforce Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -779,23 +826,37 @@ ADD Workforce Form
     font-size: 16px;
     padding-bottom: 5px;
 }
-
-.person-name,
 .project-name,
 .project-stage,
+.person-work-id,
+.person-name,
 .person-role,
-.days-no,
 .salary-per-hour,
-.amount {
+.work-days,
+.salary-realized,
+.vacation-leave-days,
+.vacation-reimbursed-amount,
+.gross-salary-amount {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
 }
 
 .person-role label,
+.person-work-id label,
 .salary-per-hour label,
-.amount label {
+.salary-realized label,
+.gross-salary-amount label {
     padding-top: 20px;
+}
+
+.work-days label,
+.vacation-leave-days label {
+    padding-top: 5px;
+}
+
+.vacation-reimbursed-amount label {
+    padding-top: 10px;
 }
 
 .person-role .input-group {
@@ -806,10 +867,37 @@ ADD Workforce Form
     padding-bottom: 10px;
 }
 
+.vacation-reimbursed-amount .input-group {
+    margin-left: 10px;
+    width: 95%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.work-days .input-group,
+.vacation-leave-days .input-group {
+    margin-left: 10px;
+    width: 15%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.person-work-id .input-group,
 .salary-per-hour .input-group,
-.amount .input-group {
+.salary-realized .input-group,
+.gross-salary-amount .input-group {
     width: 500px;
     margin-left: 10px;
+}
+
+#salaryRealized[readonly],
+#vacationReimbursedAmount[readonly],
+#grossSalaryAmount[readonly] {
+    background-color: #f0f0f0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
 }
 
 /*
@@ -825,7 +913,7 @@ Edit Workforce Form
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 10px;
     padding: 20px 20px 50px 20px;
-    margin: 10px 60px 60px 210px;
+    margin: 30px 60px 30px 210px;
     width: 70%;
     grid-area: main;
 
@@ -842,6 +930,235 @@ Edit Workforce Form
 }
 
 .edit-workforce-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+/*
+---------------------------------------------
+Workforce Person Breadcrumb
+---------------------------------------------
+*/
+
+.breadcrumb-add-person .btn {
+    font-size: 14px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 3px;
+}
+
+.breadcrumb-add-person {
+    padding: 5px 5px 0 0;
+    margin-left: 1000px;
+}
+
+.breadcrumb-add-person a {
+    min-width: 20px;
+    font-weight: 500;
+    color: white;
+    background: rgba(11, 140, 22, 0.89);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.breadcrumb-person-information .btn {
+    padding: 10px 15px 10px 15px;
+}
+
+.breadcrumb-person-information {
+    padding: 5px 5px 0 0;
+}
+
+.breadcrumb-person-information a {
+    min-width: 20px;
+    font-weight: 500;
+    color: white;
+    background: #f15b4d;
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+}
+
+.breadcrumb-person-information .info-icon {
+    font-size: 24px;
+}
+
+.breadcrumb-add-person:hover a {
+    transform: scale(1.02);
+    color: rgba(11, 140, 22, 0.89);
+    border: 1px solid rgba(0, 128, 0, 0.68);
+    background: #b6afaf;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.breadcrumb-person-information:hover a {
+    transform: scale(1.02);
+    border: 1px solid #f15b4d;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+
+/*
+---------------------------------------------
+ADD Person Form
+---------------------------------------------
+*/
+
+.add-person-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 30px 60px 30px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#addPersonForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.add-person-form .inline-fields {
+    margin-bottom: 10px;
+}
+
+.add-person-form .form-group {
+    font-weight: 600;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.person-name,
+.person-id,
+.age,
+.is-internal,
+.institution,
+.department,
+.email,
+.phone,
+.city,
+.country {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.age label,
+.is-internal label,
+.phone label {
+    padding-top: 5px;
+}
+
+.person-id label,
+.department label,
+.email label,
+.city label,
+.country label {
+    padding-top: 20px;
+}
+
+.age .age-input,
+.is-internal .is-internal-input {
+    text-align: center;
+}
+
+.age .input-group {
+    margin-left: 10px;
+    width: 10%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.is-internal .input-group {
+    margin-left: 10px;
+    width: 15%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.department .input-group {
+    margin-left: 10px;
+    width: 95%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.person-id .input-group,
+.email .input-group {
+    margin-left: 10px;
+    width: 60%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.phone .input-group {
+    margin-left: 10px;
+    width: 55%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.city .input-group {
+    margin-left: 10px;
+    width: 62%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+.country .input-group {
+    margin-left: 10px;
+    width: 58%;
+    font-weight: 400;
+    border-radius: 6px;
+    padding-bottom: 10px;
+}
+
+
+/*
+---------------------------------------------
+Edit Person Form
+---------------------------------------------
+*/
+
+.edit-person-form {
+    background: transparent;
+    backdrop-filter: blur(20px);
+    border: 1px solid darkgrey;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 20px 20px 50px 20px;
+    margin: 30px 60px 30px 210px;
+    width: 70%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#editPersonForm h4 {
+    margin: 10px 0;
+    font-size: 28px;
+    text-shadow: 0 1px 1px #000;
+    text-align: center;
+    color: #b2b2b2;
+}
+
+.edit-person-form .form-group {
     font-weight: 600;
     font-size: 16px;
     padding-bottom: 5px;

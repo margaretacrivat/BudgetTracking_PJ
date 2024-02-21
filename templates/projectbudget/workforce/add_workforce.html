@@ -33,16 +33,7 @@
                     <div class="form-group">
                         <!-- Render each field individually -->
                         {% for field in form_workforce %}
-                            {% if field.name == 'person_name' %}
-                                <div class="inline-fields person-name">
-                                    <label for="personName">Person Name</label>
-                                    <div class="input-group">
-                                        <input type="text" name="person_name" id="personName"
-                                               class="form-control person-name-input"
-                                               value="{% if field.value %}{{ field.value }}{% endif %}">
-                                    </div>
-                                </div>
-                            {% elif field.name == 'project_name' %}
+                            {% if field.name == 'project_name' %}
                                 <div class="inline-fields project-name">
                                     <label for="projectName">Project Name</label>
                                     <div class="input-group">
@@ -66,6 +57,33 @@
                                         </select>
                                     </div>
                                 </div>
+                            {% elif field.name == 'work_place' %}
+                                <div class="inline-fields work-place">
+                                    <label for="workPlace">Work Place</label>
+                                    <div class="input-group">
+                                        <input type="text" name="work_place" id="workPlace"
+                                               class="form-control work-place-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'person_work_id' %}
+                                <div class="inline-fields person-work-id">
+                                    <label for="personWorkId">Person Work Id</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_work_id" id="personWorkId"
+                                               class="form-control person-work-id-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'person_name' %}
+                                <div class="inline-fields person-name">
+                                    <label for="personName">Person Name</label>
+                                    <div class="input-group">
+                                        <input type="text" name="person_name" id="personName"
+                                               class="form-control person-name-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
                             {% elif field.name == 'person_role' %}
                                 <div class="inline-fields person-role">
                                     <label for="personRole">Person Role</label>
@@ -85,7 +103,7 @@
                                     </div>
                                 </div>
                             {% elif field.name == 'work_days' %}
-                                <div class="inline-fields days-no">
+                                <div class="inline-fields work-days">
                                     <label for="workDays">Work Days</label>
                                     <div class="input-group">
                                         <input type="number" name="work_days" id="workDays"
@@ -93,12 +111,58 @@
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
                                 </div>
-                            {% elif field.name == 'amount' %}
-                                <div class="inline-fields amount">
-                                    <label for="amount">Amount ({{ currency }})</label>
+                            {% elif field.name == 'salary_realized' %}
+                                <div class="inline-fields salary-realized">
+                                    <label for="salaryRealized">Salary Realized ({{ currency }})</label>
                                     <div class="input-group">
-                                        <input type="text" name="amount" id="amount"
-                                               class="form-control" value="{{ field.value|default:'0.00' }}" readonly>
+                                        <input type="text" name="salary_realized" id="salaryRealized"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.00' }}" readonly>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'vacation_leave_days' %}
+                                <div class="inline-fields vacation-leave-days">
+                                    <label for="vacationLeaveDays">Vacation Leave Days</label>
+                                    <div class="input-group">
+                                        <input type="number" name="vacation_leave_days" id="vacationLeaveDays"
+                                               class="form-control vacation-leave-days-input"
+                                               value="{% if field.value %}{{ field.value }}{% endif %}">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'vacation_reimbursed_amount' %}
+                                <div class="inline-fields vacation-reimbursed-amount">
+                                    <label for="vacationReimbursedAmount">Vacation Days Reimbursed Amount
+                                        ({{ currency }})</label>
+                                    <div class="input-group">
+                                        <input type="text" name="vacation_reimbursed_amount"
+                                               id="vacationReimbursedAmount"
+                                               class="form-control budget-input" 
+                                               value="{{ field.value|default:'0.00' }}" readonly>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'gross_salary_amount' %}
+                                <div class="inline-fields gross-salary-amount">
+                                    <label for="grossSalaryAmount">Gross Salary Amount ({{ currency }})</label>
+                                    <div class="input-group">
+                                        <input type="text" name="gross_salary_amount" id="grossSalaryAmount"
+                                               class="form-control budget-input" 
+                                               value="{{ field.value|default:'0.00' }}" readonly>
+                                    </div>
+                                </div>
+                            {% elif field.name == 'start_date' %}
+                                <div class="inline-fields project-date">
+                                    <label for="startDate">Start Date</label>
+                                    <div class="input-group">
+                                        <input type="date" name="start_date" id="startDate"
+                                               class="form-control" data-date-format="mm/dd/yyyy">
+                                    </div>
+                                </div>
+                            {% elif field.name == 'end_date' %}
+                                <div class="inline-fields project-date">
+                                    <label for="endDate">End Date</label>
+                                    <div class="input-group">
+                                        <input type="date" name="end_date" id="endDate"
+                                               class="form-control" data-date-format="mm/dd/yyyy">
                                     </div>
                                 </div>
                             {% else %}
@@ -129,6 +193,7 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/automaticSalary.js' %}"></script>
+    <script src="{% static 'assets/js/automaticGrossSalary.js' %}"></script>
     <script src="{% static 'assets/js/budgetValue.js' %}"></script>
 
 

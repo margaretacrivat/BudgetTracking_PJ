@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Projects Displacement {% endblock %}
+{% block title %} Persons Information {% endblock %}
 
 {% block content %}
 
@@ -14,35 +14,34 @@
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
-                            href="{% url 'projects' %}">Projects</a>
+                            href="{% url 'workforce' %}">Workforce</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Displacement
-                    </li>
+                        Persons Information
                 </ol>
             </nav>
         </div>
         <!-- ***** Breadcrumb End ***** -->
 
         <div class="container-tables">
-            <!-- ***** Back to the Dashboard ***** -->
-            <div class="breadcrumb-event-back">
-                <a href="{% url 'project-budget' %}" class="btn btn-secondary">
-                    <i class="fa fa-angle-left home-icon"></i>
-                    <span>Back to Dashboard</span></a>
-            </div>
+            <!-- ***** Back to the Workforce Page ***** -->
+                        <div class="breadcrumb-event-back">
+                            <a href="{% url 'workforce' %}" class="btn btn-secondary">
+                                <i class="fa fa-angle-left home-icon"></i>
+                                <span>Back to Workforce</span></a>
+                        </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-            <div id="exportFile">
-                <a href="{% url 'export-displacements-csv' %}" class="btn">
-                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
-                </a>
-                <a href="{% url 'export-displacements-excel' %}" class="btn">
-                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
-                </a>
-                <a href="{% url 'export-displacements-pdf' %}" class="btn">
-                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
-                </a>
-            </div>
+                        <div id="exportFile">
+                            <a href="{% url 'export-persons-csv' %}" class="btn">
+                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                            </a>
+                            <a href="{% url 'export-persons-excel' %}" class="btn">
+                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                            </a>
+                            <a href="{% url 'export-persons-pdf' %}" class="btn">
+                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                            </a>
+                        </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -52,36 +51,32 @@
                 </div>
             </div>
 
-            <!-- ***** Displacement data Table ***** -->
+            <!-- ***** Workforce data Table ***** -->
             <div id="dataTable">
                 {% include 'authentication/_messages.html' %} {% csrf_token %}
 
-                <div class="breadcrumb-event-add">
-                    <a href="{% url 'add-displacement' %}" class="btn">
+                <div class="breadcrumb-add-person">
+                    <a href="{% url 'add-person' %}" class="btn">
                         <i class="bx bxs-plus-circle add-icon"></i>
-                        Add Displacement
+                        Add Person
                     </a>
                 </div>
+
 
                 <div class="app-table">
                     <table class="table table-stripped table-hover">
                         <thead>
                         <tr>
-                            <th>Project<br>Name</th>
-                            <th>Project<br>Stage</th>
-                            <th>Work Place</th>
                             <th>Person<br>Name</th>
-                            <th>Document<br>Series</th>
-                            <th>Displaced<br>To...</th>
-                            <th>Displacement<br>Type</th>
-                            <th>Transportation<br>Mean</th>
-                            <th>Budget/Day<br>({{ currency }})</th>
-                            <th>Days<br>No...</th>
-                            <th>Total Budget<br>({{ currency }})</th>
-                            <th>Other Expenses<br>Description</th>
-                            <th>Other Expenses<br>Budget<br>({{ currency }})</th>
-                            <th>Total Amount<br>({{ currency }})</th>
-                            <th>Displacement Period</th>
+                            <th>Person Id</th>
+                            <th>Age</th>
+                            <th>Is internal</th>
+                            <th>Institution</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Country</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -90,47 +85,39 @@
                         <div id="deleteConfirmationModal" class="modal">
                             <div class="modal-content">
                                 <span class="close" onclick="closeModal()">&times;</span>
-                                <p>Delete Displacement</p>
+                                <p>Delete Person</p>
                                 <hr>
                                 <p>Are you sure you want to delete this Record?</p>
                                 <p>This action cannot pe undone.</p>
                                 <div class="modal-button">
                                     <button id="cancelDeleteBtn" onclick="closeModal()">Cancel</button>
-                                    <button id="confirmDeleteBtn" onclick="deleteDisplacement()">Delete</button>
+                                    <button id="confirmDeleteBtn" onclick="deletePerson()">Delete</button>
                                 </div>
                             </div>
                         </div>
-                        {# if user has some projects displacement, then display them#}
-                        {% if displacement.count %}
-                            {% for displacement in page_obj %}
-                                <tr {% if displacement.end_date < today %} class="expired-displacement" {% endif %}>
-                                    <td>{{ displacement.project_name.project_name }}</td>
-                                    <td>{{ displacement.project_stage }}</td>
-                                    <td>{{ displacement.work_place }}</td>
-                                    <td>{{ displacement.person_name }}</td>
-                                    <td>{{ displacement.document_series }}</td>
-                                    <td>{{ displacement.displaced_to }}</td>
-                                    <td>{{ displacement.displacement_type }}</td>
-                                    <td>{{ displacement.transportation_mean }}</td>
-                                    <td>{{ displacement.budget_per_day|floatformat:"2" }}</td>
-                                    <td>{{ displacement.days_no }}</td>
-                                    <td>{{ displacement.total_budget|floatformat:"2" }}</td>
-                                    <td>{{ displacement.other_expenses_description }}</td>
-                                    <td>{{ displacement.other_expenses_budget }}</td>
-                                    <td>{{ displacement.total_amount|floatformat:"2" }}</td>
-                                    <td class="displacement-period">
-                                        {{ displacement.start_date|date:'m/d/Y' }}
-                                        - {{ displacement.end_date|date:'m/d/Y' }}
-                                    </td>
+                        {# if user has some workforce in the projects, display the persons informations #}
+                        {% if person.count %}
+                            {% for person in page_obj %}
+                                <tr>
+                                    <td>{{ person.person_name }}</td>
+                                    <td>{{ person.person_id }}</td>
+                                    <td>{{ person.age }}</td>
+                                    <td>{{ person.is_internal }}</td>
+                                    <td>{{ person.institution }}</td>
+                                    <td>{{ person.department }}</td>
+                                    <td>{{ person.email }}</td>
+                                    <td>{{ person.phone }}</td>
+                                    <td>{{ person.city }}</td>
+                                    <td>{{ person.country }}</td>
                                     <td>
-                                        <a href="{% url 'edit-displacement' displacement.id %}"
+                                        <a href="{% url 'edit-person' person.id %}"
                                            style="color:gray; font-size:20px">
                                             <i class="fas fa-edit edit-input"></i>
                                         </a>
                                     </td>
                                     <td>
                                         <!-- Delete button which will open the modal window for delete confirmation -->
-                                        <button onclick="confirmDelete({{ displacement.id }})"
+                                        <button onclick="confirmDelete({{ person.id }})"
                                                 style="color:red; font-size:20px; background: none; border: none;">
                                             <i class="fas fa-trash-alt delete-input"></i>
                                         </button>
@@ -146,21 +133,16 @@
                             <table class="table table-stripped table-hover">
                             <thead>
                             <tr>
-                                <th>Project<br>Name</th>
-                                <th>Project<br>Stage</th>
-                                <th>Work Place</th>
                                 <th>Person<br>Name</th>
-                                <th>Document<br>Series</th>
-                                <th>Displaced<br>To...</th>
-                                <th>Displacement<br>Type</th>
-                                <th>Transportation<br>Mean</th>
-                                <th>Budget/Day<br>({{ currency }})</th>
-                                <th>Days<br>No...</th>
-                                <th>Total Budget<br>({{ currency }})</th>
-                                <th>Other Expenses<br>Description</th>
-                                <th>Other Expenses<br>Budget<br>({{ currency }})</th>
-                                <th>Total Amount<br>({{ currency }})</th>
-                                <th>Displacement Period</th>
+                                <th>Person Id</th>
+                                <th>Age</th>
+                                <th>Is internal</th>
+                                <th>Institution</th>
+                                <th>Department</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Country</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -198,10 +180,6 @@
                         {% endif %}
                     </ul>
                 </div>
-                <div class="color-explanation">
-                    <div class="color-circle expired-displacement"></div>
-                    <span>Expired Displacement Period</span>
-                </div>
 
             </div>
         </div>
@@ -210,7 +188,7 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchField.js' %}"></script>
-    <script src="{% static 'assets/js/deleteDisplacement.js' %}"></script>
+    <script src="{% static 'assets/js/deletePerson.js' %}"></script>
 
 
 {% endblock content %}

@@ -121,6 +121,15 @@
                                                value="{{ field.value|default:'0.0' }}">
                                     </div>
                                 </div>
+                            {% elif field.name == 'reimbursed_amount' %}
+                                <div class="inline-fields reimbursed-amount">
+                                    <label for="reimbursedAmount">Reimbursed Amount</label>
+                                    <div class="input-group">
+                                        <input type="text" name="reimbursed_amount" id="reimbursedAmount"
+                                               class="form-control budget-input"
+                                               value="{{ field.value|default:'0.00' }}">
+                                    </div>
+                                </div>
                             {% elif field.name == 'start_date' %}
                                 <div class="inline-fields project-date">
                                     <label for="startDate">Start Date</label>
