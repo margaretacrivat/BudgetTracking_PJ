@@ -25,37 +25,19 @@
 
         <div class="container-report">
 
-            <!-- ***** Total Workforce Expenses ***** -->
-            {#                        <div id="budgetCard1">#}
-            {#                            <p>Your total workforce budget was:#}
-            {#                                {% if this_month_total_income %}#}
-            {#                                    <span class="budget-income">{{ this_month_total_income|floatformat:"2" }} {{ currency }}</span>#}
-            {#                                {% else %}#}
-            {#                                    <span class="budget-income">{{ this_month_total_income|default_if_none:"0" }} {{ currency }}</span>#}
-            {#                                {% endif %}#}
-            {#                            </p>#}
-            {#                            <p>You've spent a total of:#}
-            {#                                {% if this_month_total_expenses %}#}
-            {#                                    <span class="budget-expenses">{{ this_month_total_expenses|floatformat:"2" }} {{ currency }}</span>#}
-            {#                                {% else %}#}
-            {#                                    <span class="budget-expenses">{{ this_month_total_expenses|default_if_none:"0" }} {{ currency }}</span>#}
-            {#                                {% endif %}#}
-            {#                            </p>#}
-            {#                        </div>#}
-
-        <div id="filterTableField">
-                    <form id="expensesCentralizerFilterForm" method="get">
-                        <div class="form-group">
-                            <i class='bx bxs-filter-alt bx-project-select'></i>
-                            <select class="form-control project-name" name="project_name" id="projectSelect">
-                                <option value="">All Projects</option>
-                                {% for project_name in expenses_centralizer_filter.form.project_name.field.queryset %}
-                                    <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </form>
-                </div>
+            <div id="filterTableField">
+                <form id="CentralizerFilterForm" method="get">
+                    <div class="form-group">
+                        <i class='bx bxs-filter-alt bx-project-select'></i>
+                        <select class="form-control project-name" name="project_name" id="projectSelect">
+                            <option value="">All Projects</option>
+                            {% for project_name in centralizer_filter.form.project_name.field.queryset %}
+                                <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
 
             <div id="reportExpensesLogistic" class="table-container">
                 <div class="table-title">Expenses Logistic</div>
@@ -91,7 +73,7 @@
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td colspan="6">No workforce available</td>
+                                <td colspan="7">No logistic available</td>
                             </tr>
                         {% endif %}
                         </tbody>
@@ -128,7 +110,7 @@
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td colspan="6">No workforce available</td>
+                                <td colspan="6">No displacement available</td>
                             </tr>
                         {% endif %}
                         </tbody>
@@ -149,7 +131,7 @@
                             <th>Total Gross Salary<br>({{ currency }})</th>
                             <th>Social security contribution<br>({{ currency }})</th>
                             <th>Details</th>
-                            <th>Total workforce expenses/project stage<br>({{ currency }})</th>
+                            <th>Total workforce expenses<br>({{ currency }})</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -181,8 +163,7 @@
                     </table>
                 </div>
             </div>
-
-
+        
             <!-- ***** Back to the Dashboard ***** -->
             <div class="breadcrumb-event-back">
                 <a href="{% url 'project-budget' %}" class="btn btn-secondary">
@@ -192,7 +173,6 @@
         </div>
 
     </div>
-
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/centralizerFilter.js' %}"></script>

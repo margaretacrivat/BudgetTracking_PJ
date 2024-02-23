@@ -1,5 +1,5 @@
 """
-ASGI config for BudgetTracking_PJ project.
+ASGI config for BudgetTracking_PJ projects.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

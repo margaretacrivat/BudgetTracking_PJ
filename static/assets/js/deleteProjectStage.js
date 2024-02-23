@@ -2,7 +2,7 @@ function confirmDelete(project_stageId) {
     var modal = document.getElementById("deleteConfirmationModal");
     modal.style.display = "block";
 
-    document.getElementById("confirmDeleteBtn").setAttribute("data-project-stage-id", project_stageId);
+    document.getElementById("confirmDeleteBtn").setAttribute("data-projects-stage-id", project_stageId);
 }
 
 function closeModal() {
@@ -11,7 +11,7 @@ function closeModal() {
 }
 
 function deleteProjectStage() {
-    var project_stageId = document.getElementById("confirmDeleteBtn").getAttribute("data-project-stage-id");
+    var project_stageId = document.getElementById("confirmDeleteBtn").getAttribute("data-projects-stage-id");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/projectbudget/delete-project-stage/" + project_stageId + "/", true);
     // Fetch CSRF token from HTML
@@ -25,7 +25,7 @@ function deleteProjectStage() {
             if (xhr.status === 200) {
                 window.location.reload();
             } else {
-                console.error("Error deleting project stage:", xhr.statusText);
+                console.error("Error deleting projects stage:", xhr.statusText);
             }
             closeModal();
         }

@@ -22,7 +22,6 @@ class Project(models.Model):
     contract = models.CharField(max_length=200)
     project_type = models.CharField(max_length=100)
     budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
-    reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 
@@ -40,15 +39,13 @@ class ProjectType(models.Model):
         return self.name
 
 
-# ---->>>>>>>>>> ETAPE PROIECT <<<<<<<<<<<<----#
-
+# ---->>>>>>>>>> PROJECT STAGES <<<<<<<<<<<<----#
 
 class ProjectStage(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     project_name = models.ForeignKey(Project, on_delete=models.CASCADE)
     project_stage = models.CharField(max_length=200)
     budget = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
-    reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
     end_date = models.DateField(default=now)
 
@@ -133,7 +130,7 @@ class Workforce(models.Model):
     salary_per_hour = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     work_days = models.IntegerField(default=0)
     salary_realized = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
-    vacation_leave_days = models.IntegerField(default=0)
+    vacation_leave_days_no = models.IntegerField(default=0)
     vacation_reimbursed_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     gross_salary_amount = models.DecimalField(max_digits=20, decimal_places=2, default=Decimal('0.00'))
     start_date = models.DateField(default=now)
@@ -143,7 +140,7 @@ class Workforce(models.Model):
         return self.person_name
 
     class Meta:
-        ordering = ['start_date']
+        ordering = ['-start_date']
 
 
 class Person(models.Model):

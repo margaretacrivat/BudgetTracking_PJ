@@ -1,20 +1,20 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Personal Budget Preferences {% endblock %}
+{% block title %} Project Budget Preferences {% endblock %}
 
 {% block content %}
 
     <div class="container-main">
 
-        {% include 'base/sidebar.html' %}
+        {% include 'base/sidebar_pj.html' %}
 
         <!-- ***** Breadcrumb Start ***** -->
         <div class="container-breadcrumb-bar">
             <nav aria-label="breadcrumb-nav">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="{% url 'settings' %}">Settings</a>
+                        <a href="{% url 'project-settings' %}">Settings</a>
                     </li>
                     <li class="breadcrumb-item active"
                         aria-current="page">
@@ -28,16 +28,16 @@
         <div class="card-preferences">
             <!-- ***** Back to the Dashboard ***** -->
             <div class="breadcrumb-event-back">
-                <a href="{% url 'personal-budget' %}" class="btn btn-secondary">
+                <a href="{% url 'project-budget' %}" class="btn btn-secondary">
                     <i class="fa fa-angle-left home-icon"></i>
                     <span>Back to Dashboard</span></a>
             </div>
 
             <div class="currency-form-body" id="currencyForm">
                 <h5>Choose Currency</h5>
-                <form class="form-preferences" action="{% url 'preferences' %}" method="post">
-                    {% include 'authentication/_messages.html' %} {% csrf_token %} 
-                
+                <form class="form-preferences" action="{% url 'project-preferences' %}" method="post">
+                    {% include 'authentication/_messages.html' %} {% csrf_token %}
+
                     <div class="input-group">
                         <select class="custom-select" name="currency" id="inputGroupSelect04">
                             {% if user_preferences.currency %}
@@ -64,7 +64,7 @@
 
             <div id="preferences1"></div>
         </div>
-    
+
     </div>
 
 {% endblock content %}

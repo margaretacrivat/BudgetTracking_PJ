@@ -69,7 +69,7 @@
                     </a>
 {#                    <p>>by clicking here you can see#}
 {#                        <br>all the informations regarding#}
-{#                        <br>the persons involved in the project</p>#}
+{#                        <br>the persons involved in the projects</p>#}
                 </div>
 
                 <div class="app-table">
@@ -85,7 +85,7 @@
                             <th>Salary/hour<br>({{ currency }})</th>
                             <th>Work<br>Days</th>
                             <th>Salary Realized<br>({{ currency }})</th>
-                            <th>Vacation<br>Leave Days</th>
+                            <th>Vacation<br>Leave Days<br>No...</th>
                             <th>Vacation Days<br>Reimbursed Amount<br>({{ currency }})</th>
                             <th>Gross Salary<br>({{ currency }})</th>
                             <th>Work Period</th>
@@ -120,7 +120,7 @@
                                     <td>{{ workforce.salary_per_hour|floatformat:"2" }}</td>
                                     <td>{{ workforce.work_days }}</td>
                                     <td>{{ workforce.salary_realized|floatformat:"2" }}</td>
-                                    <td>{{ workforce.vacation_leave_days }}</td>
+                                    <td>{{ workforce.vacation_leave_days_no }}</td>
                                     <td>{{ workforce.vacation_reimbursed_amount|floatformat:"2" }}</td>
                                     <td>{{ workforce.gross_salary_amount|floatformat:"2" }}</td>
                                     <td class="work-period">
@@ -159,7 +159,7 @@
                                 <th>Salary/hour<br>({{ currency }})</th>
                                 <th>Work<br>Days</th>
                                 <th>Salary Realized<br>({{ currency }})</th>
-                                <th>Vacation<br>Leave Days</th>
+                                <th>Vacation<br>Leave Days<br>No...</th>
                                 <th>Vacation Days<br>Reimbursed Amount<br>({{ currency }})</th>
                                 <th>Gross Salary<br>({{ currency }})</th>
                                 <th>Work Period</th>

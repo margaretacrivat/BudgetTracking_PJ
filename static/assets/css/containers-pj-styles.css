@@ -136,14 +136,12 @@ ADD Project Form
 .project-funder,
 .project-contract,
 .project-type,
-.project-budget,
-.reimbursed-amount {
+.project-budget {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
 }
-
 
 .project-name .input-group {
     width: 50%;
@@ -215,8 +213,7 @@ ADD Project Form
     text-align: center;
 }
 
-.project-budget .input-group,
-.reimbursed-amount .input-group {
+.project-budget .input-group {
     width: 500px;
     margin-left: 10px;
     padding-top: 10px;
@@ -244,15 +241,15 @@ Project Types Element Selection
 ---------------------------------------------
 */
 
-/*.project-type-select option.project-type-option-2 {*/
+/*.projects-type-select option.projects-type-option-2 {*/
 /*    background-color: #f1d898;*/
 /*}*/
 
-/*.project-type-select option.project-type-option-3 {*/
+/*.projects-type-select option.projects-type-option-3 {*/
 /*    background-color: rgb(145, 180, 250);*/
 /*}*/
 
-/*.project-type-select option.project-type-option-4 {*/
+/*.projects-type-select option.projects-type-option-4 {*/
 /*    background-color: #6adc6a;*/
 /*}*/
 
@@ -330,8 +327,7 @@ ADD Project Stage Form
 
 .project-name,
 .project-stage-name,
-.budget-forecast,
-.reimbursed-amount {
+.budget-forecast {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
@@ -349,8 +345,7 @@ ADD Project Stage Form
     margin-top: 20px;
 }
 
-.budget-forecast label,
-.reimbursed-amount label {
+.budget-forecast label {
     padding-top: 20px;
 }
 
@@ -366,8 +361,7 @@ ADD Project Stage Form
     text-align: center;
 }
 
-.budget-forecast .input-group,
-.reimbursed-amount .input-group {
+.budget-forecast .input-group {
     width: 500px;
     margin-left: 10px;
 }
@@ -879,7 +873,7 @@ ADD Workforce Form
 .salary-per-hour,
 .work-days,
 .salary-realized,
-.vacation-leave-days,
+.vacation-leave-days-no,
 .vacation-reimbursed-amount,
 .gross-salary-amount {
     display: flex;
@@ -896,7 +890,7 @@ ADD Workforce Form
 }
 
 .work-days label,
-.vacation-leave-days label {
+.vacation-leave-days-no label {
     padding-top: 5px;
 }
 
@@ -921,7 +915,7 @@ ADD Workforce Form
 }
 
 .work-days .input-group,
-.vacation-leave-days .input-group {
+.vacation-leave-days-no .input-group {
     margin-left: 10px;
     width: 15%;
     font-weight: 400;
@@ -1212,90 +1206,19 @@ Edit Person Form
 
 /*
 ---------------------------------------------
-Container FINANCIAL REPORT
+Container EXPENSES CENTRALIZER
 ---------------------------------------------
 */
 
 .container-report {
     background: transparent;
-    margin-top: 10px;
-    padding: 30px;
+    padding: 0 30px 30px 30px;
     width: 100%;
     grid-area: main;
 
     display: flex;
     flex-direction: column;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 350px 900px 900px;
-    gap: 20px;
-    grid-template-areas:
-        "budgetCard1 budgetCard2"
-        "budgetCard1 reportExpensesWorkforce"
-        "budgetCard1 reportExpensesDisplacement";
-        "budgetCard1 reportExpensesLogistic";
 }
-
-/*#budgetCard2 {*/
-/*    padding-left: 50px;*/
-/*}*/
-
-/*#budgetCard1 p, #budgetCard2 p {*/
-/*    font-size: 18px;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*#budgetCard1 p .budget-remaining {*/
-/*    font-size: 16px;*/
-/*    font-weight: 500;*/
-/*    color: #39c039;*/
-/*}*/
-
-/*#budgetCard2 p .budget-income {*/
-/*    font-size: 16px;*/
-/*    font-weight: 500;*/
-/*    color: rgba(9, 20, 246, 1);*/
-/*}*/
-
-/*#budgetCard2 p .budget-expenses {*/
-/*    font-size: 16px;*/
-/*    font-weight: 500;*/
-/*    color: rgba(206, 64, 64, 1);*/
-/*}*/
-
-/*#budgetCard1 .progress-bar-container {*/
-/*    width: 100%;*/
-/*    height: 20px;*/
-/*    background-color: #e0e0e0;*/
-/*    margin-top: 10px;*/
-/*    position: relative;*/
-/*    z-index: 1;*/
-/*}*/
-
-/*#budgetCard1 .progress-tooltip {*/
-/*    visibility: hidden;*/
-/*    width: 30px;*/
-/*    background-color: transparent;*/
-/*    color: black;*/
-/*    text-align: center;*/
-/*    border-radius: 5px;*/
-/*    padding: 5px;*/
-/*    position: absolute;*/
-/*    z-index: 1;*/
-/*    top: -7px;*/
-/*    left: 40%;*/
-/*    transform: translateX(-50%);*/
-/*}*/
-
-/*#budgetCard1 .progress-bar {*/
-/*    height: 100%;*/
-/*    background-color: #4CAF50;*/
-/*    z-index: 1;*/
-/*}*/
-
-/*#budgetCardIncome {*/
-/*    grid-area: budgetCardIncome;*/
-/*    padding-left: 50px;*/
-/*}*/
 
 #reportExpensesLogistic,
 #reportExpensesDisplacement,
@@ -1369,6 +1292,49 @@ ACQUISITIONS TYPES Different Colors
     background-clip: content-box;
 }
 
+
+/*
+---------------------------------------------
+Container POST-CALCUL ANALYSIS
+---------------------------------------------
+*/
+
+.container-analysis {
+    background: transparent;
+    padding: 0 30px 30px 30px;
+    width: 100%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#postCalculAnalysis {
+    padding-bottom: 40px;
+}
+
+#postCalculAnalysis .table-title {
+    transform: scale(1.10);
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0 1px 1px #000;
+    color: #b2b2b2;
+    padding-left: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#postCalculAnalysis .table thead tr th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#postCalculAnalysis .table tbody tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+
 /*
 ---------------------------------------------
 TABLE SCROLL - EXPENSES CENTRALIZER
@@ -1407,7 +1373,6 @@ TABLE SCROLL - EXPENSES CENTRALIZER
     background-color: white;
     z-index: 1;
 }
-
 
 
 /* ---------------- MEDIA QUERIES ----------------*/

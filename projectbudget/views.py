@@ -20,7 +20,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-from .filters import ProjectFilter, ExpensesCentralizerFilter
+from .filters import ProjectFilter, CentralizerFilter
 
 
 # Create your views here.
@@ -33,13 +33,22 @@ def project_budget_view(request):
     return render(request, 'projectbudget/index.html')
 
 
+# ---->>>>>>>>>> FINANCIAL REPORT / EXPENSES CENTRALIZER - PAGE VIEW <<<<<<<<<<<<----#
+
 @login_required(login_url='/authentication/login')
 def expenses_centralizer_view(request):
     expenses_centralizer_details = ExpensesCentralizerDetails.objects.all()
-    # workforce = Workforce.objects.filter(owner=request.user).values()
-    today = datetime.date.today()
 
-    # 1.Retrieve logistic data grouped by project name and stage, and calculate the total amount for each stage
+    centralizer_filter = CentralizerFilter()
+    centralizer = Logistic.objects.filter(owner=request.user).values()
+
+    if request.method == 'GET':
+        centralizer_filter = CentralizerFilter(request.GET)
+        if centralizer_filter.is_valid():
+            centralizer = centralizer_filter.qs
+            centralizer_filter.form.fields['project_name'].queryset = centralizer
+
+    # 1.Retrieve logistic data grouped by projects name and stage, and calculate the total amount for each stage
     amount = Decimal(0)
 
     logistic_data = (Logistic.objects.filter(owner=request.user)
@@ -52,16 +61,7 @@ def expenses_centralizer_view(request):
         data['table_name'] = 'Logistic'
         amount += data['amount']
 
-    expenses_centralizer_filter = ExpensesCentralizerFilter()
-    expenses_centralizer = Logistic.objects.filter(owner=request.user).values()
-
-    if request.method == 'GET':
-        expenses_centralizer_filter = ExpensesCentralizerFilter(request.GET)
-        if expenses_centralizer_filter.is_valid():
-            expenses_centralizer = expenses_centralizer_filter.qs
-            expenses_centralizer_filter.form.fields['project_name'].queryset = expenses_centralizer
-
-    # 2.Retrieve displacement data grouped by project name and stage, and calculate the total amount for each stage
+    # 2.Retrieve displacement data grouped by projects name and stage, and calculate the total amount for each stage
     total_amount = Decimal(0)
     displacement_data = (Displacement.objects.filter(owner=request.user)
                          .select_related('project_name', 'project_stage')
@@ -73,7 +73,7 @@ def expenses_centralizer_view(request):
         data['table_name'] = 'Displacement'
         total_amount += data['total_amount']
 
-    # 3.Retrieve workforce data grouped by project name and stage, and calculate the total gross salary for each stage
+    # 3.Retrieve workforce data grouped by projects name and stage, and calculate the total gross salary for each stage
     workforce_data = (Workforce.objects.filter(owner=request.user)
                       .select_related('project_name', 'project_stage')
                       .values('project_name__project_name', 'project_stage__project_stage')
@@ -87,7 +87,7 @@ def expenses_centralizer_view(request):
         data['social_security_contribution'] = total_gross_salary * Decimal('0.0225')
         data['total_workforce_expenses'] = total_gross_salary + data['social_security_contribution']
 
-    # Combine all querysets into a single queryset
+    # Combined all querysets into a single queryset
     combined_data = list(chain(logistic_data, displacement_data, workforce_data))
 
     try:
@@ -96,20 +96,85 @@ def expenses_centralizer_view(request):
         currency = 'RON'
 
     context = {
-        'workforce_data': workforce_data,
         'expenses_centralizer_details': expenses_centralizer_details,
-        'displacement_data': displacement_data,
+        'centralizer_filter': centralizer_filter,
+        'centralizer': centralizer,
         'logistic_data': logistic_data,
-        'expenses_centralizer_filter': expenses_centralizer_filter,
-        'expenses_centralizer': expenses_centralizer,
-        'total_amount': total_amount,
         'amount': amount,
+        'displacement_data': displacement_data,
+        'total_amount': total_amount,
+        'workforce_data': workforce_data,
         'combined_data': combined_data,
-        'today': today,
         'currency': currency
     }
 
     return render(request, 'projectbudget/financialreport/expenses_centralizer.html', context)
+
+
+# ---->>>>>>>>>> FINANCIAL REPORT / POST-CALCUL ANALYSIS - PAGE VIEW <<<<<<<<<<<<----#
+
+@login_required(login_url='/authentication/login')
+def post_calcul_analysis_view(request):
+    centralizer_filter = CentralizerFilter()
+    centralizer = Logistic.objects.filter(owner=request.user).values()
+
+    if request.method == 'GET':
+        centralizer_filter = CentralizerFilter(request.GET)
+        if centralizer_filter.is_valid():
+            centralizer = centralizer_filter.qs
+            centralizer_filter.form.fields['project_name'].queryset = centralizer
+
+    logistic_data = Logistic.objects.filter(owner=request.user).values('project_name__project_name',
+                                                                       'project_stage__project_stage').annotate(
+        total_logistic=Sum('amount'))
+    displacement_data = Displacement.objects.filter(owner=request.user).values('project_name__project_name',
+                                                                               'project_stage__project_stage').annotate(
+        total_displacement=Sum('total_amount'))
+    workforce_data = Workforce.objects.filter(owner=request.user).values('project_name__project_name',
+                                                                         'project_stage__project_stage').annotate(
+        total_gross_salary=Sum('gross_salary_amount'))
+
+    combined_data = []
+
+    for logistic in logistic_data:
+        project_name = logistic['project_name__project_name']
+        project_stage = logistic['project_stage__project_stage']
+        total_logistic = logistic['total_logistic']
+        displacement = next((item for item in displacement_data if item['project_name__project_name'] == project_name
+                             and item['project_stage__project_stage'] == project_stage), None)
+        total_displacement = displacement['total_displacement'] if displacement else 0
+        workforce = next((item for item in workforce_data if item['project_name__project_name'] == project_name
+                          and item['project_stage__project_stage'] == project_stage), None)
+        total_gross_salary = workforce['total_gross_salary'] if workforce else 0
+        social_security_contribution = total_gross_salary * Decimal('0.0225')
+        total_workforce_expenses = total_gross_salary + social_security_contribution
+
+        total_reimbursed_amount = total_logistic + total_displacement + total_workforce_expenses
+
+        combined_data.append({
+            'project_name': project_name,
+            'project_stage': project_stage,
+            'total_logistic': total_logistic,
+            'total_displacement': total_displacement,
+            'total_gross_salary': total_gross_salary,
+            'social_security_contribution': social_security_contribution,
+            'total_workforce_expenses': total_workforce_expenses,
+            'total_reimbursed_amount': total_reimbursed_amount
+        })
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'centralizer_filter': centralizer_filter,
+        'centralizer': centralizer,
+        'combined_data': combined_data,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/financialreport/post_calcul_analysis.html', context)
 
 
 # ---->>>>>>>>>> PROJECTS - PAGE VIEWS <<<<<<<<<<<<----#
@@ -144,7 +209,7 @@ def projects_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'projectbudget/project/user_projects.html', context)
+    return render(request, 'projectbudget/projects/user_projects.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -176,7 +241,7 @@ def add_project(request):
         'currency': currency
     }
 
-    return render(request, 'projectbudget/project/add_project.html', context)
+    return render(request, 'projectbudget/projects/add_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -204,14 +269,14 @@ def edit_project(request, id):
 
     context = {
         'form': form,
-        'project': project,
+        'projects': project,
         'project_type': project_type,
         'start_date': project.start_date,
         'end_date': project.end_date,
         'currency': currency
     }
 
-    return render(request, 'projectbudget/project/edit_project.html', context)
+    return render(request, 'projectbudget/projects/edit_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -239,8 +304,7 @@ def export_projects_csv(request):
         currency = 'RON'
 
     writer.writerow(['Institution', 'Project Name', 'Project Title', 'Project Stages', 'Project Manager',
-                     'Funder', 'Contract', 'Project Type', f'Budget ({currency})', f'Reimbursed Amount ({currency})',
-                     'Project Period'])
+                     'Funder', 'Contract', 'Project Type', f'Budget ({currency})', 'Project Period'])
 
     projects = Project.objects.filter(owner=request.user)
 
@@ -249,7 +313,7 @@ def export_projects_csv(request):
         project_period = f"{project.start_date.strftime('%m/%d/%Y')} - {project.end_date.strftime('%m/%d/%Y')}"
         writer.writerow([project.institution, project.project_name, project.project_title, project.project_stages,
                          project.project_manager, project.funder, project.contract, project.project_type,
-                         project.budget, project.reimbursed_amount, project_period])
+                         project.budget, project_period])
     return response
 
 
@@ -279,26 +343,26 @@ def export_projects_excel(request):
         currency = 'RON'
 
     columns = ['Institution', 'Project Name', 'Project Title', 'Project Stages', 'Project Manager', 'Funder',
-               'Contract', 'Project Type', f'Budget ({currency})', f'Reimbursed Amount ({currency})', 'Project Period']
+               'Contract', 'Project Type', f'Budget ({currency})', 'Project Period']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = Project.objects.filter(owner=request.user).values_list(
         'institution', 'project_name', 'project_title', 'project_stages', 'project_manager', 'funder',
-        'contract', 'project_type', 'budget', 'reimbursed_amount', 'start_date', 'end_date')
+        'contract', 'project_type', 'budget', 'start_date', 'end_date')
 
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            if col_num == 10:  # Concatenating "Start Date" and "End Date" into "Project Stage Period"
-                displacement_period = f"{row[10].strftime('%m/%d/%Y')} - {row[11].strftime('%m/%d/%Y')}"
+            if col_num == 9:  # Concatenating "Start Date" and "End Date" into "Project Stage Period"
+                displacement_period = f"{row[9].strftime('%m/%d/%Y')} - {row[10].strftime('%m/%d/%Y')}"
                 ws.write(row_num, col_num, displacement_period)
-            elif col_num == 11:
+            elif col_num == 10:
                 pass
-            elif col_num == 12:
+            elif col_num == 11:
                 ws.write(row_num, col_num, row[col_num - 1], date_style)
-            elif col_num == 8 or col_num == 9:
+            elif col_num == 7 or col_num == 8:
                 formatted_value = "{:.2f}".format(row[col_num])  # Format the value with two decimals
                 amount_style = xlwt.easyxf('align: horiz right')
                 ws.write(row_num, col_num, formatted_value, amount_style)
@@ -345,8 +409,7 @@ def export_projects_pdf(request):
         currency = 'RON'
 
     headers = ['Institution', 'Project\nName', 'Project\nTitle', 'Project\nStages', 'Project\nManager', 'Funder',
-               'Contract', 'Project\nType', f'Budget\n({currency})', f'Reimbursed\nAmount\n({currency})',
-               'Project Period']
+               'Contract', 'Project\nType', f'Budget\n({currency})', 'Project Period']
     data = [headers]
 
     # Get the default sample style sheet
@@ -380,7 +443,7 @@ def export_projects_pdf(request):
         data.append([
             project.institution, project.project_name, project.project_title, project.project_stages,
             project.project_manager, project.funder, project.contract, project.project_type,
-            project.budget, project.reimbursed_amount, project_period
+            project.budget, project_period
         ])
 
     # Define style for table
@@ -528,8 +591,7 @@ def export_project_stages_csv(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    writer.writerow(['Project Name', 'Project Stage', f'Budget ({currency})', f'Reimbursed Amount ({currency})',
-                     'Project Stage Period'])
+    writer.writerow(['Project Name', 'Project Stage', f'Budget ({currency})', 'Project Stage Period'])
 
     project_stages = ProjectStage.objects.filter(owner=request.user)
 
@@ -537,7 +599,7 @@ def export_project_stages_csv(request):
         # Concatenate "Start Date" and "End Date" into "Project Stage Period"
         project_stage_period = f"{project_stage.start_date.strftime('%m/%d/%Y')} - {project_stage.end_date.strftime('%m/%d/%Y')}"
         writer.writerow([project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
-                         project_stage.reimbursed_amount, project_stage_period])
+                         project_stage_period])
     return response
 
 
@@ -566,26 +628,25 @@ def export_project_stages_excel(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    columns = ['Project Name', 'Project Stage', f'Budget ({currency})', f'Reimbursed Amount ({currency})',
-               'Project Stage Period']
+    columns = ['Project Name', 'Project Stage', f'Budget ({currency})', 'Project Stage Period']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
 
     rows = ProjectStage.objects.filter(owner=request.user).values_list(
-        'project_name__project_name', 'project_stage', 'budget', 'reimbursed_amount', 'start_date', 'end_date')
+        'project_name__project_name', 'project_stage', 'budget', 'start_date', 'end_date')
 
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            if col_num == 4:  # Concatenating "Start Date" and "End Date" into "Project Stage Period"
-                displacement_period = f"{row[4].strftime('%m/%d/%Y')} - {row[5].strftime('%m/%d/%Y')}"
+            if col_num == 3:  # Concatenating "Start Date" and "End Date" into "Project Stage Period"
+                displacement_period = f"{row[3].strftime('%m/%d/%Y')} - {row[4].strftime('%m/%d/%Y')}"
                 ws.write(row_num, col_num, displacement_period)
-            elif col_num == 5:
+            elif col_num == 4:
                 pass
-            elif col_num == 9:
+            elif col_num == 8:
                 ws.write(row_num, col_num, row[col_num - 1], date_style)
-            elif col_num == 2 or col_num == 3:
+            elif col_num == 1 or col_num == 2:
                 formatted_value = "{:.2f}".format(row[col_num])
                 amount_style = xlwt.easyxf('align: horiz right')
                 ws.write(row_num, col_num, formatted_value, amount_style)
@@ -620,8 +681,7 @@ def export_project_stages_pdf(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Project\nName', 'Project\nStages', f'Budget\n({currency})', f'Reimbursed Amount\n({currency})',
-               'Project Stage Period']
+    headers = ['Project\nName', 'Project\nStages', f'Budget\n({currency})', 'Project Stage Period']
     data = [headers]
 
     # Get the default sample style sheet
@@ -653,10 +713,9 @@ def export_project_stages_pdf(request):
 
         data.append([
             project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
-            project_stage.reimbursed_amount, project_stage_period
+            project_stage_period
         ])
 
-    # Define style for table
     table_style = TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
@@ -720,7 +779,7 @@ def add_acquisition(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    # transmit the existing projects and project stages as options
+    # transmit the existing projects and projects stages as options
     projects = Project.objects.all()
     project_stages = ProjectStage.objects.all()
 
@@ -1380,8 +1439,9 @@ def export_workforce_csv(request):
         currency = 'RON'
 
     writer.writerow(['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-                     f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
-                     f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period'])
+                     f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})',
+                     'Vacation leave Days No...', f'Vacation Reimbursed Amount ({currency})',
+                     f'Gross Salary Amount ({currency})', 'Work Period'])
 
     workforces = Workforce.objects.filter(owner=request.user)
 
@@ -1391,7 +1451,7 @@ def export_workforce_csv(request):
         writer.writerow([workforce.project_name.project_name, workforce.project_stage, workforce.work_place,
                          workforce.person_work_id, workforce.person_name, workforce.person_role,
                          workforce.salary_per_hour,
-                         workforce.work_days, workforce.salary_realized, workforce.vacation_leave_days,
+                         workforce.work_days, workforce.salary_realized, workforce.vacation_leave_days_no,
                          workforce.vacation_reimbursed_amount, workforce.gross_salary_amount, work_period])
     return response
 
@@ -1422,7 +1482,7 @@ def export_workforce_excel(request):
         currency = 'RON'
 
     columns = ['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
+               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days No...',
                f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period']
 
     for col_num in range(len(columns)):
@@ -1430,7 +1490,7 @@ def export_workforce_excel(request):
 
     rows = Workforce.objects.filter(owner=request.user).values_list(
         'project_name__project_name', 'project_stage', 'work_place', 'person_work_id', 'person_name', 'person_role',
-        'salary_per_hour', 'work_days', 'salary_realized', 'vacation_leave_days', 'vacation_reimbursed_amount',
+        'salary_per_hour', 'work_days', 'salary_realized', 'vacation_leave_days_no', 'vacation_reimbursed_amount',
         'gross_salary_amount', 'start_date', 'end_date')
 
     for row in rows:
@@ -1439,9 +1499,9 @@ def export_workforce_excel(request):
             if col_num == 12:  # Concatenating "Start Date" and "End Date" into "Work Period"
                 work_period = f"{row[12].strftime('%m/%d/%Y')} - {row[13].strftime('%m/%d/%Y')}"
                 ws.write(row_num, col_num, work_period)
-            elif col_num == 13:  # Skip writing "End Date" column
+            elif col_num == 13:
                 pass
-            elif col_num == 14:  # Apply date style to "Start Date" column
+            elif col_num == 14:
                 ws.write(row_num, col_num, row[col_num - 1], date_style)
             elif col_num == 6 or col_num == 8 or col_num == 10 or col_num == 11:
                 formatted_value = "{:.2f}".format(row[col_num])
@@ -1481,7 +1541,7 @@ def export_workforce_pdf(request):
         currency = 'RON'
 
     headers = ['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
+               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days No...',
                f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period']
     data = [headers]
 
@@ -1515,7 +1575,7 @@ def export_workforce_pdf(request):
         data.append([
             workforce.project_name.project_name, workforce.project_stage, workforce.work_place,
             workforce.person_work_id, workforce.person_name, workforce.person_role, workforce.salary_per_hour,
-            workforce.work_days, workforce.salary_realized, workforce.vacation_leave_days,
+            workforce.work_days, workforce.salary_realized, workforce.vacation_leave_days_no,
             workforce.vacation_reimbursed_amount, workforce.gross_salary_amount, work_period
         ])
 

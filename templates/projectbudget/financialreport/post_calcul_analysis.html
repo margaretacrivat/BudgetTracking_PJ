@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Projects Post-Calcul Analysis {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="">Financial Report</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Post-Calcul Analysis
+                    </li>
+                </ol>
+            </nav>
+
+        </div>
+
+        <div class="container-analysis">
+
+            <div id="filterTableField">
+                <form id="CentralizerFilterForm" method="get">
+                    <div class="form-group">
+                        <i class='bx bxs-filter-alt bx-project-select'></i>
+                        <select class="form-control project-name" name="project_name" id="projectSelect">
+                            <option value="">All Projects</option>
+                            {% for project_name in centralizer_filter.form.project_name.field.queryset %}
+                                <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div id="postCalculAnalysis" class="table-container">
+                <div class="table-title">Post-Calcul Expenses Analysis</div>
+                <hr>
+                <div class="table-scroll">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Stage</th>
+                            <th>Total Logistic Expenses<br>({{ currency }})</th>
+                            <th>Total Displacement Expenses<br>({{ currency }})</th>
+                            <th>Total Workforce Expenses with<br>Social Security Contribution<br>({{ currency }})</th>
+                            <th>Total Reimbursed Amount/Project<br>({{ currency }})</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if combined_data %}
+                            {% for data in combined_data %}
+                                <tr>
+                                    <td>{{ data.project_name }}</td>
+                                    <td>{{ data.project_stage }}</td>
+                                    <td>{{ data.total_logistic|floatformat:"2" }}</td>
+                                    <td>{{ data.total_displacement|floatformat:"2" }}</td>
+                                    <td>{{ data.total_workforce_expenses|floatformat:"2" }}</td>
+                                    <td>{{ data.total_reimbursed_amount|floatformat:"2" }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No data available</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ***** Back to the Dashboard ***** -->
+            <div class="breadcrumb-event-back">
+                <a href="{% url 'project-budget' %}" class="btn btn-secondary">
+                    <i class="fa fa-angle-left home-icon"></i>
+                    <span>Back to Dashboard</span></a>
+            </div>
+        
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/centralizerFilter.js' %}"></script>
+
+{% endblock content %}
+

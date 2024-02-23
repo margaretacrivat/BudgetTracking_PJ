@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %} Edit Project {% endblock %}
+{% block title %} Add Project {% endblock %}
 
 {% block content %}
 
@@ -17,17 +17,17 @@
                             href="{% url 'projects' %}">Projects</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        Edit Project
+                        Add Project
                     </li>
                 </ol>
             </nav>
         </div>
         <!-- ***** Breadcrumb End ***** -->
 
-        <div class="edit-project-form">
-            <div class="edit-form-body" id="editProjectForm">
-                <h4>Edit Project Form</h4>
-                <form action="{% url 'edit-project' project.id %}" method="post">
+        <div class="add-project-form">
+            <div class="add-form-body" id="addProjectForm">
+                <h4>Add Project Form</h4>
+                <form action="{% url 'add-project' %}" method="post">
                     {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                     <div class="form-group">
@@ -47,7 +47,7 @@
                                     <label for="projectName">Project Name</label>
                                     <div class="input-group">
                                         <input type="text" name="project_name" id="projectName"
-                                               class="form-control project-input"
+                                               class="form-control project-name-input"
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
                                 </div>
@@ -103,11 +103,11 @@
                                         <select name="project_type" id="projectType"
                                                 class="form-control project-type-select">
                                             {% for type in project_type %}
-                                                {% if type == project.project_type %}
-                                                    <option value="{{ type }}" selected>{{ type }}</option>
-                                                {% else %}
-                                                    <option value="{{ type }}">{{ type }}</option>
-                                                {% endif %}
+                                                <option value="{{ type }}"
+                                                        class="project-type-option-{{ forloop.counter }}"
+                                                        id="optionType">
+                                                    {{ type }}
+                                                </option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -117,15 +117,6 @@
                                     <label for="projectBudget">Budget</label>
                                     <div class="input-group">
                                         <input type="text" name="budget" id="projectBudget"
-                                               class="form-control project-budget-input"
-                                               value="{{ field.value|default:'0.0' }}">
-                                    </div>
-                                </div>
-                            {% elif field.name == 'reimbursed_amount' %}
-                                <div class="inline-fields reimbursed-amount">
-                                    <label for="reimbursedAmount">Reimbursed Amount</label>
-                                    <div class="input-group">
-                                        <input type="text" name="reimbursed_amount" id="reimbursedAmount"
                                                class="form-control budget-input"
                                                value="{{ field.value|default:'0.00' }}">
                                     </div>
@@ -135,7 +126,7 @@
                                     <label for="startDate">Start Date</label>
                                     <div class="input-group">
                                         <input type="date" name="start_date" id="startDate"
-                                               class="form-control" value="{{ start_date|date:'Y-m-d' }}">
+                                               class="form-control" data-date-format="mm/dd/yyyy">
                                     </div>
                                 </div>
                             {% elif field.name == 'end_date' %}
@@ -143,10 +134,9 @@
                                     <label for="endDate">End Date</label>
                                     <div class="input-group">
                                         <input type="date" name="end_date" id="endDate"
-                                               class="form-control" value="{{ end_date|date:'Y-m-d' }}">
+                                               class="form-control" data-date-format="mm/dd/yyyy">
                                     </div>
                                 </div>
-
                             {% else %}
                                 <div>
                                     {{ field.label_tag }}
@@ -174,27 +164,6 @@
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/budgetValue.js' %}"></script>
-
-    {#    <script>#}
-    {#        // Get the project type select element#}
-    {#        const projectTypeSelect = document.getElementById('projectType');#}
-    {##}
-    {#        // Add event listener for change event#}
-    {#        projectTypeSelect.addEventListener('change', function () {#}
-    {#            // Get the selected option#}
-    {#            const selectedOption = projectTypeSelect.options[projectTypeSelect.selectedIndex];#}
-    {#            // Get the class of the selected option#}
-    {#            const selectedClass = selectedOption.getAttribute('class');#}
-    {##}
-    {#            // Remove any existing background color class from all options#}
-    {#            projectTypeSelect.querySelectorAll('option').forEach(option => {#}
-    {#                option.classList.remove('selected');#}
-    {#            });#}
-    {##}
-    {#            // Add the class of the selected option to the selected option#}
-    {#            selectedOption.classList.add('selected');#}
-    {#        });#}
-    {#    </script>#}
 
 
 {% endblock content %}

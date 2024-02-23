@@ -56,10 +56,10 @@ def budget_report_view(request):
         currency = 'RON'
 
     return render(request, 'personalbudget/budget_report.html', {'category_data': category_data,
-                                                               'source_data': source_data, 'currency': currency,
-                                                               'this_month_total_expenses': this_month_total_expenses,
-                                                               'this_month_total_income': this_month_total_income,
-                                                               'remaining_budget': remaining_budget})
+                                                                 'source_data': source_data, 'currency': currency,
+                                                                 'this_month_total_expenses': this_month_total_expenses,
+                                                                 'this_month_total_income': this_month_total_income,
+                                                                 'remaining_budget': remaining_budget})
 
 
 # ---->>>>>>>>>> EXPENSES - PAGE VIEWS <<<<<<<<<<<<----#

@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="side-item">
-                    <a class="side-item-link" href="">
+                    <a class="side-item-link" href="{% url 'post-calcul-analysis' %}">
                         <i class="fa fa-chart-line icon"></i>
                         <span class="item-title">Post-Calcul Analysis</span>
                     </a>
@@ -74,14 +74,14 @@
         </li>
 
         <li class="sidebar-heading">
-            <a class="d-flex align-items-center" href="{% url 'settings' %}"
+            <a class="d-flex align-items-center" href="{% url 'project-settings' %}"
                aria-label="">
                 <i class="fa fa-cog home-icon"></i>
                 <span class="title">SETTINGS</span>
             </a>
             <ul class="sidebar-list">
                 <li class="side-item">
-                    <a class="side-item-link" href="{% url 'preferences' %}">
+                    <a class="side-item-link" href="{% url 'project-preferences' %}">
                         <i class="fa fa-cogs icon"></i>
                         <span class="item-title">Preferences</span>
                     </a>

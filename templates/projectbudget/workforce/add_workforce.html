@@ -120,12 +120,12 @@
                                                value="{{ field.value|default:'0.00' }}" readonly>
                                     </div>
                                 </div>
-                            {% elif field.name == 'vacation_leave_days' %}
-                                <div class="inline-fields vacation-leave-days">
-                                    <label for="vacationLeaveDays">Vacation Leave Days</label>
+                            {% elif field.name == 'vacation_leave_days_no' %}
+                                <div class="inline-fields vacation-leave-days-no">
+                                    <label for="vacationLeaveDaysNo">Vacation Leave Days No...</label>
                                     <div class="input-group">
-                                        <input type="number" name="vacation_leave_days" id="vacationLeaveDays"
-                                               class="form-control vacation-leave-days-input"
+                                        <input type="number" name="vacation_leave_days_no" id="vacationLeaveDaysNo"
+                                               class="form-control vacation-leave-days-no-input"
                                                value="{% if field.value %}{{ field.value }}{% endif %}">
                                     </div>
                                 </div>

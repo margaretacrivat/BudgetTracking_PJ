@@ -18,7 +18,7 @@ class ProjectFilter(django_filters.FilterSet):
         fields = ['project_name', 'project_type', 'project_stage']
 
 
-class ExpensesCentralizerFilter(django_filters.FilterSet):
+class CentralizerFilter(django_filters.FilterSet):
     project_name = CharFilter(field_name='project_name', lookup_expr='icontains')
     project_stage = CharFilter(field_name='project_stage', lookup_expr='icontains')
 

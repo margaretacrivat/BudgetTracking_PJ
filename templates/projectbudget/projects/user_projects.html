@@ -99,7 +99,6 @@
                             <th>Contract</th>
                             <th>Project<br>Type</th>
                             <th>Budget<br>({{ currency }})</th>
-                            <th>Reimbursed Amount<br>({{ currency }})</th>
                             <th>Project Period</th>
                             <th></th>
                             <th></th>
@@ -133,7 +132,6 @@
                                     <td>{{ project.contract }}</td>
                                     <td>{{ project.project_type }}</td>
                                     <td>{{ project.budget|floatformat:"2" }}</td>
-                                    <td>{{ project.reimbursed_amount|floatformat:"2" }}</td>
                                     <td class="project-period">
                                         {{ project.start_date|date:'m/d/Y' }} - {{ project.end_date|date:'m/d/Y' }}
                                     </td>
@@ -170,7 +168,6 @@
                                 <th>Contract</th>
                                 <th>Project<br>Type</th>
                                 <th>Budget<br>({{ currency }})</th>
-                                <th>Reimbursed Amount<br>({{ currency }})</th>
                                 <th>Project Period</th>
                                 <th></th>
                                 <th></th>
@@ -243,7 +240,7 @@
             rows.forEach(row => {
                 // Get the start and end date cells from the row
 
-                const projectPeriodCell = row.querySelector('.project-period');
+                const projectPeriodCell = row.querySelector('.projects-period');
                 const projectPeriod = projectPeriodCell.textContent.trim().split(' - ');
 
 
@@ -267,18 +264,18 @@
                 // Compare the start date and end date with today's date
                 if (endDate < today) {
                     // Project has expired
-                    row.classList.add('expired-project');
+                    row.classList.add('expired-projects');
                 } else if (startDate <= today && endDate >= today) {
                     // Project is ongoing
-                    row.classList.add('ongoing-project');
+                    row.classList.add('ongoing-projects');
                     // Check if the project is ending within the next month
                     if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                        row.classList.remove('ongoing-project'); // Remove ongoing class
-                        row.classList.add('ending-soon-project'); // Add ending soon class
+                        row.classList.remove('ongoing-projects'); // Remove ongoing class
+                        row.classList.add('ending-soon-projects'); // Add ending soon class
                     }
                 } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
                     // Project has not started yet and is ending in 1 month or less
-                    row.classList.add('ending-soon-project');
+                    row.classList.add('ending-soon-projects');
                     console.log("Project is ending soon");
                 }
             });
