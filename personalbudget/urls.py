@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('', views.personal_budget_view, name='personal-budget'),
-    path('budget-main/', views.budget_main_view, name='budget-main'),
+    path('budget-main/', views.budget_report_view, name='budget-main'),
 
     path('expenses/', views.expenses_view, name='expenses'),
     path('add-expense/', views.add_expense, name='add-expense'),
@@ -37,7 +37,7 @@ urlpatterns = [
     path('income-for-period/', views.get_income_for_period, name='income-for-period'),
     path('income-stats/', views.income_stats_last_3months, name='income-stats'),
 
-    path('summary-budget/', views.summary_budget_main_view, name='summary-budget'),
+    path('summary-budget/', views.summary_budget_report_view, name='summary-budget'),
     path('current_month_balance_stats/', views.current_month_balance_stats, name='current_month_balance_stats'),
     path('current_year_balance_stats/', views.current_year_balance_stats, name='current_year_balance_stats'),
 

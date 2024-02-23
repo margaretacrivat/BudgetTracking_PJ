@@ -52,6 +52,7 @@
                 </div>
             </div>
 
+
             <!-- ***** Projects data Table ***** -->
             <div id="dataTable">
                 {% include 'authentication/_messages.html' %} {% csrf_token %}
@@ -62,9 +63,31 @@
                         Add Project
                     </a>
                 </div>
+                <div id="filterTableField">
+                    <form id="projectFilterForm" method="get">
+                        <div class="form-group">
+                            <i class='bx bxs-filter-alt bx-project-select'></i>
+                            <select class="form-control project-name" name="project_name" id="projectSelect">
+                                <option value="">All Projects</option>
+                                {% for project_name in project_filter.form.project_name.field.queryset %}
+                                    <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <i class='bx bxs-filter-alt bx-project-type-select'></i>
+                            <select class="form-control project-type" name="project_type" id="projectTypeSelect">
+                                <option value="">Project Type</option>
+                                {% for project_type in project_filter.form.project_type.field.queryset %}
+                                    <option value="{{ project_type.project_type }}">{{ project_type.project_type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
 
                 <div class="app-table">
-                    <table id= "projectTable" class="table table-stripped table-hover">
+                    <table id="projectTable" class="table table-stripped table-hover">
                         <thead>
                         <tr>
                             <th>Institution</th>
@@ -203,6 +226,7 @@
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteProject.js' %}"></script>
+    <script src="{% static 'assets/js/projectFilter.js' %}"></script>
 
     <!-- Projects Status Scripts -->
     <script>
@@ -218,12 +242,14 @@
             const rows = document.querySelectorAll('#projectTable > tbody > tr');
             rows.forEach(row => {
                 // Get the start and end date cells from the row
-                const startDateCell = row.querySelector('.start-date-status');
-                const endDateCell = row.querySelector('.end-date-status');
+
+                const projectPeriodCell = row.querySelector('.project-period');
+                const projectPeriod = projectPeriodCell.textContent.trim().split(' - ');
+
 
                 // Parse the start and end dates
-                const startDate = new Date(startDateCell.textContent);
-                const endDate = new Date(endDateCell.textContent);
+                const startDate = new Date(projectPeriod[0]);
+                const endDate = new Date(projectPeriod[1]);
 
                 // Check if the date parsing was successful
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {

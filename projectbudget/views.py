@@ -1,23 +1,26 @@
-import textwrap
+from decimal import Decimal
+from itertools import chain
 
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
-import json
 from reportlab.lib.units import inch
 from .forms import ProjectForm, ProjectStageForm, LogisticForm, DisplacementForm, WorkforceForm, PersonForm
 from .models import (Project, ProjectType, ProjectStage, Person, Logistic, AcquisitionType, Displacement,
-                     DisplacementType, Workforce)
+                     DisplacementType, Workforce, ExpensesCentralizerDetails)
 from preferences.models import Currency
 from django.core.paginator import Paginator
 import datetime
 import csv
 import xlwt
+import textwrap
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
+from .filters import ProjectFilter, ExpensesCentralizerFilter
 
 
 # Create your views here.
@@ -30,11 +33,99 @@ def project_budget_view(request):
     return render(request, 'projectbudget/index.html')
 
 
+@login_required(login_url='/authentication/login')
+def expenses_centralizer_view(request):
+    expenses_centralizer_details = ExpensesCentralizerDetails.objects.all()
+    # workforce = Workforce.objects.filter(owner=request.user).values()
+    today = datetime.date.today()
+
+    # 1.Retrieve logistic data grouped by project name and stage, and calculate the total amount for each stage
+    amount = Decimal(0)
+
+    logistic_data = (Logistic.objects.filter(owner=request.user)
+                     .select_related('project_name', 'project_stage')
+                     .values('project_name__project_name', 'project_stage__project_stage', 'acquisition_name',
+                             'acquisition_type', 'document_series', 'supplier_name')
+                     .annotate(amount=Sum('amount'))
+                     )
+    for data in logistic_data:
+        data['table_name'] = 'Logistic'
+        amount += data['amount']
+
+    expenses_centralizer_filter = ExpensesCentralizerFilter()
+    expenses_centralizer = Logistic.objects.filter(owner=request.user).values()
+
+    if request.method == 'GET':
+        expenses_centralizer_filter = ExpensesCentralizerFilter(request.GET)
+        if expenses_centralizer_filter.is_valid():
+            expenses_centralizer = expenses_centralizer_filter.qs
+            expenses_centralizer_filter.form.fields['project_name'].queryset = expenses_centralizer
+
+    # 2.Retrieve displacement data grouped by project name and stage, and calculate the total amount for each stage
+    total_amount = Decimal(0)
+    displacement_data = (Displacement.objects.filter(owner=request.user)
+                         .select_related('project_name', 'project_stage')
+                         .values('project_name__project_name', 'project_stage__project_stage', 'person_name',
+                                 'document_series')
+                         .annotate(total_amount=Sum('total_amount'))
+                         )
+    for data in displacement_data:
+        data['table_name'] = 'Displacement'
+        total_amount += data['total_amount']
+
+    # 3.Retrieve workforce data grouped by project name and stage, and calculate the total gross salary for each stage
+    workforce_data = (Workforce.objects.filter(owner=request.user)
+                      .select_related('project_name', 'project_stage')
+                      .values('project_name__project_name', 'project_stage__project_stage')
+                      .annotate(total_gross_salary=Sum('gross_salary_amount'))
+                      )
+
+    for data in workforce_data:
+        data['table_name'] = 'Workforce'
+        total_gross_salary = data['total_gross_salary']
+        # Calculate social security contribution as 2.25% of total gross salary
+        data['social_security_contribution'] = total_gross_salary * Decimal('0.0225')
+        data['total_workforce_expenses'] = total_gross_salary + data['social_security_contribution']
+
+    # Combine all querysets into a single queryset
+    combined_data = list(chain(logistic_data, displacement_data, workforce_data))
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    context = {
+        'workforce_data': workforce_data,
+        'expenses_centralizer_details': expenses_centralizer_details,
+        'displacement_data': displacement_data,
+        'logistic_data': logistic_data,
+        'expenses_centralizer_filter': expenses_centralizer_filter,
+        'expenses_centralizer': expenses_centralizer,
+        'total_amount': total_amount,
+        'amount': amount,
+        'combined_data': combined_data,
+        'today': today,
+        'currency': currency
+    }
+
+    return render(request, 'projectbudget/financialreport/expenses_centralizer.html', context)
+
+
 # ---->>>>>>>>>> PROJECTS - PAGE VIEWS <<<<<<<<<<<<----#
 
 @login_required(login_url='/authentication/login')
 def projects_view(request):
+    project_filter = ProjectFilter()
     projects = Project.objects.filter(owner=request.user).values()
+
+    if request.method == 'GET':
+        project_filter = ProjectFilter(request.GET)
+        if project_filter.is_valid():
+            projects = project_filter.qs
+            project_filter.form.fields['project_name'].queryset = projects
+            project_filter.form.fields['project_type'].queryset = projects
+
     today = datetime.date.today()
 
     paginator = Paginator(projects, 7)
@@ -48,6 +139,7 @@ def projects_view(request):
 
     context = {
         'projects': projects,
+        'project_filter': project_filter,
         'today': today,
         'page_obj': page_obj,
         'currency': currency
@@ -230,7 +322,7 @@ def export_projects_pdf(request):
     top_margin = 0.5 * inch
     bottom_margin = 0.5 * inch
 
-    pdf = SimpleDocTemplate(response,  pagesize=(page_width, page_height), leftMargin=left_margin,
+    pdf = SimpleDocTemplate(response, pagesize=(page_width, page_height), leftMargin=left_margin,
                             rightMargin=right_margin, topMargin=top_margin, bottomMargin=bottom_margin,
                             title='PDF Projects_Report')
     styles = getSampleStyleSheet()
@@ -510,7 +602,7 @@ def export_project_stages_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=ProjectStages' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response,  pagesize=A4, title='PDF Project_Stages_Report', topMargin=0.5*inch)
+    pdf = SimpleDocTemplate(response, pagesize=A4, title='PDF Project_Stages_Report', topMargin=0.5 * inch)
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -563,7 +655,6 @@ def export_project_stages_pdf(request):
             project_stage.project_name.project_name, project_stage.project_stage, project_stage.budget,
             project_stage.reimbursed_amount, project_stage_period
         ])
-
 
     # Define style for table
     table_style = TableStyle([
@@ -796,7 +887,7 @@ def export_acquisitions_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Logistic' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response,  pagesize=landscape(A4), title='PDF Logistic_Report', topMargin=0.5*inch)
+    pdf = SimpleDocTemplate(response, pagesize=landscape(A4), title='PDF Logistic_Report', topMargin=0.5 * inch)
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -993,10 +1084,10 @@ def export_displacements_csv(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    writer.writerow(['Project Name', 'Project Stage', 'Work Place', 'Person Name',  'Document Series',
+    writer.writerow(['Project Name', 'Project Stage', 'Work Place', 'Person Name', 'Document Series',
                      'Displaced To...', 'Displacement Type', 'Transportation Mean', f'Budget/Day ({currency})',
                      'Days No...', f'Total Budget ({currency})', 'Other Expenses Description',
-                     f'Other Expenses Budget ({currency})', f'Total Amount ({currency})',  'Displacement Period'])
+                     f'Other Expenses Budget ({currency})', f'Total Amount ({currency})', 'Displacement Period'])
 
     displacements = Displacement.objects.filter(owner=request.user)
 
@@ -1004,7 +1095,7 @@ def export_displacements_csv(request):
         # Concatenate "Start Date" and "End Date" into "Displacement Period"
         displacement_period = f"{displacement.start_date.strftime('%m/%d/%Y')} - {displacement.end_date.strftime('%m/%d/%Y')}"
         writer.writerow([displacement.project_name.project_name, displacement.project_stage, displacement.work_place,
-                         displacement.person_name,  displacement.document_series, displacement.displaced_to,
+                         displacement.person_name, displacement.document_series, displacement.displaced_to,
                          displacement.displacement_type, displacement.transportation_mean, displacement.budget_per_day,
                          displacement.days_no, displacement.total_budget, displacement.other_expenses_description,
                          displacement.other_expenses_budget, displacement.total_amount, displacement_period])
@@ -1036,10 +1127,10 @@ def export_displacements_excel(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    columns = ['Project Name', 'Project Stage', 'Work Place', 'Person Name',  'Document Series',
+    columns = ['Project Name', 'Project Stage', 'Work Place', 'Person Name', 'Document Series',
                'Displaced To...', 'Displacement Type', 'Transportation Mean', f'Budget/Day ({currency})',
                'Days No...', f'Total Budget ({currency})', 'Other Expenses Description',
-               f'Other Expenses Budget ({currency})', f'Total Amount ({currency})',  'Displacement Period']
+               f'Other Expenses Budget ({currency})', f'Total Amount ({currency})', 'Displacement Period']
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style_bold)
@@ -1076,7 +1167,7 @@ def export_displacements_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Displacements' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response,  pagesize=landscape(A4), title='PDF Displacement_Report', topMargin=0.5*inch)
+    pdf = SimpleDocTemplate(response, pagesize=landscape(A4), title='PDF Displacement_Report', topMargin=0.5 * inch)
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -1096,9 +1187,10 @@ def export_displacements_pdf(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    headers = ['Project Name', 'Project Stage', 'Work Place', 'Person Name',  'Document Series',
+    headers = ['Project Name', 'Project Stage', 'Work Place', 'Person Name', 'Document Series',
                'Displaced To...', 'Displacement Type', 'Transportation Mean', f'Budget/Day ({currency})',
-               'Days No...', f'Total Budget ({currency})', 'Other Expenses Description', f'Other Expenses Budget ({currency})', f'Total Amount ({currency})',  'Displacement Period']
+               'Days No...', f'Total Budget ({currency})', 'Other Expenses Description',
+               f'Other Expenses Budget ({currency})', f'Total Amount ({currency})', 'Displacement Period']
     data = [headers]
 
     # Get the default sample style sheet
@@ -1288,7 +1380,7 @@ def export_workforce_csv(request):
         currency = 'RON'
 
     writer.writerow(['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-                     f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})',  'Vacation leave Days',
+                     f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
                      f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period'])
 
     workforces = Workforce.objects.filter(owner=request.user)
@@ -1297,7 +1389,8 @@ def export_workforce_csv(request):
         # Concatenate "Start Date" and "End Date" into "Work Period"
         work_period = f"{workforce.start_date.strftime('%m/%d/%Y')} - {workforce.end_date.strftime('%m/%d/%Y')}"
         writer.writerow([workforce.project_name.project_name, workforce.project_stage, workforce.work_place,
-                         workforce.person_work_id, workforce.person_name, workforce.person_role, workforce.salary_per_hour,
+                         workforce.person_work_id, workforce.person_name, workforce.person_role,
+                         workforce.salary_per_hour,
                          workforce.work_days, workforce.salary_realized, workforce.vacation_leave_days,
                          workforce.vacation_reimbursed_amount, workforce.gross_salary_amount, work_period])
     return response
@@ -1329,7 +1422,7 @@ def export_workforce_excel(request):
         currency = 'RON'
 
     columns = ['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})',  'Vacation leave Days',
+               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
                f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period']
 
     for col_num in range(len(columns)):
@@ -1367,7 +1460,7 @@ def export_workforce_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Workforce' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response,  pagesize=landscape(A4), title='PDF Workforce_Report', topMargin=0.5*inch)
+    pdf = SimpleDocTemplate(response, pagesize=landscape(A4), title='PDF Workforce_Report', topMargin=0.5 * inch)
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -1388,7 +1481,7 @@ def export_workforce_pdf(request):
         currency = 'RON'
 
     headers = ['Project Name', 'Project Stage', 'Work Place', 'Person Work Id', 'Person Name', 'Person Role',
-               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})',  'Vacation leave Days',
+               f'Salary/hour ({currency})', 'Work Days', f'Salary Realized ({currency})', 'Vacation leave Days',
                f'Vacation Reimbursed Amount ({currency})', f'Gross Salary Amount ({currency})', 'Work Period']
     data = [headers]
 
@@ -1539,12 +1632,13 @@ def export_persons_csv(request):
     writer = csv.writer(response)
 
     writer.writerow(['Person Name', 'Person Id', 'Age', 'Is internal', 'Institution',
-                    'Department', 'Email', 'Phone', 'City', 'Country'])
+                     'Department', 'Email', 'Phone', 'City', 'Country'])
 
     persons = Person.objects.filter(owner=request.user)
 
     for person in persons:
-        writer.writerow([person.person_name, person.person_id, person.age, person.is_internal, person.institution, person.department,
+        writer.writerow([person.person_name, person.person_id, person.age, person.is_internal, person.institution,
+                         person.department,
                          person.email, person.phone, person.city, person.country])
     return response
 
@@ -1579,7 +1673,7 @@ def export_persons_excel(request):
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
-            if col_num == 1 or col_num == 6: # Adjusted index to match column numbers starting from 0
+            if col_num == 1 or col_num == 6:  # Adjusted index to match column numbers starting from 0
                 number_style = xlwt.easyxf('align: horiz right')
                 ws.write(row_num, col_num, row[col_num], number_style)
             else:
@@ -1595,7 +1689,8 @@ def export_persons_pdf(request):
     response['Content-Disposition'] = 'inline; attachment; filename=Persons Informations' + \
                                       str(datetime.datetime.now()) + '.pdf'
 
-    pdf = SimpleDocTemplate(response,  pagesize=landscape(A4), title='PDF Persons Informations_Report', topMargin=0.5*inch)
+    pdf = SimpleDocTemplate(response, pagesize=landscape(A4), title='PDF Persons Informations_Report',
+                            topMargin=0.5 * inch)
     styles = getSampleStyleSheet()
     title_style = styles['Title']
     title_style.alignment = 1
@@ -1654,4 +1749,3 @@ def export_persons_pdf(request):
     pdf.build(elements)
 
     return response
-

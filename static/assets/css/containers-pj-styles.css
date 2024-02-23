@@ -44,6 +44,51 @@ Container Projects Pages Style
     background-color: #bebebe;
 }
 
+
+/*
+---------------------------------------------
+Project Filter
+---------------------------------------------
+*/
+
+#filterTableField {
+    display: flex;
+    align-items: center;
+}
+
+#projectFilterForm,
+#expensesCentralizerFilterForm {
+    display: flex;
+    padding: 0 100px 20px 0;
+}
+
+#projectFilterForm .form-group {
+    margin-right: 110px;
+}
+
+#filterTableField #projectSelect,
+#filterTableField #projectTypeSelect {
+    width: 160%;
+    font-size: 16px;
+    /*border: 1px solid #f15b4d;*/
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#filterTableField #projectSelect option,
+#filterTableField #projectTypeSelect option {
+    text-align: center;
+}
+
+#filterTableField .bx-project-select::before,
+#filterTableField .bx-project-type-select::before {
+    position: absolute;
+    padding-top: 15px;
+    padding-left: 15px;
+    font-size: 20px;
+    color: grey;
+}
+
+
 /*
 ---------------------------------------------
 ADD Project Form
@@ -1163,6 +1208,206 @@ Edit Person Form
     font-size: 16px;
     padding-bottom: 5px;
 }
+
+
+/*
+---------------------------------------------
+Container FINANCIAL REPORT
+---------------------------------------------
+*/
+
+.container-report {
+    background: transparent;
+    margin-top: 10px;
+    padding: 30px;
+    width: 100%;
+    grid-area: main;
+
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 350px 900px 900px;
+    gap: 20px;
+    grid-template-areas:
+        "budgetCard1 budgetCard2"
+        "budgetCard1 reportExpensesWorkforce"
+        "budgetCard1 reportExpensesDisplacement";
+        "budgetCard1 reportExpensesLogistic";
+}
+
+/*#budgetCard2 {*/
+/*    padding-left: 50px;*/
+/*}*/
+
+/*#budgetCard1 p, #budgetCard2 p {*/
+/*    font-size: 18px;*/
+/*    font-weight: 500;*/
+/*}*/
+
+/*#budgetCard1 p .budget-remaining {*/
+/*    font-size: 16px;*/
+/*    font-weight: 500;*/
+/*    color: #39c039;*/
+/*}*/
+
+/*#budgetCard2 p .budget-income {*/
+/*    font-size: 16px;*/
+/*    font-weight: 500;*/
+/*    color: rgba(9, 20, 246, 1);*/
+/*}*/
+
+/*#budgetCard2 p .budget-expenses {*/
+/*    font-size: 16px;*/
+/*    font-weight: 500;*/
+/*    color: rgba(206, 64, 64, 1);*/
+/*}*/
+
+/*#budgetCard1 .progress-bar-container {*/
+/*    width: 100%;*/
+/*    height: 20px;*/
+/*    background-color: #e0e0e0;*/
+/*    margin-top: 10px;*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*#budgetCard1 .progress-tooltip {*/
+/*    visibility: hidden;*/
+/*    width: 30px;*/
+/*    background-color: transparent;*/
+/*    color: black;*/
+/*    text-align: center;*/
+/*    border-radius: 5px;*/
+/*    padding: 5px;*/
+/*    position: absolute;*/
+/*    z-index: 1;*/
+/*    top: -7px;*/
+/*    left: 40%;*/
+/*    transform: translateX(-50%);*/
+/*}*/
+
+/*#budgetCard1 .progress-bar {*/
+/*    height: 100%;*/
+/*    background-color: #4CAF50;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*#budgetCardIncome {*/
+/*    grid-area: budgetCardIncome;*/
+/*    padding-left: 50px;*/
+/*}*/
+
+#reportExpensesLogistic,
+#reportExpensesDisplacement,
+#reportExpensesWorkforce {
+    padding-bottom: 40px;
+}
+
+#reportExpensesLogistic .table-title,
+#reportExpensesDisplacement .table-title,
+#reportExpensesWorkforce .table-title {
+    transform: scale(1.10);
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0 1px 1px #000;
+    color: #b2b2b2;
+    padding-left: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#reportExpensesLogistic .table thead tr th,
+#reportExpensesDisplacement .table thead tr th,
+#reportExpensesWorkforce .table thead tr th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#reportExpensesLogistic .table tbody tr td,
+#reportExpensesDisplacement .table tbody tr td,
+#reportExpensesWorkforce .table tbody tr td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*
+---------------------------------------------
+ACQUISITIONS TYPES Different Colors
+---------------------------------------------
+*/
+
+.container-report #reportExpensesLogistic .table tbody tr
+.acquisition-type-material-expenses {
+    background-color: rgba(13, 202, 240, 0.89);
+    border-radius: 40px;
+    padding: 5px; /* Add padding to center background within cell */
+    background-clip: content-box;
+
+}
+
+.container-report #reportExpensesLogistic .table tbody tr
+.acquisition-type-expenses-on-inventory-items {
+    background-color: rgba(63, 197, 74, 0.89);
+    border-radius: 40px;
+    padding: 5px;
+    background-clip: content-box;
+}
+
+.container-report #reportExpensesLogistic .table tbody tr
+.acquisition-type-services-expenses {
+    background-color: rgba(210, 113, 109, 0.89);
+    border-radius: 40px;
+    padding: 5px;
+    background-clip: content-box;
+}
+
+.container-report #reportExpensesLogistic .table tbody tr
+.acquisition-type-capital-expenses {
+    background-color: rgb(246, 196, 70);
+    border-radius: 40px;
+    padding: 5px;
+    background-clip: content-box;
+}
+
+/*
+---------------------------------------------
+TABLE SCROLL - EXPENSES CENTRALIZER
+---------------------------------------------
+*/
+
+.table-container {
+    position: relative;
+    max-height: 600px;
+    overflow-y: scroll;
+    margin-bottom: 40px;
+}
+
+.table-scroll {
+    overflow-x:auto;
+}
+
+.table-scroll table {
+    margin-top: 20px;
+}
+
+#reportExpensesLogistic .table-title,
+#reportExpensesDisplacement .table-title,
+#reportExpensesWorkforce .table-title {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+#reportExpensesLogistic .table-scroll thead,
+#reportExpensesDisplacement .table-scroll thead,
+#reportExpensesWorkforce .table-scroll thead {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+}
+
 
 
 /* ---------------- MEDIA QUERIES ----------------*/

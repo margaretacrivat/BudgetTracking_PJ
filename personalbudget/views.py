@@ -35,7 +35,7 @@ def personal_budget_view(request):
 
 
 @login_required(login_url='/authentication/login')
-def budget_main_view(request):
+def budget_report_view(request):
     todays_date = datetime.date.today()
     first_day_of_month = todays_date.replace(day=1)
     last_day_of_month = first_day_of_month.replace(month=first_day_of_month.month + 1) - datetime.timedelta(days=1)
@@ -867,7 +867,7 @@ def income_stats_last_3months(request):
 
 # ---->>>>>>>>>> SUMMARY - PAGE VIEWS <<<<<<<<<<<<----#
 
-def summary_budget_main_view(request):
+def summary_budget_report_view(request):
     all_incomes = Income.objects.filter(owner=request.user)
     all_expenses = Expense.objects.filter(owner=request.user)
 

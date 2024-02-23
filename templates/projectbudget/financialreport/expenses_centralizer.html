@@ -1,0 +1,201 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %} Projects Expenses Centralizer {% endblock %}
+
+{% block content %}
+
+    <div class="container-main">
+
+        {% include 'base/sidebar_pj.html' %}
+
+        <div class="container-breadcrumb-bar">
+            <nav aria-label="breadcrumb-nav">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a
+                            href="">Financial Report</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Expenses Centralizer
+                    </li>
+                </ol>
+            </nav>
+
+        </div>
+
+        <div class="container-report">
+
+            <!-- ***** Total Workforce Expenses ***** -->
+            {#                        <div id="budgetCard1">#}
+            {#                            <p>Your total workforce budget was:#}
+            {#                                {% if this_month_total_income %}#}
+            {#                                    <span class="budget-income">{{ this_month_total_income|floatformat:"2" }} {{ currency }}</span>#}
+            {#                                {% else %}#}
+            {#                                    <span class="budget-income">{{ this_month_total_income|default_if_none:"0" }} {{ currency }}</span>#}
+            {#                                {% endif %}#}
+            {#                            </p>#}
+            {#                            <p>You've spent a total of:#}
+            {#                                {% if this_month_total_expenses %}#}
+            {#                                    <span class="budget-expenses">{{ this_month_total_expenses|floatformat:"2" }} {{ currency }}</span>#}
+            {#                                {% else %}#}
+            {#                                    <span class="budget-expenses">{{ this_month_total_expenses|default_if_none:"0" }} {{ currency }}</span>#}
+            {#                                {% endif %}#}
+            {#                            </p>#}
+            {#                        </div>#}
+
+        <div id="filterTableField">
+                    <form id="expensesCentralizerFilterForm" method="get">
+                        <div class="form-group">
+                            <i class='bx bxs-filter-alt bx-project-select'></i>
+                            <select class="form-control project-name" name="project_name" id="projectSelect">
+                                <option value="">All Projects</option>
+                                {% for project_name in expenses_centralizer_filter.form.project_name.field.queryset %}
+                                    <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+            <div id="reportExpensesLogistic" class="table-container">
+                <div class="table-title">Expenses Logistic</div>
+                <hr>
+                <div class="table-scroll">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Stage</th>
+                            <th>Acquisition Name</th>
+                            <th>Acquisition Type</th>
+                            <th>Document Series</th>
+                            <th>Supplier Name</th>
+                            <th>Total acquisition expenses<br>({{ currency }})</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if combined_data %}
+                            {% for data in combined_data %}
+                                {% if data.table_name == "Logistic" %}
+                                    <tr>
+                                        <td>{{ data.project_name__project_name }}</td>
+                                        <td>{{ data.project_stage__project_stage }}</td>
+                                        <td>{{ data.acquisition_name }}</td>
+                                        <td class="acquisition-type-{{ data.acquisition_type|slugify }}">
+                                            {{ data.acquisition_type }}</td>
+                                        <td>{{ data.document_series }}</td>
+                                        <td>{{ data.supplier_name }}</td>
+                                        <td>{{ data.amount|floatformat:"2" }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No workforce available</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="reportExpensesDisplacement" class="table-container">
+                <div class="table-title">Expenses Displacement</div>
+                <hr>
+                <div class="table-scroll">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Stage</th>
+                            <th>Document Series</th>
+                            <th>Person Name</th>
+                            <th>Total displacement expenses<br>({{ currency }})</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if combined_data %}
+                            {% for data in combined_data %}
+                                {% if data.table_name == "Displacement" %}
+                                    <tr>
+                                        <td>{{ data.project_name__project_name }}</td>
+                                        <td>{{ data.project_stage__project_stage }}</td>
+                                        <td>{{ data.document_series }}</td>
+                                        <td>{{ data.person_name }}</td>
+                                        <td>{{ data.total_amount|floatformat:"2" }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No workforce available</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div id="reportExpensesWorkforce" class="table-container">
+                <div class="table-title">Expenses Workforce</div>
+                <hr>
+                <div class="table-scroll">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Project Stage</th>
+                            <th>Total Gross Salary<br>({{ currency }})</th>
+                            <th>Social security contribution<br>({{ currency }})</th>
+                            <th>Details</th>
+                            <th>Total workforce expenses/project stage<br>({{ currency }})</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if combined_data %}
+                            {% for data in combined_data %}
+                                {% if data.table_name == "Workforce" %}
+                                    <tr>
+                                        <td>{{ data.project_name__project_name }}</td>
+                                        <td>{{ data.project_stage__project_stage }}</td>
+                                        <td>{{ data.total_gross_salary|floatformat:"2" }}</td>
+                                        <td>{{ data.social_security_contribution|floatformat:"2" }}</td>
+                                        <td>
+                                            {% for details in expenses_centralizer_details %}
+                                                {% if details.workforce_id == data.id %}
+                                                    {{ details.details }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{ data.total_workforce_expenses|floatformat:"2" }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6">No workforce available</td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!-- ***** Back to the Dashboard ***** -->
+            <div class="breadcrumb-event-back">
+                <a href="{% url 'project-budget' %}" class="btn btn-secondary">
+                    <i class="fa fa-angle-left home-icon"></i>
+                    <span>Back to Dashboard</span></a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/centralizerFilter.js' %}"></script>
+
+{% endblock content %}
+

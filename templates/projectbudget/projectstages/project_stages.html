@@ -32,17 +32,17 @@
                     <span>Back to Dashboard</span></a>
             </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-                        <div id="exportFile">
-                            <a href="{% url 'export-project-stages-csv' %}" class="btn">
-                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
-                            </a>
-                            <a href="{% url 'export-project-stages-excel' %}" class="btn">
-                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
-                            </a>
-                            <a href="{% url 'export-project-stages-pdf' %}" class="btn">
-                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
-                            </a>
-                        </div>
+            <div id="exportFile">
+                <a href="{% url 'export-project-stages-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+                <a href="{% url 'export-project-stages-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+                <a href="{% url 'export-project-stages-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
+            </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -98,8 +98,9 @@
                                     <td>{{ project_stage.project_stage }}</td>
                                     <td>{{ project_stage.budget|floatformat:"2" }}</td>
                                     <td>{{ project_stage.reimbursed_amount|floatformat:"2" }}</td>
-                                    <td class="project-stage-period"> 
-                                        {{ project_stage.start_date|date:'m/d/Y' }} - {{ project_stage.end_date|date:'m/d/Y' }}
+                                    <td class="project-stage-period">
+                                        {{ project_stage.start_date|date:'m/d/Y' }}
+                                        - {{ project_stage.end_date|date:'m/d/Y' }}
                                     </td>
                                     <td>
                                         <a href="{% url 'edit-project-stage' project_stage.id %}"
@@ -168,8 +169,8 @@
                     </ul>
                 </div>
                 <div class="color-explanation">
-{#                    <div class="color-circle ongoing-project-stage"></div>#}
-{#                    <span>Ongoing Project Stage</span>#}
+                    <div class="color-circle ongoing-project-stage"></div>
+                    <span>Ongoing Project Stage</span>
                     <div class="color-circle ending-soon-project-stage"></div>
                     <span>Project Stage Ending Soon</span>
                     <div class="color-circle expired-project-stage"></div>
@@ -184,38 +185,47 @@
     <!-- Scripts -->
     <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteProjectStage.js' %}"></script>
-    
+
     <script>
         window.addEventListener("DOMContentLoaded", function () {
             const today = new Date("{{ today|date:'m/d/Y' }}");
             today.setHours(0, 0, 0, 0);
-            
+
             const table = document.getElementById('projectTable');
-            
+
             const rows = document.querySelectorAll('#projectTable > tbody > tr');
             rows.forEach(row => {
-                const startDateCell = row.querySelector('.start-date');
-                const endDateCell = row.querySelector('.end-date');
+                const projectStatusPeriodCell = row.querySelector('.project-stage-period');
+                const projectStatusPeriod = projectStatusPeriodCell.textContent.trim().split(' - ');
 
-                const startDate = new Date(startDateCell.textContent);
-                const endDate = new Date(endDateCell.textContent);
+                // Parse the start and end dates
+                const startDate = new Date(projectStatusPeriod[0]);
+                const endDate = new Date(projectStatusPeriod[1]);
 
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                    return; 
+                    return;
                 }
                 const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
                 const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());
-                
+
                 const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
                 const remainingDays = daysInMonth - today.getDate();
-                
+
                 if (endDate < today) {
+                    // Project has expired
                     row.classList.add('expired-project-stage');
-                } else if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                        {#row.classList.remove('ongoing-project-stage'); #}
-                        row.classList.add('ending-soon-project-stage'); 
-                    } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
+                } else if (startDate <= today && endDate >= today) {
+                    // Project is ongoing
+                    row.classList.add('ongoing-project-stage');
+                    // Check if the project is ending within the next month
+                    if (monthsDiffEnd === 0 && remainingDays <= 30) {
+                        row.classList.remove('ongoing-project-stage'); // Remove ongoing class
+                        row.classList.add('ending-soon-project-stage'); // Add ending soon class
+                    }
+                } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
+                    // Project has not started yet and is ending in 1 month or less
                     row.classList.add('ending-soon-project-stage');
+                    console.log("Project Stage is ending soon");
                 }
             });
         });
