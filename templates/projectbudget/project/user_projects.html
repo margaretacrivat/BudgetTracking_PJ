@@ -240,7 +240,7 @@
             rows.forEach(row => {
                 // Get the start and end date cells from the row
 
-                const projectPeriodCell = row.querySelector('.projects-period');
+                const projectPeriodCell = row.querySelector('.project-period');
                 const projectPeriod = projectPeriodCell.textContent.trim().split(' - ');
 
 
@@ -264,18 +264,18 @@
                 // Compare the start date and end date with today's date
                 if (endDate < today) {
                     // Project has expired
-                    row.classList.add('expired-projects');
+                    row.classList.add('expired-project');
                 } else if (startDate <= today && endDate >= today) {
                     // Project is ongoing
-                    row.classList.add('ongoing-projects');
+                    row.classList.add('ongoing-project');
                     // Check if the project is ending within the next month
                     if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                        row.classList.remove('ongoing-projects'); // Remove ongoing class
-                        row.classList.add('ending-soon-projects'); // Add ending soon class
+                        row.classList.remove('ongoing-project'); // Remove ongoing class
+                        row.classList.add('ending-soon-project'); // Add ending soon class
                     }
                 } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
                     // Project has not started yet and is ending in 1 month or less
-                    row.classList.add('ending-soon-projects');
+                    row.classList.add('ending-soon-project');
                     console.log("Project is ending soon");
                 }
             });

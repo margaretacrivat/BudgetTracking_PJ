@@ -92,7 +92,7 @@ class Migration(migrations.Migration):
                 ('start_date', models.DateField(default=django.utils.timezone.now)),
                 ('end_date', models.DateField(default=django.utils.timezone.now)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projects')),
+                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.project')),
             ],
             options={
                 'ordering': ['-start_date'],
@@ -114,7 +114,7 @@ class Migration(migrations.Migration):
                 ('amount', models.DecimalField(decimal_places=2, default=Decimal('0.00'), max_digits=20)),
                 ('date', models.DateField(default=django.utils.timezone.now)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projects')),
+                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.project')),
                 ('project_stage', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projectstage')),
             ],
             options={
@@ -140,7 +140,7 @@ class Migration(migrations.Migration):
                 ('start_date', models.DateField(default=django.utils.timezone.now)),
                 ('end_date', models.DateField(default=django.utils.timezone.now)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projects')),
+                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.project')),
                 ('project_stage', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projectstage')),
             ],
             options={
@@ -164,7 +164,7 @@ class Migration(migrations.Migration):
                 ('start_date', models.DateField(default=django.utils.timezone.now)),
                 ('end_date', models.DateField(default=django.utils.timezone.now)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projects')),
+                ('project_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.project')),
                 ('project_stage', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='projectbudget.projectstage')),
             ],
             options={

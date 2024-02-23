@@ -3,7 +3,7 @@ function confirmDelete(projectId) {
     modal.style.display = "block";
 
     // Set projectId for deletion
-    document.getElementById("confirmDeleteBtn").setAttribute("data-projects-id", projectId);
+    document.getElementById("confirmDeleteBtn").setAttribute("data-project-id", projectId);
 }
 
 function closeModal() {
@@ -12,7 +12,7 @@ function closeModal() {
 }
 
 function deleteProject() {
-    var projectId = document.getElementById("confirmDeleteBtn").getAttribute("data-projects-id");
+    var projectId = document.getElementById("confirmDeleteBtn").getAttribute("data-project-id");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/projectbudget/delete-project/" + projectId + "/", true);
     var csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -25,7 +25,7 @@ function deleteProject() {
             if (xhr.status === 200) {
                 window.location.reload();
             } else {
-                console.error("Error deleting projects:", xhr.statusText);
+                console.error("Error deleting project:", xhr.statusText);
             }
             closeModal();
         }

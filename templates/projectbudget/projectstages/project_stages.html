@@ -166,7 +166,7 @@
                     </ul>
                 </div>
                 <div class="color-explanation">
-                    {#                    <div class="color-circle ongoing-projects-stage"></div>#}
+                    {#                    <div class="color-circle ongoing-project-stage"></div>#}
                     {#                    <span>Ongoing Project Stage</span>#}
                     <div class="color-circle ending-soon-project-stage"></div>
                     <span>Project Stage Ending Soon</span>
@@ -192,7 +192,7 @@
 
             const rows = document.querySelectorAll('#projectTable > tbody > tr');
             rows.forEach(row => {
-                const projectStatusPeriodCell = row.querySelector('.projects-stage-period');
+                const projectStatusPeriodCell = row.querySelector('.project-stage-period');
                 const projectStatusPeriod = projectStatusPeriodCell.textContent.trim().split(' - ');
 
                 // Parse the start and end dates
@@ -210,19 +210,19 @@
 
                 if (endDate < today) {
                     // Project has expired
-                    row.classList.add('expired-projects-stage');
+                    row.classList.add('expired-project-stage');
                 } else if (startDate <= today && endDate >= today) {
                     // Project is ongoing
-                    if (!row.classList.contains('ending-soon-projects-stage')) {
-                        // Check if the projects is ending within the next month
+                    if (!row.classList.contains('ending-soon-project-stage')) {
+                        // Check if the project is ending within the next month
                         if (monthsDiffEnd === 0 && remainingDays <= 30) {
-                            row.classList.add('ending-soon-projects-stage');
+                            row.classList.add('ending-soon-project-stage');
                         }
                     }
                 } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
                     // Project has not started yet and is ending in 1 month or less
-                    if (!row.classList.contains('ending-soon-projects-stage')) {
-                        row.classList.add('ending-soon-projects-stage');
+                    if (!row.classList.contains('ending-soon-project-stage')) {
+                        row.classList.add('ending-soon-project-stage');
                     }
                     console.log("Project Stage is ending soon");
                 }

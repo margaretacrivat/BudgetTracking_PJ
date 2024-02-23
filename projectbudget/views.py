@@ -48,7 +48,7 @@ def expenses_centralizer_view(request):
             centralizer = centralizer_filter.qs
             centralizer_filter.form.fields['project_name'].queryset = centralizer
 
-    # 1.Retrieve logistic data grouped by projects name and stage, and calculate the total amount for each stage
+    # 1.Retrieve logistic data grouped by project name and stage, and calculate the total amount for each stage
     amount = Decimal(0)
 
     logistic_data = (Logistic.objects.filter(owner=request.user)
@@ -61,7 +61,7 @@ def expenses_centralizer_view(request):
         data['table_name'] = 'Logistic'
         amount += data['amount']
 
-    # 2.Retrieve displacement data grouped by projects name and stage, and calculate the total amount for each stage
+    # 2.Retrieve displacement data grouped by project name and stage, and calculate the total amount for each stage
     total_amount = Decimal(0)
     displacement_data = (Displacement.objects.filter(owner=request.user)
                          .select_related('project_name', 'project_stage')
@@ -73,7 +73,7 @@ def expenses_centralizer_view(request):
         data['table_name'] = 'Displacement'
         total_amount += data['total_amount']
 
-    # 3.Retrieve workforce data grouped by projects name and stage, and calculate the total gross salary for each stage
+    # 3.Retrieve workforce data grouped by project name and stage, and calculate the total gross salary for each stage
     workforce_data = (Workforce.objects.filter(owner=request.user)
                       .select_related('project_name', 'project_stage')
                       .values('project_name__project_name', 'project_stage__project_stage')
@@ -209,7 +209,7 @@ def projects_view(request):
         'page_obj': page_obj,
         'currency': currency
     }
-    return render(request, 'projectbudget/projects/user_projects.html', context)
+    return render(request, 'projectbudget/project/user_projects.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -241,7 +241,7 @@ def add_project(request):
         'currency': currency
     }
 
-    return render(request, 'projectbudget/projects/add_project.html', context)
+    return render(request, 'projectbudget/project/add_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -269,14 +269,14 @@ def edit_project(request, id):
 
     context = {
         'form': form,
-        'projects': project,
+        'project': project,
         'project_type': project_type,
         'start_date': project.start_date,
         'end_date': project.end_date,
         'currency': currency
     }
 
-    return render(request, 'projectbudget/projects/edit_project.html', context)
+    return render(request, 'projectbudget/project/edit_project.html', context)
 
 
 @login_required(login_url='/authentication/login')
@@ -779,7 +779,7 @@ def add_acquisition(request):
     except Currency.DoesNotExist:
         currency = 'RON'
 
-    # transmit the existing projects and projects stages as options
+    # transmit the existing projects and project stages as options
     projects = Project.objects.all()
     project_stages = ProjectStage.objects.all()
 

@@ -1,5 +1,5 @@
 """
-WSGI config for BudgetTracking_PJ projects.
+WSGI config for BudgetTracking_PJ project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

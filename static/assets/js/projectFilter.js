@@ -1,5 +1,5 @@
 document.getElementById('projectSelect').addEventListener('change', function () {
-    // Obtain the value of the selected projects
+    // Obtain the value of the selected project
     var selectedProjectName = this.value;
 
     // Select all rows from the table
@@ -12,9 +12,9 @@ document.getElementById('projectSelect').addEventListener('change', function () 
             row.style.display = ''; // Display row
         });
     } else {
-        // Otherwise, iterate through all rows and display only those which coresponds to the selected projects name
+        // Otherwise, iterate through all rows and display only those which coresponds to the selected project name
         rows.forEach(function (row) {
-            var projectNameCell = row.querySelector('td:nth-child(2)'); // Cell which contain the name of the projects
+            var projectNameCell = row.querySelector('td:nth-child(2)'); // Cell which contain the name of the project
             if (projectNameCell.textContent === selectedProjectName || selectedProjectName === "All Projects") {
                 row.style.display = ''; //Display the row if the name of the projects coresponds
             } else {

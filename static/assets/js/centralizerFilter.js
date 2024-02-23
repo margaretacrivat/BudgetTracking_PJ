@@ -1,5 +1,5 @@
 document.addEventListener('change', function (event) {
-    // Check if the changed element is the projects select element
+    // Check if the changed element is the project select element
     if (event.target && event.target.id === 'projectSelect') {
         var selectedProjectName = event.target.value;
 
@@ -10,9 +10,9 @@ document.addEventListener('change', function (event) {
             // Select all rows from the table inside the current container
             var rows = tableContainer.querySelectorAll('tbody tr');
 
-            // Iterate through all rows and display only those which correspond to the selected projects name
+            // Iterate through all rows and display only those which correspond to the selected project name
             rows.forEach(function (row) {
-                var projectNameCell = row.querySelector('td:first-child'); // Cell which contains the name of the projects
+                var projectNameCell = row.querySelector('td:first-child'); // Cell which contains the name of the project
                 if (selectedProjectName === "" || projectNameCell.textContent === selectedProjectName || selectedProjectName === "All Projects") {
                     row.style.display = '';
                 } else {
