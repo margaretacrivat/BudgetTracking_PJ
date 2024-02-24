@@ -6,7 +6,7 @@ salaryRealizedInput.addEventListener('input', updateGrossSalaryAmount);
 vacationReimbursedAmountInput.addEventListener('input', updateGrossSalaryAmount);
 
 workDaysInput.addEventListener('input', updateGrossSalaryAmount);
-vacationLeaveDaysInput.addEventListener('input', updateGrossSalaryAmount);
+vacationLeaveDaysNoInput.addEventListener('input', updateGrossSalaryAmount);
 
 function updateGrossSalaryAmount() {
     var salary_realized = parseFloat(salaryRealizedInput.value);

@@ -1269,7 +1269,7 @@ ACQUISITIONS TYPES Different Colors
 }
 
 .container-report #reportExpensesLogistic .table tbody tr
-.acquisition-type-expenses-on-inventory-items {
+.acquisition-type-inventory-items-expenses {
     background-color: rgba(63, 197, 74, 0.89);
     border-radius: 40px;
     padding: 5px;

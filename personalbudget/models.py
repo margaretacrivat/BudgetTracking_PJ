@@ -43,7 +43,7 @@ class Expense(models.Model):
         return self.category
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 
 class Category(models.Model):
@@ -69,7 +69,7 @@ class Income(models.Model):
         return self.source
 
     class Meta:
-        ordering = ['date']
+        ordering = ['-date']
 
 
 class Source(models.Model):

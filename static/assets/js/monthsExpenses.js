@@ -1,5 +1,3 @@
-// monthsExpensesChart
-
 const showMonthsExpensesChart = (data) => {
 
     let labels = []
@@ -28,14 +26,14 @@ const showMonthsExpensesChart = (data) => {
         const dataset = {
             label: getMonthRep(labels[i]),
             data: monthsdata[i],
-            options: {
-                plugins: {
-                    lineTension: 0,
-                    fill: false,
-                    backgroundColor: getRandomColor(),
-                    borderColor: getRandomColor(),
-                }
-            }
+            // options: {
+            //     plugins: {
+            //         lineTension: 0,
+            //         fill: false,
+            //         backgroundColor: getRandomColor(),
+            //         borderColor: getRandomColor(),
+            //     }
+            // }
         };
         datasets.push(dataset);
     }
@@ -49,13 +47,6 @@ const showMonthsExpensesChart = (data) => {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            // title: {
-            //     display: true,
-            //     text: 'Category Cumulative Comparison (Last 3 months)',
-            //     font: {
-            //         size: 15,
-            //     }
-            // },
             legend: {
                 display: true,
                 position: 'top',
@@ -77,7 +68,7 @@ const showMonthsExpensesChart = (data) => {
 };
 
 const getCumulativeExpenses = () => {
-    // console.log('expenses_source');
+    console.log('expenses_source');
     fetch('/personalbudget/expenses-stats')
         .then(res => res.json()).then(data => {
         console.log('data', data)
@@ -88,11 +79,11 @@ const getCumulativeExpenses = () => {
 window.addEventListener('load', getCumulativeExpenses)
 
 // Function to generate random colors for the datasets
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+// function getRandomColor() {
+//     const letters = '0123456789ABCDEF';
+//     let color = '#';
+//     for (let i = 0; i < 6; i++) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }

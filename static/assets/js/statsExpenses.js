@@ -24,23 +24,9 @@ const renderExpensesCategoryChart = (data, labels) => {
                 borderWidth: 1,
             }],
         },
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            // plugins: {
-            // legend: {
-            //     position: 'right',
-            //     align: 'start'
-            // },
-            // title: {
-            //     display: true,
-            //     // text: 'Distribution Per Category (Last 3 months)',
-            //     font: {
-            //         size: 15,
-            //     }
-            // },
-            // },
         },
     });
 };

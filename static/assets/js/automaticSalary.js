@@ -1,13 +1,13 @@
 var salaryPerHourInput = document.getElementById('salaryPerHour');
 var workDaysInput = document.getElementById('workDays');
 var salaryRealizedInput = document.getElementById('salaryRealized');
-var vacationLeaveDaysInput = document.getElementById('vacationLeaveDays');
+var vacationLeaveDaysNoInput = document.getElementById('vacationLeaveDaysNo');
 var vacationReimbursedAmountInput = document.getElementById('vacationReimbursedAmount');
 
 
 salaryPerHourInput.addEventListener('input', updateSalaryRealized);
 workDaysInput.addEventListener('input', updateSalaryRealized);
-vacationLeaveDaysInput.addEventListener('input', updateVacationReimbursedAmount);
+vacationLeaveDaysNoInput.addEventListener('input', updateVacationReimbursedAmount);
 
 function updateSalaryRealized() {
     var salary_per_hour = parseFloat(salaryPerHourInput.value);
@@ -34,19 +34,19 @@ document.querySelector('.add-workforce-form').addEventListener('submit', functio
 
 function updateVacationReimbursedAmount() {
     var salary_per_hour = parseFloat(salaryPerHourInput.value);
-    var vacation_leave_days = parseInt(vacationLeaveDaysInput.value);
+    var vacation_leave_days_no = parseInt(vacationLeaveDaysNoInput.value);
 
     console.log("Salary per hour:", salary_per_hour);
-    console.log("Vacation Leave Days:", vacation_leave_days);
+    console.log("Vacation Leave Days No...:", vacation_leave_days_no);
 
-    if (!isNaN(salary_per_hour) && !isNaN(vacation_leave_days)) {
-        var vacation_reimbursed_amount = salary_per_hour * vacation_leave_days;
+    if (!isNaN(salary_per_hour) && !isNaN(vacation_leave_days_no)) {
+        var vacation_reimbursed_amount = salary_per_hour * vacation_leave_days_no;
         console.log("Calculated vacation reimbursed amount:", vacation_reimbursed_amount);
 
         var vacationReimbursedAmountString = vacation_reimbursed_amount.toFixed(2);
         vacationReimbursedAmountInput.value = vacationReimbursedAmountString;
     } else {
-        vacationLeaveDaysInput.value = '';
+        vacationLeaveDaysNoInput.value = '';
         vacationReimbursedAmountInput.value = '0.00';
     }
 }
