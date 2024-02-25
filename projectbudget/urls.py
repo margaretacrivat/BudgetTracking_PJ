@@ -1,5 +1,4 @@
 from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
 
 from . import views
 
@@ -61,5 +60,4 @@ urlpatterns = [
     path('export-persons-csv/', views.export_persons_csv, name='export-persons-csv'),
     path('export-persons-excel/', views.export_persons_excel, name='export-persons-excel'),
     path('export-persons-pdf/', views.export_persons_pdf, name='export-persons-pdf'),
-
 ]

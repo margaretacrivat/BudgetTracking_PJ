@@ -39,7 +39,8 @@
                                     <div class="input-group">
                                         <select name="project_name" id="projectName" class="form-control project-name">
                                             {% for project_name in form_stage.fields.project_name.queryset %}
-                                                <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>
+                                                <option value="{{ project_name.id }}">
+                                                    {{ project_name.project_name }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

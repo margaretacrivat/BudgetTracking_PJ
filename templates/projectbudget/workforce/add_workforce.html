@@ -52,7 +52,8 @@
                                         <select name="project_stage" id="projectStage"
                                                 class="form-control project-stage-input">
                                             {% for project_stage in project_stages %}
-                                                <option value="{{ project_stage.id }}">{{ project_stage.project_stage }}</option>
+                                                <option value="{{ project_stage.id }}">
+                                                    {{ project_stage.project_stage }}</option>
                                             {% endfor %}
                                         </select>
                                     </div>

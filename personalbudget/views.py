@@ -1,6 +1,3 @@
-import textwrap
-from decimal import Decimal
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -8,21 +5,18 @@ from django.contrib import messages
 from dateutil.relativedelta import relativedelta
 from django.core.paginator import Paginator
 import json
-
-from reportlab.lib.units import inch
-
 from .models import Expense, Category, Source, Income
 from preferences.models import Currency
 from django.db.models import Count, Sum
 import datetime
 import csv
 import xlwt
-from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-
+import textwrap
 
 # Create your views here.
 
@@ -408,7 +402,6 @@ def export_expenses_pdf(request):
 
 
 # ---->>>>>>>>>> EXPENSES STATS <<<<<<<<<<<<----#
-    # The Logic for expenses visualization from the last 6 months on each category #
 
 def expenses_category_stats_last_6months(request):
 
@@ -483,11 +476,9 @@ def expenses_stats_last_3months(request):
 
 
 # ---->>>>>>>>>> INCOME - PAGE VIEWS <<<<<<<<<<<<----#
-# Logica pentru vizualizarea veniturilor
 
 @login_required(login_url='/authentication/login')
 def income_view(request):
-    # The Logic for income visualization
     sources = Source.objects.all()
     income = Income.objects.filter(owner=request.user).values()
 
@@ -511,7 +502,6 @@ def income_view(request):
 
 @login_required(login_url='/authentication/login')
 def add_income(request):
-    # The Logic for adding income
     sources = Source.objects.all()
 
     try:
@@ -559,7 +549,6 @@ def edit_income(request, id):
     income = Income.objects.get(pk=id)
     sources = Source.objects.all()
 
-    # Format the date as "yyyy-MM-dd"
     formatted_date = income.date.strftime('%Y-%m-%d')
 
     try:
@@ -1113,7 +1102,6 @@ def income_summary_rest_stats(request):
             day_, date_, month_, year_ = one.date.isoweekday(
             ), one.date.day, one.date.month, one.date.year
 
-            # Check if the expense date falls within the current week
             if today - datetime.timedelta(days=today_day) <= one.date <= today + datetime.timedelta(
                     days=(6 - today_day)):
                 if x == day_ and month == month_ and year_ == today_year:
@@ -1132,5 +1120,4 @@ def income_summary_rest_stats(request):
 
     data = {'months': months_data, 'days': week_days_data}
     return JsonResponse({'data': data}, safe=False)
-
 

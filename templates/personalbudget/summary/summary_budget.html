@@ -44,9 +44,11 @@
                                 <p>MONTH INCOME: </p><h5
                                     class="float-right">
                                 {% if this_month_income.amount %}
-                                    <span class="badge badge-light income_budget">{{ this_month_income.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light income_budget">
+                                        {{ this_month_income.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light income_budget">{{ this_month_income.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light income_budget">
+                                        {{ this_month_income.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>
@@ -56,9 +58,11 @@
                                 <p>MONTH EXPENSES: </p><h5
                                     class="float-right">
                                 {% if this_month_expenses.amount %}
-                                    <span class="badge badge-light expenses_budget">{{ this_month_expenses.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light expenses_budget">
+                                        {{ this_month_expenses.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light expenses_budget">{{ this_month_expenses.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light expenses_budget">
+                                        {{ this_month_expenses.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>
@@ -68,9 +72,11 @@
                                 <p>MONTH BALANCE: </p><h5
                                     class="float-right">
                                 {% if this_month_balance.amount %}
-                                    <span class="badge badge-light balance_budget">{{ this_month_balance.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light balance_budget">
+                                        {{ this_month_balance.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light balance_budget">{{ this_month_balance.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light balance_budget">
+                                        {{ this_month_balance.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>
@@ -89,9 +95,11 @@
                                 <p>YEAR INCOME: </p><h5
                                     class="float-right">
                                 {% if this_year_income.amount %}
-                                    <span class="badge badge-light ">{{ this_year_income.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_income.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light ">{{ this_year_income.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_income.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>
@@ -101,9 +109,11 @@
                                 <p>YEAR EXPENSES: </p><h5
                                     class="float-right">
                                 {% if this_year_expenses.amount %}
-                                    <span class="badge badge-light ">{{ this_year_expenses.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_expenses.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light ">{{ this_year_expenses.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_expenses.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>
@@ -113,9 +123,11 @@
                                 <p>YEAR BALANCE: </p><h5
                                     class="float-right">
                                 {% if this_year_balance.amount %}
-                                    <span class="badge badge-light ">{{ this_year_balance.amount|floatformat:"2" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_balance.amount|floatformat:"2" }} {{ currency }}</span>
                                 {% else %}
-                                    <span class="badge badge-light ">{{ this_year_balance.amount|default_if_none:"0" }} {{ currency }}</span>
+                                    <span class="badge badge-light ">
+                                        {{ this_year_balance.amount|default_if_none:"0" }} {{ currency }}</span>
                                 {% endif %}
                             </h5></div>
                         </div>

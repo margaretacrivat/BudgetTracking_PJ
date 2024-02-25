@@ -161,7 +161,8 @@
                                                      href="?page={{ page_obj.next_page_number }}">Next</a>
                             </li>
                             <li class="page-item"><a class="page-link"
-                                                     href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
+                                                     href="?page={{ page_obj.paginator.num_pages }}">
+                                {{ page_obj.paginator.num_pages }}
                                 &raquo;</a></li>
                         {% endif %}
                     </ul>
@@ -196,32 +197,32 @@
                 const projectStatusPeriodCell = row.querySelector('.project-stage-period');
                 const projectStatusPeriod = projectStatusPeriodCell.textContent.trim().split(' - ');
 
-                // Parse the start and end dates
                 const startDate = new Date(projectStatusPeriod[0]);
                 const endDate = new Date(projectStatusPeriod[1]);
 
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
                     return;
                 }
-                const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 + (endDate.getMonth() - today.getMonth());
-                const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 + (startDate.getMonth() - today.getMonth());
+                const monthsDiffEnd = (endDate.getFullYear() - today.getFullYear()) * 12 +
+                    (endDate.getMonth() - today.getMonth());
+                const monthsDiffStart = (startDate.getFullYear() - today.getFullYear()) * 12 +
+                    (startDate.getMonth() - today.getMonth());
 
                 const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
                 const remainingDays = daysInMonth - today.getDate();
 
                 if (endDate < today) {
-                    // Project has expired
+                    // Project Stage has expired
                     row.classList.add('expired-project-stage');
                 } else if (startDate <= today && endDate >= today) {
-                    // Project is ongoing
+                    // Project Stage is ongoing
                     if (!row.classList.contains('ending-soon-project-stage')) {
-                        // Check if the project is ending within the next month
                         if (monthsDiffEnd === 0 && remainingDays <= 30) {
                             row.classList.add('ending-soon-project-stage');
                         }
                     }
                 } else if (monthsDiffEnd === 0 && remainingDays <= 30 && !(startDate <= today)) {
-                    // Project has not started yet and is ending in 1 month or less
+                    // Project Stage has not started yet and is ending in 1 month or less
                     if (!row.classList.contains('ending-soon-project-stage')) {
                         row.classList.add('ending-soon-project-stage');
                     }
@@ -230,6 +231,5 @@
             });
         });
     </script>
-
 
 {% endblock content %}

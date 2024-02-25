@@ -6,8 +6,6 @@ from .models import PersonalDescription, ProjectDescription
 # Create your views here.
 
 # ---->>>>>>>>>> HOMEPAGE VIEWS <<<<<<<<<<<<----#
-# Logica pentru vizualizarea paginii principale #
-
 
 def home(request):
     html_template = get_template('index.html')

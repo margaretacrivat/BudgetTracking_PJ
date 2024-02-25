@@ -1,6 +1,3 @@
-from decimal import Decimal
-from itertools import chain
-
 from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -20,6 +17,8 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
+from decimal import Decimal
+from itertools import chain
 from .filters import ProjectFilter, CentralizerFilter
 
 
@@ -396,11 +395,9 @@ def export_projects_pdf(request):
 
     elements = []
 
-    # Add a title
     title_text = 'Projects Report'
     elements.append(Paragraph(title_text, title_style))
 
-    # Add spacer to create space between title and table header
     elements.append(Spacer(1, 24))
 
     try:
@@ -1151,7 +1148,6 @@ def export_displacements_csv(request):
     displacements = Displacement.objects.filter(owner=request.user)
 
     for displacement in displacements:
-        # Concatenate "Start Date" and "End Date" into "Displacement Period"
         displacement_period = f"{displacement.start_date.strftime('%m/%d/%Y')} - {displacement.end_date.strftime('%m/%d/%Y')}"
         writer.writerow([displacement.project_name.project_name, displacement.project_stage, displacement.work_place,
                          displacement.person_name, displacement.document_series, displacement.displaced_to,
@@ -1234,11 +1230,9 @@ def export_displacements_pdf(request):
 
     elements = []
 
-    # Add a title
     title_text = 'Displacement Report'
     elements.append(Paragraph(title_text, title_style))
 
-    # Add spacer to create space between title and table header
     elements.append(Spacer(1, 24))
 
     try:
@@ -1528,11 +1522,9 @@ def export_workforce_pdf(request):
 
     elements = []
 
-    # Add a title
     title_text = 'Workforce Report'
     elements.append(Paragraph(title_text, title_style))
 
-    # Add spacer to create space between title and table header
     elements.append(Spacer(1, 24))
 
     try:
@@ -1758,11 +1750,9 @@ def export_persons_pdf(request):
 
     elements = []
 
-    # Add a title
     title_text = 'Persons Informations Report'
     elements.append(Paragraph(title_text, title_style))
 
-    # Add spacer to create space between title and table header
     elements.append(Spacer(1, 24))
 
     headers = ['Person Name', 'Person Id', 'Age', 'Is internal', 'Institution', 'Department', 'Email', 'Phone',

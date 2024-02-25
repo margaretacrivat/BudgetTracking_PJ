@@ -43,7 +43,8 @@
                                                     <option value="{{ project_name.id }}"
                                                             selected>{{ project_name.project_name }}</option>
                                                 {% else %}
-                                                    <option value="{{ project_name.id }}">{{ project_name.project_name }}</option>
+                                                    <option value="{{ project_name.id }}">
+                                                        {{ project_name.project_name }}</option>
                                                 {% endif %}
                                             {% endfor %}
                                         </select>

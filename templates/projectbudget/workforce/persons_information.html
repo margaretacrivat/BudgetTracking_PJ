@@ -25,23 +25,23 @@
 
         <div class="container-tables">
             <!-- ***** Back to the Workforce Page ***** -->
-                        <div class="breadcrumb-event-back">
-                            <a href="{% url 'workforce' %}" class="btn btn-secondary">
-                                <i class="fa fa-angle-left home-icon"></i>
-                                <span>Back to Workforce</span></a>
-                        </div>
+            <div class="breadcrumb-event-back">
+                <a href="{% url 'workforce' %}" class="btn btn-secondary">
+                    <i class="fa fa-angle-left home-icon"></i>
+                    <span>Back to Workforce</span></a>
+            </div>
             <!-- ***** Export Files in the CSV, Excel and PDF format ***** -->
-                        <div id="exportFile">
-                            <a href="{% url 'export-persons-csv' %}" class="btn">
-                                <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
-                            </a>
-                            <a href="{% url 'export-persons-excel' %}" class="btn">
-                                <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
-                            </a>
-                            <a href="{% url 'export-persons-pdf' %}" class="btn">
-                                <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
-                            </a>
-                        </div>
+            <div id="exportFile">
+                <a href="{% url 'export-persons-csv' %}" class="btn">
+                    <img src="{% static 'assets/img/csv-icon.png' %}" width="55" height="55" alt="CSV Icon"/>
+                </a>
+                <a href="{% url 'export-persons-excel' %}" class="btn">
+                    <img src="{% static 'assets/img/excel-icon.png' %}" width="45" height="45" alt="Excel Icon"/>
+                </a>
+                <a href="{% url 'export-persons-pdf' %}" class="btn">
+                    <img src="{% static 'assets/img/pdf-icon.png' %}" width="45" height="45" alt="Pdf Icon"/>
+                </a>
+            </div>
             <!-- ***** Search into the fields ***** -->
             <div id="searchTableField">
                 <div class="form-group">
@@ -175,7 +175,8 @@
                                                      href="?page={{ page_obj.next_page_number }}">Next</a>
                             </li>
                             <li class="page-item"><a class="page-link"
-                                                     href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
+                                                     href="?page={{ page_obj.paginator.num_pages }}">
+                                {{ page_obj.paginator.num_pages }}
                                 &raquo;</a></li>
                         {% endif %}
                     </ul>

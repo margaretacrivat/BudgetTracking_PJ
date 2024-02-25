@@ -70,7 +70,8 @@
                             <select class="form-control project-name" name="project_name" id="projectSelect">
                                 <option value="">All Projects</option>
                                 {% for project_name in project_filter.form.project_name.field.queryset %}
-                                    <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                                    <option value="{{ project_name.project_name }}">
+                                        {{ project_name.project_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -79,7 +80,8 @@
                             <select class="form-control project-type" name="project_type" id="projectTypeSelect">
                                 <option value="">Project Type</option>
                                 {% for project_type in project_filter.form.project_type.field.queryset %}
-                                    <option value="{{ project_type.project_type }}">{{ project_type.project_type }}</option>
+                                    <option value="{{ project_type.project_type }}">
+                                        {{ project_type.project_type }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -202,7 +204,8 @@
                                                      href="?page={{ page_obj.next_page_number }}">Next</a>
                             </li>
                             <li class="page-item"><a class="page-link"
-                                                     href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}
+                                                     href="?page={{ page_obj.paginator.num_pages }}">
+                                {{ page_obj.paginator.num_pages }}
                                 &raquo;</a></li>
                         {% endif %}
                     </ul>
@@ -228,51 +231,51 @@
 
     <!-- Projects Status Scripts -->
     <script>
-window.addEventListener("DOMContentLoaded", function () {
-    // Get today's date from the Django context
-    const today = new Date("{{ today|date:'m/d/Y' }}");
-    today.setHours(0, 0, 0, 0); // Set time to midnight
+        window.addEventListener("DOMContentLoaded", function () {
+            // Get today's date from the Django context
+            const today = new Date("{{ today|date:'m/d/Y' }}");
+            today.setHours(0, 0, 0, 0); // Set time to midnight
 
-    // Select the table element using the ID assigned in the Django template
-    const table = document.getElementById('projectTable');
+            // Select the table element using the ID assigned in the Django template
+            const table = document.getElementById('projectTable');
 
-    // Select all rows in the table body
-    const rows = document.querySelectorAll('#projectTable > tbody > tr');
-    rows.forEach(row => {
-        // Get the start and end date cells from the row
-        const projectPeriodCell = row.querySelector('.project-period');
-        const projectPeriod = projectPeriodCell.textContent.trim().split(' - ');
+            // Select all rows in the table body
+            const rows = document.querySelectorAll('#projectTable > tbody > tr');
+            rows.forEach(row => {
+                // Get the start and end date cells from the row
+                const projectPeriodCell = row.querySelector('.project-period');
+                const projectPeriod = projectPeriodCell.textContent.trim().split(' - ');
 
-        // Parse the start and end dates
-        const startDate = new Date(projectPeriod[0]);
-        const endDate = new Date(projectPeriod[1]);
+                // Parse the start and end dates
+                const startDate = new Date(projectPeriod[0]);
+                const endDate = new Date(projectPeriod[1]);
 
-        // Check if the date parsing was successful
-        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-            return; 
-        }
+                // Check if the date parsing was successful
+                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                    return;
+                }
 
-        // Calculate the difference in days between end date and today
-        const daysDiffEnd = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+                // Calculate the difference in days between end date and today
+                const daysDiffEnd = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
 
-        // Compare the start date and end date with today's date
-        if (endDate < today) {
-            // Project has expired
-            row.classList.add('expired-project');
-        } else if (startDate <= today && endDate >= today) {
-            // Project is ongoing
-            row.classList.add('ongoing-project');
-            // Check if the project is ending within the next 30 days
-            if (daysDiffEnd <= 30) {
-                row.classList.remove('ongoing-project');
-                row.classList.add('ending-soon-project');
-            }
-        } else if (daysDiffEnd <= 30 && startDate > today) {
-            // Project has not started yet and is ending in 30 days or less
-            row.classList.add('ending-soon-project');
-        }
-    });
-});
+                // Compare the start date and end date with today's date
+                if (endDate < today) {
+                    // Project has expired
+                    row.classList.add('expired-project');
+                } else if (startDate <= today && endDate >= today) {
+                    // Project is ongoing
+                    row.classList.add('ongoing-project');
+                    // Check if the project is ending within the next 30 days
+                    if (daysDiffEnd <= 30) {
+                        row.classList.remove('ongoing-project');
+                        row.classList.add('ending-soon-project');
+                    }
+                } else if (daysDiffEnd <= 30 && startDate > today) {
+                    // Project has not started yet and is ending in 30 days or less
+                    row.classList.add('ending-soon-project');
+                }
+            });
+        });
     </script>
 
 {% endblock content %}

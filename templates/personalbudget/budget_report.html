@@ -30,9 +30,11 @@
                  data-total-income="{{ this_month_total_income }}">
                 <p>Your remaining budget is:
                     {% if remaining_budget %}
-                        <span class="budget-remaining">{{ remaining_budget|floatformat:"2" }} {{ currency }}</span>
+                        <span class="budget-remaining">
+                            {{ remaining_budget|floatformat:"2" }} {{ currency }}</span>
                     {% else %}
-                        <span class="budget-remaining">{{ remaining_budget|default_if_none:"0" }} {{ currency }}</span>
+                        <span class="budget-remaining">
+                            {{ remaining_budget|default_if_none:"0" }} {{ currency }}</span>
                     {% endif %}
                 </p>
                 <div class="progress-bar-container">
@@ -45,16 +47,20 @@
             <div id="budgetCard2">
                 <p>Your initial budget was:
                     {% if this_month_total_income %}
-                        <span class="budget-income">{{ this_month_total_income|floatformat:"2" }} {{ currency }}</span>
+                        <span class="budget-income">
+                            {{ this_month_total_income|floatformat:"2" }} {{ currency }}</span>
                     {% else %}
-                        <span class="budget-income">{{ this_month_total_income|default_if_none:"0" }} {{ currency }}</span>
+                        <span class="budget-income">
+                            {{ this_month_total_income|default_if_none:"0" }} {{ currency }}</span>
                     {% endif %}
                 </p>
                 <p>You've spent a total of:
                     {% if this_month_total_expenses %}
-                        <span class="budget-expenses">{{ this_month_total_expenses|floatformat:"2" }} {{ currency }}</span>
+                        <span class="budget-expenses">
+                            {{ this_month_total_expenses|floatformat:"2" }} {{ currency }}</span>
                     {% else %}
-                        <span class="budget-expenses">{{ this_month_total_expenses|default_if_none:"0" }} {{ currency }}</span>
+                        <span class="budget-expenses">
+                            {{ this_month_total_expenses|default_if_none:"0" }} {{ currency }}</span>
                     {% endif %}
                 </p>
             </div>

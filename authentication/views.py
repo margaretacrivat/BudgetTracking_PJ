@@ -7,7 +7,6 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse_lazy
-
 from .forms import LoginForm, SignUpForm
 import json
 from django.http import JsonResponse
@@ -132,7 +131,6 @@ def user_logout(request):
 
 # ---->>>>>>>>>> ACCOUNT SETTINGS - CHANGE CURRENT PASSWORD VIEW <<<<<<<<<<<<----#
 
-# change password
 def set_new_password(request):
     if request.method == 'POST':
         fm = PasswordChangeForm(user=request.user, data=request.POST)

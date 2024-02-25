@@ -32,7 +32,8 @@
                         <select class="form-control project-name" name="project_name" id="projectSelect">
                             <option value="">All Projects</option>
                             {% for project_name in centralizer_filter.form.project_name.field.queryset %}
-                                <option value="{{ project_name.project_name }}">{{ project_name.project_name }}</option>
+                                <option value="{{ project_name.project_name }}">
+                                    {{ project_name.project_name }}</option>
                             {% endfor %}
                         </select>
                     </div>

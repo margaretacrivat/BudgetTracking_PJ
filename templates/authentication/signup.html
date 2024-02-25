@@ -10,17 +10,14 @@
             <div class="card-header">
                 <h3 class="text-center pt-2">Sign Up</h3>
             </div>
-
-            <!-- Form -->
+            
             <form class="card-form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
                 {% include 'authentication/_messages.html' %} {% csrf_token %}
 
                 <div class="card-body">
-
-                    {# {{ user_form.as_p }}#}
+                    
                     <p>Username:</p>
                     {{ user_form.username }}
-                    {# {{ user_form.username_error }}#}
                     <div class="userInvalidFeedback invalid-feedback text-danger" style="display:none"></div>
                     <p class="text-sm text-success usernameSuccessOutput"></p>
 
@@ -38,14 +35,7 @@
                     {{ user_form.password1 }}
                     <div class="passwordFeedbackArea invalid-feedback text-danger" style="display:none"></div>
                     <p class="text-sm text-success passwordSuccessOutput"></p>
-
-                    {#                    {% if user_form.password1.errors %}#}
-                    {#                        <div class="password1FeedbackArea invalid-feedback text-danger">#}
-                    {#                            {% for error in user_form.password1.errors %}#}
-                    {#                                {{ error }}#}
-                    {#                            {% endfor %}#}
-                    {#                        </div>#}
-                    {#                    {% endif %}#}
+                    
                     <small class="showPasswordToggle">Show</small>
                 
                     <p class="psw-2">Password confirmation:</p>
