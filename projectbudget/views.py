@@ -331,6 +331,7 @@ def export_projects_excel(request):
     alignment = xlwt.Alignment()
     alignment.horz = xlwt.Alignment.HORZ_CENTER
     alignment.vert = xlwt.Alignment.VERT_CENTER
+    style_center = xlwt.easyxf('align: horiz center')
     font_style_bold.alignment = alignment
 
     date_style = xlwt.XFStyle()
@@ -356,17 +357,17 @@ def export_projects_excel(request):
         for col_num in range(len(row)):
             if col_num == 9:  # Concatenating "Start Date" and "End Date" into "Project Stage Period"
                 displacement_period = f"{row[9].strftime('%m/%d/%Y')} - {row[10].strftime('%m/%d/%Y')}"
-                ws.write(row_num, col_num, displacement_period)
+                ws.write(row_num, col_num, displacement_period, style_center)
             elif col_num == 10:
                 pass
             elif col_num == 11:
                 ws.write(row_num, col_num, row[col_num - 1], date_style)
-            elif col_num == 7 or col_num == 8:
+            elif col_num == 8:
                 formatted_value = "{:.2f}".format(row[col_num])  # Format the value with two decimals
                 amount_style = xlwt.easyxf('align: horiz right')
                 ws.write(row_num, col_num, formatted_value, amount_style)
             else:
-                ws.write(row_num, col_num, str(row[col_num]))
+                ws.write(row_num, col_num, str(row[col_num]), style_center)
 
     wb.save(response)
 

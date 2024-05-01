@@ -174,12 +174,12 @@
 
             <!-- ***** Expenses Charts ***** -->
             <div class="chart-container1" id="Chart1">
-                <h6>Expenses Category Cumulative Distribution<br>(last 6 months)</h6>
+                <h6>Expenses Category Distribution<br>(last 6 months)</h6>
                 <hr>
                 <canvas id="expensesCategoryChart"></canvas>
             </div>
             <div class="chart-container2" id="Chart2">
-                <h6>Expenses Category Cumulative Comparison<br>(last 3 months)</h6>
+                <h6>Expenses Category Comparison/days<br>(last 4 months)</h6>
                 <hr>
                 <canvas id="monthsExpensesChart"></canvas>
             </div>
@@ -187,13 +187,12 @@
     </div>
     
     <!-- Scripts -->
-    <script src="{% static 'assets/js/searchField.js' %}"></script>
+    <script src="{% static 'assets/js/searchExpenses.js' %}"></script>
     <script src="{% static 'assets/js/deleteExpense.js' %}"></script>
 
     <!-- Chart Scripts -->
     <script src="{% static 'assets/js/statsExpenses.js' %}"></script>
     <script src="{% static 'assets/js/monthsExpenses.js' %}"></script>
-
-
+    
 
 {% endblock content %}

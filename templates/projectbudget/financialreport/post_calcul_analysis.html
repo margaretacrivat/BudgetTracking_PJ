@@ -41,7 +41,7 @@
             </div>
 
             <div id="postCalculAnalysis" class="table-container">
-                <div class="table-title">Post-Calcul Expenses Analysis</div>
+                <div class="table-title">Post-Calcul Analysis</div>
                 <hr>
                 <div class="table-scroll">
                     <table class="table table-stripped table-hover">
@@ -51,8 +51,7 @@
                             <th>Project Stage</th>
                             <th>Total Logistic Expenses<br>({{ currency }})</th>
                             <th>Total Displacement Expenses<br>({{ currency }})</th>
-                            <th>Total Workforce Expenses with Social Security Contribution-2.25% of 
-                                total gross salary<br>({{ currency }})</th>
+                            <th>Total Workforce Expenses with Social Security Contribution<br>({{ currency }})</th>
                             <th>Total Reimbursed Amount/Project Stage<br>({{ currency }})</th>
                         </tr>
                         </thead>
@@ -93,4 +92,6 @@
     <script src="{% static 'assets/js/centralizerFilter.js' %}"></script>
 
 {% endblock content %}
+
+
 

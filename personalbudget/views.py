@@ -441,35 +441,42 @@ def get_expenses_for_period(start_date, end_date, expenses):
     return period_data
 
 
-def expenses_stats_last_3months(request):
+def expenses_stats_last_4months(request):
     today = datetime.date.today()
     last_month = today - relativedelta(months=1)
     last_2_month = today - relativedelta(months=2)
+    last_3_month = today - relativedelta(months=3)
 
-    # Calculate the date ranges for each three-month period
+    # Calculate the date ranges for each four-month period
     today_start = today.replace(day=1)
     last_month_start = last_month.replace(day=1)
     last_2_month_start = last_2_month.replace(day=1)
+    last_3_month_start = last_3_month.replace(day=1)
 
     today_end = today + relativedelta(day=31)
     last_month_end = last_month + relativedelta(day=31)
     last_2_month_end = last_2_month + relativedelta(day=31)
+    last_3_month_end = last_3_month + relativedelta(day=31)
 
     # Fetch expenses data for each month
     this_month_expenses = Expense.objects.filter(owner=request.user, date__range=(today_start, today_end))
     last_month_expenses = Expense.objects.filter(owner=request.user, date__range=(last_month_start, last_month_end))
     prev_month_expenses = Expense.objects.filter(owner=request.user, date__range=(last_2_month_start, last_2_month_end))
+    prev_prev_month_expenses = Expense.objects.filter(owner=request.user, date__range=(last_3_month_start,
+                                                                                       last_3_month_end))
 
     # Fetch and organize data for each period
     this_month_data = get_expenses_for_period(today_start, today_end, this_month_expenses)
     last_month_data = get_expenses_for_period(last_month_start, last_month_end, last_month_expenses)
     prev_month_data = get_expenses_for_period(last_2_month_start, last_2_month_end, prev_month_expenses)
+    prev_prev_month_data = get_expenses_for_period(last_3_month_start, last_3_month_end, prev_prev_month_expenses)
 
     # Organize data for JavaScript
     keyed_data = [
         {str(today_start): this_month_data},
         {str(last_month_start): last_month_data},
         {str(last_2_month_start): prev_month_data},
+        {str(last_3_month_start): prev_prev_month_data},
     ]
 
     return JsonResponse({'cumulative_expenses_data': keyed_data}, safe=False)
@@ -820,35 +827,42 @@ def get_income_for_period(start_date, end_date, incomes):
     return period_data
 
 
-def income_stats_last_3months(request):
+def income_stats_last_4months(request):
     today = datetime.date.today()
     last_month = today - relativedelta(months=1)
     last_2_month = today - relativedelta(months=2)
+    last_3_month = today - relativedelta(months=3)
 
-    # Calculate the date ranges for each three-month period
+    # Calculate the date ranges for each four-month period
     today_start = today.replace(day=1)
     last_month_start = last_month.replace(day=1)
     last_2_month_start = last_2_month.replace(day=1)
+    last_3_month_start = last_3_month.replace(day=1)
 
     today_end = today + relativedelta(day=31)
     last_month_end = last_month + relativedelta(day=31)
     last_2_month_end = last_2_month + relativedelta(day=31)
+    last_3_month_end = last_3_month + relativedelta(day=31)
 
     # Fetch income data for each month
     this_month_income = Income.objects.filter(owner=request.user, date__range=(today_start, today_end))
     last_month_income = Income.objects.filter(owner=request.user, date__range=(last_month_start, last_month_end))
     prev_month_income = Income.objects.filter(owner=request.user, date__range=(last_2_month_start, last_2_month_end))
+    prev_prev_month_income = Income.objects.filter(owner=request.user, date__range=(last_3_month_start,
+                                                                                    last_3_month_end))
 
     # Fetch and organize data for each period
     this_month_data = get_income_for_period(today_start, today_end, this_month_income)
     last_month_data = get_income_for_period(last_month_start, last_month_end, last_month_income)
     prev_month_data = get_income_for_period(last_2_month_start, last_2_month_end, prev_month_income)
+    prev_prev_month_data = get_income_for_period(last_3_month_start, last_3_month_end, prev_prev_month_income)
 
     # Organize data for JavaScript
     keyed_data = [
         {str(today_start): this_month_data},
         {str(last_month_start): last_month_data},
         {str(last_2_month_start): prev_month_data},
+        {str(last_3_month_start): prev_prev_month_data},
     ]
 
     return JsonResponse({'cumulative_income_data': keyed_data}, safe=False)

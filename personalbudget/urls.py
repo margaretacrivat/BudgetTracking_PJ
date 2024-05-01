@@ -20,7 +20,7 @@ urlpatterns = [
     path('expenses-category-stats/', views.expenses_category_stats_last_6months,
          name='expenses-category-stats'),
     path('expenses-for-period/', views.get_expenses_for_period, name='expenses-for-period'),
-    path('expenses-stats/', views.expenses_stats_last_3months, name="expenses-stats"),
+    path('expenses-stats/', views.expenses_stats_last_4months, name="expenses-stats"),
 
     path('income/', views.income_view, name='income'),
     path('add-income/', views.add_income, name='add-income'),
@@ -35,7 +35,7 @@ urlpatterns = [
 
     path('income-source-stats/', views.income_source_stats_last_6months, name='income-source-stats'),
     path('income-for-period/', views.get_income_for_period, name='income-for-period'),
-    path('income-stats/', views.income_stats_last_3months, name='income-stats'),
+    path('income-stats/', views.income_stats_last_4months, name='income-stats'),
 
     path('summary-budget/', views.summary_budget_report_view, name='summary-budget'),
     path('current_month_balance_stats/', views.current_month_balance_stats, name='current_month_balance_stats'),

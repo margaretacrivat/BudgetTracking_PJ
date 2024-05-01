@@ -745,7 +745,7 @@ body {
 */
 
 footer.footer-no-gap {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 footer {
@@ -767,6 +767,22 @@ footer p {
 11. Responsive Media Style
 ---------------------------------------------
 */
+
+@media only screen and (min-width: 861px) and (max-width: 990px) {
+    .contact-content .phone {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .contact-content .email {
+        margin-left: 0;
+        margin-bottom: 45px;
+    }
+
+    .contact-content #contact-form {
+        margin-left: 0;
+    }
+}
 
 @media only screen and (max-width: 860px) {
     .contact-content .phone {

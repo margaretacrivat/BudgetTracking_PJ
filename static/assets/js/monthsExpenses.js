@@ -26,14 +26,6 @@ const showMonthsExpensesChart = (data) => {
         const dataset = {
             label: getMonthRep(labels[i]),
             data: monthsdata[i],
-            // options: {
-            //     plugins: {
-            //         lineTension: 0,
-            //         fill: false,
-            //         backgroundColor: getRandomColor(),
-            //         borderColor: getRandomColor(),
-            //     }
-            // }
         };
         datasets.push(dataset);
     }

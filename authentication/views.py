@@ -1,9 +1,17 @@
+from audioop import reverse
+
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, password_validation
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import get_template
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.urls import reverse_lazy
@@ -90,6 +98,60 @@ def user_signup(request):
         user_form = SignUpForm()
     return render(request, 'authentication/signup.html',
                   {'user_form': user_form})
+
+            # token_generator = PasswordResetTokenGenerator()
+            # confirmation_url = reverse('activate', kwargs={'uidb64': urlsafe_base64.urlsafe_b64encode(user.pk).decode(),
+            #                                                'token': token_generator.make_token(user)})
+            #
+            # send_mail(
+            #     subject='Account Confirmation - Your Awesome Site',
+            #     message=get_template('registration/account_confirmation_email.html').render(
+            #         context={'user': user, 'confirmation_url': confirmation_url,
+            #                  'your_site_name': 'Your Awesome Site'}),
+            #     from_email='your_server_email_address',
+            #     recipient_list=[user.email],
+            # )
+
+            # user = user_form.save(commit=False)  # Don't commit yet
+            # user.is_active = False  # Set user inactive until confirmed
+            # user.save()
+
+            # Generate confirmation token
+            # token_generator = PasswordResetTokenGenerator()
+            # confirmation_url = reverse('activate',
+            #                            kwargs={'uidb64': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+            #                                    'token': token_generator.make_token(user)})
+
+            # Prepare email content
+            # subject = 'Account Confirmation - Your Awesome Site'
+            # message = get_template('authentication/account_confirmation_email.html').render(
+            #     context={'user': user, 'confirmation_url': confirmation_url,
+            #              'your_site_name': 'Your Awesome Site'})
+
+            # Send confirmation email
+            # send_mail(
+            #     subject=subject,
+            #     message=message,
+            #     from_email='your_server_email_address',
+            #     recipient_list=[user.email],
+            # )
+
+
+# def activate(request, uidb64, token):
+#     try:
+#         uid = force_text(urlsafe_base64_decode(uidb64))
+#         user = User.objects.get(pk=uid)
+#     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+#         user = None
+#
+#     if user is not None and PasswordResetTokenGenerator().check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         messages.success(request, 'Your account has been confirmed!')
+#         return redirect('login')
+#     else:
+#         messages.error(request, 'Activation link is invalid or expired!')
+#         return redirect('login')
 
 
 def user_login(request):

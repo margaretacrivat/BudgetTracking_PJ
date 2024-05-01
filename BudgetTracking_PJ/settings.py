@@ -33,6 +33,14 @@ LOGIN_URL = 'login'
 # EMAIL_PORT = 587
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.your_email_provider.com'
+EMAIL_PORT = 587  # For TLS or 465 for SSL
+EMAIL_USE_TLS = True  # Set to True if using TLS
+EMAIL_HOST_USER = 'your_server_email_address'
+EMAIL_HOST_PASSWORD = 'your_server_email_password'
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
