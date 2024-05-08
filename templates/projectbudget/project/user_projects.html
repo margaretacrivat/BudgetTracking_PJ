@@ -220,6 +220,19 @@
                 </div>
 
             </div>
+            <!-- ***** Projects Charts ***** -->
+            <div class="chart-container1" id="Chart1">
+                <h6>Project/Budget({{ currency }}) Distribution<br/>(Ongoing and Ending Soon Projects)</h6>
+                <hr>
+                <canvas id="projectsBudgetChart"></canvas>
+            </div>
+            <div class="chart-container2" id="Chart2">
+                <h6>Projects Type Distribsution<br/>(Ongoing and Ending Soon Projects)</h6>
+                <hr>
+                <canvas id="projectsTypeChart"></canvas>
+            </div>
+        
+
         </div>
     </div>
 
@@ -228,6 +241,11 @@
     <script src="{% static 'assets/js/searchField.js' %}"></script>
     <script src="{% static 'assets/js/deleteProject.js' %}"></script>
     <script src="{% static 'assets/js/projectFilter.js' %}"></script>
+
+    <!-- Chart Scripts -->
+    <script src="{% static 'assets/js/statsProjects.js' %}"></script>
+    <script src="{% static 'assets/js/statsTypeProjects.js' %}"></script>
+
 
     <!-- Projects Status Scripts -->
     <script>

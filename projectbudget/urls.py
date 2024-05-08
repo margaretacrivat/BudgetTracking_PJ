@@ -16,6 +16,11 @@ urlpatterns = [
     path('export-projects-excel/', views.export_projects_excel, name='export-projects-excel'),
     path('export-projects-pdf/', views.export_projects_pdf, name='export-projects-pdf'),
 
+    path('projects-budget-stats/', views.projects_budget_stats_this_year,
+         name='projects-budget-stats'),
+    path('projects-type-stats/', views.projects_type_stats_this_year,
+         name='projects-type-stats'),
+
     path('project-stages/', views.project_stages_view, name='project-stages'),
     path('add-project-stage/', views.add_project_stage, name='add-project-stage'),
     path('edit-project-stage/<int:id>/', views.edit_project_stage, name='edit-project-stage'),

@@ -1,4 +1,4 @@
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
@@ -472,6 +472,34 @@ def export_projects_pdf(request):
     pdf.build(elements)
 
     return response
+
+
+# ---->>>>>>>>>> PROJECTS STATS <<<<<<<<<<<<----#
+
+def projects_budget_stats_this_year(request):
+    current_date = datetime.date.today()
+
+    projects = Project.objects.filter(
+        owner=request.user,
+        start_date__lte=current_date,  # Project started before or during today
+        end_date__gte=current_date  # Project ends after or during today
+    ).values('project_name').annotate(total_budget=Sum('budget'))
+
+    project_budget_data = {project['project_name']: project['total_budget'] for project in projects}
+
+    return JsonResponse({'project_budget_data': project_budget_data})
+
+
+# count the number of projects for each type
+def projects_type_stats_this_year(request):
+    current_date = datetime.date.today()
+
+    projects = (Project.objects.filter(owner=request.user, start_date__lte=current_date, end_date__gte=current_date).
+                values('project_type').annotate(total_count=Count('id')))
+
+    project_type_data = {project['project_type']: project['total_count'] for project in projects}
+
+    return JsonResponse({'project_type_data': project_type_data})
 
 
 # ---->>>>>>>>>> PROJECT STAGES - PAGE VIEWS <<<<<<<<<<<<----#

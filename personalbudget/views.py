@@ -404,7 +404,6 @@ def export_expenses_pdf(request):
 # ---->>>>>>>>>> EXPENSES STATS <<<<<<<<<<<<----#
 
 def expenses_category_stats_last_6months(request):
-
     todays_date = datetime.date.today()
     six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
     expenses = Expense.objects.filter(owner=request.user,
