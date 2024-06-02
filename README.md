@@ -48,7 +48,7 @@ To run this project locally, follow these steps:
 
 4. **Activate the virtual environment:**
    - On Windows:
-      ```bash
+     ```bash
       .\env\Scripts\activate
      
    - On macOS/Linux: 
