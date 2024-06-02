@@ -52,7 +52,7 @@ To run this project locally, follow these steps:
       .\env\Scripts\activate
      
    - On macOS/Linux: 
-    ```bash
+     ```bash
       source env/bin/ctivate
    
 5. **Install the required dependencies:**
