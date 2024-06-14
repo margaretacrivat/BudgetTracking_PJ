@@ -134,69 +134,69 @@ def add_expense(request):
         return redirect('expenses')
 
 
-@login_required(login_url='/authentication/login')
-def edit_expense(request, id):
-    expense = Expense.objects.get(pk=id)
-    categories = Category.objects.all()
-
-    formatted_date = expense.date.strftime('%Y-%m-%d')
-
-    try:
-        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
-    except Currency.DoesNotExist:
-        currency = 'RON'
-
-    context = {
-        'expense': expense,
-        'values': expense,
-        'categories': categories,
-        'formatted_date': formatted_date,
-        'currency': currency
-    }
-    if request.method == 'GET':
-        return render(request, 'personalbudget/expenses/edit_expense.html', context)
-
-    if request.method == 'POST':
-        item = request.POST['item']
-        category = request.POST['category']
-        description = request.POST['description']
-        cost = request.POST['cost']
-        qty = request.POST['qty']
-        amount = request.POST['amount']
-        date = request.POST['expense_date']
-
-        if not item:
-            messages.error(request, 'Item is required')
-            return render(request, 'personalbudget/expenses/edit_expense.html', context)
-        if not description:
-            messages.error(request, 'Description is required')
-            return render(request, 'personalbudget/expenses/add_expense.html', context)
-        if not cost:
-            messages.error(request, 'Cost is required')
-            return render(request, 'personalbudget/expenses/edit_expense.html', context)
-        if not qty:
-            messages.error(request, 'Quantity is required')
-            return render(request, 'personalbudget/expenses/edit_expense.html', context)
-        if not amount:
-            messages.error(request, 'Amount is required')
-            return render(request, 'personalbudget/expenses/edit_expense.html', context)
-        if not date:
-            messages.error(request, 'Date is required')
-            return render(request, 'personalbudget/expenses/edit_expense.html', context)
-
-        expense.owner = request.user
-        expense.item = item
-        expense.category = category
-        expense.description = description
-        expense.cost = cost
-        expense.qty = qty
-        expense.amount = amount
-        expense.date = date
-
-        expense.save()
-        messages.success(request, 'Item updated successfully')
-
-        return redirect('expenses')
+# @login_required(login_url='/authentication/login')
+# def edit_expense(request, id):
+#     expense = Expense.objects.get(pk=id)
+#     categories = Category.objects.all()
+#
+#     formatted_date = expense.date.strftime('%Y-%m-%d')
+#
+#     try:
+#         currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+#     except Currency.DoesNotExist:
+#         currency = 'RON'
+#
+#     context = {
+#         'expense': expense,
+#         'values': expense,
+#         'categories': categories,
+#         'formatted_date': formatted_date,
+#         'currency': currency
+#     }
+#     if request.method == 'GET':
+#         return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#
+#     if request.method == 'POST':
+#         item = request.POST['item']
+#         category = request.POST['category']
+#         description = request.POST['description']
+#         cost = request.POST['cost']
+#         qty = request.POST['qty']
+#         amount = request.POST['amount']
+#         date = request.POST['expense_date']
+#
+#         if not item:
+#             messages.error(request, 'Item is required')
+#             return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#         if not description:
+#             messages.error(request, 'Description is required')
+#             return render(request, 'personalbudget/expenses/add_expense.html', context)
+#         if not cost:
+#             messages.error(request, 'Cost is required')
+#             return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#         if not qty:
+#             messages.error(request, 'Quantity is required')
+#             return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#         if not amount:
+#             messages.error(request, 'Amount is required')
+#             return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#         if not date:
+#             messages.error(request, 'Date is required')
+#             return render(request, 'personalbudget/expenses/edit_expense.html', context)
+#
+#         expense.owner = request.user
+#         expense.item = item
+#         expense.category = category
+#         expense.description = description
+#         expense.cost = cost
+#         expense.qty = qty
+#         expense.amount = amount
+#         expense.date = date
+#
+#         expense.save()
+#         messages.success(request, 'Item updated successfully')
+#
+#         return redirect('expenses')
 
 
 @login_required(login_url='/authentication/login')
