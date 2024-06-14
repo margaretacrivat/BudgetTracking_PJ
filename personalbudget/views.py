@@ -232,27 +232,27 @@ def search_expenses(request):
 
 # ---->>>>>>>>>> EXPENSES - EXPORT Table VIEWS <<<<<<<<<<<<----#
 
-# def export_expenses_csv(request):
-#     response = HttpResponse(content_type='text/csv')
-#     response['Content-Disposition'] = 'attachment; filename=Expenses' + \
-#                                       str(datetime.datetime.now()) + '.csv'
-#
-#     writer = csv.writer(response)
-#
-#     try:
-#         currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
-#     except Currency.DoesNotExist:
-#         currency = 'RON'
-#
-#     writer.writerow(['Item', 'Category', 'Description', f'Cost ({currency})', 'Qty', f'Amount ({currency})', 'Date'])
-#
-#     expenses = Expense.objects.filter(owner=request.user)
-#
-#     for expense in expenses:
-#         # formatted_amount = '{:.2f}'.format(expense.amount)
-#         writer.writerow([expense.item, expense.category, expense.description, expense.cost, expense.qty,
-#                          expense.amount, expense.date])
-#     return response
+def export_expenses_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=Expenses' + \
+                                      str(datetime.datetime.now()) + '.csv'
+
+    writer = csv.writer(response)
+
+    try:
+        currency = Currency.objects.get(owner=request.user).currency.split('-')[0].strip()
+    except Currency.DoesNotExist:
+        currency = 'RON'
+
+    writer.writerow(['Item', 'Category', 'Description', f'Cost ({currency})', 'Qty', f'Amount ({currency})', 'Date'])
+
+    expenses = Expense.objects.filter(owner=request.user)
+
+    for expense in expenses:
+        # formatted_amount = '{:.2f}'.format(expense.amount)
+        writer.writerow([expense.item, expense.category, expense.description, expense.cost, expense.qty,
+                         expense.amount, expense.date])
+    return response
 
 
 def export_expenses_excel(request):
