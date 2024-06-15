@@ -15,15 +15,11 @@ financial data.
 - Visualize data with charts;
 
 ## Features extended:
-- **Personal Budget Management**: Users can create, view, and manage their personal budgets, tracking income and 
-- expenses across various categories.
-- **Project Budget Management**: Users can also manage budgets for specific projects, allowing them to allocate funds, 
-- track expenditures, and monitor financial progress for individual projects.
-- **Centralized Dashboard**: A single, user-friendly dashboard provides an overview of all budgets, with visualizations 
-- and summary statistics to help users quickly understand their financial status.
+- **Personal Budget Management**: Users can create, view, and manage their personal budgets, tracking income and expenses across various categories.
+- **Project Budget Management**: Users can also manage budgets for specific projects, allowing them to allocate funds, track expenditures, and monitor financial progress for individual projects.
+- **Centralized Dashboard**: A single, user-friendly dashboard provides an overview of all budgets, with visualizations and summary statistics to help users quickly understand their financial status.
 - **Expense and Income Tracking**: Users can log and categorize expenses and income, ensuring accurate tracking and reporting.
-- **Budget Analysis**: The application offers analytical tools to help users identify spending patterns and make 
-- informed financial decisions.
+- **Budget Analysis**: The application offers analytical tools to help users identify spending patterns and make informed financial decisions.
 
 ## Technologies Used
 - **Front-end**: 
