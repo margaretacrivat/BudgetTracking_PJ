@@ -84,7 +84,7 @@ To run this project locally, follow these steps:
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for more information.
+This project is licensed under the [Personal License](LICENSE.md). See the LICENSE file for more information.
 
 ## Resources: 
 - [Django Documentation](https://docs.djangoproject.com/en/5.0/)
