@@ -6,7 +6,7 @@ from django.contrib import messages
 from reportlab.lib.units import inch
 from .forms import ProjectForm, ProjectStageForm, LogisticForm, DisplacementForm, WorkforceForm, PersonForm
 from .models import (Project, ProjectType, ProjectStage, Person, Logistic, AcquisitionType, Displacement,
-                     DisplacementType, Workforce, ExpensesCentralizerDetails)
+                     DisplacementType, Workforce)
 from preferences.models import Currency
 from django.core.paginator import Paginator
 import datetime
@@ -36,8 +36,6 @@ def project_budget_view(request):
 
 @login_required(login_url='/authentication/login')
 def expenses_centralizer_view(request):
-    expenses_centralizer_details = ExpensesCentralizerDetails.objects.all()
-
     centralizer_filter = CentralizerFilter()
     centralizer = Logistic.objects.filter(owner=request.user).values()
 
@@ -95,7 +93,6 @@ def expenses_centralizer_view(request):
         currency = 'RON'
 
     context = {
-        'expenses_centralizer_details': expenses_centralizer_details,
         'centralizer_filter': centralizer_filter,
         'centralizer': centralizer,
         'logistic_data': logistic_data,

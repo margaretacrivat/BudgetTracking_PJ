@@ -173,10 +173,6 @@ class Person(models.Model):
         return self.person_name
 
 
-class ExpensesCentralizerDetails(models.Model):
-    name = models.CharField(max_length=100, null=False)
-    details = models.TextField(max_length=1000, null=True)
-
 
 
 
