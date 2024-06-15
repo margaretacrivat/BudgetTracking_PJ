@@ -1,6 +1,7 @@
 # Budget Tracking - Personal License
 
 **Copyright (c) 2024 Margareta Crivăț**
+
 **All Rights Reserved** 
 
 ## Additional Clauses
