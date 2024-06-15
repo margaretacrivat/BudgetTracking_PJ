@@ -14,9 +14,9 @@
 
 2. **Author's Rights**
 
-   - The author (copyright holder) reserves the right to grant or deny permission to use, modify, or distribute the code 
-   in any form. 
-   - Any unauthorized use, modification, or distribution of this code will be considered a violation of this license. 
+- The author (copyright holder) reserves the right to grant or deny permission to use, modify, or distribute the code 
+in any form. 
+- Any unauthorized use, modification, or distribution of this code will be considered a violation of this license. 
 
 3. **Permission Request**
 
