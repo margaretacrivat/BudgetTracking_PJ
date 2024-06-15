@@ -8,7 +8,8 @@ users manage both personal budget and project-associated budget, all centralized
 The goal is to provide users with a comprehensive tool to track their expenses, set budget limits, and analyze their 
 financial data.
 
-- **Key Features**:
+**Key Features**:
+
 - Track income and expense;
 - Generate financial reports;
 - Visualize data with charts;
