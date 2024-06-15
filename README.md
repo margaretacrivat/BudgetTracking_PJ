@@ -3,7 +3,7 @@
 ![Budget Tracking Homepage](static/assets/img/budget_tracking_homepage.jpg)
 
 ## About:
-I have developed a client-facing web application using Django framework. This web application is designed to help 
+I have developed a client-facing web application using Django framework. This web app is designed to help 
 users manage both personal budget and project-associated budget, all centralized within a single virtual environment. 
 The goal is to provide users with a comprehensive tool to track their expenses, set budget limits, and analyze their 
 financial data.
