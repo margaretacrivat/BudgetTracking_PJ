@@ -1,18 +1,26 @@
-# Budget Tracking Application
+# Budget Tracking - Django Website Application
 
-For my final project, I have developed a client-facing web application named **Budget Tracking**. This application is 
-designed to help users manage both personal budgets and project-associated budgets, all centralized within a single 
-virtual environment. The goal is to provide users with a comprehensive tool to track their expenses, set budget limits, 
-and analyze their financial data.
+![Budget Tracking Homepage](static/assets/img/budget_tracking_homepage.jpg)
 
-## Key Features
+## About:
+I have developed a client-facing web application using Django framework. This web application is designed to help 
+users manage both personal budget and project-associated budget, all centralized within a single virtual environment. 
+The goal is to provide users with a comprehensive tool to track their expenses, set budget limits, and analyze their 
+financial data.
+
+- **Key Features**:
+- Track income and expense;
+- Generate financial reports;
+- Visualize data with charts;
+
+## Features extended:
 - **Personal Budget Management**: Users can create, view, and manage their personal budgets, tracking income and 
 - expenses across various categories.
 - **Project Budget Management**: Users can also manage budgets for specific projects, allowing them to allocate funds, 
 - track expenditures, and monitor financial progress for individual projects.
 - **Centralized Dashboard**: A single, user-friendly dashboard provides an overview of all budgets, with visualizations 
 - and summary statistics to help users quickly understand their financial status.
-- **Expense Tracking**: Users can log and categorize expenses, ensuring accurate tracking and reporting.
+- **Expense and Income Tracking**: Users can log and categorize expenses and income, ensuring accurate tracking and reporting.
 - **Budget Analysis**: The application offers analytical tools to help users identify spending patterns and make 
 - informed financial decisions.
 
@@ -72,12 +80,18 @@ To run this project locally, follow these steps:
 1. **Register an account** or **log in** if you already have one.
 2. **Create a new personal budget** or **project budget**.
 3. **Log expenses** and **track your spending**.
-4. Use the **dashboard** to get an overview of your financial status.
+4. **Log income** and **track your source of income**.
+5. Use the **dashboard** to get an overview of your financial status.
 
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more information.
 
-## Contact
+## Resources: 
+- [Django Documentation](https://docs.djangoproject.com/en/5.0/)
 
-For more information, please visit my GitHub profile.
+## Contact
+- My name: Margareta Crivăț
+- LinkedIn: [My LinkedIn](https://www.linkedin.com/in/margaretacrivat/)
+
+For more information, please visit my [GitHub](https://github.com/margaretacrivat) profile.
