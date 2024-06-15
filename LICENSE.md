@@ -1,21 +1,38 @@
-MIT License
+# Budget Tracking - Personal License
 
-Copyright (c) 2024 Margareta Crivăț
+## Copyright (c) 2024 Margareta Crivăț
+## All Rights Reserved 
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## Additional Clauses
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. **License Grant**
+Cloning, distribution, or use of this code in any form without the express written approval of the author is strictly 
+prohibited. 
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. **Permission and Restrictions**
+
+- The author (copyright holder) reserves the right to grant or deny permission to use, modify, or distribute the code 
+in any form. 
+- Any unauthorized use, modification, or distribution of this code will be considered a violation of this license. 
+
+3. **Permission Request**
+To request permission to use this code, please contact the author at [crivat.margareta@gmail.com].
+
+4. **Limitation of Liability**
+In no event shall the author or copyright holder be liable for any direct, indirect, incidental, special, or 
+consequential damages arising out of or in connection with the use or performance of this code. 
+
+5. **Severability**
+If any provision of this license is found to be unenforceable or invalid, that provision shall be limited or eliminated 
+to the minimum extent necessary so that this license remains in full force and effect and enforceable.
+
+6. **Governing Law**
+This license is governed by and construed in accordance with the laws of Romania. Any legal action or proceeding arising 
+out of or in connection with this license shall be brought exclusively in the courts of Romania. 
+
+7. **License Modification**
+The author reserves the right to modify this license at any time. Any modifications will be announced by posting the 
+modified license in the project repository or other public forums. 
+
+**By using this code, you agree to the terms of this license and acknowledge that any use of the code without the 
+author's express permission is prohibited.**
