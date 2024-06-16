@@ -403,9 +403,9 @@ def export_expenses_pdf(request):
 
 # ---->>>>>>>>>> EXPENSES STATS <<<<<<<<<<<<----#
 
-def expenses_category_stats_last_6months(request):
+def expenses_category_stats_last_4months(request):
     todays_date = datetime.date.today()
-    six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
+    six_months_ago = todays_date - datetime.timedelta(days=30 * 4)
     expenses = Expense.objects.filter(owner=request.user,
                                       date__gte=six_months_ago,
                                       date__lte=todays_date)
@@ -788,15 +788,15 @@ def export_income_pdf(request):
 
 # ---->>>>>>>>>> INCOME STATS <<<<<<<<<<<<----#
 
-def income_source_stats_last_6months(request):
+def income_source_stats_last_4months(request):
     todays_date = datetime.date.today()
-    six_months_ago = todays_date - datetime.timedelta(days=30 * 3)
+    six_months_ago = todays_date - datetime.timedelta(days=30 * 4)
     income = Income.objects.filter(owner=request.user,
                                       date__gte=six_months_ago,
                                       date__lte=todays_date)
 
-    def get_sources(income):
-        return income.source
+    def get_sources(incomes):
+        return incomes.source
 
     income_source_data = {}
     source_list = list(set(map(get_sources, income)))
@@ -816,10 +816,10 @@ def income_source_stats_last_6months(request):
     return JsonResponse({'income_source_data': income_source_data}, safe=False)
 
 
-def get_income_for_period(start_date, end_date, incomes):
+def get_income_for_period(start_date, end_date, income):
     period_data = {str(day): 0 for day in range(1, 32)}
 
-    for income in incomes.filter(date__gte=start_date, date__lte=end_date):
+    for income in income.filter(date__gte=start_date, date__lte=end_date):
         day_in_month = income.date.day
         period_data[str(day_in_month)] += income.amount
 

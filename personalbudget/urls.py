@@ -17,7 +17,7 @@ urlpatterns = [
     path('export-expenses-excel/', views.export_expenses_excel, name='export-expenses-excel'),
     path('export-expenses-pdf/', views.export_expenses_pdf, name='export-expenses-pdf'),
 
-    path('expenses-category-stats/', views.expenses_category_stats_last_6months,
+    path('expenses-category-stats/', views.expenses_category_stats_last_4months,
          name='expenses-category-stats'),
     path('expenses-for-period/', views.get_expenses_for_period, name='expenses-for-period'),
     path('expenses-stats/', views.expenses_stats_last_4months, name="expenses-stats"),
@@ -33,7 +33,7 @@ urlpatterns = [
     path('export-income-excel/', views.export_income_excel, name='export-income-excel'),
     path('export-income-pdf/', views.export_income_pdf, name='export-income-pdf'),
 
-    path('income-source-stats/', views.income_source_stats_last_6months, name='income-source-stats'),
+    path('income-source-stats/', views.income_source_stats_last_4months, name='income-source-stats'),
     path('income-for-period/', views.get_income_for_period, name='income-for-period'),
     path('income-stats/', views.income_stats_last_4months, name='income-stats'),
 

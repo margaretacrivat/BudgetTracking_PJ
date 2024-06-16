@@ -17,7 +17,7 @@ const renderProjectsTypeChart = (data, labels) => {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Projects Type',
+                // label: 'Projects Type',
                 barPercentage: 0.5,
                 barThickness: 18,
                 maxBarThickness: 16,
@@ -41,6 +41,14 @@ const renderProjectsTypeChart = (data, labels) => {
                     }
               }
             },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false
+                }
+            }
         },
     });
 };

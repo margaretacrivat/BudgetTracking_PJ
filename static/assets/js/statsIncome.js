@@ -32,7 +32,7 @@ const renderIncomeSourceChart = (data, labels) => {
 };
 
 const getSourceData = () => {
-    console.log('income_per_source_last_6months');
+    console.log('income_per_source_last_4months');
     fetch('/personalbudget/income-source-stats')
         .then((res) => res.json())
         .then((results) => {
