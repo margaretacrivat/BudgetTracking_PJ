@@ -130,7 +130,6 @@
                             <th>Project Stage</th>
                             <th>Total Gross Salary<br>({{ currency }})</th>
                             <th>Social security contribution-2.25% from total gross salary<br>({{ currency }})</th>
-                            <th>Details</th>
                             <th>Total workforce expenses<br>({{ currency }})</th>
                         </tr>
                         </thead>
@@ -143,13 +142,6 @@
                                         <td>{{ data.project_stage__project_stage }}</td>
                                         <td>{{ data.total_gross_salary|floatformat:"2" }}</td>
                                         <td>{{ data.social_security_contribution|floatformat:"2" }}</td>
-                                        <td>
-                                            {% for details in expenses_centralizer_details %}
-                                                {% if details.workforce_id == data.id %}
-                                                    {{ details.details }}
-                                                {% endif %}
-                                            {% endfor %}
-                                        </td>
                                         <td>{{ data.total_workforce_expenses|floatformat:"2" }}</td>
                                     </tr>
                                 {% endif %}

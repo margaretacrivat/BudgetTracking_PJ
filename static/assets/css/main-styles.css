@@ -761,6 +761,33 @@ footer p {
     font-weight: 400;
 }
 
+footer .container-social-links .social-links {
+    padding-left: 15px;
+    margin-left: 180px;
+}
+
+footer .container-social-links .social-links li a .fab {
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background-color: #cdcdcd;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    font-size: 14px;
+    transition: all .3s;
+}
+
+footer .container-social-links .social-links li a .fab:hover {
+    background-color: #f35525;
+}
+
+footer .container-social-links .social-links li {
+    padding: 5px;
+    display: inline-block;
+}
 
 /*
 ---------------------------------------------
