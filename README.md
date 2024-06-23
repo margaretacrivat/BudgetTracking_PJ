@@ -16,7 +16,7 @@ financial data.
 - Generate financial reports;
 - Visualize data with charts;
 
-## Features extended:
+## Features extended
 - **Personal Budget Management**: Users can create, view, and manage their personal budgets, tracking income and expenses across various categories.
 - **Project Budget Management**: Users can also manage budgets for specific projects, allowing them to allocate funds, track expenditures, and monitor financial progress for individual projects.
 - **Centralized Dashboard**: A single, user-friendly dashboard provides an overview of all budgets, with visualizations and summary statistics to help users quickly understand their financial status.
@@ -86,7 +86,7 @@ To run this project locally, follow these steps:
 
 This project is licensed under the [Personal License](LICENSE.md). See the LICENSE file for more information.
 
-## Resources: 
+## Resources
 - [Django Documentation](https://docs.djangoproject.com/en/5.0/)
 
 ## Contact
