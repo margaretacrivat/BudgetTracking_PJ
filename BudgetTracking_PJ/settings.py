@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from django.contrib import messages
+import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -146,6 +147,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
 )
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -171,4 +174,5 @@ DATE_INPUT_FORMATS = [
     '%b %d, %Y',        # 'Mon dd, yyyy' (e.g., 'Jan 1, 2023')
 ]
 
-
+# Activate Django-Heroku
+django_heroku.settings(locals())

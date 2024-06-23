@@ -7,6 +7,7 @@ from .models import PersonalDescription, ProjectDescription
 
 # ---->>>>>>>>>> HOMEPAGE VIEWS <<<<<<<<<<<<----#
 
+
 def home(request):
     html_template = get_template('index.html')
     personal_description = PersonalDescription.objects.all()
