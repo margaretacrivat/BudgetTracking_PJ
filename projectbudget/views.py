@@ -775,7 +775,7 @@ def logistic_view(request):
     acquisition = Logistic.objects.filter(owner=request.user).select_related('project_name')
     today = datetime.date.today()
 
-    paginator = Paginator(acquisition, 12)
+    paginator = Paginator(acquisition, 10)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
@@ -1046,7 +1046,7 @@ def displacement_view(request):
     displacement = Displacement.objects.filter(owner=request.user).select_related('project_name')
     today = datetime.date.today()
 
-    paginator = Paginator(displacement, 12)
+    paginator = Paginator(displacement, 10)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
@@ -1343,7 +1343,7 @@ def workforce_view(request):
     workforce = Workforce.objects.filter(owner=request.user).select_related('project_name')
     today = datetime.date.today()
 
-    paginator = Paginator(workforce, 12)
+    paginator = Paginator(workforce, 10)
     page_number = request.GET.get('page')
     page_obj = Paginator.get_page(paginator, page_number)
 
